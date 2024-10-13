@@ -5,7 +5,7 @@
 	right: 20px;
 	width: 60px;
 	height: 60px;
-	background-color: #007bff; /* Bubble color */
+	background-color: #8E1537; /* Bubble color */
 	color: white; /* Icon color */
 	border-radius: 50%; /* Make it a circle */
 	display: flex;
@@ -27,6 +27,7 @@
 }
 
 .chatbot-container {
+	background-image: url('../assets/chatbot_bg.png');
 	width: 300px;
 	height: 400px;
 	border: 1px solid #ccc;
@@ -36,11 +37,11 @@
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.204);
+	/* background-color: white; */
 }
 .chatbot-header {
-	background-color: #007bff;
+	background-color: #8E1537;
 	color: white;
 	padding: 10px;
 	display: flex;
@@ -55,6 +56,7 @@
 	flex-grow: 1;
 	padding: 10px;
 	overflow-y: auto;
+	/* background-color: #0000; */
 	display: flex; /* Use flex to allow children to align */
 	flex-direction: column; /* Stack messages vertically */
 }
@@ -68,15 +70,18 @@
 	word-wrap: break-word; /* Allow long words to break onto the next line */
 	clear: both; /* Ensure messages are separated */
 	text-align: start;
+	/* background-color: ; */
 }
 
 .chatbot-message.user {
-	background-color: #e1ffc7;
+	background-color: #8E1537;
+	color: #ffffff;
 	align-self: flex-end; /* Align user messages to the right */
 }
 
 .chatbot-message.bot {
-	background-color: #f1f1f1;
+	background-color: #f1f1f1f9;
+	color: #000000;
 	align-self: flex-start; /* Align bot messages to the left */
 }
 
@@ -95,7 +100,7 @@
 .chatbot-input button {
 	padding: 10px;
 	border: none;
-	background-color: #007bff;
+	background-color: #8E1537;
 	color: white;
 	border-radius: 0 0 5px 0;
 	cursor: pointer;
@@ -112,10 +117,10 @@
 }
 
 .chatbot-messages::-webkit-scrollbar-thumb {
-	background: #007bff; /* Color of the scrollbar thumb */
+	background: #a7a7a7; /* Color of the scrollbar thumb */
 	border-radius: 10px; /* Rounded corners for thumb */
 }
 
 .chatbot-messages::-webkit-scrollbar-thumb:hover {
-	background: #0056b3; /* Darker color on hover */
+	background: #6a6a6a; /* Darker color on hover */
 }

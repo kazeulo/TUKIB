@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Chatbot.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faMinus, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Chatbot = () => {
@@ -53,7 +53,7 @@ const Chatbot = () => {
 			{isChatVisible && (
 				<div className='chatbot-container'>
 					<div className='chatbot-header'>
-						<span>Chatbot</span>
+						<span>TukiBot</span>
 						<button
 							className='minimize-button'
 							onClick={handleMinimize}>
@@ -78,7 +78,9 @@ const Chatbot = () => {
 							onChange={(e) => setInput(e.target.value)}
 							placeholder='Type a message...'
 						/>
-						<button type='submit'>Send</button>
+						<button type='submit'>
+						<FontAwesomeIcon icon={faPaperPlane} /> 
+						</button>
 					</form>
 				</div>
 			)}
