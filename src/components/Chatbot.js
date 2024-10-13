@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../css/Chatbot.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -8,13 +8,23 @@ const Chatbot = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState('');
 	const [isChatVisible, setIsChatVisible] = useState(false);
+	const messagesEndRef = useRef(null);
 
-	const handleSend = async (e) => {
-		e.preventDefault();
-		if (input.trim()) {
+	// Array of suggested messages
+	const suggestions = [
+		'Hello',
+		'What services do you offer?',
+		'I want to give a feedback.',
+		'Goodbye',
+	];
+
+	const handleSend = async (e, messageText) => {
+		if (e) e.preventDefault();
+		const textToSend = messageText || input;
+
+		if (textToSend.trim()) {
 			// Add the user's message
-			setMessages([...messages, { text: input, sender: 'user' }]);
-			const userMessage = input;
+			setMessages([...messages, { text: textToSend, sender: 'user' }]);
 			setInput('');
 
 			// Send the user's message to the Rasa server
@@ -22,8 +32,8 @@ const Chatbot = () => {
 				const response = await axios.post(
 					'http://localhost:5005/webhooks/rest/webhook',
 					{
-						sender: 'user', // Unique identifier for the user session
-						message: userMessage,
+						sender: 'user',
+						message: textToSend,
 					}
 				);
 
@@ -48,6 +58,18 @@ const Chatbot = () => {
 		setIsChatVisible(false);
 	};
 
+	const scrollToBottom = () => {
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: 'instant' });
+		}
+	};
+
+	useEffect(() => {
+		if (isChatVisible) {
+			scrollToBottom();
+		}
+	}, [messages, isChatVisible]);
+
 	return (
 		<div>
 			{isChatVisible && (
@@ -68,10 +90,21 @@ const Chatbot = () => {
 								{msg.text}
 							</div>
 						))}
+						<div ref={messagesEndRef} />
+					</div>
+					<div className='suggestions'>
+						{suggestions.map((suggestion, index) => (
+							<button
+								key={index}
+								className='suggestion-button'
+								onClick={() => handleSend(null, suggestion)}>
+								{suggestion}
+							</button>
+						))}
 					</div>
 					<form
 						className='chatbot-input'
-						onSubmit={handleSend}>
+						onSubmit={(e) => handleSend(e)}>
 						<input
 							type='text'
 							value={input}
