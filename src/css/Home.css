@@ -1,0 +1,107 @@
+/* Home content styling */
+.home-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+/* Background image container */
+.home-bg {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start; /* Align text to the left */
+	padding-left: 5%; /* Adds spacing between text and screen edge */
+	overflow: hidden;
+}
+
+.home-background-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+/* Text styling positioned to the left */
+.home-text {
+	position: relative;
+	color: white;
+	text-align: left; /* Align text to the left */
+	z-index: 1;
+	max-width: 600px;
+	padding: 50px;
+}
+
+.home-text h1 {
+	font-size: 36px;
+	margin-bottom: 15px;
+}
+
+.home-text p {
+	font-size: 18px;
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
+.home-button {
+	padding: 10px 20px;
+	background-color: white;
+	color: #6e1214;
+	border: none;
+	border-radius: 20px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+	background-color: #ffcc00;
+}
+
+/* Services Section */
+.services {
+	text-align: center; /* Center align the header */
+	padding: 20px;
+}
+
+.services h2 {
+	margin-bottom: 20px;
+	color: #6e1214;
+}
+
+.services-container {
+	text-align: left;
+	text-align: justify;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* 2 columns */
+	gap: 20px; /* Space between cards */
+	max-width: 1200px; /* Max width for the container */
+	margin: 0 auto; /* Center the container */
+	padding: 20px;
+}
+
+.service-card {
+	background-color: #fff;
+	border: 1px solid #ddd; /* Light border */
+	border-radius: 8px; /* Rounded corners */
+	padding: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.service-card h3 {
+	margin-bottom: 10px;
+	color: #6e1214;
+}
+
+.service-card p {
+	color: #555; /* Darker text for description */
+}

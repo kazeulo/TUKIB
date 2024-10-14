@@ -1,10 +1,12 @@
 import './App.css';
 import Chatbot from './components/Chatbot';
+import Home from './components/Home';
 
 function App() {
 	return (
 		<div className='App'>
-			<Chatbot /> {/* Only the Chatbot component is displayed here */}
+			<Chatbot />
+			<Home />
 		</div>
 	);
 }
