@@ -1,0 +1,36 @@
+/* Footer.css */
+.footer {
+	background-color: #f0f0f0;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: #333;
+}
+
+.footer-logos {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.footer-logo {
+	width: 75px;
+	height: 75px;
+}
+
+.footer-text {
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
+	font-weight: bold;
+}
+
+.footer-text a {
+	color: #333;
+	text-decoration: none;
+}
+
+.footer-text a:hover {
+	text-decoration: underline;
+}

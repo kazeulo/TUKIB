@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import '../css/Home.css';
 import bgImage from '../assets/bg_gradient.png';
+import Footer from './Footer';
 
 const Home = () => {
 	return (
@@ -75,6 +76,7 @@ const Home = () => {
 					</div>
 				</section>
 			</main>
+			<Footer />
 		</div>
 	);
 };

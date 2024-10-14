@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/Chatbot.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faMinus, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import {
+	faComments,
+	faMinus,
+	faPaperPlane,
+} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Chatbot = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState('');
 	const [isChatVisible, setIsChatVisible] = useState(false);
+	const [hasNewMessage, setHasNewMessage] = useState(false);
 	const messagesEndRef = useRef(null);
 
 	// Array of suggested messages
@@ -24,39 +29,66 @@ const Chatbot = () => {
 
 		if (textToSend.trim()) {
 			// Add the user's message
-			setMessages([...messages, { text: textToSend, sender: 'user' }]);
+			setMessages((prevMessages) => [
+				...prevMessages,
+				{ text: textToSend, sender: 'user' },
+			]);
 			setInput('');
+			setHasNewMessage(false); // Reset notification when user sends a message
 
-			// Send the user's message to the Rasa server
-			try {
-				const response = await axios.post(
-					'http://localhost:5005/webhooks/rest/webhook',
-					{
-						sender: 'user',
-						message: textToSend,
-					}
-				);
+			// Simulate a delay for the bot's reply
+			setTimeout(async () => {
+				// Send the user's message to the Rasa server
+				try {
+					const response = await axios.post(
+						'http://localhost:5005/webhooks/rest/webhook',
+						{
+							sender: 'user',
+							message: textToSend,
+						}
+					);
 
-				// Add bot's response to messages
-				response.data.forEach((msg) => {
-					setMessages((prevMessages) => [
-						...prevMessages,
-						{ text: msg.text, sender: 'bot' },
-					]);
-				});
-			} catch (error) {
-				console.error('Error sending message to Rasa:', error);
-			}
+					// Add bot's response to messages
+					response.data.forEach((msg) => {
+						setMessages((prevMessages) => [
+							...prevMessages,
+							{ text: msg.text, sender: 'bot' },
+						]);
+						setHasNewMessage(true);
+					});
+				} catch (error) {
+					console.error('Error sending message to Rasa:', error);
+				}
+			}, Math.floor(Math.random() * 1000) + 1000); // Random delay between 1 to 2 seconds
 		}
 	};
 
 	const toggleChat = () => {
 		setIsChatVisible(!isChatVisible);
+		if (isChatVisible) {
+			setHasNewMessage(false); // Reset notification when chat is opened
+		}
 	};
 
 	const handleMinimize = () => {
 		setIsChatVisible(false);
+		setHasNewMessage(false);
 	};
+
+	useEffect(() => {
+		// Display initial bot messages on component mount
+		setMessages([
+			{
+				text: "Hello! I'm LIRA, your RRC AI Assistant.",
+				sender: 'bot',
+			},
+			{
+				text: 'How can I help you today? You can choose from the suggestions below.',
+				sender: 'bot',
+			},
+		]);
+		setHasNewMessage(true); // Set notification to true for initial messages
+	}, []);
 
 	const scrollToBottom = () => {
 		if (messagesEndRef.current) {
@@ -75,7 +107,7 @@ const Chatbot = () => {
 			{isChatVisible && (
 				<div className='chatbot-container'>
 					<div className='chatbot-header'>
-						<span>TukiBot</span>
+						<span>LIRA - RRC AI Assistant</span>
 						<button
 							className='minimize-button'
 							onClick={handleMinimize}>
@@ -112,7 +144,7 @@ const Chatbot = () => {
 							placeholder='Type a message...'
 						/>
 						<button type='submit'>
-						<FontAwesomeIcon icon={faPaperPlane} /> 
+							<FontAwesomeIcon icon={faPaperPlane} />
 						</button>
 					</form>
 				</div>
@@ -122,6 +154,8 @@ const Chatbot = () => {
 					className='floating-bubble'
 					onClick={toggleChat}>
 					<FontAwesomeIcon icon={faComments} />
+					{hasNewMessage && <div className='notification-indicator' />}{' '}
+					{/* Notification indicator */}
 				</div>
 			)}
 		</div>
