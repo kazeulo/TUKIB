@@ -4,11 +4,15 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 25px 30px;
+	padding: 10px 30px;
 	background-color: white;
 	z-index: 1000; /* Ensure it stays on top of other elements */
 	box-sizing: border-box; /* Prevent padding from affecting width */
 	color: #6e1214;
+	padding-left: 100px;
+	padding-right: 100px;
+	position: fixed;
+	border-bottom: 1px solid #ccc;
 }
 
 /* Gradient bar */
@@ -23,25 +27,26 @@
 	z-index: 1001; /* Ensures gradient bar stays above header */
 }
 
-.header-logo h1 {
-	font-size: 24px;
-	margin: 0;
+.header-logo .logo-image {
+	padding-top: 6px;
+	width: 200px;
 }
 
 /* Navigation styling */
 .header-nav .header-nav-list {
 	list-style: none;
 	display: flex;
-	gap: 20px;
+	gap: 50px;
 	margin: 0;
 	padding: 0;
 }
 
 .header-nav .header-nav-list li {
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .header-nav .header-nav-list a {
+	padding-top: 6px;
 	color: #6e1214;
 	text-decoration: none;
 	display: flex;
@@ -52,4 +57,19 @@
 
 .header-nav .header-nav-list a:hover {
 	color: #ffdd57;
+}
+
+.login-button {
+	padding: 10px 30px;
+	background-color: #6e1214; /* Choose your preferred color */
+	color: white;
+	border: none;
+	border-radius: 18px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.login-button:hover {
+	background-color: #ffcc35; /* Darker shade for hover effect */
+	color: #6e1214;
 }

@@ -20,13 +20,13 @@ const Footer = () => {
 				/>
 			</div>
 			<div className='footer-text'>
-				<p>UPV Regional Research Center ©2024</p>
-				<p>
+				<p className='footer-copyright'>UPV Regional Research Center ©2024</p>
+				<p className='footer-location'>
 					RRC Building, New Academic Complex, University of the Philippines
 					Visayas
 					<br></br>Miagao, Philippines
 				</p>
-				<p>
+				<p className='footer-email'>
 					Email:{' '}
 					<a href='mailto:rrc.upvisayas@up.edu.ph'>rrc.upvisayas@up.edu.ph</a>
 				</p>

@@ -83,7 +83,7 @@ const Chatbot = () => {
 				sender: 'bot',
 			},
 			{
-				text: 'How can I help you today? You can choose from the suggestions below.',
+				text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
 				sender: 'bot',
 			},
 		]);

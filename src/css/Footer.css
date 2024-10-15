@@ -19,11 +19,23 @@
 	height: 75px;
 }
 
-.footer-text {
+.footer-copyright {
 	font-size: 14px;
 	line-height: 1.5;
 	color: #333;
 	font-weight: bold;
+}
+
+.footer-location {
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
+}
+
+.footer-email {
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
 }
 
 .footer-text a {

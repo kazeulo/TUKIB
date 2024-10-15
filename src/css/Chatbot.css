@@ -30,11 +30,10 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 	background-color: red; /* Color of the indicator */
 	border-radius: 50%; /* Makes it a circle */
-	margin: 5px;
 }
 
 /* Container */
@@ -178,10 +177,10 @@
 }
 
 .suggestions::-webkit-scrollbar-thumb {
-	background: lightgray;
+	background: #a7a7a7;
 	border-radius: 10px;
 }
 
 .suggestions::-webkit-scrollbar-thumb:hover {
-	background: gray;
+	background: #6a6a6a;
 }
