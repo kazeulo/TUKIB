@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/Header.css';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import logo from '../assets/rrc_logo.png';
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
 			<nav className='header-nav'>
 				<ul className='header-nav-list'>
 					<li>
-						<a href='#home'>Home</a>
+						<Link to='/'>Home</Link> {/* Use Link instead of a */}
 					</li>
 					<li>
 						<a href='#services'>Services</a>
@@ -33,7 +34,10 @@ const Header = () => {
 						<a href='#faqs'>FAQs</a>
 					</li>
 					<li>
-						<button className='login-button'>Login</button>
+						<Link to='/login'>
+							<button className='header-login-button'>Login</button>{' '}
+							{/* Use Link for button */}
+						</Link>
 					</li>
 				</ul>
 			</nav>
