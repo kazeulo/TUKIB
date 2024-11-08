@@ -1,0 +1,98 @@
+version: '3.1'
+
+intents:
+  - greet
+  - goodbye
+  - service_inquiry
+  - feedback
+  - ask_hours
+  - ask_location
+  - ask_contact
+  - request_appointment
+  - confirm_appointment
+  - inquire_lab_rentals
+  - inquire_training_programs
+  - inquire_equipment_usage
+
+responses:
+  utter_greet:
+    - text: 'Hello! How can I assist you today?'
+
+  utter_goodbye:
+    - text: 'Goodbye! Have a great day!'
+
+  utter_service_details:
+    - text: |
+        We offer the following services:
+        - Lab rentals
+        - Training programs
+        - Equipment usage
+        Let me know if you need more details on any specific service.
+
+  utter_lab_rentals_info:
+    - text: 'Our lab rentals include:\n- Access to state-of-the-art lab facilities\n- Flexible rental hours tailored to your needs\n- Support from our experienced staff\nIf you are interested in renting a lab, please provide your preferred time and duration.'
+
+  utter_training_programs_info:
+    - text: "We offer a variety of training programs:\n- Workshops on advanced research techniques\n- Hands-on training for equipment usage\n- Custom training sessions based on your needs\nLet me know if you'd like more details or to sign up for a program."
+
+  utter_equipment_usage_info:
+    - text: "You can use our equipment for:\n- Research and experimentation\n- Educational purposes\n- Prototyping and development\nPlease specify which equipment you are interested in, and I'll provide further information."
+
+  utter_feedback_instructions:
+    - text: 'You can provide your feedback by filling out our feedback form on the website or sending us an email.'
+
+  utter_operational_hours:
+    - text: 'Our hours of operation are Monday to Friday, 9 AM to 5 PM. Is there anything specific you’d like to book?'
+
+  utter_location:
+    - text: 'We are located at the Regional Research Center, University Campus. Would you like directions?'
+
+  utter_contact_info:
+    - text: 'You can contact us at 123-456-7890 or by email at rrc@university.edu.'
+
+  utter_appointment_confirmation:
+    - text: 'Your appointment has been scheduled. Thank you for reaching out!'
+
+  utter_appointment_request:
+    - text: 'Please provide your preferred date and time for the appointment.'
+
+  utter_invalid_input:
+    - text: 'I’m sorry, but I didn’t understand that. Can you please rephrase?'
+
+  utter_feedback_received:
+    - text: 'Thank you for your feedback! We appreciate your input.'
+
+entities:
+  - service
+  - feedback_type
+  - time
+  - location
+
+slots:
+  service:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: service
+
+  feedback_type:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: feedback_type
+
+  time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: time
+
+  location:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: location
+
+actions:
+  - action_provide_feedback_form
+  - action_schedule_appointment

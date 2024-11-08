@@ -1,0 +1,25 @@
+version: '3.1'
+
+stories:
+  - story: complete transaction process
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+      - intent: service_inquiry
+      - action: utter_service_details
+
+      - intent: ask_hours
+      - action: utter_operational_hours
+
+      - intent: request_appointment
+      - action: utter_appointment_request
+
+      - intent: confirm_appointment
+      - action: utter_appointment_confirmation
+
+      - intent: goodbye
+      - action: utter_goodbye
+
+      - intent: feedback
+      - action: utter_feedback_instructions

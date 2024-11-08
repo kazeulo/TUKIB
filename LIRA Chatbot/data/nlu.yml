@@ -1,0 +1,76 @@
+version: '3.1'
+
+nlu:
+  - intent: greet
+    examples: |
+      - Hello
+      - Hi there
+      - Good morning
+      - Hey
+
+  - intent: goodbye
+    examples: |
+      - Goodbye
+      - See you later
+      - Bye
+
+  - intent: service_inquiry
+    examples: |
+      - What services do you offer?
+      - Tell me about the lab rentals.
+      - Do you have training programs?
+      - Can you provide information on equipment usage?
+
+  - intent: inquire_lab_rentals
+    examples: |
+      - Can you tell me more about lab rentals?
+      - What are the rates for lab rentals?
+      - How can I rent a lab?
+
+  - intent: inquire_training_programs
+    examples: |
+      - What training programs do you have?
+      - Tell me about the training sessions.
+      - How can I enroll in a training program?
+
+  - intent: inquire_equipment_usage
+    examples: |
+      - What equipment is available for use?
+      - Can you tell me about equipment rentals?
+      - How do I use the equipment?
+
+  - intent: feedback
+    examples: |
+      - I want to give feedback.
+      - How can I provide my feedback?
+      - I have some suggestions for improvement.
+
+  - intent: ask_hours
+    examples: |
+      - What are your operating hours?
+      - When are you open?
+      - What time do you close?
+
+  - intent: ask_location
+    examples: |
+      - Where are you located?
+      - What is your address?
+      - How can I find you?
+
+  - intent: ask_contact
+    examples: |
+      - What is your contact number?
+      - How can I reach you?
+      - Do you have an email address?
+
+  - intent: request_appointment
+    examples: |
+      - I would like to book an appointment.
+      - Can I schedule a meeting?
+      - How do I make an appointment?
+
+  - intent: confirm_appointment
+    examples: |
+      - Yes, I confirm my appointment.
+      - I would like to proceed with the appointment.
+      - Please confirm my booking.
