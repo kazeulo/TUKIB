@@ -2,12 +2,14 @@ import React from 'react';
 import Header from './Header';
 import '../css/Home.css';
 import Footer from './Footer';
+import '../css/Variables.css';
 
 const Home = () => {
 	return (
 		<div className='home'>
 			<Header />
 			<main className='home-content'>
+				{/* banner */}
 				<div className='home-bg'>
 					<div className='home-text'>
 						<h1>UPV Regional Research Center</h1>
@@ -19,11 +21,11 @@ const Home = () => {
 							Nanotechnology, Microbiology and Bioengineering, and Computational
 							Sciences.
 						</p>
-						<button className='home-button'>Services</button>
+						<button className='secondary-button banner-button'>Services</button>
 					</div>
-				</div>
+				</div> {/* end of banner */}
 
-				{/* Our Services Section */}
+				{/* our services section */}
 				<section className='services'>
 					<h2>Our Services</h2>
 					<div className='services-container'>
@@ -68,7 +70,7 @@ const Home = () => {
 							</p>
 						</div>
 					</div>
-				</section>
+				</section> {/* our services section */}
 			</main>
 			<Footer />
 		</div>
