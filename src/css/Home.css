@@ -29,35 +29,13 @@
 	color: white;
 	text-align: left; /* Align text to the left */
 	z-index: 1;
-	max-width: 600px;
+	max-width: 700px;
 	padding: 50px;
 	padding-left: 70px;
 }
 
-.home-text h1 {
-	font-size: 36px;
-	margin-bottom: 15px;
-}
-
-.home-text p {
-	font-size: 18px;
-	margin-bottom: 20px;
-	text-align: justify;
-}
-
-.home-button {
-	padding: 10px 20px;
-	background-color: white;
-	color: #6e1214;
-	border: none;
-	border-radius: 20px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-.home-button:hover {
-	background-color: #ffcc00;
+.banner-button{
+	margin-top: 6px;
 }
 
 /* Services Section */
@@ -98,3 +76,5 @@
 .service-card p {
 	color: #555; /* Darker text for description */
 }
+  
+

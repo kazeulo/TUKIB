@@ -1,48 +1,75 @@
 import React from 'react';
 import '../css/Header.css';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import '../css/Variables.css';
+import { Link } from 'react-router-dom'; 
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import logo from '../assets/rrc_logo.png';
+import logoSmall from '../assets/small_logo.png';
 
 const Header = () => {
 	return (
-		<header className='header'>
-			<div className='header-logo'>
-				<img
-					src={logo}
-					alt='Regional Research Center Logo'
-					className='logo-image'
-				/>
-			</div>
-			<nav className='header-nav'>
-				<ul className='header-nav-list'>
-					<li>
-						<Link to='/'>Home</Link> {/* Use Link instead of a */}
-					</li>
-					<li>
-						<a href='#services'>Services</a>
-					</li>
-					<li>
-						<a href='#news'>News</a>
-					</li>
-					<li>
-						<a href='#about'>About Us</a>
-					</li>
-					<li>
-						<a href='#contact'>Contact Us</a>
-					</li>
-					<li>
-						<a href='#faqs'>FAQs</a>
-					</li>
-					<li>
-						<Link to='/login'>
-							<button className='header-login-button'>Login</button>{' '}
-							{/* Use Link for button */}
-						</Link>
-					</li>
-				</ul>
-			</nav>
-		</header>
+	  <header>
+		<Navbar expand="lg" className="header header-nav">
+		  <Container>
+			{/* Logo */}
+			<Navbar.Brand href="/" className="header-logo">
+			  <img
+				src={logo}
+				alt="Regional Research Center Logo"
+				className="logo-image d-none d-lg-block" 
+			  />
+			  <img
+				src={logoSmall}
+				alt="Regional Research Center Logo"
+				className="logo-image d-lg-none" 
+			  />
+			</Navbar.Brand>
+  
+			{/* collapsible menu */}
+			<Navbar.Toggle/>
+			<Navbar.Collapse id="basic-navbar-nav">
+			  <Nav className="me-auto ms-auto"> 
+				<Nav.Item>
+				  <Link to="/" className="nav-link">
+					Home
+				  </Link>
+				</Nav.Item>
+				
+				<Nav.Item>
+				  <a href="#services" className="nav-link">
+					Services
+				  </a>
+				</Nav.Item>
+
+				<Nav.Item>
+				  <a href="#news" className="nav-link">
+					News
+				  </a>
+				</Nav.Item>
+
+				<Nav.Item>
+				  <a href="#about" className="nav-link">
+					About Us
+				  </a>
+				</Nav.Item>
+
+				<Nav.Item>
+				  <a href="#contact" className="nav-link">
+					Contact Us
+				  </a>
+				</Nav.Item>
+			  </Nav>
+
+			  <Link to="/login" className="nav-link">
+				<Button className="primary-button">
+				  Login
+				</Button>
+			</Link>
+			</Navbar.Collapse>
+		  </Container>
+		</Navbar>
+	  </header>
 	);
-};
+  };
 
 export default Header;

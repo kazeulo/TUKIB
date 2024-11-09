@@ -1,0 +1,59 @@
+/*set logo as poppins*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* global color variables */
+/* pls use these to minimize the code and for consistency*/
+:root {
+    --primary-color: #6e1214;    /* Primary color */
+    --secondary-color: #ffcc35;  /* Secondary color */
+}
+
+:root {
+    --primary-font: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font);
+}
+
+/* buttons */
+button.primary-button{
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 50px;
+    padding: 6px 30px;
+    border: 1px solid transparent;
+}
+
+button.primary-button:hover{
+    color: var(--primary-color);
+    background-color: white;
+    border: 1 solid;
+    border-color: #6e1214;
+    transition: background-color 0.3s ease;
+}
+
+button.secondary-button{
+    color: var(--primary-color);
+    background-color: white;
+    border-radius: 50px;
+    padding: 6px 30px;
+    border: 1px solid transparent;
+}
+
+button.secondary-button:hover{
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border: 1 solid;
+    border-color: #6e1214;
+    transition: background-color 0.3s ease;
+}
+  
