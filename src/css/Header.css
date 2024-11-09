@@ -11,7 +11,8 @@
 	color: #6e1214;
 	padding-left: 100px;
 	padding-right: 100px;
-	position: fixed;
+	position: sticky;
+	top: 0;
 	border-bottom: 1px solid #ccc;
 }
 
