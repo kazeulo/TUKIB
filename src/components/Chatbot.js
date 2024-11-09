@@ -17,10 +17,9 @@ const Chatbot = () => {
 
 	// Array of suggested messages
 	const suggestions = [
-		'Hello',
 		'What services do you offer?',
-		'I want to give a feedback.',
-		'Goodbye',
+		'I want to avail a service',
+		'How can I contact you?',
 	];
 
 	const handleSend = async (e, messageText) => {

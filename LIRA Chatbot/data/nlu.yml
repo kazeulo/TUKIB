@@ -1,91 +1,119 @@
-version: '3.1'
+version: "3.1"
 nlu:
-  - intent: greet
-    examples: |
-      - Hello
-      - Hi
-      - Hey
-      - Good morning
-  - intent: goodbye
-    examples: |
-      - Goodbye
-      - Bye
-      - See you later
-  - intent: who_am_i
-    examples: |
-      - Who are you?
-      - Are you a bot?
-      - What can you do?
-  - intent: location
-    examples: |
-      - Where are you located?
-      - What is your location?
-      - Can you tell me where your office is?
-  - intent: contact_details
-    examples: |
-      - How can I contact you?
-      - What are your contact details?
-      - How can I reach you?
-  - intent: service_inquiry
-    examples: |
-      - What services do you offer?
-      - What services are available?
-      - Can you tell me about your services?
-  - intent: inquire_sample_processing
-    examples: |
-      - Tell me more about sample processing
-      - How do you process samples?
-      - What is involved in sample processing?
-  - intent: inquire_lab_rentals
-    examples: |
-      - Tell me more about lab rentals
-      - How do you rent out labs?
-      - Can I rent a lab?
-  - intent: inquire_training_programs
-    examples: |
-      - Tell me more about training programs
-      - What training programs do you offer?
-      - Can I sign up for a training program?
-  - intent: inquire_equipment_usage
-    examples: |
-      - Tell me more about equipment usage
-      - How do you use equipment?
-      - Can I rent equipment?
-  - intent: avail_service
-    examples: |
-      - I want to avail a service
-      - I want to book a service
-      - Can I avail your service?
-      - i want to avail a service
-  - intent: provide_service
-    examples: |
-      - I want to avail [sample processing](service)
-      - I want to book [lab rentals](service)
-      - I want to book [training programs](service)
-      - I want to avail [equipment usage](service)
-  - intent: provide_first_name
-    examples: |
-      - [Szophia](first_name)
-      - [John Doe](first_name)
-      - It's [Jane Doe](first_name)
-      - [Rainer](first_name)
-  - intent: provide_last_name
-    examples: |
-      - [Ceniza](last_name)
-      - [Mayagma](last_name)
-      - [De Jesus](last_name)
-      - It's [Delos Reyes](last_name)
-      - [Ceniza](last_name)
-  - intent: provide_email
-    examples: |
-      - My email is [johndoe@gmail.com](email)
-      - It's [janedoe@university.edu.ph](email)
-      - You can reach me at [alex@example.com](email)
-      - [alex@email.gov.ph](email)
-      - [sc@gmail.com](email)
-  - intent: confirm_details
-    examples: |
-      - Yes
-      - Correct
-      - That's right
-      - yes
+- intent: greet
+  examples: |
+    - Hello
+    - Hi
+    - Hey
+    - Good morning
+- intent: goodbye
+  examples: |
+    - Goodbye
+    - Bye
+    - See you later
+- intent: who_am_i
+  examples: |
+    - Who are you?
+    - Are you a bot?
+    - What can you do?
+- intent: location
+  examples: |
+    - Where are you located?
+    - What is your location?
+    - Can you tell me where your office is?
+- intent: contact_details
+  examples: |
+    - How can I contact you?
+    - What are your contact details?
+    - How can I reach you?
+- intent: service_inquiry
+  examples: |
+    - What services do you offer?
+    - What services are available?
+    - Can you tell me about your services?
+- intent: inquire_sample_processing
+  examples: |
+    - Tell me more about sample processing
+    - How do you process samples?
+    - What is involved in sample processing?
+- intent: inquire_lab_rentals
+  examples: |
+    - Tell me more about lab rentals
+    - How do you rent out labs?
+    - Can I rent a lab?
+- intent: inquire_training_programs
+  examples: |
+    - Tell me more about training programs
+    - What training programs do you offer?
+    - Can I sign up for a training program?
+- intent: inquire_equipment_usage
+  examples: |
+    - Tell me more about equipment usage
+    - How do you use equipment?
+    - Can I rent equipment?
+- intent: avail_service
+  examples: |
+    - I want to avail a service
+    - I want to book a service
+    - Can I avail your service?
+    - i want to avail a service
+- intent: provide_service
+  examples: |
+    - I want to avail [sample processing](service)
+    - I want to book [lab rentals](service)
+    - I want to book [training programs](service)
+    - I want to avail [equipment usage](service)
+    - i want to avail [sample processing](service)
+    - [sample processing](service)
+    - [lab rentals](service)
+    - [training programs](service)
+    - [equipment usage](service)
+    - [lab rentals](service)
+- intent: provide_first_name
+  examples: |
+    - [Szophia](first_name)
+    - [John Doe](first_name)
+    - It's [Jane Doe](first_name)
+    - [Rainer](first_name)
+    - [rainer]{"entity": "first_name", "value": "Rainer"}
+    - [rainer]{"entity": "first_name", "value": "Rainer"}
+- intent: provide_last_name
+  examples: |
+    - [Ceniza](last_name)
+    - [Mayagma](last_name)
+    - [De Jesus](last_name)
+    - It's [Delos Reyes](last_name)
+    - [mayagma]{"entity": "last_name", "value": "Mayagma"}
+    - [mayagma]{"entity": "last_name", "value": "Mayagma"}
+- intent: provide_email
+  examples: |
+    - My email is [johndoe@gmail.com](email)
+    - It's [janedoe@university.edu.ph](email)
+    - You can reach me at [alex@example.com](email)
+    - [alex@email.gov.ph](email)
+    - [sc@gmail.com](email)
+    - [rtm@gmail.com](email)
+    - [rtm@gmail.com](email)
+- intent: affirm
+  examples: |
+    - [Yes](confirmation)
+    - [Correct](confirmation)
+    - [That's right](confirmation)
+    - [yes](confirmation)
+    - [yes]{"entity": "confirmation", "value": "Yes"}
+    - [yes]{"entity": "confirmation", "value": "Yes"}
+- intent: deny
+  examples: |
+    - [No](confirmation)
+    - [Not now](confirmation)
+    - [Maybe later](confirmation)
+    - [no](confirmation)
+- synonym: Rainer
+  examples: |
+    - rainer
+- synonym: Mayagma
+  examples: |
+    - mayagma
+- synonym: Yes
+  examples: |
+    - yes

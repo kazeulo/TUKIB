@@ -1,8 +1,10 @@
 version: '3.1'
 intents:
+  - affirm
   - avail_service
   - confirm_details
   - contact_details
+  - deny
   - goodbye
   - greet
   - inquire_equipment_usage
@@ -32,13 +34,13 @@ responses:
   utter_services:
     - text: We offer sample processing, lab rentals, training programs, and equipment usage. Do you want to learn more about a specific service?
   utter_inquire_sample_processing:
-    - text: Sample processing is available for a fee of 500 pesos per sample. What else can I do for you?
+    - text: Sample processing is available for a fee of 500 pesos per sample. Do you want to avail this service?
   utter_inquire_lab_rentals:
-    - text: Lab rentals are available for a fee of 1000 pesos per hour. Is there anything I can help you with?
+    - text: Lab rentals are available for a fee of 1000 pesos per hour. Do you want to avail this service?
   utter_inquire_training_programs:
-    - text: Training programs are available for a fee of 500 pesos per participant. What else can I do for you?
+    - text: Training programs are available for a fee of 500 pesos per participant. Do you want to avail this service?
   utter_inquire_equipment_usage:
-    - text: Equipment usage is available for a fee of 200 pesos per hour. Is there anything I can help you with?
+    - text: Equipment usage is available for a fee of 200 pesos per hour. Do you want to avail this service?
   utter_avail_service:
     - text: Which service would you like to avail?
   utter_ask_first_name:
@@ -52,10 +54,11 @@ responses:
   utter_what_else:
     - text: What else can I do for you?
 entities:
-  - email
-  - first_name
   - service
+  - first_name
+  - email
   - last_name
+  - confirmation
 slots:
   first_name:
     type: text
@@ -84,27 +87,31 @@ slots:
       - equipment usage
     influence_conversation: true
     mappings:
+      - type: from_entity
+        entity: service
+  confirmation:
+    type: categorical
+    values:
+      - yes
+      - no
+    influence_conversation: true
+    mappings:
       - type: from_intent
-        intent: provide_service
-        value: 'sample processing'
+        intent: affirm
+        value: yes
       - type: from_intent
-        intent: provide_service
-        value: 'lab rentals'
-      - type: from_intent
-        intent: provide_service
-        value: 'training programs'
-      - type: from_intent
-        intent: provide_service
-        value: 'equipment usage'
-
+        intent: deny
+        value: no
 actions:
+  - action_review_details
+  - utter_what_else
+  - utter_avail_service
+  - utter_ask_first_name
+  - utter_provide_email
+  - utter_ask_last_name
+  - utter_account_sent
   - action_confirm_details
   - utter_confirm_details
-  - utter_avail_service
-  - utter_ask_last_name
-  - utter_provide_email
-  - utter_account_sent
-  - utter_ask_first_name
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
