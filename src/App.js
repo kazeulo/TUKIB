@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
+import AdminDashboard from './components/AdminDashboard';
 
 const App = () => {
 	return (
@@ -17,6 +18,11 @@ const App = () => {
 					path='/login'
 					element={<Login />}
 				/>
+
+				<Route
+					path='/adminDashboard'
+					element={<AdminDashboard />}
+				/>		
 				{/* Add more routes here as needed */}
 			</Routes>
 			<Chatbot />
