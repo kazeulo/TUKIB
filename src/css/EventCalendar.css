@@ -124,3 +124,8 @@
 .custom-toolbar button.active {
 	background-color: #9c3334;
 }
+
+.rbc-agenda-view table.rbc-agenda-table td {
+	background-color: white;
+	color: black;
+}
