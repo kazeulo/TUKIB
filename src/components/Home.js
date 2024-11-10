@@ -8,13 +8,13 @@ import '../css/Variables.css';
 import Header from './Header';
 import Footer from './Footer';
 import ContactForm from './ContactForm';
+import EventCalendar from './EventCalendar';
 
 const Home = () => {
 	return (
 		<div className='home'>
 			<Header />
 			<main className='home-content'>
-
 				{/* banner */}
 				<div className='home-bg'>
 					<div className='home-text'>
@@ -29,8 +29,8 @@ const Home = () => {
 						</p>
 						<button className='secondary-button banner-button'>Services</button>
 					</div>
-				</div> {/* end of banner */}
-
+				</div>{' '}
+				{/* end of banner */}
 				{/* our services section */}
 				<section className='services'>
 					<h2>Our Services</h2>
@@ -76,12 +76,12 @@ const Home = () => {
 							</p>
 						</div>
 					</div>
-				</section> {/* end of our services section */}
-				
+				</section>{' '}
+				{/* end of our services section */}
 				{/* contact us section */}
 				<ContactForm />
 				{/* end of contact us section */}
-
+				<EventCalendar />
 			</main>
 			<Footer />
 		</div>
