@@ -1,5 +1,6 @@
 // src/components/Login.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import '../css/Login.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -62,11 +63,15 @@ const Login = () => {
 									required
 								/>
 							</div>
-							<button
-								type='submit'
-								className='login-button'>
-								Login
-							</button>
+
+							{/* add login authentication */}
+							<Link to="/adminDashboard">
+								<button
+									type='submit'
+									className='login-button'>
+									Login
+								</button>
+							</Link>
 						</form>
 						{error && <p style={{ color: 'red' }}>{error}</p>}
 						{success && <p style={{ color: 'green' }}>{success}</p>}
