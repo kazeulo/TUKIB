@@ -67,7 +67,7 @@ const CustomToolbar = ({ onNavigate, label, onView, currentView }) => {
 };
 
 const EventCalendar = () => {
-	const [calendarEvents, setCalendarEvents] = useState(events);
+	const [calendarEvents] = useState(events);
 	const [currentView, setCurrentView] = useState('month'); // Track current view
 
 	// Adjusted eventPropGetter to style only appearance
