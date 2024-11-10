@@ -22,6 +22,9 @@ const Chatbot = () => {
 		'How can I contact you?',
 	];
 
+	const expirationTime = 1800000; // Set timeout for 30 minutes (in milliseconds)
+
+	// Handle sending messages
 	const handleSend = async (e, messageText) => {
 		if (e) e.preventDefault();
 		const textToSend = messageText || input;
@@ -62,6 +65,7 @@ const Chatbot = () => {
 		}
 	};
 
+	// Toggle chat visibility
 	const toggleChat = () => {
 		setIsChatVisible(!isChatVisible);
 		if (isChatVisible) {
@@ -69,25 +73,62 @@ const Chatbot = () => {
 		}
 	};
 
+	// Minimize chat
 	const handleMinimize = () => {
 		setIsChatVisible(false);
 		setHasNewMessage(false);
 	};
 
+	// Load messages from localStorage
 	useEffect(() => {
-		// Display initial bot messages on component mount
-		setMessages([
-			{
-				text: "Hello! I'm LIRA, your RRC AI Assistant.",
-				sender: 'bot',
-			},
-			{
-				text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
-				sender: 'bot',
-			},
-		]);
+		const storedMessages = JSON.parse(localStorage.getItem('chatMessages'));
+		const storedTime = localStorage.getItem('chatMessagesTime');
+
+		// Check if the stored messages are expired
+		if (storedMessages && storedTime) {
+			const currentTime = new Date().getTime();
+			if (currentTime - storedTime < expirationTime) {
+				// Messages are still valid, load them
+				setMessages(storedMessages);
+			} else {
+				// Clear expired messages
+				localStorage.removeItem('chatMessages');
+				localStorage.removeItem('chatMessagesTime');
+				// Set initial messages
+				setMessages([
+					{
+						text: "Hello! I'm LIRA, your RRC AI Assistant.",
+						sender: 'bot',
+					},
+					{
+						text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
+						sender: 'bot',
+					},
+				]);
+			}
+		} else {
+			// No messages in storage, set initial messages
+			setMessages([
+				{
+					text: "Hello! I'm LIRA, your RRC AI Assistant.",
+					sender: 'bot',
+				},
+				{
+					text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
+					sender: 'bot',
+				},
+			]);
+		}
 		setHasNewMessage(true); // Set notification to true for initial messages
 	}, []);
+
+	// Save messages to localStorage whenever they change
+	useEffect(() => {
+		if (messages.length > 0) {
+			localStorage.setItem('chatMessages', JSON.stringify(messages));
+			localStorage.setItem('chatMessagesTime', new Date().getTime());
+		}
+	}, [messages]);
 
 	const scrollToBottom = () => {
 		if (messagesEndRef.current) {
