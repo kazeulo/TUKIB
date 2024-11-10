@@ -95,11 +95,16 @@
 	text-align: center; /* Center the month label */
 }
 
-.custom-toolbar .view-switcher {
+.view-switcher-wrapper {
 	display: flex;
-	gap: 10px;
+	justify-content: flex-end; /* Align buttons to the right */
 	flex: 1;
-	flex-direction: row-reverse;
+}
+
+.view-switcher {
+	display: flex; /* Flexbox layout */
+	flex-direction: row-reverse; /* Align buttons from right to left */
+	gap: 10px; /* Spacing between buttons */
 }
 
 .custom-toolbar button {

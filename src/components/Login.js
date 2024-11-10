@@ -72,7 +72,7 @@ const Login = () => {
 						{success && <p style={{ color: 'green' }}>{success}</p>}
 					</div>
 				</div>
-				<div className='login-reminders'>
+				<div className='login-reminders d-none d-md-inline'>
 					<h1>Powered By</h1>
 					<div className='tukib-logo'>
 						<img
