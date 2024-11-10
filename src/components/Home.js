@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 /* css imports */
 import '../css/Home.css';
@@ -11,6 +11,14 @@ import ContactForm from './ContactForm';
 import EventCalendar from './EventCalendar';
 
 const Home = () => {
+	// Create a ref for the services section
+	const servicesRef = useRef(null);
+
+	// Handle the click on the services button to scroll to the services section
+	const scrollToServices = () => {
+		servicesRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
+
 	return (
 		<div className='home'>
 			<Header />
@@ -27,12 +35,19 @@ const Home = () => {
 							Nanotechnology, Microbiology and Bioengineering, and Computational
 							Sciences.
 						</p>
-						<button className='secondary-button banner-button'>Services</button>
+						<button
+							className='secondary-button banner-button'
+							onClick={scrollToServices} // Add the onClick event
+						>
+							Services
+						</button>
 					</div>
 				</div>{' '}
 				{/* end of banner */}
 				{/* our services section */}
-				<section className='services'>
+				<section
+					ref={servicesRef}
+					className='services'>
 					<h2>Our Services</h2>
 					<div className='services-container'>
 						<div className='service-card'>
@@ -40,16 +55,16 @@ const Home = () => {
 							<p>
 								Clients can send their samples for sample processing. The
 								service will give you the Raw Data/Results generated from the
-								instrument and does not data processing and interpretation (No
-								Certificate of Analysis). Samples should be ready for processing
-								and protocols should be provided upon submission of sample (if
-								applicable.)
+								instrument and does not do data processing and interpretation
+								(No Certificate of Analysis). Samples should be ready for
+								processing and protocols should be provided upon submission of
+								sample (if applicable.)
 							</p>
 						</div>
 						<div className='service-card'>
 							<h3>Use of Equipment</h3>
 							<p>
-								Client will be permitted to use the equipment of the laboratory
+								Clients will be permitted to use the equipment of the laboratory
 								with the guidance of the laboratory personnel. Training is
 								required to use the equipment. Email or coordinate with RRC
 								personnel for more details.
