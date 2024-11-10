@@ -1,0 +1,61 @@
+/* ContactForm.css */
+.contact-us {
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.contact-us h6 {
+  margin-bottom: 0.7 rem;
+  text-align: center;
+}
+
+.contact-us h2 {
+  text-align: center;
+  color: #6e1214;
+  margin-bottom: 1.5rem;
+}
+
+.contact-us .form-control {
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  box-sizing: border-box; 
+  margin-bottom: 1rem; 
+  border-radius: 0;
+}
+
+.contact-us .form-control:focus {
+  border-color: #6e1214; 
+  box-shadow: 0 0 5px rgba(68, 68, 68, 0.25);
+}
+
+.contact-us .form-group input{
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.contact-us .form-label {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.contact-us .primary-button {
+  margin: 0 auto;
+  display: block;
+}
+
+.contact-us .form-control[as="textarea"] {
+  resize: vertical; 
+}
+
+.location{
+  margin-top: 20px; 
+}
+
+.location iframe{
+  border: 1 solid #6e1214;
+}
+
+
