@@ -1,0 +1,130 @@
+.admin-container {
+    display: flex;
+}
+  
+.sidebar {
+    width: 250px;
+    background-color: #6e1214;
+    color: white;
+    padding-top: 20px;
+}
+  
+.sidebar-navbar {
+    margin: 0 auto;
+    color: #ffffff !important;
+    margin-bottom: 30px;
+}
+  
+.sidebar-nav .nav-link {
+    color: #ffffff !important;
+    padding: 7px 20px;
+}
+  
+.sidebar-nav .nav-link:hover {
+    background-color: #34495e;
+}
+  
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #ecf0f1;
+}
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+  
+.header h1 {
+    color: #2c3e50;
+}
+  
+.header-actions button {
+    margin-left: 10px;
+    background-color: none;
+}
+  
+/* profile button*/
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+  
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+  
+/* notification button*/
+.notification-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent !important;
+    color: #6e1214 !important;
+    transition: all 0.3s ease;
+    border: none !important;
+}
+  
+.notification-btn:hover {
+    color: white;
+}
+  
+.dashboard-overview h2 {
+    margin-bottom: 20px;
+}
+  
+.dashboard-cards {
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+}
+  
+.dashboard-cards .card {
+    flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.dashboard-cards .card-body {
+    text-align: center;
+}
+
+/* stat */
+.dashboard-statistics .card {
+    height: 100%;
+}
+
+.dashboard-statistics .card-body {
+    padding: 20px;
+}
+
+  
+/* responsiveness */
+@media (max-width: 768px) {
+    .admin-container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+    }
+  
+    .header-actions button {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+}
+  
