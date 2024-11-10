@@ -1,8 +1,8 @@
 import React from 'react';
-import '../css/Header.css';
-import '../css/Variables.css';
 import { Link } from 'react-router-dom'; 
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import '../css/Header.css';
+import '../css/Variables.css';
 import logo from '../assets/rrc_logo.png';
 import logoSmall from '../assets/small_logo.png';
 

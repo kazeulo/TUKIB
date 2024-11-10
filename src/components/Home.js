@@ -1,8 +1,14 @@
 import React from 'react';
-import Header from './Header';
+
+/* css imports */
 import '../css/Home.css';
-import Footer from './Footer';
 import '../css/Variables.css';
+
+/* page imports */
+import Header from './Header';
+import Footer from './Footer';
+import ContactForm from './ContactForm';
+import EventCalendar from './EventCalendar';
 
 const Home = () => {
 	return (
@@ -23,8 +29,8 @@ const Home = () => {
 						</p>
 						<button className='secondary-button banner-button'>Services</button>
 					</div>
-				</div> {/* end of banner */}
-
+				</div>{' '}
+				{/* end of banner */}
 				{/* our services section */}
 				<section className='services'>
 					<h2>Our Services</h2>
@@ -70,7 +76,12 @@ const Home = () => {
 							</p>
 						</div>
 					</div>
-				</section> {/* our services section */}
+				</section>{' '}
+				{/* end of our services section */}
+				{/* contact us section */}
+				<ContactForm />
+				{/* end of contact us section */}
+				<EventCalendar />
 			</main>
 			<Footer />
 		</div>
