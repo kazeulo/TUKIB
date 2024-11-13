@@ -24,9 +24,7 @@ const ContactForm = () => {
 	};
 
 	return (
-		<section className='contact-us'>
-			<h6>Need Help?</h6>
-			<h2>Contact Us</h2>
+		<div className='contact-us'>
 			<Form onSubmit={handleSubmit}>
 				{/* Name Field */}
 				<Form.Group controlId='name'>
@@ -88,7 +86,7 @@ const ContactForm = () => {
 					loading='lazy'
 					referrerPolicy='no-referrer-when-downgrade'></iframe>
 			</div>
-		</section>
+		</div>
 	);
 };
 

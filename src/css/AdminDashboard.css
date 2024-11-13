@@ -1,18 +1,27 @@
 .admin-container {
     display: flex;
+    flex-wrap: nowrap;
 }
   
 .sidebar {
+    height: 100vh;
     width: 250px;
     background-color: #6e1214;
     color: white;
     padding-top: 20px;
+    position: fixed;
+    z-index: 10001;
 }
   
 .sidebar-navbar {
     margin: 0 auto;
     color: #ffffff !important;
     margin-bottom: 30px;
+}
+
+.sidebar-navbar h5{
+    /* margin: 0 auto; */
+    padding: 0 20px;
 }
   
 .sidebar-nav .nav-link {
@@ -25,29 +34,41 @@
 }
   
 .main-content {
+    margin-left: 250px;
+    z-index: 999;
     flex-grow: 1;
-    padding: 30px;
     background-color: #ecf0f1;
 }
   
-.header {
+.adminHeader {
+    box-shadow: 4px 0px 7px rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    width: 100%;
+	padding: 40px;
+	background-color: rgb(255, 255, 255);
+	color: #6e1214;
+	top: 0;
+	z-index: 1000; 
+	box-sizing: border-box;
 }
   
-.header h1 {
+.adminHeader h1 {
     color: #2c3e50;
 }
+
+.header-actions{
+    display: flex;
+}
   
-.header-actions button {
-    margin-left: 10px;
+.header-actions button{
+    margin-left: 15px;
     background-color: none;
 }
   
 /* profile button*/
-.profile-btn {
+.profile-pic {
     width: 40px;
     height: 40px;
     overflow: hidden;
@@ -64,62 +85,73 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    border: solid 1px #6e1214;
 }
   
 /* notification button*/
 .notification-btn {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent !important;
     color: #6e1214 !important;
     transition: all 0.3s ease;
-    border: none !important;
+    border: 1px solid transparent !important;
 }
   
-.notification-btn:hover {
-    color: white;
+.notification-btn:hover{
+    color: #9e9e9e !important;
 }
   
-.dashboard-overview h2 {
-    margin-bottom: 20px;
+.dashboard-sections h3 {
+    margin: 25px;
 }
   
-.dashboard-cards {
-    display: flex;
-    gap: 25px;
-    justify-content: space-between;
-}
-  
-.dashboard-cards .card {
+.dashboard-overview .card {
     flex: 1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
 }
   
-.dashboard-cards .card-body {
+.dashboard-overview .card-body {
     text-align: center;
+}
+
+.dashboard-overview .card-title{
+    font-size: 14px;
+}
+
+.dashboard-overview .card-text{
+    font-size: 30px;
+    font-weight: bold;
 }
 
 /* stat */
 .dashboard-statistics .card {
     height: 100%;
+    border-radius: 0;
 }
 
 .dashboard-statistics .card-body {
     padding: 20px;
 }
 
-  
+
 /* responsiveness */
 @media (max-width: 768px) {
     .admin-container {
       flex-direction: column;
     }
+
+    .main-content{
+        margin-top: 320px;
+        margin-left: 0;
+    }
   
     .sidebar {
       width: 100%;
+      height: 320px;
     }
   
     .header-actions button {
