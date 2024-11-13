@@ -6,17 +6,6 @@
   padding: 50px;
 }
 
-.contact-us h6 {
-  margin-bottom: 0.7 rem;
-  text-align: center;
-}
-
-.contact-us h2 {
-  text-align: center;
-  color: #6e1214;
-  margin-bottom: 1.5rem;
-}
-
 .contact-us .form-control {
   padding: 10px; 
   border: 1px solid #ccc; 

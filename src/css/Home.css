@@ -13,14 +13,35 @@
 .home-bg {
 	position: relative;
 	width: 100%;
-	height: 100vh;
+	height: 95vh;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start; /* Align text to the left */
 	padding-left: 5%; /* Adds spacing between text and screen edge */
 	overflow: hidden;
-	background: url('../assets/bg_gradient.png') no-repeat center center fixed; /* Set fixed background */
+	background: url('../assets/home_bg.jpg') no-repeat center center fixed; /* Set fixed background */
 	background-size: cover; /* Cover the entire area */
+}
+
+.home-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top right, 
+		rgba(110, 18, 20, 0.75) 15%,   
+		rgba(108, 51, 141, 0.75) 45%, 
+		rgba(218, 129, 60, 0.7) 75%,  
+		rgba(255, 204, 53, 0.6) 100% 
+	);
+
+}
+
+.home-background > * {
+    position: relative;
+    z-index: 2; /* keeps content above the overlay */
 }
 
 /* Text styling positioned to the left */
@@ -32,49 +53,118 @@
 	max-width: 700px;
 	padding: 50px;
 	padding-left: 70px;
+	font-size: 15px;
 }
 
 .banner-button{
 	margin-top: 6px;
 }
 
-/* Services Section */
-.services {
-	text-align: center; /* Center align the header */
-	padding: 20px;
+.sectionTitle{
+	text-align: center;
+	margin: 35px 0;
 }
 
-.services h2 {
+.sectionTitle h6{
+	font-size: 14px;
+}
+
+.sectionTitle h2{
+	font-weight: 500;
+	font-family: 'Poppins';
+}
+
+/* Services Section */
+.services {
+	text-align: center; 
+	padding: 20px;
 	margin-bottom: 20px;
-	color: #6e1214;
 }
 
 .services-container {
 	text-align: left;
 	text-align: justify;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr); /* 2 columns */
-	gap: 20px; /* Space between cards */
-	max-width: 1200px; /* Max width for the container */
-	margin: 0 auto; /* Center the container */
+	grid-template-columns: repeat(2, 1fr); 
+	gap: 25px; 
+	max-width: 1200px; 
+	margin: 0 auto; 
 	padding: 20px;
 }
 
 .service-card {
-	background-color: #fff;
-	border: 1px solid #ddd; /* Light border */
-	border-radius: 8px; /* Rounded corners */
-	padding: 20px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	background-color: #b763e1;
+	padding: 30px 25px;
+	font-size: 50px;
+	transition: all ease 0.5s;
+}
+
+.service-card:hover{
+	transform: translateY(-5px);
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.icon-container{
+	text-align: center;
+}
+
+.services-icon{
+	margin: 20px 0;
+	color: white;
 }
 
 .service-card h3 {
-	margin-bottom: 10px;
-	color: #6e1214;
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	color: #ffffff;
 }
 
 .service-card p {
-	color: #555; /* Darker text for description */
+	font-size: 14px;
+	color: #ffffff; /* Darker text for description */
+}
+
+/*Statistic counter*/
+/* Background image container */
+.statisticCounter{
+	position: relative;
+	width: 100%;
+	height: 350px;
+	display: flex;
+	align-items: center;
+	padding-left: 5%; 
+	overflow: hidden;
+	background: url('../assets/stat_counter.jpg') no-repeat center center fixed; /* Set fixed background */
+	background-size: cover; /* Cover the entire area */
+}
+
+.statisticCounter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top right, 
+		rgba(110, 18, 20, 0.8) 15%,   
+		rgba(108, 51, 141, 0.8) 45%, 
+		rgba(218, 129, 60, 0.8) 70%,  
+		rgba(255, 204, 53, 0.8) 100% 
+	);
+
 }
   
+@media (max-width: 992px) {
+	.service-card {
+		flex: 1 1 calc(50% - 20px); /* For medium-sized screens, two cards per row */
+	}
+}
+  
+  @media (max-width: 600px) {
+	.service-card {
+		flex: 1 1 100%; /* For small screens, one card per row */
+	}
+}
 
