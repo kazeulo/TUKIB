@@ -110,12 +110,15 @@ const Home = () => {
 					</div>
 				</section> {/* end of our services section */}
 
-				{/* statistic counter us section */}
+				{/* news slider section */}
+				<section className='newsSlider'>
+			
+				</section>{/* news slider section */}
 
+				{/* statistic counter us section */}
 				<section className='statisticCounter'>
 			
-				</section>
-				{/* end of statistic counter section */}
+				</section>{/* end of statistic counter section */}
 
 				{/* contact us section */}
 				<div className='sectionTitle'>

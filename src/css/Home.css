@@ -31,29 +31,40 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(to top right, 
-		rgba(110, 18, 20, 0.75) 15%,   
-		rgba(108, 51, 141, 0.75) 45%, 
-		rgba(218, 129, 60, 0.7) 75%,  
-		rgba(255, 204, 53, 0.6) 100% 
+		rgba(110, 18, 20, 0.75) 20%,   
+		rgba(90, 39, 119, 0.7) 45%, 
+		rgba(218, 129, 60, 0.5) 75%,  
+		rgba(255, 204, 53, 0.5) 100% 
 	);
 
 }
 
 .home-background > * {
     position: relative;
-    z-index: 2; /* keeps content above the overlay */
+    z-index: 2; 
 }
 
 /* Text styling positioned to the left */
 .home-text {
 	position: relative;
 	color: white;
-	text-align: left; /* Align text to the left */
+	text-align: left; 
 	z-index: 1;
-	max-width: 700px;
-	padding: 50px;
-	padding-left: 70px;
-	font-size: 15px;
+	max-width: 750px;
+	padding: 70px;
+}
+
+.home-text h1{
+	font-family: 'Poppins';
+	font-weight: 500;
+	margin-bottom: 15px;
+	font-size: 38px;
+}
+
+.home-text p{
+	font-size: 14px;
+	font-weight: 500;
+	font-family: 'Quicksand';
 }
 
 .banner-button{
@@ -62,7 +73,7 @@
 
 .sectionTitle{
 	text-align: center;
-	margin: 35px 0;
+	margin: 40px 0;
 }
 
 .sectionTitle h6{
@@ -78,7 +89,7 @@
 .services {
 	text-align: center; 
 	padding: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .services-container {
@@ -94,7 +105,7 @@
 
 .service-card {
 	background-color: #b763e1;
-	padding: 30px 25px;
+	padding: 35px 25px;
 	font-size: 50px;
 	transition: all ease 0.5s;
 }
@@ -110,20 +121,23 @@
 }
 
 .services-icon{
-	margin: 20px 0;
+	margin: 25px 0;
 	color: white;
 }
 
 .service-card h3 {
 	text-align: center;
 	font-size: 22px;
-	font-weight: bold;
+	font-weight: 500;
+	font-family: 'Poppins';
 	color: #ffffff;
 }
 
 .service-card p {
 	font-size: 14px;
-	color: #ffffff; /* Darker text for description */
+	color: #ffffff;
+	font-family: 'Quicksand';
+	text-align: justify;
 }
 
 /*Statistic counter*/
@@ -150,8 +164,8 @@
     background: linear-gradient(to top right, 
 		rgba(110, 18, 20, 0.8) 15%,   
 		rgba(108, 51, 141, 0.8) 45%, 
-		rgba(218, 129, 60, 0.8) 70%,  
-		rgba(255, 204, 53, 0.8) 100% 
+		rgba(218, 129, 60, 0.7) 70%,  
+		rgba(255, 204, 53, 0.65) 100% 
 	);
 
 }
