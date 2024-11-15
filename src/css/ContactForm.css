@@ -1,9 +1,53 @@
 /* ContactForm.css */
 .contact-us {
   width: 100%;
-  max-width: 1200px; 
+  max-width: 1250px; 
   margin: 0 auto;
-  padding: 50px;
+}
+
+/*contact info*/
+.contactInfo{
+  margin-bottom: 15px;
+  /* background-color: #e7e7e7; */
+}
+
+.contactInfo .info-item {
+  padding: 30px 20px;
+  height: 100%;
+  /* border: 1px solid #ccc; */
+}
+
+.contactInfo .info-item .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+  line-height: 0;
+  color: #fff;
+  background: #eec035;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.contactInfo .info-item h4 {
+  font-weight: 400;
+  margin: 0 0 5px 0;
+  font-family: 'Poppins';
+}
+
+.contactInfo .info-item p {
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+  font-family: 'Quicksand';
+  font-size: 13px;
+}
+
+/*contact form*/
+.contact-us .contact-form{
+  padding: 25px 0;
 }
 
 .contact-us .form-control {
@@ -12,15 +56,16 @@
   box-sizing: border-box; 
   margin-bottom: 1rem; 
   border-radius: 0;
+  transition: all 0.3s ease;
 }
 
 .contact-us .form-control:focus {
-  border-color: #6e1214; 
-  box-shadow: 0 0 5px rgba(68, 68, 68, 0.25);
+  border-color: #ccc; 
+  box-shadow: 0 0 5px rgba(41, 41, 41, 0.3);
 }
 
 .contact-us .form-group input{
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   width: 100%;
 }
 
@@ -40,7 +85,7 @@
 }
 
 .location{
-  margin-top: 20px; 
+  margin-top: 25px; 
 }
 
 .location iframe{

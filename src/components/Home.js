@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 
+import { Button } from 'react-bootstrap';
+
 /* css imports */
 import '../css/Home.css';
 import '../css/Variables.css';
@@ -9,8 +11,21 @@ import Header from './Header';
 import Footer from './Footer';
 import ContactForm from './ContactForm';
 import EventCalendar from './EventCalendar';
+import StatCounter from './StatCounter'; 
+
+/* image imports */
+import NewsThumbnail from '../assets/news.jpg';
 
 const Home = () => {
+
+	/* for statistic section */
+	const stats = [
+        { value: 5000, label: 'Projects Completed', duration: 3 },
+        { value: 150, label: 'Researchers', duration: 2.5 },
+        { value: 200, label: 'Publications', duration: 4 },
+        { value: 100, label: 'Collaborations', duration: 3 },
+    ];
+
 	// Create a ref for the services section
 	const servicesRef = useRef(null);
 
@@ -46,7 +61,7 @@ const Home = () => {
 				{/* end of banner */}
 
 				{/* our services section */}
-				<section ref={servicesRef} className="services">
+				<section ref={servicesRef} className="servicesSection">
 					<div className="sectionTitle text-center">
 						<h6>What we do</h6>
 						<h2>Our Services</h2>
@@ -110,24 +125,63 @@ const Home = () => {
 					</div>
 				</section> {/* end of our services section */}
 
-				{/* news slider section */}
-				<section className='newsSlider'>
-			
-				</section>{/* news slider section */}
-
 				{/* statistic counter us section */}
-				<section className='statisticCounter'>
-			
-				</section>{/* end of statistic counter section */}
+				<div className='statisticCounter'>
+					<StatCounter stats={stats} />
+				</div>{/* end of statistic counter section */}
+
+				{/* news section */}
+				<section className='newsSection'>
+					<div className='sectionTitle text-center'>
+                        <h6>Latest Updates</h6>
+                        <h2>News and Activities</h2>
+                    </div>
+
+                    {/* News Item */}
+                    <div className="news-item d-flex flex-column flex-md-row">
+                        <div className="news-image-container">
+                            <img 
+                                src={NewsThumbnail} 
+                                alt="News Thumbnail" 
+                                className="news-image" 
+                            />
+                        </div>
+                        <div className="news-text-container flex-column justify-content-between">
+                            <h3 className="news-title">RRC Conducts Lab Tour for Aqua Sci 1 Students</h3>
+							<p className="news-date">November 8, 2024</p>
+                            <p className="news-description">
+							The UP Visayas Regional Research Center conducted a laboratory and facilities tour last 
+							November 4, 2024 for a General Education (GE) course – Aquatic Science 1 (𝑃𝑒𝑜𝑝𝑙𝑒 𝑎𝑛𝑑 𝑡ℎ𝑒 𝐴𝑞𝑢𝑎𝑡𝑖𝑐 𝑊𝑜𝑟𝑙𝑑) 
+							Section 4 students under the class of Prof. Liah Catedrilla of the College of Fisheries 
+							and Ocean Sciences, UP Visayas. The students got to know UPV RRC more, especially its services, 
+							and the people through a quick audio-visual presentation. It was then followed with a quick 
+							building tour and a short research presentation on some of the completed and ongoing research 
+							projects at the UPV RRC, specifically the Farm to Fashion (Natural Textile Fiber yarn value chain), 
+							Product optimization of 𝑇𝑒𝑔𝑖𝑙𝑙𝑎𝑟𝑐𝑎 𝑔𝑟𝑎𝑛𝑜𝑠𝑎 (Blood cockle – Litob), and Dried Microalgae Biomass. 
+							The facility tour had also a quick stop at the Philippine Genome Center - Visayas prior to wrapping it up.
+                            </p>
+                            <Button className="read-more primary-button">Read More</Button>
+                        </div>
+                    </div>
+				</section>{/* news section */}
 
 				{/* contact us section */}
-				<div className='sectionTitle'>
-					<h6>Need Help?</h6>
-					<h2>Contact Us</h2>
-				</div>
-				<ContactForm />
-				{/* end of contact us section */}
-				<EventCalendar />
+				<section className='contactSection'>
+					<div className='sectionTitle text-center'>
+						<h6>Need Help?</h6>
+						<h2>Contact Us</h2>
+					</div>
+					<ContactForm />
+				</section>
+
+				{/*calendar section*/}
+				<section className='calendarSection'>
+					<div className='sectionTitle text-center'>
+                        <h6>Subtitle</h6>
+                        <h2>Calendar of Schedules</h2>
+                    </div>
+					<EventCalendar />
+				</section>{/* end of calendar section */}
 			</main>
 			<Footer />
 		</div>

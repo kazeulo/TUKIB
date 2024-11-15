@@ -13,7 +13,7 @@
 .home-bg {
 	position: relative;
 	width: 100%;
-	height: 95vh;
+	height: 87vh;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start; /* Align text to the left */
@@ -31,7 +31,7 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(to top right, 
-		rgba(110, 18, 20, 0.75) 20%,   
+		rgba(142, 21, 55, 0.75) 20%,   
 		rgba(90, 39, 119, 0.7) 45%, 
 		rgba(218, 129, 60, 0.5) 75%,  
 		rgba(255, 204, 53, 0.5) 100% 
@@ -57,7 +57,7 @@
 .home-text h1{
 	font-family: 'Poppins';
 	font-weight: 500;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	font-size: 38px;
 }
 
@@ -71,25 +71,34 @@
 	margin-top: 6px;
 }
 
+/* section */
+section{
+	width: 100%;
+	/* margin: 20px 0; */
+	padding: 30px 50px;
+}
+
 .sectionTitle{
-	text-align: center;
-	margin: 40px 0;
+	margin-top: 20px;
+	margin-bottom: 35px;
 }
 
 .sectionTitle h6{
+	text-align: center;
 	font-size: 14px;
 }
 
 .sectionTitle h2{
+	text-align: center;
 	font-weight: 500;
 	font-family: 'Poppins';
 }
 
 /* Services Section */
-.services {
+.servicesSection {
+	/* border: 1px solid black; */
 	text-align: center; 
-	padding: 20px;
-	margin-bottom: 30px;
+	padding: 20px 0 10px;
 }
 
 .services-container {
@@ -100,11 +109,10 @@
 	gap: 25px; 
 	max-width: 1200px; 
 	margin: 0 auto; 
-	padding: 20px;
 }
 
 .service-card {
-	background-color: #b763e1;
+	background-color: #c87bee;
 	padding: 35px 25px;
 	font-size: 50px;
 	transition: all ease 0.5s;
@@ -140,20 +148,90 @@
 	text-align: justify;
 }
 
-/*Statistic counter*/
-/* Background image container */
-.statisticCounter{
-	position: relative;
-	width: 100%;
-	height: 350px;
-	display: flex;
-	align-items: center;
-	padding-left: 5%; 
-	overflow: hidden;
-	background: url('../assets/stat_counter.jpg') no-repeat center center fixed; /* Set fixed background */
-	background-size: cover; /* Cover the entire area */
+/* News Section */
+.newsSection {
+	/* border: 1px solid black; */
+    max-width: 1400px;
+	margin-bottom: 20px;
 }
 
+.news-item {
+	/* border: 1px solid #ccc; */
+	padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	/* box-shadow: 0 0 5px 5px rgba(108, 108, 108, 0.1); */
+}
+
+.news-image-container {
+    width: 450px;
+}
+
+.news-image {
+    width: 100%;
+    height: auto;
+}
+
+.news-text-container {
+	text-align: justify;
+    flex: 2;
+    padding-left: 50px;
+}
+
+.news-title {
+	margin-top: 40px;
+	font-family: 'Poppins';
+    font-weight: bold;
+}
+
+.news-date{
+	font-size: 12px;
+	color: #888;
+	padding: 10px 0;
+}
+
+.news-description {
+	font-size: 14px;
+    color: #666;
+}
+
+.read-more{
+	margin-top: 20px;
+	max-width: 140px;
+}
+
+/*news section flexibility*/
+@media (max-width: 767px) {
+    .news-item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .news-text-container {
+        padding-left: 0;
+    }
+
+    .news-image-container {
+        margin-bottom: 20px;
+    }
+}
+
+.statisticCounter {
+    position: relative; 
+    z-index: 1; 
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    overflow: hidden;
+    background: url('../assets/stat_counter.jpg') no-repeat center center fixed; 
+    background-size: cover; 
+	padding: 80px 0 !important;
+	margin-top: 25px;
+}
+
+/* Gradient Overlay */
 .statisticCounter::after {
     content: '';
     position: absolute;
@@ -162,23 +240,10 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(to top right, 
-		rgba(110, 18, 20, 0.8) 15%,   
-		rgba(108, 51, 141, 0.8) 45%, 
-		rgba(218, 129, 60, 0.7) 70%,  
-		rgba(255, 204, 53, 0.65) 100% 
-	);
-
+        rgba(142, 21, 55, 0.8) 15%,   
+        rgba(108, 51, 141, 0.8) 45%, 
+        rgba(218, 129, 60, 0.8) 70%,  
+        rgba(255, 204, 53, 0.8) 100% 
+    );
+    z-index: 0; 
 }
-  
-@media (max-width: 992px) {
-	.service-card {
-		flex: 1 1 calc(50% - 20px); /* For medium-sized screens, two cards per row */
-	}
-}
-  
-  @media (max-width: 600px) {
-	.service-card {
-		flex: 1 1 100%; /* For small screens, one card per row */
-	}
-}
-
