@@ -105,13 +105,13 @@ const EventCalendar = () => {
 
 	return (
 		<div className='event-calendar-container'>
-			<h3>Calendar of Schedules</h3>
+			{/* <h3>Calendar of Schedules</h3> */}
 			<BigCalendar
 				localizer={localizer}
 				events={calendarEvents}
 				startAccessor='start'
 				endAccessor='end'
-				style={{ height: '75vh', width: '75vw' }} // Set width to 100% for maximum width
+				style={{ height: '75vh', width: '100%' }} 
 				views={['month', 'week', 'day']} // Enable month, week, and day views
 				defaultView={window.innerWidth < 768 ? 'day' : 'month'} // Default to day view on mobile
 				toolbar={true} // Show toolbar for navigating views
