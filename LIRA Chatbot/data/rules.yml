@@ -6,57 +6,47 @@ rules:
       - intent: greet
       - action: utter_greet
 
-  - rule: Respond to service inquiries
-    steps:
-      - intent: service_inquiry
-      - action: utter_service_details
-
-  - rule: Respond to lab rental inquiries
-    steps:
-      - intent: inquire_lab_rentals
-      - action: utter_lab_rentals_info
-
-  - rule: Respond to training program inquiries
-    steps:
-      - intent: inquire_training_programs
-      - action: utter_training_programs_info
-
-  - rule: Respond to equipment usage inquiries
-    steps:
-      - intent: inquire_equipment_usage
-      - action: utter_equipment_usage_info
-
-  - rule: Respond to feedback requests
-    steps:
-      - intent: feedback
-      - action: utter_feedback_instructions
-
   - rule: Respond to goodbye
     steps:
       - intent: goodbye
       - action: utter_goodbye
 
-  - rule: Provide operational hours
+  - rule: Respond to who am I
     steps:
-      - intent: ask_hours
-      - action: utter_operational_hours
+      - intent: who_am_i
+      - action: utter_who_am_i
 
-  - rule: Provide location information
+  - rule: Respond to location
     steps:
-      - intent: ask_location
+      - intent: location
       - action: utter_location
 
-  - rule: Provide contact information
+  - rule: Respond to contact details
     steps:
-      - intent: ask_contact
-      - action: utter_contact_info
+      - intent: contact_details
+      - action: utter_contact_details
 
-  - rule: Handle appointment requests
+  - rule: Respond to service inquiries
     steps:
-      - intent: request_appointment
-      - action: utter_appointment_request
+      - intent: service_inquiry
+      - action: utter_services
 
-  - rule: Confirm appointment
+  - rule: Respond to sample processing inquiries
     steps:
-      - intent: confirm_appointment
-      - action: utter_appointment_confirmation
+      - intent: inquire_sample_processing
+      - action: utter_inquire_sample_processing
+
+  - rule: Respond to lab rental inquiries
+    steps:
+      - intent: inquire_lab_rentals
+      - action: utter_inquire_lab_rentals
+
+  - rule: Respond to training program inquiries
+    steps:
+      - intent: inquire_training_programs
+      - action: utter_inquire_training_programs
+
+  - rule: Respond to equipment usage inquiries
+    steps:
+      - intent: inquire_equipment_usage
+      - action: utter_inquire_equipment_usage

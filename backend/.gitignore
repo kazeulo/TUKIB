@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Database and sensitive files
+*.sqlite
+*.db
+
+# Ignore compiled or temporary files
+*.tmp
+dist/
+build/

@@ -1,0 +1,100 @@
+/* src/css/Login.css */
+.login-content {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	min-height: 90vh;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: linear-gradient(to right, #8e1537, #28060f);
+	padding: 20px;
+}
+
+.login-container {
+	width: 100%;
+	max-width: 400px;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	background-color: #f9f9f994;
+	text-align: center;
+}
+
+.tukib-logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.tukib-logo img {
+	width: 350px;
+	max-width: 500px; /* Adjust the logo size */
+	height: auto;
+}
+
+.login-container h2 {
+	margin-bottom: 20px;
+	color: #6e1214;
+}
+
+.login-reminders {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.login-reminders h1 {
+	font-size: 25px;
+	color: #ffcc35;
+}
+
+.login-reminders-list {
+	list-style-type: disc; /* Creates a bulleted list */
+	padding-left: 20px;
+	font-size: 18px;
+	margin-top: 15px;
+	max-width: 600px; /* Restrict the width of the text */
+	line-height: 1.5;
+	text-align: start;
+	color: white;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 16px;
+	color: #6e1214;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+.login-button {
+	width: 100%;
+	padding: 10px 0;
+	background-color: #6e1214;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button:hover {
+	background-color: #ffcc35;
+	color: #6e1214;
+}

@@ -32,3 +32,12 @@ Congratulations! You’ve set up your own Rasa chatbot.
 ```
 rasa shell
 ```
+### Integrate with React ###
+1. Train Rasa to update:
+```
+rasa train
+```
+2. To webhook with React
+```
+rasa run --enable-api --cors "*"
+```

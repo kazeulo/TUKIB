@@ -1,0 +1,58 @@
+/*set font as poppins*/
+:root {
+  --primary-color: #6e1214; 
+  --secondary-color: #ffcc35;
+}
+
+:root {
+  --primary-font: 'Quicksand', sans-serif;
+}
+
+/* pls use these to minimize the code and for consistency*/
+body {
+    font-family: var(--primary-font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font);
+}
+
+/* buttons */
+button{
+    cursor: pointer;
+}
+
+button.primary-button{
+    padding: 6px 25px;
+    border-radius: 5rem;
+    border: 1px solid transparent;
+    color: white;
+    background-color: var(--primary-color);
+}
+
+button.primary-button:hover{
+    color: var(--primary-color);
+    background-color: white;
+    border: 1 solid;
+    border-color: #6e1214;
+    transition: all 0.3s ease;
+}
+
+button.secondary-button{
+    padding: 6px 25px;
+    border-radius: 5rem;
+    border: 1px solid transparent;
+    color: var(--primary-color);
+    background-color: white;
+}
+
+button.secondary-button:hover{
+    color: #6c338d;
+    border: 1 solid;
+    border-color: #6e1214;
+    transition: all 0.3s ease;
+}
+  

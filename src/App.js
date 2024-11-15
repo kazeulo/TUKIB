@@ -1,14 +1,33 @@
 import './App.css';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
+import Login from './components/Login';
+import AdminDashboard from './components/AdminDashboard';
 
-function App() {
+const App = () => {
 	return (
-		<div className='App'>
+		<Router>
+			<Routes>
+				<Route
+					path='/'
+					element={<Home />}
+				/>
+				<Route
+					path='/login'
+					element={<Login />}
+				/>
+
+				<Route
+					path='/adminDashboard'
+					element={<AdminDashboard />}
+				/>		
+				{/* Add more routes here as needed */}
+			</Routes>
 			<Chatbot />
-			<Home />
-		</div>
+		</Router>
 	);
-}
+};
 
 export default App;
