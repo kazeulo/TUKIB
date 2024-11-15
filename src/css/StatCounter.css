@@ -1,0 +1,36 @@
+/* Stat Counters Container */
+.stat-counters-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    /* gap: 50px; */
+    margin: 0 auto;
+    position: relative; 
+    z-index: 1; 
+}
+
+.stat-card {
+    border-radius: 15px;
+    border: 3px solid #fff;
+    padding: 10px 20px;
+    text-align: center;
+    width: 200px;
+    margin-right: 30px;
+    position: relative; 
+    z-index: 2; 
+    transition: transform 0.3s ease;
+}
+
+.stat-number {
+    margin-top: 13px !important;
+    font-family: 'Poppins';
+    font-size: 40px;
+    font-weight: 500;
+    color: white;
+}
+
+.stat-card p {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: white;
+}

@@ -1,7 +1,7 @@
 /*set font as poppins*/
 :root {
-  --primary-color: #6e1214; 
-  --secondary-color: #ffcc35;
+  --primary-color: #8e1537; 
+  --secondary-color: #eec035;
 }
 
 :root {
@@ -26,33 +26,47 @@ button{
 }
 
 button.primary-button{
-    padding: 6px 25px;
+    padding: 8px 25px;
     border-radius: 5rem;
-    border: 1px solid transparent;
+    border: none;
     color: white;
     background-color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 button.primary-button:hover{
-    color: var(--primary-color);
-    background-color: white;
-    border: 1 solid;
-    border-color: #6e1214;
+    color: #8e1537;
+    background-color: var(--secondary-color);
     transition: all 0.3s ease;
+    border: none;
+}
+
+button.primary-button:focus{
+    color: white;
+    background-color: #eec035 !important;
 }
 
 button.secondary-button{
-    padding: 6px 25px;
+    padding: 8px 25px;
     border-radius: 5rem;
     border: 1px solid transparent;
     color: var(--primary-color);
     background-color: white;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
 button.secondary-button:hover{
-    color: #6c338d;
-    border: 1 solid;
-    border-color: #6e1214;
-    transition: all 0.3s ease;
+    color: #8e1537;
+    background-color: var(--secondary-color);
+}
+
+button.secondary-button:focus{
+    color: white;
+    background-color: #eec035 !important;
 }
   
