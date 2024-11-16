@@ -1,6 +1,5 @@
-// src/components/Login.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../css/Login.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -11,6 +10,8 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const [role, setRole] = useState(''); // Track the user role
+	const navigate = useNavigate(); // Initialize useNavigate hook
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -28,6 +29,7 @@ const Login = () => {
 			if (data.success) {
 				setSuccess('Login successful!');
 				setError('');
+				setRole(data.user.role); // Store the user role
 			} else {
 				setError(data.message);
 				setSuccess('');
@@ -36,6 +38,15 @@ const Login = () => {
 			setError('Error logging in. Please try again.');
 		}
 	};
+
+	// Automatic redirect based on user role
+	useEffect(() => {
+		if (role === 'admin') {
+			navigate('/adminDashboard'); // Redirect to Admin Dashboard
+		} else if (role === 'client') {
+			navigate('/clientProfile'); // Redirect to Client Profile
+		}
+	}, [role, navigate]); // Dependencies to trigger effect
 
 	return (
 		<div className='login'>
@@ -64,14 +75,12 @@ const Login = () => {
 								/>
 							</div>
 
-							{/* add login authentication */}
-							<Link to="/adminDashboard">
-								<button
-									type='submit'
-									className='login-button'>
-									Login
-								</button>
-							</Link>
+							{/* Button to trigger login */}
+							<button
+								type='submit'
+								className='login-button'>
+								Login
+							</button>
 						</form>
 						{error && <p style={{ color: 'red' }}>{error}</p>}
 						{success && <p style={{ color: 'green' }}>{success}</p>}

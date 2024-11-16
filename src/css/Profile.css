@@ -1,0 +1,30 @@
+.profile-page {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.profile-title {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.profile-info {
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.profile-item {
+	margin-bottom: 15px;
+}
+
+.profile-item strong {
+	display: inline-block;
+	width: 100px;
+}
+
+.profile-actions {
+	text-align: center;
+	margin-top: 20px;
+}

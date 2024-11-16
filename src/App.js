@@ -6,6 +6,7 @@ import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
+import ClientProfile from './components/ClientProfile';
 
 const App = () => {
 	return (
@@ -19,11 +20,14 @@ const App = () => {
 					path='/login'
 					element={<Login />}
 				/>
-
 				<Route
 					path='/adminDashboard'
 					element={<AdminDashboard />}
-				/>		
+				/>
+				<Route
+					path='/clientProfile'
+					element={<ClientProfile />}
+				/>
 				{/* Add more routes here as needed */}
 			</Routes>
 			<Chatbot />
