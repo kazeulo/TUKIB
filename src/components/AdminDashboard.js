@@ -45,7 +45,6 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-container">
-
             {/* Sidebar */}
             <aside className="sidebar">
                 <Navbar className="sidebar-navbar">
@@ -60,114 +59,114 @@ const AdminDashboard = () => {
                     <Nav.Link as={Link} to="/login">Logout</Nav.Link>
                 </Nav>
             </aside>
+            
+            {/* Main content */}
+            <main className="main-content">
+                <header className="adminHeader">
+                    <h2>Welcome back, Username!</h2>
+                    <div className="header-actions">
 
-        {/* Main content */}
-        <main className="main-content">
-            <header className="header">
-                <h2>Welcome back, Username!</h2>
-                <div className="header-actions">
+                        {/* Profile Picture */}
+                        <Button className='profile-pic'>
+                            <img
+                                src="../assets/adminpic.jpg"
+                                alt="Profile"
+                                className="profile-image"
+                            />
+                        </Button>
 
-                    {/* Profile Picture */}
-                    <Button className="profile-btn">
-                        <img
-                            src="https://via.placeholder.com/40"
-                            alt="Profile"
-                            className="profile-image"
-                        />
-                    </Button>
+                        {/* Notification Button */}
+                        <Button className="notification-btn">
+                            <FaBell size={20} />
+                        </Button>
+                    </div>
+                </header>
 
-                    {/* Notification Button */}
-                    <Button className="notification-btn">
-                        <FaBell size={20} />
-                    </Button>
-                </div>
-            </header>
-
-            {/* Overview Section */}
-            <section className="dashboard-overview">
-                <h2>Overview</h2>
-                <Container>
-                    <Row xs={1} sm={2} md={4} className="g-4">
+                {/* Overview Section */}
+                <section className="dashboard-sections dashboard-overview">
+                    <h3>Overview</h3>
+                    <Container>
+                        <Row xs={1} sm={2} md={4} className="g-4">
                     
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Total Users</Card.Title>
-                                    <Card.Text>1,245</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <p className='card-title'>Total Clients</p>
+                                        <p className='card-text'>678</p>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Total Requests</Card.Title>
-                                    <Card.Text>45</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <p className='card-title'>Total Requests</p>
+                                        <p className='card-text'>1,983</p>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Active Requests</Card.Title>
-                                    <Card.Text>8</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <p className='card-title'>Active Request</p>
+                                        <p className='card-text'>25</p>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Pending Approvals</Card.Title>
-                                    <Card.Text>3</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <p className='card-title'>Pending Requests</p>
+                                        <p className='card-text'>6</p>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
+                </section>
 
-            {/* Statistics Section with Graphs */}
-            <section className="dashboard-statistics">
-                <h2>Statistics</h2>
-                <Container>
-                    <Row xs={1} sm={2} md={3} className="g-4">
-                        {/* Line Chart: Active Users Over Time */}
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Active Users (Monthly)</Card.Title>
-                                    <Line data={lineChartData} />
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                {/* Statistics Section with Graphs */}
+                <section className="dashboard-sections dashboard-statistics">
+                    <h3>Statistics</h3>
+                    <Container>
+                        <Row xs={1} sm={2} md={3} className="g-4">
+                            {/* Line Chart: Active Users Over Time */}
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title>Active Users (Monthly)</Card.Title>
+                                        <Line data={lineChartData} />
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        {/* Bar Chart: Requests and Users */}
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Current Statistics</Card.Title>
-                                    <Bar data={barChartData} />
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                            {/* Bar Chart: Requests and Users */}
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title>Current Statistics</Card.Title>
+                                        <Bar data={barChartData} />
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        {/* Pie Chart: Request Distribution */}
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>Request Distribution</Card.Title>
-                                    <Pie data={pieChartData} />
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+                            {/* Pie Chart: Request Distribution */}
+                            <Col>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title>Request Distribution</Card.Title>
+                                        <Pie data={pieChartData} />
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
+                </section>
 
-        </main>
-    </div>
+            </main>
+        </div>
     );
 };
 
