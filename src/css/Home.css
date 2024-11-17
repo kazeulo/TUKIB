@@ -24,71 +24,71 @@
 }
 
 .home-bg::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top right, 
-		rgba(142, 21, 55, 0.75) 20%,   
-		rgba(90, 39, 119, 0.7) 45%, 
-		rgba(218, 129, 60, 0.5) 75%,  
-		rgba(255, 204, 53, 0.5) 100% 
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		to top right,
+		rgba(142, 21, 55, 0.75) 20%,
+		rgba(90, 39, 119, 0.7) 45%,
+		rgba(218, 129, 60, 0.5) 75%,
+		rgba(255, 204, 53, 0.5) 100%
 	);
-
 }
 
 .home-background > * {
-    position: relative;
-    z-index: 2; 
+	position: relative;
+	z-index: 2;
 }
 
 /* Text styling positioned to the left */
 .home-text {
 	position: relative;
 	color: white;
-	text-align: left; 
+	text-align: left;
 	z-index: 1;
 	max-width: 750px;
 	padding: 70px;
 }
 
-.home-text h1{
+.home-text h1 {
 	font-family: 'Poppins';
 	font-weight: 500;
 	margin-bottom: 20px;
 	font-size: 38px;
 }
 
-.home-text p{
+.home-text p {
 	font-size: 14px;
 	font-weight: 500;
 	font-family: 'Quicksand';
 }
 
-.banner-button{
+.banner-button {
 	margin-top: 6px;
 }
 
 /* section */
-section{
+section {
 	width: 100%;
 	/* margin: 20px 0; */
 	padding: 30px 50px;
 }
 
-.sectionTitle{
+.sectionTitle {
 	margin-top: 20px;
 	margin-bottom: 35px;
 }
 
-.sectionTitle h6{
+.sectionTitle h6 {
 	text-align: center;
 	font-size: 14px;
 }
 
-.sectionTitle h2{
+.sectionTitle h2 {
 	text-align: center;
 	font-weight: 500;
 	font-family: 'Poppins';
@@ -97,7 +97,7 @@ section{
 /* Services Section */
 .servicesSection {
 	/* border: 1px solid black; */
-	text-align: center; 
+	text-align: center;
 	padding: 20px 0 10px;
 }
 
@@ -105,10 +105,10 @@ section{
 	text-align: left;
 	text-align: justify;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr); 
-	gap: 25px; 
-	max-width: 1200px; 
-	margin: 0 auto; 
+	grid-template-columns: repeat(2, 1fr);
+	gap: 25px;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .service-card {
@@ -118,17 +118,16 @@ section{
 	transition: all ease 0.5s;
 }
 
-.service-card:hover{
+.service-card:hover {
 	transform: translateY(-5px);
 	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-
 }
 
-.icon-container{
+.icon-container {
 	text-align: center;
 }
 
-.services-icon{
+.services-icon {
 	margin: 25px 0;
 	color: white;
 }
@@ -151,41 +150,41 @@ section{
 /* News Section */
 .newsSection {
 	/* border: 1px solid black; */
-    max-width: 1400px;
+	max-width: 1400px;
 	margin-bottom: 20px;
 }
 
 .news-item {
 	/* border: 1px solid #ccc; */
 	padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	/* box-shadow: 0 0 5px 5px rgba(108, 108, 108, 0.1); */
 }
 
 .news-image-container {
-    width: 450px;
+	width: 450px;
 }
 
 .news-image {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
 
 .news-text-container {
 	text-align: justify;
-    flex: 2;
-    padding-left: 50px;
+	flex: 2;
+	padding-left: 50px;
 }
 
 .news-title {
 	margin-top: 40px;
 	font-family: 'Poppins';
-    font-weight: bold;
+	font-weight: bold;
 }
 
-.news-date{
+.news-date {
 	font-size: 12px;
 	color: #888;
 	padding: 10px 0;
@@ -193,57 +192,64 @@ section{
 
 .news-description {
 	font-size: 14px;
-    color: #666;
+	color: #666;
 }
 
-.read-more{
+.read-more {
 	margin-top: 20px;
 	max-width: 140px;
 }
 
 /*news section flexibility*/
 @media (max-width: 767px) {
-    .news-item {
-        flex-direction: column;
-        align-items: center;
-    }
+	.news-item {
+		flex-direction: column;
+		align-items: center;
+	}
 
-    .news-text-container {
-        padding-left: 0;
-    }
+	.news-text-container {
+		padding-left: 0;
+	}
 
-    .news-image-container {
-        margin-bottom: 20px;
-    }
+	.news-image-container {
+		max-width: 100vw;
+		margin-bottom: 20px;
+	}
+
+	.news-image {
+		width: 100%;
+		height: auto;
+	}
 }
 
 .statisticCounter {
-    position: relative; 
-    z-index: 1; 
-    width: 100%;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    overflow: hidden;
-    background: url('../assets/stat_counter.jpg') no-repeat center center fixed; 
-    background-size: cover; 
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	background: url('../assets/stat_counter.jpg') no-repeat center center fixed;
+	background-size: cover;
 	padding: 80px 0 !important;
 	margin-top: 25px;
 }
 
 /* Gradient Overlay */
 .statisticCounter::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top right, 
-        rgba(142, 21, 55, 0.8) 15%,   
-        rgba(108, 51, 141, 0.8) 45%, 
-        rgba(218, 129, 60, 0.8) 70%,  
-        rgba(255, 204, 53, 0.8) 100% 
-    );
-    z-index: 0; 
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		to top right,
+		rgba(142, 21, 55, 0.8) 15%,
+		rgba(108, 51, 141, 0.8) 45%,
+		rgba(218, 129, 60, 0.8) 70%,
+		rgba(255, 204, 53, 0.8) 100%
+	);
+	z-index: 0;
 }

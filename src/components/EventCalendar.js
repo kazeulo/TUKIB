@@ -16,7 +16,7 @@ const CustomToolbar = ({ onNavigate, label, onView, currentView }) => {
 
 	return (
 		<div className='custom-toolbar'>
-			<span className='today-button'>
+			<span className='today-button d-none d-md-inline'>
 				<button onClick={() => onNavigate('TODAY')}>Today</button>
 			</span>
 			<span
@@ -112,16 +112,15 @@ const EventCalendar = () => {
 
 	return (
 		<div className='event-calendar-container'>
-			{/* <h3>Calendar of Schedules</h3> */}
 			<BigCalendar
 				localizer={localizer}
 				events={calendarEvents}
 				startAccessor='start'
 				endAccessor='end'
-				style={{ height: '75vh', width: '75vw' }} // Set width to 100% for maximum width
-				views={['month', 'week', 'day']} // Enable month, week, and day views
-				defaultView={window.innerWidth < 768 ? 'day' : 'month'} // Default to day view on mobile
-				toolbar={true} // Show toolbar for navigating views
+				style={{ height: '75vh', width: '75vw' }}
+				views={['month', 'week', 'day', 'agenda']}
+				defaultView={window.innerWidth < 768 ? 'day' : 'month'}
+				toolbar={true}
 				components={{
 					toolbar: (props) => (
 						<CustomToolbar
