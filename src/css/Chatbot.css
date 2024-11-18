@@ -5,7 +5,7 @@
 	right: 20px;
 	width: 60px;
 	height: 60px;
-	background-color: #6e1214; /* Bubble color */
+	background-color: #8e1537; /* Bubble color */
 	color: white; /* Icon color */
 	border-radius: 50%; /* Make it a circle */
 	display: flex;
@@ -15,6 +15,12 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	font-size: 24px; /* Icon size */
 	z-index: 9999999;
+	transition: all ease 0.3s;
+}
+
+.floating-bubble:hover{
+	transform: translateY(-5px);
+	background-color: #eec035;
 }
 
 .minimize-button {
@@ -54,7 +60,7 @@
 	z-index: 9999999;
 }
 .chatbot-header {
-	background-color: #6e1214;
+	background-color: #8e1537;
 	color: white;
 	padding: 10px;
 	display: flex;
