@@ -9,7 +9,9 @@ import '../css/AboutUs.css';
 import Header from './Header';
 import Footer from './Footer';
 import logo from '../assets/new_logo.png';
-import icon from '../assets/rrc_icon.png';
+import missionPic from '../assets/missionpic.png';
+import visionPic from '../assets/visionpic.png';
+// import icon from '../assets/rrc_icon.png';
 
 
 const AboutUs = () => {
@@ -40,7 +42,7 @@ const AboutUs = () => {
                 <div className="cards-container">
                     <div className="card vision-card">
                         <img 
-                            src={icon}
+                            src={visionPic}
                             alt="Vision Image" 
                         />
                         <h2>Our Vision</h2>
@@ -50,7 +52,7 @@ const AboutUs = () => {
                     </div>
                     <div className="card mission-card">
                         <img 
-                            src={icon} 
+                            src={missionPic} 
                             alt="Mission Image" 
                         />
                         <h2>Our Mission</h2>
@@ -63,7 +65,7 @@ const AboutUs = () => {
 
             {/* Section 3 */}
             <section className="org-chart-section">
-                <h2>Organizational Chart</h2>
+                <h2>Executive Board</h2>
                 <p>Website Undergoing Construction.</p>
             </section>
             <Footer />
