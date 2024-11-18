@@ -47,9 +47,9 @@ const Header = () => {
 				</Nav.Item>
 
 				<Nav.Item>
-				  <a href="#about" className="nav-link">
-					About Us
-				  </a>
+				<Link to="/about" className="nav-link">
+    					About Us
+  					</Link>
 				</Nav.Item>
 
 				<Nav.Item>
