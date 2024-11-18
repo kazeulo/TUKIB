@@ -11,7 +11,7 @@ import spImage from '../assets/servicepage_sp.png';
 import equipmentImage from '../assets/servicepage_equipment.png';
 import trainingImage from '../assets/servicepage_training.png';
 import facilityImage from '../assets/servicepage_facility.png';
-// import bannerImage from '../assets/banner.png';  
+// import bannerImage from '../assets/pagebanner.png';  
 
 const Service = () => {
     const services = [
@@ -41,7 +41,6 @@ const Service = () => {
         <div className="service-page">
             <Header />
             <div className="service-banner">
-                {/* <img src={bannerImage} alt="Service Banner" className="banner-image" /> */}
                 <div className="service-text">
                     <h1>Our Services</h1>
                     <p>Discover the range of services provided by UPV Regional  Research Center.</p>
@@ -50,7 +49,7 @@ const Service = () => {
 
             <div className="service-cards">
                 {services.map((service, index) => (
-                    <div key={index} className="service-card">
+                    <div key={index} className="service-card_">
                         <div className="service-content">
                             <h3 className="service-title">{service.title}</h3>
                             <p className="service-description">{service.description}</p>
