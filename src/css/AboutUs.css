@@ -1,0 +1,136 @@
+/* General */
+.about-us {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Section 1 */
+.about-section {
+    background-color: #fff;
+    padding: 40px 140px 80px;
+    text-align: center;
+}
+
+.about-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.about-content h1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #A01842;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align:justify;
+    margin-bottom: 10px;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+}
+
+
+/* Section 2 */
+.mission-vision-section {
+    background-image: linear-gradient(to top right, 
+    rgba(142, 21, 55, 0.75) 20%,   
+    rgba(90, 39, 119, 0.7) 45%, 
+    rgba(218, 129, 60, 0.5) 75%,  
+    rgba(255, 204, 53, 0.5) 100%) , url('../assets/about-sectionbg.png');
+    /* background: url('../assets/about-sectionbg.png') no-repeat center center/cover; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;  
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* .mission-vision-section::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top right, 
+		rgba(142, 21, 55, 0.75) 20%,   
+		rgba(90, 39, 119, 0.7) 45%, 
+		rgba(218, 129, 60, 0.5) 75%,  
+		rgba(255, 204, 53, 0.5) 100% 
+	);
+} */
+
+.cards-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: 24px;
+    color: #A01842;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Section 3 */
+.org-chart-section {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.org-chart-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.org-chart-section p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+    }
+    .card {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

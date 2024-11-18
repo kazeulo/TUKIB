@@ -8,8 +8,7 @@ import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import Service from './components/Service';
 import ScrollTop from './components/ScrollTop';
-
-
+import AboutUs from './components/AboutUs';
 const App = () => {
 	return (
 		<Router>
@@ -32,9 +31,13 @@ const App = () => {
 				<Route
           			path='/services' 
           			element={<Service />} 
-       	/>	
+       			/>	
 
-		/>
+				<Route
+          			path='/about' 
+          			element={<AboutUs />} 
+       			/>	
+				
 				{/* Add more routes here as needed */}
 			</Routes>
 			<ScrollTop />
