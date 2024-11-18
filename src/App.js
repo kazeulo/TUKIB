@@ -9,6 +9,8 @@ import AdminDashboard from './components/AdminDashboard';
 import Service from './components/Service';
 import ScrollTop from './components/ScrollTop';
 import AboutUs from './components/AboutUs';
+import NewsPage from './components/NewsPage';
+
 const App = () => {
 	return (
 		<Router>
@@ -38,6 +40,10 @@ const App = () => {
           			element={<AboutUs />} 
        			/>	
 				
+				<Route
+          			path='/news' 
+          			element={<NewsPage />} 
+       			/>
 				{/* Add more routes here as needed */}
 			</Routes>
 			<ScrollTop />

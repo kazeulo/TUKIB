@@ -41,9 +41,9 @@ const Header = () => {
 				</Nav.Item>
 
 				<Nav.Item>
-				  <a href="#news" className="nav-link">
+				<Link to="/news" className="nav-link">
 					News
-				  </a>
+				  </Link>
 				</Nav.Item>
 
 				<Nav.Item>
