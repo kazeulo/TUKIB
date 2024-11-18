@@ -1,10 +1,10 @@
-/* General Styles */
+/* General */
 .news-page {
     font-family: 'Poppins', sans-serif;
     /* color: #333; */
 }
 
-/* Banner Section */
+/* Banner */
 .news-banner {
     background: linear-gradient(to right, 
         rgba(110, 18, 20, 0.844) 15%,   
@@ -39,19 +39,19 @@
 /* Featured News Section */
 .featured-news {
     display: flex;
-    margin: 30px auto;
-    padding: 20px;
+    margin: 60px auto 40px;
+    padding: 30px;
     max-width: 1200px;
-    gap: 20px;
+    gap: 40px;
     background-color: #ffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .featured-news-image img {
     width: 100%;
     max-width: 400px;
-    border-radius: 8px;
+    border-radius: 0px;
 }
 
 .featured-news-content {
@@ -59,6 +59,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* margin: 20px auto 20px; */
 }
 
 .news-tag {
@@ -70,14 +71,19 @@
 .featured-news-content h2 {
     font-size: 24px;
     /* color: #0000; */
-    font-style: bold;
+    font-weight: bold;
     margin: 10px 0;
+    position: relative;
+}
+.featured-news-content h2:hover {
+    text-decoration: underline; 
 }
 
 .featured-news-content p {
     margin: 10px 0;
     font-size: 16px;
     line-height: 1.6;
+    text-align: justify;
     /* color: #555; */
 }
 
@@ -92,9 +98,12 @@
     margin: 30px auto;
 }
 
-.news-section h2 {
+.news-section h4 {
     font-size: 28px;
     margin-bottom: 20px;
+    color: #9b1c31;
+    font-weight: bold;
+
 }
 
 .news-cards {
@@ -104,9 +113,9 @@
 }
 
 .news-card {
-    background-color: #e0aee4;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 0px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.241);
     overflow: hidden;
     transition: transform 0.3s ease;
 }
@@ -122,13 +131,20 @@
 }
 
 .news-card-content {
-    padding: 15px;
+    padding: 20px;
 }
 
 .news-card-content h3 {
     font-size: 18px;
-    color: #333;
+    color: #9b1c31;
     margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+
+.news-card-content h3:hover {
+    text-decoration: underline; 
 }
 
 .news-card-content p {
@@ -136,6 +152,8 @@
     color: #555;
     margin-bottom: 10px;
     line-height: 1.6;
+    text-align: justify;
+
 }
 
 .news-card-content .news-timestamp {
@@ -143,11 +161,4 @@
     color: #999;
 }
 
-/* Footer Section */
-footer {
-    margin-top: 20px;
-    text-align: center;
-    padding: 20px;
-    background-color: #6e1214;
-    color: #fff;
-}
+

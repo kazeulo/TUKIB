@@ -13,7 +13,7 @@ import newsImage3 from '../assets/news3.png';
 
 const NewsPage = () => {
     const featuredNews = {
-        title: "ICYMI: MSN Lab conducts SEM Training among SoTech studies",
+        title: "ICYMI: MSN Lab Conducts SEM Training Among SoTech studies",
         description: "The Material Science and Nanotechnology Laboratory of the UP Visayas Regional Research Center conducted a training on the Basic Principles and Operations of Scanning Electron Microscope with Energy Dispersive Spectroscopy (SEM-EDS) among six Chemical Engineering students of the School of Technology - UP Visayas last March 31, 2023 at the MSN Laboratory, RRC - Freshwater Aquaculture Station (MSN Lab, RRC - FAS).",
         timestamp: "2 hours ago",
         image: newsImage0,
@@ -21,21 +21,21 @@ const NewsPage = () => {
 
     const newsCards = [
         {
-            title: "Strengthening Research and Public Service Collaborations: UPV welcomes CAPSU guests",
+            title: "Strengthening Research and Public Service Collaborations: UPV welcomes CAPSU Guests",
             description: "On July 5, 2024, Capiz State University (CAPSU) - College of Engineering and Architecture Technology visited the University of the Philippines Visayas - Regional Research Center (UPV RRC) and the College of Fisheries and Ocean Sciences (CFOS) in Miagao, Iloilo.",
             timestamp: "2 hours ago",
             image: newsImage1,
         },
         {
-            title: "UPV RRC Partners with Panublix for extension workshop on Regenerative Textile",
+            title: "UPV RRC Partners with Panublix for Extension Workshop on Regenerative Textile",
             description: "Weavers, cotton farmers and artisan enterprises coming from different parts of Region VI came together for the 'The Regenerative Philippines Innovation Workshop' held at the UPV Regional Research Center (UPV-RRC) last June 18, 2024.",
-            timestamp: "5 hours ago",
+            timestamp: "21 hours ago",
             image: newsImage2,
         },
         {
-            title: "ICYMI: The RRC Food, Feeds, & Functional Nutrition Laboratory conducted a Seminar",
+            title: "ICYMI: The RRC Food, Feeds, & Functional Nutrition Laboratory Conducted a Seminar",
             description: "This activity highlights the capstone outputs of the thesis and special problem student collaborators supported by the FFN Lab. This also nurtures an inclusive research community through mentorship and collaboration.",
-            timestamp: "6 hours ago",
+            timestamp: "24 hours ago",
             image: newsImage3,
         },
     ];
@@ -61,7 +61,7 @@ const NewsPage = () => {
                 </div>
             </div>
             <div className="news-section">
-                <h2>Stories</h2>
+                <h4>Stories</h4>
                 <div className="news-cards">
                     {newsCards.map((news, index) => (
                         <div key={index} className="news-card">
