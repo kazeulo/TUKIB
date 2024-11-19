@@ -27,12 +27,19 @@
 .sidebar-nav .nav-link {
     color: #ffffff !important;
     padding: 7px 20px;
+    transition:  all ease 0.4s;
 }
   
 .sidebar-nav .nav-link:hover {
-    background-color: #34495e;
+    background-color: #eec035;
+    color: #8e1537;
 }
-  
+
+.sidebar-nav .nav-link.active {
+    background-color: #eec035; 
+    color: #8e1537;
+}
+
 .main-content {
     margin-left: 250px;
     z-index: 999;
