@@ -43,7 +43,7 @@ const AboutUs = () => {
                     <div className="card vision-card">
                         <img 
                             src={visionPic}
-                            alt="Vision Image" 
+                            alt={""}
                         />
                         <h2>Our Vision</h2>
                         <p>
@@ -53,7 +53,7 @@ const AboutUs = () => {
                     <div className="card mission-card">
                         <img 
                             src={missionPic} 
-                            alt="Mission Image" 
+                            alt={""}
                         />
                         <h2>Our Mission</h2>
                         <p>
