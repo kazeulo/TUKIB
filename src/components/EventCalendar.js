@@ -4,49 +4,41 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../css/EventCalendar.css';
 
-// Import events from Events.js
-import { events } from './Events';
-
 const localizer = momentLocalizer(moment);
 
 const CustomToolbar = ({ onNavigate, label, onView, currentView }) => {
-	const [activeView, setActiveView] = useState(currentView); // Track the active view
+	const [activeView, setActiveView] = useState(currentView);
 
 	const handleButtonClick = (view) => {
-		setActiveView(view); // Update the active view when a button is clicked
-		onView(view); // Trigger the onView callback to change the calendar view
+		setActiveView(view);
+		onView(view);
 	};
 
 	return (
 		<div className='custom-toolbar'>
-			{/* Today Button */}
 			<span className='today-button d-none d-md-inline'>
 				<button onClick={() => onNavigate('TODAY')}>Today</button>
 			</span>
-
-			{/* Navigation - Back Arrow (hidden on mobile) */}
 			<span
 				className='navigate-prev'
-				onClick={() => onNavigate('PREV')}
-				style={{ cursor: 'pointer' }}>
-				<i className='fas fa-chevron-left'></i> {/* Font Awesome Left Arrow */}
+				onClick={() => onNavigate('PREV')}>
+				<i className='fas fa-chevron-left'></i>
 			</span>
-
-			{/* Month Label (hidden on mobile) */}
 			<span className='month-label'>{label}</span>
-
-			{/* Navigation - Next Arrow (hidden on mobile) */}
 			<span
 				className='navigate-next'
-				onClick={() => onNavigate('NEXT')}
-				style={{ cursor: 'pointer' }}>
-				<i className='fas fa-chevron-right'></i>{' '}
-				{/* Font Awesome Right Arrow */}
+				onClick={() => onNavigate('NEXT')}>
+				<i className='fas fa-chevron-right'></i>
 			</span>
-
-			{/* View Switcher (Month, Week, Day) - hidden on mobile */}
 			<span className='view-switcher-wrapper d-none d-md-inline'>
 				<div className='view-switcher'>
+					<button
+						onClick={() => handleButtonClick('agenda')}
+						className={`btn btn-outline-primary ${
+							activeView === 'agenda' ? 'active' : ''
+						}`}>
+						Agenda
+					</button>
 					<button
 						onClick={() => handleButtonClick('day')}
 						className={`btn btn-outline-primary ${
@@ -75,37 +67,51 @@ const CustomToolbar = ({ onNavigate, label, onView, currentView }) => {
 };
 
 const EventCalendar = () => {
-	const [calendarEvents] = useState(events);
-	const [currentView, setCurrentView] = useState('month'); // Track current view
+	const [calendarEvents, setCalendarEvents] = useState([]);
+	const [currentView, setCurrentView] = useState('month');
 
-	// Check for mobile view on component mount
 	useEffect(() => {
+		fetch('http://localhost:5000/api/events')
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.events) {
+					// Ensure start and end are valid Date objects
+					const eventsWithDates = data.events.map((event) => ({
+						...event,
+						start: new Date(event.start), // Convert to Date object
+						end: new Date(event.end), // Convert to Date object
+					}));
+					setCalendarEvents(eventsWithDates); // Set events with valid dates
+				}
+			})
+			.catch((error) => {
+				console.error('Error fetching events:', error);
+			});
+
+		// Adjust for mobile view
 		if (window.innerWidth < 768) {
-			setCurrentView('day'); // Switch to day view for mobile screens
+			setCurrentView('day'); // Default to day view for mobile
 		}
 	}, []);
 
-	// Adjusted eventPropGetter to style only appearance
 	const eventPropGetter = (event) => ({
 		style: {
-			backgroundColor: '#6e1214', // Custom background color
-			color: 'white', // Text color
-			borderRadius: '5px', // Rounded corners
-			padding: '5px', // Add some padding
-			fontSize: '12px', // Adjust font size
-			height: 'auto', // Allow height to auto-adjust based on content
+			backgroundColor: '#6e1214',
+			color: 'white',
+			borderRadius: '5px',
+			padding: '5px',
+			fontSize: '12px',
+			height: 'auto',
 			left: '0%',
 		},
 	});
 
-	// Handle view change
 	const handleViewChange = (view) => {
 		setCurrentView(view);
 	};
 
 	return (
 		<div className='event-calendar-container'>
-			{/* <h3>Calendar of Schedules</h3> */}
 			<BigCalendar
 				localizer={localizer}
 				events={calendarEvents}
@@ -119,13 +125,13 @@ const EventCalendar = () => {
 					toolbar: (props) => (
 						<CustomToolbar
 							{...props}
-							currentView={currentView} // Pass the current view as a prop
+							currentView={currentView}
 						/>
 					),
 				}}
-				eventPropGetter={eventPropGetter} // Use custom styles for events
-				view={currentView} // Sync with the current view state
-				onView={handleViewChange} // Handle view change
+				eventPropGetter={eventPropGetter}
+				view={currentView}
+				onView={handleViewChange}
 			/>
 		</div>
 	);

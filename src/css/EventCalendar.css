@@ -6,11 +6,14 @@
 	/* border-radius: 18px; */
 	margin: 20px auto;
 	border: 1px solid rgb(217, 217, 217);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .rbc-event {
 	background-color: #6e121430 !important;
-	color: #8e1537!important;
+	color: #8e1537 !important;
 	border-radius: 0 !important;
 	padding: 5px;
 	font-size: 12px;
@@ -127,6 +130,11 @@
 	background-color: #eec035;
 }
 
-.custom-toolbar button:active{
+.custom-toolbar button:active {
 	background-color: #eec035;
+}
+
+.rbc-agenda-view table.rbc-agenda-table td {
+	background-color: white;
+	color: black;
 }
