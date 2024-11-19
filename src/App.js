@@ -7,6 +7,10 @@ import Home from './components/Home';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import ClientProfile from './components/ClientProfile';
+import Service from './components/Service';
+import ScrollTop from './components/ScrollTop';
+import AboutUs from './components/AboutUs';
+import NewsPage from './components/NewsPage';
 
 const App = () => {
 	return (
@@ -28,8 +32,24 @@ const App = () => {
 					path='/clientProfile'
 					element={<ClientProfile />}
 				/>
+
+				<Route
+          			path='/services' 
+          			element={<Service />} 
+       			/>	
+
+				<Route
+          			path='/about' 
+          			element={<AboutUs />} 
+       			/>	
+				
+				<Route
+          			path='/news' 
+          			element={<NewsPage />} 
+       			/>
 				{/* Add more routes here as needed */}
 			</Routes>
+			<ScrollTop />
 			<Chatbot />
 		</Router>
 	);
