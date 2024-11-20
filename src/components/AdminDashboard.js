@@ -11,7 +11,8 @@ import {
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 import { Line, Bar, Pie } from 'react-chartjs-2';
-// import Chart from 'chart.js/auto';
+// eslint-disable-next-line
+import Chart from 'chart.js/auto';
 import '../css/AdminDashboard.css';
 import EventCalendar from './EventCalendar';
 

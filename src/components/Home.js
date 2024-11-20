@@ -10,7 +10,6 @@ import '../css/Variables.css';
 import Header from './Header';
 import Footer from './Footer';
 import ContactForm from './ContactForm';
-import EventCalendar from './EventCalendar';
 import StatCounter from './StatCounter';
 import ScrollTop from './ScrollTop';
 
@@ -202,15 +201,6 @@ const Home = () => {
 					</div>
 					<ContactForm />
 				</section>
-				{/*calendar section*/}
-				<section className='calendarSection'>
-					<div className='sectionTitle text-center'>
-						<h6>Subtitle</h6>
-						<h2>Calendar of Schedules</h2>
-					</div>
-					<EventCalendar />
-				</section>
-				{/* end of calendar section */}
 			</main>
 			<Footer />
 			<ScrollTop />
