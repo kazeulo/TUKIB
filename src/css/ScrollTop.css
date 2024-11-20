@@ -8,7 +8,7 @@
 }
 
 .scroll-button {
-	background-color: #007bff;
+	background-color: rgba(0, 0, 0, 0.2);
 	width: 30px;
 	height: 30px;
 	border-radius: 50%; /* Makes the button circular */
@@ -21,7 +21,7 @@
 }
 
 .scroll-button:hover {
-	background-color: #0056b3;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .arrow-icon {

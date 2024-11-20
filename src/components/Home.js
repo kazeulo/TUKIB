@@ -35,7 +35,7 @@ const Home = () => {
 	};
 
 	return (
-		<div className='home'>
+		<div>
 			<Header />
 			<main className='home-content'>
 				{/* banner */}

@@ -30,6 +30,7 @@ const StatisticCounter = ({ stats }) => {
 		return () => {
 			// clean up the observer when the component unmounts
 			if (counterRef.current) {
+				// eslint-disable-next-line
 				observer.unobserve(counterRef.current);
 			}
 		};
