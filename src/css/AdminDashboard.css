@@ -109,10 +109,18 @@
 }
   
 .notification-btn:hover{
-    color: #9e9e9e !important;
+    color: #eec035 !important;
+}
+
+/* dynamic dashboard */
+
+.dashboard-sections{
+    min-height: 85vh;
 }
   
 .dashboard-sections h3 {
+    font-weight: 500 !important;
+    font-family: 'Poppins';
     margin: 25px;
 }
   
@@ -142,6 +150,26 @@
 
 .dashboard-statistics .card-body {
     padding: 20px;
+}
+
+/* requests*/
+
+.request_table{
+    font-size:  14px;
+    font-family: 'Quicksand';
+    border-radius: 20px;
+    /* box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.2); */
+    /* padding: 50px !important; */
+}
+
+.request_table td,
+.request_table th {
+  padding: 10px; 
+}
+
+.table-rounded {
+    border-radius: 15px;
+    overflow: hidden; 
 }
 
 

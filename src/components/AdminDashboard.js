@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Button, Card, Nav, Navbar } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Nav, Navbar, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa'; 
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import '../css/Variables.css'; 
 import '../css/AdminDashboard.css'; 
 import Adminpic from '../assets/adminpic.jpg';
 
@@ -161,7 +162,7 @@ const AdminDashboard = () => {
                         </Container>
 
                         {/* Statistics section */}
-                        <div className="dashboard-sections dashboard-statistics">
+                        <div className="dashboard-statistics">
                             <h3>Statistics</h3>
                             <Container>
                                 <Row xs={1} sm={2} md={3} className="g-4">
@@ -203,7 +204,7 @@ const AdminDashboard = () => {
                         
                         {/* Table for displaying requests */}
                         <Container>
-                            <table className="table table-striped">
+                            <Table className="table-rounded request_table">
                                 <thead>
                                     <tr>
                                         <th>Request ID</th>
@@ -228,16 +229,19 @@ const AdminDashboard = () => {
                                             <td>
                                                 {/* diffirent buttons for different status */}
                                                 {request.status === 'Pending' && (
-                                                    <Button variant="primary" size="sm">Accept</Button>
+                                                    <Button size="sm" className='mx-1'>Accept</Button>
                                                 )}
                                                 {request.status === 'Ongoing' && (
-                                                    <Button variant="success" size="sm">Mark as Done</Button>
+                                                    <div>
+                                                        <Button size="sm" className='mx-1'>Mark as Done</Button>
+                                                        <Button size="sm" variant="danger" className="ml-2">Cancel</Button>
+                                                    </div>
                                                 )}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
-                            </table>
+                            </Table>
                         </Container>
                     </section>
                 )}
