@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -11,46 +12,59 @@ import Service from './components/Service';
 import ScrollTop from './components/ScrollTop';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
+import Preloader from './components/Preloader';
 
 const App = () => {
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 1000);
+
+		return () => clearTimeout(timer);
+	}, []);
+
 	return (
 		<Router>
-			<Routes>
-				<Route
-					path='/'
-					element={<Home />}
-				/>
-				<Route
-					path='/login'
-					element={<Login />}
-				/>
-				<Route
-					path='/adminDashboard'
-					element={<AdminDashboard />}
-				/>
-				<Route
-					path='/clientProfile'
-					element={<ClientProfile />}
-				/>
-
-				<Route
-          			path='/services' 
-          			element={<Service />} 
-       			/>	
-
-				<Route
-          			path='/about' 
-          			element={<AboutUs />} 
-       			/>	
-				
-				<Route
-          			path='/news' 
-          			element={<NewsPage />} 
-       			/>
-				{/* Add more routes here as needed */}
-			</Routes>
-			<ScrollTop />
-			<Chatbot />
+			{loading ? (
+				<Preloader />
+			) : (
+				<>
+					<Routes>
+						<Route
+							path='/'
+							element={<Home />}
+						/>
+						<Route
+							path='/login'
+							element={<Login />}
+						/>
+						<Route
+							path='/adminDashboard'
+							element={<AdminDashboard />}
+						/>{' '}
+						<Route
+							path='/clientProfile'
+							element={<ClientProfile />}
+						/>
+						<Route
+							path='/services'
+							element={<Service />}
+						/>
+						<Route
+							path='/about'
+							element={<AboutUs />}
+						/>
+						<Route
+							path='/news'
+							element={<NewsPage />}
+						/>
+					</Routes>
+					<ScrollTop />
+					<Chatbot />
+				</>
+			)}
 		</Router>
 	);
 };

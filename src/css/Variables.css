@@ -1,11 +1,12 @@
 /*set font as poppins*/
 :root {
-  --primary-color: #8e1537; 
-  --secondary-color: #eec035;
+    --primary-color: #8e1537; 
+    --secondary-color: #eec035;
 }
 
 :root {
-  --primary-font: 'Quicksand', sans-serif;
+    --primary-font: 'Poppins', sans-serif;
+    --secondary-font: 'Quicksand', sans-serif;
 }
 
 /* pls use these to minimize the code and for consistency*/
