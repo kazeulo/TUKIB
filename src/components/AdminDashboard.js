@@ -17,6 +17,7 @@ import Chart from 'chart.js/auto';
 import '../css/Variables.css';
 import '../css/AdminDashboard.css';
 import Adminpic from '../assets/adminpic.jpg';
+import EventCalendar from './EventCalendar';
 
 const AdminDashboard = () => {
 	// State to manage the active section
@@ -290,6 +291,7 @@ const AdminDashboard = () => {
 						</Container>
 					</section>
 				)}
+				<EventCalendar />
 
 				{activeSection === 'users' && (
 					<section className='dashboard-sections dashboard-users'>
