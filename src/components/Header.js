@@ -35,21 +35,21 @@ const Header = () => {
 				</Nav.Item>
 				
 				<Nav.Item>
-				  <a href="#services" className="nav-link">
-					Services
-				  </a>
+					<Link to="/services" className="nav-link">
+    					Services
+  					</Link>
 				</Nav.Item>
 
 				<Nav.Item>
-				  <a href="#news" className="nav-link">
+				<Link to="/news" className="nav-link">
 					News
-				  </a>
+				  </Link>
 				</Nav.Item>
 
 				<Nav.Item>
-				  <a href="#about" className="nav-link">
-					About Us
-				  </a>
+				<Link to="/about" className="nav-link">
+    					About Us
+  					</Link>
 				</Nav.Item>
 
 				<Nav.Item>

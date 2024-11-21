@@ -1,0 +1,206 @@
+/* General */
+.about-us {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Section 1 */
+.about-section {
+    background-color: #fff;
+    padding: 40px 140px 80px;
+    text-align: center;
+}
+
+.about-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.about-content h1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #A01842;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align:justify;
+    margin-bottom: 10px;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+}
+
+
+/* Section 2 */
+.mission-vision-section {
+    background-image: linear-gradient(to top right, 
+    rgba(142, 21, 55, 0.75) 20%,   
+    rgba(90, 39, 119, 0.7) 45%, 
+    rgba(218, 129, 60, 0.5) 75%,  
+    rgba(255, 204, 53, 0.5) 100%) , url('../assets/about-sectionbg.png');
+    /* background: url('../assets/about-sectionbg.png') no-repeat center center/cover; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;  
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* .mission-vision-section::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top right, 
+		rgba(142, 21, 55, 0.75) 20%,   
+		rgba(90, 39, 119, 0.7) 45%, 
+		rgba(218, 129, 60, 0.5) 75%,  
+		rgba(255, 204, 53, 0.5) 100% 
+	);
+} */
+
+.cards-container {
+    display: flex;
+    gap: 80px;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* padding: 20px; */
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #A01842;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Section 3 */
+.org-chart-section {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.org-chart-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.org-chart-section p {
+    font-size: 16px;
+    color: #666;
+}
+
+
+/* Section 3 - Organizational Chart */
+.org-chart-section {
+    background-color: #f9f9f9;
+    padding: 60px 40px;
+}
+
+.org-chart-section h2 {
+    font-size: 28px;
+    color: #A01842;
+    margin-bottom: 30px;
+}
+
+.division-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #A01842;
+    margin: 40px 0 20px;
+    text-align: center;
+}
+
+.org-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.org-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.org-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.org-card img {
+    width: 100px;
+    height: 100px;
+    /* border-radius: 50%; */
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.org-card h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.org-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+    }
+    .card {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
