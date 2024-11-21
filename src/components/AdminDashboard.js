@@ -213,6 +213,7 @@ const AdminDashboard = () => {
 								</Row>
 							</Container>
 						</div>
+						<EventCalendar />
 					</section>
 				)}
 
@@ -291,7 +292,6 @@ const AdminDashboard = () => {
 						</Container>
 					</section>
 				)}
-				<EventCalendar />
 
 				{activeSection === 'users' && (
 					<section className='dashboard-sections dashboard-users'>
