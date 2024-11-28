@@ -1,4 +1,4 @@
-/*set font as poppins*/
+/* global variables */
 :root {
     --primary-color: #8e1537; 
     --secondary-color: #eec035;
@@ -19,6 +19,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--primary-font);
+}
+
+p, i {
+ font-family: 'Quicksand';
 }
 
 /* buttons */

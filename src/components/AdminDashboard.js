@@ -9,10 +9,10 @@ import '../css/AdminDashboard.css';
 import Adminpic from '../assets/adminpic.jpg';
 
 const AdminDashboard = () => {
-    // State to manage the active section
+    // state to manage the active section
     const [activeSection, setActiveSection] = useState('overview'); // Default active section
 
-    // Data for the charts
+    // data for the charts
     const lineChartData = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [
@@ -61,6 +61,8 @@ const AdminDashboard = () => {
                 </Navbar>
 
                 <Nav defaultActiveKey="/home" className="flex-column sidebar-nav">
+
+                    {/* Overview */}
                     <Nav.Link 
                         as={Link} 
                         onClick={() => handleSidebarClick('overview')} 
@@ -68,6 +70,8 @@ const AdminDashboard = () => {
                     >
                         Overview
                     </Nav.Link>
+
+                    {/* Requests */}
                     <Nav.Link 
                         as={Link} 
                         onClick={() => handleSidebarClick('requests')} 
@@ -75,6 +79,8 @@ const AdminDashboard = () => {
                     >
                         Requests
                     </Nav.Link>
+
+                    {/* Users */}
                     <Nav.Link 
                         as={Link} 
                         onClick={() => handleSidebarClick('users')} 
@@ -82,6 +88,8 @@ const AdminDashboard = () => {
                     >
                         Users
                     </Nav.Link>
+
+                    {/* Equipments*/}
                     <Nav.Link 
                         as={Link} 
                         onClick={() => handleSidebarClick('equipments')} 
@@ -89,6 +97,17 @@ const AdminDashboard = () => {
                     >
                         Equipments
                     </Nav.Link>
+
+                    {/* Messages*/}
+                    <Nav.Link 
+                        as={Link} 
+                        onClick={() => handleSidebarClick('messages')} 
+                        className={activeSection === 'messages' ? 'active' : ''}
+                    >
+                        Messages
+                    </Nav.Link>
+
+
                     <Nav.Link as={Link} to="/login">
                         Logout
                     </Nav.Link>
@@ -260,6 +279,13 @@ const AdminDashboard = () => {
                         {/* Add content specific to equipments */}
                     </section>
                 )}
+
+                {activeSection === 'messages' && (
+                    <section className="dashboard-sections dashboard-messages">
+                        <h3>Messages</h3>
+                        {/* Add content specific to messages */}
+                    </section>
+                )}  
             </main>
         </div>
     );

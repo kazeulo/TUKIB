@@ -51,12 +51,6 @@ const Header = () => {
     					About Us
   					</Link>
 				</Nav.Item>
-
-				<Nav.Item>
-				  <a href="#contact" className="nav-link">
-					Contact Us
-				  </a>
-				</Nav.Item>
 			  </Nav>
 
 			  <Link to="/login" className="nav-link">
