@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/ContactForm.css';
+import '../../css/ContactForm.css';
 
 const ContactForm = () => {
 	const [formData, setFormData] = useState({

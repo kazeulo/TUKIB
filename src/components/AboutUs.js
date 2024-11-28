@@ -6,8 +6,8 @@ import '../css/Variables.css';
 import '../css/AboutUs.css';
 
 /* Page Imports */
-import Header from './Header';
-import Footer from './Footer';
+import Header from './partials/Header';
+import Footer from './partials/Footer';
 import logo from '../assets/new_logo.png';
 import missionPic from '../assets/missionpic.png';
 import visionPic from '../assets/visionpic.png';

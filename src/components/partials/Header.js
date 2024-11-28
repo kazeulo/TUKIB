@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
-import '../css/Header.css';
-import '../css/Variables.css';
-import logo from '../assets/new_logo.png';
+import '../../css/Header.css';
+import '../../css/Variables.css';
+import logo from '../../assets/new_logo.png';
 
 const Header = () => {
 	return (
