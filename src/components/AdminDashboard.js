@@ -223,7 +223,7 @@ const AdminDashboard = () => {
                         
                         {/* Table for displaying requests */}
                         <Container>
-                            <Table className="table-rounded request_table">
+                            <Table className="dashboard_table request_table">
                                 <thead>
                                     <tr>
                                         <th>Request ID</th>
@@ -252,7 +252,7 @@ const AdminDashboard = () => {
                                                 )}
                                                 {request.status === 'Ongoing' && (
                                                     <div>
-                                                        <Button size="sm" className='mx-1'>Mark as Done</Button>
+                                                        <Button size="sm" className='m1-1'>Mark as Done</Button>
                                                         <Button size="sm" variant="danger" className="ml-2">Cancel</Button>
                                                     </div>
                                                 )}
@@ -269,7 +269,42 @@ const AdminDashboard = () => {
                 {activeSection === 'users' && (
                     <section className="dashboard-sections dashboard-users">
                         <h3>Users</h3>
-                        {/* Add content specific to users */}
+                        {/* Table for displaying users */}
+                        <Container>
+                            <Table className="dashboard_table user_table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Service</th>
+                                        <th>Client Name</th>
+                                        <th>Role</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {/* Sample data for requests */}
+                                    {[
+                                        { id: 1, name: 'Mama mo', email: 'mamamo@gmail.com', role: 'University Researcher', created: 'Dec. 12, 2024'},
+                                    ].map((user) => (
+                                        <tr key={user.id}>
+                                            <td>{user.id}</td>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.role}</td>
+                                            <td>{user.created}</td>
+                                            <td>
+                                                <div>
+                                                    <Button size="sm" className='ml-1'>View</Button>
+                                                    <Button size="sm" className="ml-2">Edit</Button>
+                                                    <Button size="sm" className="ml-2">Delete</Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </Container>
                     </section>
                 )}
 
