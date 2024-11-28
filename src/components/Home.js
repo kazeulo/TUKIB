@@ -2,18 +2,18 @@ import React, { useRef } from 'react';
 
 import { Button } from 'react-bootstrap';
 
-/* css imports */
+// css imports
 import '../css/Home.css';
 import '../css/Variables.css';
 
-/* page imports */
-import Header from './Header';
-import Footer from './Footer';
-import ContactForm from './ContactForm';
-import EventCalendar from './EventCalendar';
-import StatCounter from './StatCounter'; 
+// import partials
+import Header from './partials/Header';
+import Footer from './partials/Footer';
+import ContactForm from './partials/ContactForm';
+import EventCalendar from './partials/EventCalendar';
+import StatCounter from './partials/StatCounter'; 
 
-/* image imports */
+// image imports
 import NewsThumbnail from '../assets/news.jpg';
 
 const Home = () => {

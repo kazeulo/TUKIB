@@ -3,15 +3,19 @@ import './App.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// main pages
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
 import Service from './components/Service';
-import ScrollTop from './components/ScrollTop';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
-import Preloader from './components/Preloader';
+
+// import partials
+import ScrollTop from './components/partials/ScrollTop';
+import Preloader from './components/partials/Preloader';
 
 const App = () => {
   const [loading, setLoading] = useState(true);

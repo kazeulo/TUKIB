@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
 import '../css/Login.css';
-import Header from './Header';
-import Footer from './Footer';
+
+// import partials
+import Header from './partials/Header';
+import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
 const Login = () => {

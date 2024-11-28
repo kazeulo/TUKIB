@@ -152,25 +152,28 @@
     padding: 20px;
 }
 
-/* requests*/
-
-.request_table{
+/* requests section */
+.dashboard_table{
     font-size:  14px;
     font-family: 'Quicksand';
-    border-radius: 20px;
-    /* box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.2); */
+    /* border-radius: 5px; */
+    box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.2);
     /* padding: 50px !important; */
 }
 
-.request_table td,
-.request_table th {
+.dashboard_table td,
+.dashboard_table th {
   padding: 10px; 
 }
 
-.table-rounded {
+.dashboard_table button {
+    margin-right: 5px !important;
+}
+
+/* .table-rounded {
     border-radius: 15px;
     overflow: hidden; 
-}
+} */
 
 
 /* responsiveness */
