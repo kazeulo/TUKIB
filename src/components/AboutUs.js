@@ -17,6 +17,12 @@ const AboutUs = () => {
     return (
         <div className="about-us">
             <Header />
+            <div className="about-banner">
+                <div className="banner-text">
+                    <h1>About Us</h1>
+                    <p>Get To Know Us More</p>
+                </div>
+            </div>
 
             {/* Section 1: About Section */}
             <section className="about-section">
