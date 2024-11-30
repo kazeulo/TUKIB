@@ -7,6 +7,7 @@ import Chart from 'chart.js/auto';
 import '../css/Variables.css'; 
 import '../css/AdminDashboard.css'; 
 import Adminpic from '../assets/adminpic.jpg';
+import Equipment from "./Equipment";
 
 const AdminDashboard = () => {
     // state to manage the active section
@@ -312,6 +313,7 @@ const AdminDashboard = () => {
                     <section className="dashboard-sections dashboard-equipments">
                         <h3>Equipments</h3>
                         {/* Add content specific to equipments */}
+                        <Equipment />
                     </section>
                 )}
 

@@ -1,0 +1,69 @@
+.equipment-page {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .categories-sidebar {
+    width: 25%;
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .categories-sidebar h3 {
+    margin-bottom: 10px;
+  }
+  
+  .categories-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .categories-sidebar .category-title {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .categories-sidebar .equipment-list {
+    margin-top: 5px;
+    padding-left: 15px;
+  }
+  
+  .categories-sidebar .equipment-list li {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  
+  .equipment-content {
+    width: 75%;
+  }
+  
+  .equipment-content h3 {
+    margin-bottom: 20px;
+  }
+  
+  .equipment-details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .equipment-details img {
+    max-width: 200px;
+    margin-bottom: 15px;
+  }
+  
+  .equipment-details h4 {
+    margin-bottom: 10px;
+  }
+  
+  .equipment-details select,
+  .equipment-details input {
+    padding: 5px;
+    margin-top: 5px;
+  }
+  
