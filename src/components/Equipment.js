@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../css/Equipment.css";
 
 const Equipment = () => {
-  // Categories and equipment data
   const [categories] = useState([
     {
       name: "Applied Chemistry",
@@ -39,21 +38,17 @@ const Equipment = () => {
     },
   ]);
 
-  // State for managing active dropdown and selected equipment
   const [activeCategory, setActiveCategory] = useState(null);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
 
-  // Function to toggle category dropdown
   const toggleCategory = (categoryName) => {
     setActiveCategory(activeCategory === categoryName ? null : categoryName);
   };
 
-  // Function to handle equipment click
   const handleEquipmentClick = (equipment) => {
     setSelectedEquipment(equipment);
   };
 
-  // Function to update equipment status or stock
   const updateEquipment = (field, value) => {
     setSelectedEquipment((prev) => ({ ...prev, [field]: value }));
   };
@@ -65,14 +60,27 @@ const Equipment = () => {
         <h3>Laboratories</h3>
         <ul>
           {categories.map((category, index) => (
-            <li key={index}>
-              <strong onClick={() => toggleCategory(category.name)} className="category-title">
+            <li key={index} className="category-item">
+              <div
+                className="category-title"
+                onClick={() => toggleCategory(category.name)}
+              >
                 {category.name}
-              </strong>
+                <span
+                  className={`dropdown-icon ${
+                    activeCategory === category.name ? "open" : ""
+                  }`}
+                >
+                  ▼
+                </span>
+              </div>
               {activeCategory === category.name && (
                 <ul className="equipment-list">
                   {category.equipments.map((equipment) => (
-                    <li key={equipment.id} onClick={() => handleEquipmentClick(equipment)}>
+                    <li
+                      key={equipment.id}
+                      onClick={() => handleEquipmentClick(equipment)}
+                    >
                       {equipment.name}
                     </li>
                   ))}
@@ -89,16 +97,19 @@ const Equipment = () => {
         {selectedEquipment ? (
           <div className="equipment-details">
             <img
-              src={`/images/${selectedEquipment.image}`} // Ensure images are stored in /public/images/
+              src={`/images/${selectedEquipment.image}`}
               alt={selectedEquipment.name}
               className="equipment-image"
             />
             <h4>{selectedEquipment.name}</h4>
+            <p>Equipment details here.</p>
             <p>
               Status:{" "}
               <select
                 value={selectedEquipment.status}
-                onChange={(e) => updateEquipment("status", e.target.value)}
+                onChange={(e) =>
+                  updateEquipment("status", e.target.value)
+                }
               >
                 <option value="Available">Available</option>
                 <option value="Unavailable">Unavailable</option>
@@ -111,7 +122,9 @@ const Equipment = () => {
                 type="number"
                 value={selectedEquipment.stock}
                 min="0"
-                onChange={(e) => updateEquipment("stock", parseInt(e.target.value, 10))}
+                onChange={(e) =>
+                  updateEquipment("stock", parseInt(e.target.value, 10))
+                }
               />
             </p>
           </div>

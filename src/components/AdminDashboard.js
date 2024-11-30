@@ -311,7 +311,7 @@ const AdminDashboard = () => {
 
                 {activeSection === 'equipments' && (
                     <section className="dashboard-sections dashboard-equipments">
-                        <h3>Equipments</h3>
+                        {/* <h3>Equipments</h3> */}
                         {/* Add content specific to equipments */}
                         <Equipment />
                     </section>

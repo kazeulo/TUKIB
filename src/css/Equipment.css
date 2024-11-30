@@ -5,7 +5,7 @@
   }
   
   .categories-sidebar {
-    width: 25%;
+    width: 30%; /* Increased width */
     background-color: #f4f4f4;
     padding: 15px;
     border-radius: 8px;
@@ -20,24 +20,40 @@
     padding: 0;
   }
   
-  .categories-sidebar .category-title {
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 10px;
+  .category-item {
+    margin-bottom: 15px; /* Increased line spacing between categories */
   }
   
-  .categories-sidebar .equipment-list {
+  .category-title {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dropdown-icon {
+    font-size: 0.9em;
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+  }
+  
+  .dropdown-icon.open {
+    transform: rotate(180deg); /* Rotates when the dropdown is open */
+  }
+  
+  .equipment-list {
     margin-top: 5px;
     padding-left: 15px;
   }
   
-  .categories-sidebar .equipment-list li {
+  .equipment-list li {
     cursor: pointer;
     margin-bottom: 5px;
   }
   
   .equipment-content {
-    width: 75%;
+    width: 70%;
   }
   
   .equipment-content h3 {
