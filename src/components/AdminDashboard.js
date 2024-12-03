@@ -8,6 +8,7 @@ import '../css/Variables.css';
 import '../css/AdminDashboard.css'; 
 import Adminpic from '../assets/adminpic.jpg';
 import Equipment from "./Equipment";
+import EventCalendar from './partials/EventCalendar';
 
 const AdminDashboard = () => {
     // state to manage the active section
@@ -108,7 +109,25 @@ const AdminDashboard = () => {
                         Messages
                     </Nav.Link>
 
+                    {/* schedule*/}
+                    <Nav.Link 
+                        as={Link} 
+                        onClick={() => handleSidebarClick('schedule')} 
+                        className={activeSection === 'schedule' ? 'active' : ''}
+                    >
+                        Schedule
+                    </Nav.Link>
 
+                    {/* news */}
+                    <Nav.Link 
+                        as={Link} 
+                        onClick={() => handleSidebarClick('news')} 
+                        className={activeSection === 'news' ? 'active' : ''}
+                    >
+                        News
+                    </Nav.Link>
+
+                    {/* Log out */}
                     <Nav.Link as={Link} to="/login">
                         Logout
                     </Nav.Link>
@@ -298,7 +317,7 @@ const AdminDashboard = () => {
                                                 <div>
                                                     <Button size="sm" className='ml-1'>View</Button>
                                                     <Button size="sm" className="ml-2">Edit</Button>
-                                                    <Button size="sm" className="ml-2">Delete</Button>
+                                                    <Button size="sm" variant='danger' className="ml-2">Delete</Button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -321,6 +340,50 @@ const AdminDashboard = () => {
                     <section className="dashboard-sections dashboard-messages">
                         <h3>Messages</h3>
                         {/* Add content specific to messages */}
+                    </section>
+                )}  
+
+                {activeSection === 'schedule' && (
+                    <section className="dashboard-sections dashboard-schedule">
+                        <h3>Schedule</h3>
+                        <EventCalendar />
+                    </section>
+                )}  
+
+                {activeSection === 'news' && (
+                    <section className="dashboard-sections dashboard-news">
+                        <h3>News</h3>
+                        <Container>
+                            <Table className="dashboard_table news_table">
+                                <thead>
+                                    <tr>
+                                        <th>News ID</th>
+                                        <th>Title</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {/* Sample data for requests */}
+                                    {[
+                                        { id: 1, title: 'UPV RRC Partners with Panublix for Extension Workshop on Regenerative Textile', created: 'Dec. 12, 2024'},
+                                    ].map((news) => (
+                                        <tr key={news.id}>
+                                            <td>{news.id}</td>
+                                            <td>{news.title}</td>
+                                            <td>{news.created}</td>
+                                            <td>
+                                                <div>
+                                                    <Button size="sm" className='ml-1'>View</Button>
+                                                    <Button size="sm" className="ml-2">Edit</Button>
+                                                    <Button size="sm" variant='danger' className="ml-2">Delete</Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </Container>
                     </section>
                 )}  
             </main>
