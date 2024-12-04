@@ -1,12 +1,14 @@
 import React from 'react';
 
-/* css imports */
+// css
 import '../css/Service.css';
 import '../css/Variables.css';
 
-/* page imports */
-import Header from './Header';
-import Footer from './Footer';
+//partials
+import Header from './partials/Header';
+import Footer from './partials/Footer';
+
+// images
 import spImage from '../assets/servicepage_sp.png';
 import equipmentImage from '../assets/servicepage_equipment.png';
 import trainingImage from '../assets/servicepage_training.png';

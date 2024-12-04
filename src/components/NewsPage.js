@@ -3,11 +3,13 @@ import React from 'react';
 /* CSS Imports */
 import '../css/NewsPage.css';
 
-/* Page Imports */
-import Header from './Header';
-import Footer from './Footer';
-import newsImage0 from '../assets/news0.png';
-import newsImage1 from '../assets/news1.png';
+// partials
+import Header from './partials/Header';
+import Footer from './partials/Footer';
+
+// images
+import newsImage0 from '../assets/news0.png'; 
+import newsImage1 from '../assets/news1.png'; 
 import newsImage2 from '../assets/news2.png';
 import newsImage3 from '../assets/news3.png';
 

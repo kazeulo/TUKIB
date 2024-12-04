@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
-import '../css/StatCounter.css';
+import '../../css/StatCounter.css'; 
 
 const StatisticCounter = ({ stats }) => {
 	const [isInView, setIsInView] = useState(false);

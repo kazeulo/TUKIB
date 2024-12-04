@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { Button } from 'react-bootstrap';
 
-/* css imports */
+// css imports
 import '../css/Home.css';
 import '../css/Variables.css';
 
@@ -13,7 +13,7 @@ import ContactForm from './ContactForm';
 import StatCounter from './StatCounter';
 import ScrollTop from './ScrollTop';
 
-/* image imports */
+// image imports
 import NewsThumbnail from '../assets/news.jpg';
 
 const Home = () => {

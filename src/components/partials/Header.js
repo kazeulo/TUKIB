@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
-import '../css/Header.css';
-import '../css/Variables.css';
-import logo from '../assets/new_logo.png';
+import '../../css/Header.css';
+import '../../css/Variables.css';
+import logo from '../../assets/new_logo.png';
 
 const Header = () => {
 	return (
@@ -50,12 +50,6 @@ const Header = () => {
 				<Link to="/about" className="nav-link">
     					About Us
   					</Link>
-				</Nav.Item>
-
-				<Nav.Item>
-				  <a href="#contact" className="nav-link">
-					Contact Us
-				  </a>
 				</Nav.Item>
 			  </Nav>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowUp } from 'react-icons/fa'; // Import an up arrow icon from react-icons
-import '../css/ScrollTop.css'; // Add your custom styles
+import '../../css/ScrollTop.css'; // Add your custom styles
 
 const ScrollTop = () => {
 	const [isVisible, setIsVisible] = useState(false);

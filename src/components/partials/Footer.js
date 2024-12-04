@@ -1,8 +1,8 @@
 // Footer.js
 import React from 'react';
-import '../css/Footer.css';
-import upvLogo from '../assets/upv_logo.png';
-import rrcLogo from '../assets/new_rrc_logo_circle.png';
+import upvLogo from '../../assets/upv_logo.png';
+import rrcLogo from '../../assets/new_rrc_logo_circle.png';
+import '../../css/Footer.css';
 
 const Footer = () => {
 	return (

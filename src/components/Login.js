@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../css/Login.css';
-import Header from './Header';
-import Footer from './Footer';
+
+// import partials
+import Header from './partials/Header';
+import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
 const Login = () => {
