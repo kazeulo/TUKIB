@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import '../css/ClientProfile.css';
@@ -51,6 +52,9 @@ const ClientProfile = () => {
 		},
 	]);
 
+	// Use the useNavigate hook
+	const navigate = useNavigate();
+
 	// Handle tab switch between "All Transactions" and "Ongoing Transactions"
 	const filteredTransactions =
 		activeTab === 'all'
@@ -74,10 +78,28 @@ const ClientProfile = () => {
 	// Toggle the dropdown visibility
 	const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-	// Handle selecting a service
+	// Handle selecting a service and navigating to the appropriate page
 	const handleSelectService = (service) => {
 		setSelectedService(service);
 		setDropdownOpen(false);
+
+		// Navigate to the respective service page
+		switch (service) {
+			case 'Sample Processing':
+				navigate('/sample-processing'); // Replace with actual route
+				break;
+			case 'Training Services':
+				navigate('/training-services'); // Replace with actual route
+				break;
+			case 'Use of Equipment':
+				navigate('/use-of-equipment'); // Replace with actual route
+				break;
+			case 'Use of Facility':
+				navigate('/use-of-facility'); // Replace with actual route
+				break;
+			default:
+				break;
+		}
 	};
 
 	return (

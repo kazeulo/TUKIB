@@ -13,6 +13,7 @@ import ClientProfile from './components/ClientProfile';
 import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
+import SampleProcessingForm from './components/SampleProcessingForm';
 
 // import partials
 import ScrollTop from './components/partials/ScrollTop';
@@ -47,7 +48,7 @@ const App = () => {
 						<Route
 							path='/adminDashboard'
 							element={<AdminDashboard />}
-						/>{' '}
+						/>
 						<Route
 							path='/clientProfile'
 							element={<ClientProfile />}
@@ -63,6 +64,10 @@ const App = () => {
 						<Route
 							path='/news'
 							element={<NewsPage />}
+						/>
+						<Route
+							path='/sample-processing'
+							element={<SampleProcessingForm />}
 						/>
 					</Routes>
 					<ScrollTop />
