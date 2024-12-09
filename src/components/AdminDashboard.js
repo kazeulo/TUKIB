@@ -17,25 +17,26 @@ import Chart from 'chart.js/auto';
 import '../css/Variables.css';
 import '../css/AdminDashboard.css';
 import Adminpic from '../assets/adminpic.jpg';
-import Equipment from "./Equipment";
+import Equipment from './Equipment';
+import EventCalendar from './partials/EventCalendar';
 
 const AdminDashboard = () => {
-    // state to manage the active section
-    const [activeSection, setActiveSection] = useState('overview'); // Default active section
+	// state to manage the active section
+	const [activeSection, setActiveSection] = useState('overview'); // Default active section
 
-    // data for the charts
-    const lineChartData = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-            {
-                label: 'Monthly Active Users',
-                data: [300, 400, 500, 600, 700, 800],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true,
-            },
-        ],
-    };
+	// data for the charts
+	const lineChartData = {
+		labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+		datasets: [
+			{
+				label: 'Monthly Active Users',
+				data: [300, 400, 500, 600, 700, 800],
+				borderColor: 'rgba(75, 192, 192, 1)',
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				fill: true,
+			},
+		],
+	};
 
 	const barChartData = {
 		labels: ['Completed Requests', 'Pending Requests', 'Active Users'],
@@ -71,65 +72,56 @@ const AdminDashboard = () => {
 					<h5>Admin Dashboard</h5>
 				</Navbar>
 
-                <Nav defaultActiveKey="/home" className="flex-column sidebar-nav">
+				<Nav
+					defaultActiveKey='/home'
+					className='flex-column sidebar-nav'>
+					{/* Overview */}
+					<Nav.Link
+						as={Link}
+						onClick={() => handleSidebarClick('overview')}
+						className={activeSection === 'overview' ? 'active' : ''}>
+						Overview
+					</Nav.Link>
 
-                    {/* Overview */}
-                    <Nav.Link 
-                        as={Link} 
-                        onClick={() => handleSidebarClick('overview')} 
-                        className={activeSection === 'overview' ? 'active' : ''}
-                    >
-                        Overview
-                    </Nav.Link>
+					{/* Requests */}
+					<Nav.Link
+						as={Link}
+						onClick={() => handleSidebarClick('requests')}
+						className={activeSection === 'requests' ? 'active' : ''}>
+						Requests
+					</Nav.Link>
 
-                    {/* Requests */}
-                    <Nav.Link 
-                        as={Link} 
-                        onClick={() => handleSidebarClick('requests')} 
-                        className={activeSection === 'requests' ? 'active' : ''}
-                    >
-                        Requests
-                    </Nav.Link>
+					{/* Users */}
+					<Nav.Link
+						as={Link}
+						onClick={() => handleSidebarClick('users')}
+						className={activeSection === 'users' ? 'active' : ''}>
+						Users
+					</Nav.Link>
 
-                    {/* Users */}
-                    <Nav.Link 
-                        as={Link} 
-                        onClick={() => handleSidebarClick('users')} 
-                        className={activeSection === 'users' ? 'active' : ''}
-                    >
-                        Users
-                    </Nav.Link>
+					{/* Equipments*/}
+					<Nav.Link
+						as={Link}
+						onClick={() => handleSidebarClick('equipments')}
+						className={activeSection === 'equipments' ? 'active' : ''}>
+						Equipments
+					</Nav.Link>
 
-                    {/* Equipments*/}
-                    <Nav.Link 
-                        as={Link} 
-                        onClick={() => handleSidebarClick('equipments')} 
-                        className={activeSection === 'equipments' ? 'active' : ''}
-                    >
-                        Equipments
-                    </Nav.Link>
+					{/* Messages*/}
+					<Nav.Link
+						as={Link}
+						onClick={() => handleSidebarClick('messages')}
+						className={activeSection === 'messages' ? 'active' : ''}>
+						Messages
+					</Nav.Link>
 
-                    {/* Messages*/}
-                    <Nav.Link 
-                        as={Link} 
-                        onClick={() => handleSidebarClick('messages')} 
-                        className={activeSection === 'messages' ? 'active' : ''}
-                    >
-                        Messages
-                    </Nav.Link>
-
-
-                    <Nav.Link as={Link} to="/login">
-                        Logout
-                    </Nav.Link>
-                </Nav>
-            </aside>
-            
-            {/* Main content */}
-            <main className="main-content">
-                <header className="adminHeader">
-                    <h2>Welcome back, Username!</h2>
-                    <div className="header-actions">
+					<Nav.Link
+						as={Link}
+						to='/login'>
+						Logout
+					</Nav.Link>
+				</Nav>
+			</aside>
 
 			{/* Main content */}
 			<main className='main-content'>
@@ -151,7 +143,6 @@ const AdminDashboard = () => {
 						</Button>
 					</div>
 				</header>
-
 				{/* Dynamic content section based on active section */}
 				{activeSection === 'overview' && (
 					<section className='dashboard-sections dashboard-overview'>
@@ -241,58 +232,13 @@ const AdminDashboard = () => {
 						<EventCalendar />
 					</section>
 				)}
-
-                {activeSection === 'requests' && (
-                    <section className="dashboard-sections dashboard-requests">
-                        <h3>Requests</h3>
-                        
-                        {/* Table for displaying requests */}
-                        <Container>
-                            <Table className="dashboard_table request_table">
-                                <thead>
-                                    <tr>
-                                        <th>Request ID</th>
-                                        <th>Service</th>
-                                        <th>Client Name</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Sample data for requests */}
-                                    {[
-                                        { id: 1, service: 'Sample Processing', client: 'John Doe', status: 'Pending' },
-                                        { id: 2, service: 'Sample Processing', client: 'Jane Smith', status: 'Ongoing' },
-                                        { id: 3, service: 'Training', client: 'Samuel Green', status: 'Completed' },
-                                    ].map((request) => (
-                                        <tr key={request.id}>
-                                            <td>{request.id}</td>
-                                            <td>{request.service}</td>
-                                            <td>{request.client}</td>
-                                            <td>{request.status}</td>
-                                            <td>
-                                                {/* diffirent buttons for different status */}
-                                                {request.status === 'Pending' && (
-                                                    <Button size="sm" className='mx-1'>Accept</Button>
-                                                )}
-                                                {request.status === 'Ongoing' && (
-                                                    <div>
-                                                        <Button size="sm" className='m1-1'>Mark as Done</Button>
-                                                        <Button size="sm" variant="danger" className="ml-2">Cancel</Button>
-                                                    </div>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Container>
-                    </section>
-                )}
+				{activeSection === 'requests' && (
+					<section className='dashboard-sections dashboard-requests'>
+						<h3>Requests</h3>
 
 						{/* Table for displaying requests */}
 						<Container>
-							<Table className='table-rounded request_table'>
+							<Table className='dashboard_table request_table'>
 								<thead>
 									<tr>
 										<th>Request ID</th>
@@ -342,7 +288,7 @@ const AdminDashboard = () => {
 													<div>
 														<Button
 															size='sm'
-															className='mx-1'>
+															className='m1-1'>
 															Mark as Done
 														</Button>
 														<Button
@@ -362,65 +308,81 @@ const AdminDashboard = () => {
 					</section>
 				)}
 
-                {activeSection === 'users' && (
-                    <section className="dashboard-sections dashboard-users">
-                        <h3>Users</h3>
-                        {/* Table for displaying users */}
-                        <Container>
-                            <Table className="dashboard_table user_table">
-                                <thead>
-                                    <tr>
-                                        <th>Request ID</th>
-                                        <th>Service</th>
-                                        <th>Client Name</th>
-                                        <th>Role</th>
-                                        <th>Created</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Sample data for requests */}
-                                    {[
-                                        { id: 1, name: 'Mama mo', email: 'mamamo@gmail.com', role: 'University Researcher', created: 'Dec. 12, 2024'},
-                                    ].map((user) => (
-                                        <tr key={user.id}>
-                                            <td>{user.id}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.role}</td>
-                                            <td>{user.created}</td>
-                                            <td>
-                                                <div>
-                                                    <Button size="sm" className='ml-1'>View</Button>
-                                                    <Button size="sm" className="ml-2">Edit</Button>
-                                                    <Button size="sm" className="ml-2">Delete</Button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Container>
-                    </section>
-                )}
-
-                {activeSection === 'equipments' && (
-                    <section className="dashboard-sections dashboard-equipments">
-                        {/* <h3>Equipments</h3> */}
-                        {/* Add content specific to equipments */}
-                        <Equipment />
-                    </section>
-                )}
-
-                {activeSection === 'messages' && (
-                    <section className="dashboard-sections dashboard-messages">
-                        <h3>Messages</h3>
-                        {/* Add content specific to messages */}
-                    </section>
-                )}  
-            </main>
-        </div>
-    );
+				{activeSection === 'users' && (
+					<section className='dashboard-sections dashboard-users'>
+						<h3>Users</h3>
+						{/* Table for displaying users */}
+						<Container>
+							<Table className='dashboard_table user_table'>
+								<thead>
+									<tr>
+										<th>Request ID</th>
+										<th>Service</th>
+										<th>Client Name</th>
+										<th>Role</th>
+										<th>Created</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{/* Sample data for requests */}
+									{[
+										{
+											id: 1,
+											name: 'Mama mo',
+											email: 'mamamo@gmail.com',
+											role: 'University Researcher',
+											created: 'Dec. 12, 2024',
+										},
+									].map((user) => (
+										<tr key={user.id}>
+											<td>{user.id}</td>
+											<td>{user.name}</td>
+											<td>{user.email}</td>
+											<td>{user.role}</td>
+											<td>{user.created}</td>
+											<td>
+												<div>
+													<Button
+														size='sm'
+														className='ml-1'>
+														View
+													</Button>
+													<Button
+														size='sm'
+														className='ml-2'>
+														Edit
+													</Button>
+													<Button
+														size='sm'
+														className='ml-2'>
+														Delete
+													</Button>
+												</div>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</Container>
+					</section>
+				)}
+				{activeSection === 'equipments' && (
+					<section className='dashboard-sections dashboard-equipments'>
+						{/* <h3>Equipments</h3> */}
+						{/* Add content specific to equipments */}
+						<Equipment />
+					</section>
+				)}
+				{activeSection === 'messages' && (
+					<section className='dashboard-sections dashboard-messages'>
+						<h3>Messages</h3>
+						{/* Add content specific to messages */}
+					</section>
+				)}
+			</main>
+		</div>
+	);
 };
 
 export default AdminDashboard;

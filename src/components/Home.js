@@ -7,11 +7,11 @@ import '../css/Home.css';
 import '../css/Variables.css';
 
 /* page imports */
-import Header from './Header';
-import Footer from './Footer';
-import ContactForm from './ContactForm';
-import StatCounter from './StatCounter';
-import ScrollTop from './ScrollTop';
+import Header from './partials/Header';
+import Footer from './partials/Footer';
+import ContactForm from './partials/ContactForm';
+import StatCounter from './partials/StatCounter';
+import ScrollTop from './partials/ScrollTop';
 
 // image imports
 import NewsThumbnail from '../assets/news.jpg';
