@@ -19,8 +19,6 @@ import '../css/AdminDashboard.css';
 import Adminpic from '../assets/adminpic.jpg';
 import Equipment from "./Equipment";
 import EventCalendar from './partials/EventCalendar';
-import Equipment from './Equipment';
-import EventCalendar from './partials/EventCalendar';
 
 const AdminDashboard = () => {
 	// state to manage the active section

@@ -52,3 +52,10 @@
 .header-nav .nav-link:hover {
 	color: #e7b82b; /* Hover color */
 }
+
+.username{
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+/* when user is logged in*/
