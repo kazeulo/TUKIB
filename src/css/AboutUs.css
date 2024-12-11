@@ -1,10 +1,10 @@
 /* General */
 .about-us {
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	color: #333;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 /* Section 1 */
@@ -22,10 +22,10 @@
 }
 
 .about-content h1 {
-    font-size: 25px;
-    font-weight: bold;
-    color: #A01842;
-    margin-bottom: 20px;
+	font-size: 25px;
+	font-weight: bold;
+	color: #a01842;
+	margin-bottom: 20px;
 }
 
 .about-content p {
@@ -37,21 +37,23 @@
     margin-right: 20px; */
 }
 
-
 /* Section 2 */
 .mission-vision-section {
-    background-image: linear-gradient(to top right, 
-    rgba(142, 21, 55, 0.75) 20%,   
-    rgba(90, 39, 119, 0.7) 45%, 
-    rgba(218, 129, 60, 0.5) 75%,  
-    rgba(255, 204, 53, 0.5) 100%) , url('../assets/about-sectionbg.png');
-    /* background: url('../assets/about-sectionbg.png') no-repeat center center/cover; */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center top;  
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
+	background-image: linear-gradient(
+			to top right,
+			rgba(142, 21, 55, 0.75) 20%,
+			rgba(90, 39, 119, 0.7) 45%,
+			rgba(218, 129, 60, 0.5) 75%,
+			rgba(255, 204, 53, 0.5) 100%
+		),
+		url('../assets/about-sectionbg.png');
+	/* background: url('../assets/about-sectionbg.png') no-repeat center center/cover; */
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center top;
+	padding: 60px 20px;
+	display: flex;
+	justify-content: center;
 }
 
 .about-banner {
@@ -84,60 +86,60 @@
 }
 
 .cards-container {
-    display: flex;
-    gap: 80px;
-    max-width: 1200px;
-    flex-wrap: wrap;
-    justify-content: center;
+	display: flex;
+	gap: 80px;
+	max-width: 1200px;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .card {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 0px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* padding: 20px; */
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 0px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	/* padding: 20px; */
+	text-align: center;
+	width: 100%;
+	max-width: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .card img {
-    width: 100%;
-    border-radius: 0px;
-    margin-bottom: 20px;
+	width: 100%;
+	border-radius: 0px;
+	margin-bottom: 20px;
 }
 
 .card h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #A01842;
-    margin-bottom: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #a01842;
+	margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 16px;
-    line-height: 1.6;
+	font-size: 16px;
+	line-height: 1.6;
 }
 
 /* Section 3 */
 .org-chart-section {
-    background-color: #f9f9f9;
-    padding: 40px 20px;
-    text-align: center;
+	background-color: #f9f9f9;
+	padding: 40px 20px;
+	text-align: center;
 }
 
 .org-chart-section h2 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
+	font-size: 28px;
+	color: #333;
+	margin-bottom: 20px;
 }
 
 .org-chart-section p {
-    font-size: 16px;
-    color: #666;
+	font-size: 16px;
+	color: #666;
 }
 
 
@@ -211,11 +213,28 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .cards-container {
-        flex-direction: column;
-    }
-    .card {
-        width: 90%;
-        margin: 0 auto;
-    }
+	.about-section {
+		padding: 20px 20px 40px; /* Reduce padding for mobile */
+	}
+
+	.about-content h1 {
+		font-size: 22px;
+	}
+
+	.about-content p {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+}
+
+/* Responsive Design for Cards */
+@media (max-width: 768px) {
+	.cards-container {
+		flex-direction: column;
+		padding: 0 10px; /* Add padding for better mobile spacing */
+	}
+	.card {
+		width: 100%; /* Ensure cards take full width on mobile */
+		margin: 20px auto; /* Add spacing between cards */
+	}
 }

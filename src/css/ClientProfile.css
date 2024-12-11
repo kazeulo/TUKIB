@@ -1,0 +1,183 @@
+.profile-header {
+	background-color: #f5f5f5;
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+/* Profile Picture */
+.profile-picture {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 10px;
+}
+
+/* Client Name */
+.profile-header h3 {
+	margin: 0;
+	font-size: 24px;
+	color: #333;
+}
+
+.profile-header h4 {
+	margin: 0;
+	font-size: 16px;
+	color: #333;
+}
+
+.profile-content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* Client Information */
+.client-info {
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.client-info p {
+	margin: 10px 0;
+	color: #555;
+}
+
+.client-info strong {
+	color: #333;
+}
+
+/* Services Dropdown */
+.services-dropdown {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.dropdown-button {
+	background-color: #f1f1f1;
+	padding: 10px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 200px;
+	text-align: left;
+}
+
+.dropdown-content {
+	display: block;
+	position: absolute;
+	background-color: #ffffff;
+	min-width: 200px;
+	border: 1px solid #ccc;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+}
+
+.dropdown-content div {
+	padding: 12px 16px;
+	cursor: pointer;
+}
+
+.dropdown-content div:hover {
+	background-color: #f1f1f1;
+}
+
+/* Transactions */
+.client-transactions {
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabs */
+.tabs {
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.tabs button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #f5f5f5;
+	cursor: pointer;
+	margin-right: 10px;
+	border-radius: 5px;
+	font-weight: bold;
+	color: #333;
+}
+
+.tabs button.active {
+	background-color: #007bff;
+	color: white;
+}
+
+.tabs button:hover {
+	background-color: #e2e6ea;
+}
+
+/* Transactions Table */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+table th,
+table td {
+	padding: 15px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+table th {
+	background-color: #f5f5f5;
+	font-weight: bold;
+}
+
+table td button {
+	background-color: #28a745;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+table td button:hover {
+	background-color: #218838;
+}
+
+/* Pagination */
+.pagination {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination button {
+	background-color: #f5f5f5;
+	border: none;
+	padding: 10px 15px;
+	margin: 0 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-weight: bold;
+	color: #333;
+}
+
+.pagination button.active {
+	background-color: #007bff;
+	color: white;
+}
+
+.pagination button:hover {
+	background-color: #e2e6ea;
+}
