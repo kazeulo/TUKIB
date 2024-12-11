@@ -95,8 +95,7 @@
 .news-section {
 	max-width: 1200px;
 	margin: 30px auto;
-	margin-left: 10px;
-	margin-right: 10px;
+	/* margin: 0 10px; */
 }
 
 .news-section h4 {

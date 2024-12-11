@@ -17,7 +17,7 @@ import Chart from 'chart.js/auto';
 import '../css/Variables.css';
 import '../css/AdminDashboard.css';
 import Adminpic from '../assets/adminpic.jpg';
-import Equipment from './Equipment';
+import Equipment from "./Equipment";
 import EventCalendar from './partials/EventCalendar';
 
 const AdminDashboard = () => {
