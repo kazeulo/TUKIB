@@ -1,6 +1,5 @@
-// src/components/Login.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../css/Login.css';
 
 // import partials
@@ -13,6 +12,8 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const [role, setRole] = useState(''); // Track the user role
+	const navigate = useNavigate(); // Initialize useNavigate hook
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -30,6 +31,7 @@ const Login = () => {
 			if (data.success) {
 				setSuccess('Login successful!');
 				setError('');
+				setRole(data.user.role); // Store the user role
 			} else {
 				setError(data.message);
 				setSuccess('');
@@ -39,10 +41,30 @@ const Login = () => {
 		}
 	};
 
+	// Automatic redirect based on user role
+	useEffect(() => {
+		if (role === 'admin') {
+			navigate('/adminDashboard'); // Redirect to Admin Dashboard
+		} else if (role === 'client') {
+			navigate('/clientProfile'); // Redirect to Client Profile
+		}
+	}, [role, navigate]); // Dependencies to trigger effect
+
 	return (
 		<div className='login'>
 			<Header />
 			<main className='login-content'>
+				{/* New Powered By and Reminders for Mobile View */}
+				<div className='mobile-powered-by d-md-none'>
+					<h1>Powered By</h1>
+					<div className='tukib-logo'>
+						<img
+							src={tukibLogo}
+							alt='TUKIB Logo'
+						/>
+					</div>
+				</div>
+
 				<div className='login-container'>
 					<div className='login-form'>
 						<h2>Login</h2>
@@ -66,19 +88,19 @@ const Login = () => {
 								/>
 							</div>
 
-							{/* add login authentication */}
-							<Link to="/adminDashboard">
-								<button
-									type='submit'
-									className='login-button'>
-									Login
-								</button>
-							</Link>
+							{/* Button to trigger login */}
+							<button
+								type='submit'
+								className='login-button'>
+								Login
+							</button>
 						</form>
 						{error && <p style={{ color: 'red' }}>{error}</p>}
 						{success && <p style={{ color: 'green' }}>{success}</p>}
 					</div>
 				</div>
+
+				{/* Original Powered By and Reminders for Desktop View */}
 				<div className='login-reminders d-none d-md-inline'>
 					<h1>Powered By</h1>
 					<div className='tukib-logo'>
@@ -87,6 +109,18 @@ const Login = () => {
 							alt='TUKIB Logo'
 						/>
 					</div>
+					<h1>Important</h1>
+					<ul className='login-reminders-list'>
+						<li>DO NOT DISCLOSE YOUR LOG-IN PASSWORD TO ANYONE.</li>
+						<li>
+							DO NOT PUT HYPHEN (-) BETWEEN YOUR STUDENT I.D. TYPE IT IN FULL
+							E.g. 201512345
+						</li>
+					</ul>
+				</div>
+
+				{/* New Reminders for Mobile View */}
+				<div className='mobile-reminders d-md-none'>
 					<h1>Important</h1>
 					<ul className='login-reminders-list'>
 						<li>DO NOT DISCLOSE YOUR LOG-IN PASSWORD TO ANYONE.</li>

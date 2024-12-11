@@ -1,4 +1,3 @@
-/* src/css/Login.css */
 .login-content {
 	display: flex;
 	justify-content: space-evenly;
@@ -97,4 +96,55 @@
 .login-button:hover {
 	background-color: #ffcc35;
 	color: #6e1214;
+}
+
+/* Mobile View - Show Powered By above login form and Reminders below in a column */
+.mobile-powered-by,
+.mobile-reminders {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	/* Hide the desktop reminders and powered by in mobile */
+	.login-reminders {
+		display: none;
+	}
+
+	/* Display Powered By and Reminders in a column for mobile view */
+	.mobile-powered-by {
+		display: block;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.mobile-powered-by h1 {
+		color: #ffcc35;
+	}
+
+	.mobile-reminders h1 {
+		color: #ffcc35;
+	}
+
+	.mobile-reminders {
+		display: block;
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	.login-reminders-list {
+		font-size: 12px;
+	}
+
+	/* Adjust the layout to stack items in a column */
+	.login-content {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.tukib-logo img {
+		width: 200px;
+		max-width: 100%;
+		height: auto;
+	}
 }

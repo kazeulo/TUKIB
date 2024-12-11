@@ -13,16 +13,16 @@ const Chatbot = () => {
 	const [input, setInput] = useState('');
 	const [isChatVisible, setIsChatVisible] = useState(false);
 	const [hasNewMessage, setHasNewMessage] = useState(false);
+	const [suggestions, setSuggestions] = useState([
+		'I want to avail a service',
+		'What services do you offer?',
+		'How can I contact you?',
+	]);
+	// eslint-disable-next-line
+	const [conversationStage, setConversationStage] = useState('start'); // Track conversation stage
 	const messagesEndRef = useRef(null);
 
-	// Array of suggested messages
-	const suggestions = [
-		'What services do you offer?',
-		'I want to avail a service',
-		'How can I contact you?',
-	];
-
-	const expirationTime = 1800000; // Set timeout for 30 minutes (in milliseconds)
+	const expirationTime = 1800000; // Set timeout for 30 minutes (1800000 in milliseconds)
 
 	// Handle sending messages
 	const handleSend = async (e, messageText) => {
@@ -58,10 +58,30 @@ const Chatbot = () => {
 						]);
 						setHasNewMessage(true);
 					});
+
+					// Update suggestions based on the bot's response and current conversation stage
+					updateSuggestions(response.data, textToSend);
 				} catch (error) {
 					console.error('Error sending message to Rasa:', error);
 				}
 			}, Math.floor(Math.random() * 1000) + 1000); // Random delay between 1 to 2 seconds
+		}
+	};
+
+	// Function to dynamically update suggestions based on the conversation stage
+	const updateSuggestions = (botResponse, userMessage) => {
+		if (userMessage.includes('I want to avail a service')) {
+			setSuggestions([
+				'Sample processing',
+				'Lab rentals',
+				'Training programs',
+				'Equipment usage',
+			]);
+			setConversationStage('services');
+		} else {
+			// Default suggestions
+			setSuggestions([null]); // This will hide the suggestions
+			setConversationStage('start');
 		}
 	};
 
@@ -164,16 +184,19 @@ const Chatbot = () => {
 						))}
 						<div ref={messagesEndRef} />
 					</div>
-					<div className='suggestions'>
-						{suggestions.map((suggestion, index) => (
-							<button
-								key={index}
-								className='suggestion-button'
-								onClick={() => handleSend(null, suggestion)}>
-								{suggestion}
-							</button>
-						))}
-					</div>
+					{/* Conditionally render suggestions only if they are not null or empty */}
+					{suggestions && suggestions.length > 0 && suggestions[0] !== null && (
+						<div className='suggestions'>
+							{suggestions.map((suggestion, index) => (
+								<button
+									key={index}
+									className='suggestion-button'
+									onClick={() => handleSend(null, suggestion)}>
+									{suggestion}
+								</button>
+							))}
+						</div>
+					)}
 					<form
 						className='chatbot-input'
 						onSubmit={(e) => handleSend(e)}>
@@ -194,8 +217,7 @@ const Chatbot = () => {
 					className='floating-bubble'
 					onClick={toggleChat}>
 					<FontAwesomeIcon icon={faComments} />
-					{hasNewMessage && <div className='notification-indicator' />}{' '}
-					{/* Notification indicator */}
+					{hasNewMessage && <div className='notification-indicator' />}
 				</div>
 			)}
 		</div>
