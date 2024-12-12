@@ -355,7 +355,8 @@ const AdminDashboard = () => {
 													</Button>
 													<Button
 														size='sm'
-														className='ml-2'>
+														className='ml-2'
+														variant='danger'>
 														Delete
 													</Button>
 												</div>
@@ -375,10 +376,54 @@ const AdminDashboard = () => {
 					</section>
 				)}
 				{activeSection === 'messages' && (
-					<section className='dashboard-sections dashboard-messages'>
-						<h3>Messages</h3>
-						{/* Add content specific to messages */}
-					</section>
+					<section className='dashboard-sections dashboard-users'>
+					<h3>Users</h3>
+					{/* Table for displaying users */}
+					<Container>
+						<Table className='dashboard_table user_table'>
+							<thead>
+								<tr>
+									<th>Message ID</th>
+									<th>Subject</th>
+									<th>Sender Email</th>
+									<th>Message</th>
+									<th>Date</th>
+									<th>Remarks</th>
+								</tr>
+							</thead>
+							<tbody>
+								{/* Sample data for requests */}
+								{[
+									{
+										id: 1,
+										subject: 'Sample Processing',
+										email: 'mamamo@gmail.com',
+										message: 'Hi I have a question...',
+										date: 'Dec. 12, 2024',
+										remarks: 'Viewed'
+									},
+									{
+										id: 2,
+										subject: 'Inquiry about service request',
+										email: 'sherner@gmail.com',
+										message: 'Good day! I would like to inquire about...',
+										date: 'Dec. 12, 2024',
+										remarks: 'Viewed'
+									},
+								].map((message) => (
+									<tr key={message.id}>
+										<td>{message.id}</td>
+										<td>{message.subject}</td>
+										<td>{message.email}</td>
+										<td>{message.message}</td>
+										<td>{message.date}</td>
+										<td>{message.remarks}</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					</Container>
+				</section>
 				)}
 			</main>
 		</div>
