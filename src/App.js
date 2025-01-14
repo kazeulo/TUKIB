@@ -15,9 +15,16 @@ import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
 import SampleProcessingForm from './components/SampleProcessingForm';
 
+// services
+import Sample_processing from './components/services/Sample_processing';
+import Equipment_rental from './components/services/Equipment_rental';
+import Facility_rental from './components/services/Facility_rental';
+import Training from './components/services/Training';
+
 // import partials
 import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
+// import Equipment from './components/Equipment';
 
 const App = () => {
 	const [loading, setLoading] = useState(true);
@@ -69,6 +76,23 @@ const App = () => {
 							path='/sample-processing'
 							element={<SampleProcessingForm />}
 						/>
+						<Route
+							path='/Sample_processing'
+							element={<Sample_processing />}
+						/>
+						<Route
+							path='/Equipment_rental'
+							element={<Equipment_rental />}
+						/>
+						<Route
+							path='/Facility_rental'
+							element={<Facility_rental />}
+						/>
+						<Route
+							path='/Training'
+							element={<Training />}
+						/>
+
 					</Routes>
 					<ScrollTop />
 					<Chatbot />
