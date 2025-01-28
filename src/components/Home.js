@@ -143,7 +143,7 @@ const Home = () => {
 							</div>
 						</div>
 					</div>
-				</section>{' '}
+				</section>
 				{/* end of our services section */}
 				{/* statistic counter us section */}
 				<div className='statisticCounter'>
