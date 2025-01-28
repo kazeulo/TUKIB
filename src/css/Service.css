@@ -1,4 +1,4 @@
-.services p, .services ol li{
+.services p, .services li{
 	font-size: 16px;
 	font-family: var(--secondary-font);
 }
@@ -6,7 +6,7 @@
 .services-banner {
 	position: relative;
 	width: 100%;
-	height: 15vh;
+	height: 17vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -30,6 +30,7 @@
 	font-size: 36px;
 	font-family: var(--primary-font);
 	color: #ffffff;
+	margin-top: 12px;
 }
 
 .services-text p {
@@ -41,11 +42,11 @@
 	margin: 0 30px;
 }
 
-.services-content h2{
+.services-content h3{
+	margin-top: 35px;
 	margin-bottom: 15px;
 }
 
 .services-content h4{
 	margin-top: 35px;
-	margin-bottom: 10px;
 }
