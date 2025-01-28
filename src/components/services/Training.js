@@ -44,8 +44,8 @@ const Sample_processing = () => {
 							Please contact us for a detailed quote based on your specific needs.</p>
 
 						<ul>
-							<li>Basic Equipment Training (e.g., simple instruments, basic usage): Php5000 - Php10000 per session</li>
-							<li>Advanced Equipment Training (e.g., specialized instruments, in-depth training): Php10000 - Php20000 per session</li>
+							<li>Basic Equipment Training (e.g., simple instruments, basic usage): <b>Php5000 - Php10000 per session</b></li>
+							<li>Advanced Equipment Training (e.g., specialized instruments, in-depth training): <b>Php10000 - Php20000 per session</b></li>
 							<li>Custom Training Packages (e.g., for groups or specific equipment): Prices vary based on the scope of training</li>
 						</ul>
 

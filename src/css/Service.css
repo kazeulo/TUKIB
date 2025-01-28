@@ -1,5 +1,5 @@
 .services p, .services li{
-	font-size: 16px;
+	font-size: 15px;
 	font-family: var(--secondary-font);
 }
 
@@ -34,7 +34,7 @@
 }
 
 .services-text p {
-	font-size: 16px;
+	font-size: 15px;
 	color: #ffffff;
 }
 
@@ -49,4 +49,8 @@
 
 .services-content h4{
 	margin-top: 35px;
+}
+
+.services-content p{
+	text-align: justify;
 }

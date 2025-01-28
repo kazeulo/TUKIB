@@ -43,8 +43,8 @@ const Equipment_rental = () => {
 							Please contact us directly for more information and a personalized quote.</p>
 
 						<ul>
-							<li>Basic Equipment Use (e.g., general laboratory instruments): Php2000 - Php5000 per session</li>
-							<li>Advanced Equipment Use (e.g., specialized instruments or longer usage): Php5000 - Php10000 per session</li>
+							<li>Basic Equipment Use (e.g., general laboratory instruments): <b>Php2000 - Php5000 per session</b></li>
+							<li>Advanced Equipment Use (e.g., specialized instruments or longer usage): <b>Php5000 - Php10000 per session</b></li>
 							<li>Custom Equipment Packages (e.g., group use or long-term access): Prices vary based on the equipment and usage time</li>
 						</ul>
 
