@@ -96,10 +96,10 @@ const Home = () => {
 										{/* Use of Equipment Icon */}
 									</div>
 									<p>
-										Clients will be permitted to use the equipment of the
-										laboratory with the guidance of the laboratory personnel.
-										Training is required to use the equipment. Email or
-										coordinate with RRC personnel for more details.
+										Clients are permitted to use the laboratory equipment under the supervision and guidance of our 
+										trained laboratory personnel. To ensure safe and effective operation, training is required prior 
+										to using any equipment. This ensures that users are familiar with the equipment’s functions, proper 
+										handling, and safety protocols.
 									</p>
 								</div>
 							</div>
@@ -113,12 +113,12 @@ const Home = () => {
 										{/* Training Service Icon */}
 									</div>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Vestibulum ac mauris semper ex maximus luctus et in tellus.
-										Sed lacinia venenatis luctus. Nulla id arcu ipsum. Nulla
-										vestibulum tincidunt urna sit amet lacinia. Sed accumsan
-										ullamcorper pulvinar. Suspendisse accumsan ex eu elit luctus
-										aliquam.
+										We offer training sessions for individuals or groups who wish to 
+										become proficient in the proper use of our laboratory equipment. 
+										These sessions are designed to ensure that users can operate the 
+										equipment safely and effectively, adhering to all best practices and protocols. 
+										The training is hands-on, allowing participants to gain practical 
+										experience with the tools, equipment, and techniques used in the lab.
 									</p>
 								</div>
 							</div>
@@ -132,12 +132,10 @@ const Home = () => {
 										{/* Use of Facilities Icon */}
 									</div>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Vestibulum ac mauris semper ex maximus luctus et in tellus.
-										Sed lacinia venenatis luctus. Nulla id arcu ipsum. Nulla
-										vestibulum tincidunt urna sit amet lacinia. Sed accumsan
-										ullamcorper pulvinar. Suspendisse accumsan ex eu elit luctus
-										aliquam.
+										Clients are welcome to rent facilities within the UPV RRC, such as the Audio-Visual Room (AVR) 
+										and other available spaces. These facilities can be used for various purposes, including meetings, 
+										seminars, workshops, or events. Each facility is equipped with modern amenities to support your 
+										specific needs.
 									</p>
 								</div>
 							</div>

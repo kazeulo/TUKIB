@@ -42,9 +42,9 @@ const Sample_processing = () => {
 							Please contact us for more information and a customized quote based on your requirements.</p>
 
 						<ul>
-							<li>AVR Rental (e.g., for meetings, seminars, training sessions): Php8000 - Php15000 per session</li>
-							<li>Meeting Room Rental (e.g., smaller spaces for group discussions): Php5000 - Php8000 per session</li>
-							<li>Event Space Rental (e.g., for larger conferences, workshops): Php10000 - Php20000 per session</li>
+							<li>AVR Rental (e.g., for meetings, seminars, training sessions): <b>Php8000 - Php15000 per session</b></li>
+							<li>Meeting Room Rental (e.g., smaller spaces for group discussions): <b>Php5000 - Php8000 per session</b></li>
+							<li>Event Space Rental (e.g., for larger conferences, workshops): <b>Php10000 - Php20000 per session</b></li>
 							<li>Additional Services (e.g., AV equipment, setup assistance): Prices vary based on services requested</li>
 						</ul>
 

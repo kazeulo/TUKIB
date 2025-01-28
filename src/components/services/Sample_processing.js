@@ -40,9 +40,9 @@ const Sample_processing = () => {
 						</p>
 
 						<ul>
-							<li>Basic Sample Analysis (e.g., simple chemical analysis, pH testing): Php500 - Php1000 per sample</li>
-							<li>Advanced Sample Analysis (e.g., spectrometry, chromatography): Php1500 - Php3000 per sample</li>
-							<li>Specialized Testing (e.g., environmental samples, complex biological samples): Php2000 - Php5000 per sample</li>
+							<li>Basic Sample Analysis (e.g., simple chemical analysis, pH testing): <b>Php500 - Php1000 per sample</b></li>
+							<li>Advanced Sample Analysis (e.g., spectrometry, chromatography): <b>Php1500 - Php3000 per sample</b></li>
+							<li>Specialized Testing (e.g., environmental samples, complex biological samples): <b>Php2000 - Php5000 per sample</b></li>
 						</ul>
 
 						<p>
