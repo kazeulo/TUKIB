@@ -1,4 +1,4 @@
-const pool = require('../db');  // import ppol
+const pool = require('../backend');  // import ppol
 
 const getEvents = async (req, res) => {
   try {
