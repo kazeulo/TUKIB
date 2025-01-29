@@ -1,13 +1,13 @@
-const pool = require('../db');  // import the pool
+const pool = require('../backend');  // import the pool
 
 const handleLogin = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Query the database to check for valid user credentials
     const result = await pool.query(
-      'SELECT * FROM users WHERE username = $1 AND password = $2',
-      [username, password]
+      'SELECT * FROM users WHERE email = $1 AND password = $2',
+      [email, password]
     );
 
     if (result.rows.length > 0) {
@@ -18,12 +18,13 @@ const handleLogin = async (req, res) => {
         success: true,
         message: 'Login successful',
         user: {
-          id: user.id,
-          username: user.username,
+          user_id: user.user_id,
           name: user.name,
+          email: user.email,
           phone: user.phone,
+          institution: user.institution,
+          contact: user.contact_number,
           role: role,
-          profile_pic: user.profile_pic,
         },
         roleSpecificMessage:
           role === 'admin' ? 'Welcome, Admin!' : 'Welcome, Client!',

@@ -8,7 +8,7 @@ import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -27,7 +27,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -72,11 +72,11 @@ const Login = () => {
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="Email">Email</label>
                 <input
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
