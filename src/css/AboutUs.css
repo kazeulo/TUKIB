@@ -93,7 +93,7 @@
 	justify-content: center;
 }
 
-.card {
+.about-card {
 	background-color: rgba(255, 255, 255, 0.9);
 	border-radius: 0px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -106,20 +106,20 @@
 	align-items: center;
 }
 
-.card img {
+.about-card img {
 	width: 100%;
 	border-radius: 0px;
 	margin-bottom: 20px;
 }
 
-.card h2 {
+.about-card h2 {
 	font-size: 24px;
 	font-weight: bold;
 	color: #a01842;
 	margin-bottom: 10px;
 }
 
-.card p {
+.about-card p {
 	font-size: 16px;
 	line-height: 1.6;
 }

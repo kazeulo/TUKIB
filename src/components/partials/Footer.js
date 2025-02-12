@@ -2,7 +2,7 @@
 import React from 'react';
 import upvLogo from '../../assets/upv_logo.png';
 import rrcLogo from '../../assets/new_rrc_logo_circle.png';
-import '../../css/Footer.css';
+import '../../css/partials/Footer.css';
 
 const Footer = () => {
 	return (

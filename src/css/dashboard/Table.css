@@ -1,0 +1,23 @@
+.table-container {
+    padding: 40px 25px;
+    background-color: white;
+    border-radius: 15px;
+    margin: auto;
+}
+
+table {
+    box-shadow: none !important;
+}
+
+thead,
+tbody,
+tfoot,
+td,
+th {
+    border: none; 
+    border-style: hidden !important;
+}
+
+td, th {
+    padding: 10px;
+}

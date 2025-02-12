@@ -1,0 +1,107 @@
+.card {
+    border: 0;
+    background: #fff;
+    font-family: var(--primary-font);
+    color: white !important;
+    border-radius: 6px;
+}
+
+.card .card-body {
+    padding: 2.5rem 2.5rem; 
+}
+  
+.card .card-body + .card-body {
+    padding-top: 1rem;
+}
+
+.card-title{
+    font-size: 18px;
+}
+
+/* .stat-card{
+    color: black !important;
+} */
+
+.card-content{
+    text-align: left;
+    font-weight: bold;
+}
+
+.card-text{
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(to right, #84d9d2, #07cdae) !important;
+}
+  
+.bg-gradient-info {
+    background: linear-gradient(to right, #90caf9, #047edf 99%) !important;
+}
+  
+.bg-gradient-danger {
+    background: linear-gradient(to right, #ffbf96, #fe7096) !important;
+}
+
+.card.card-img-holder {
+    position: relative;
+}
+
+.card.card-img-holder .card-img-absolute {
+    position: absolute !important;
+    bottom: 0 !important; 
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.stretch-card {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: stretch;
+    justify-content: stretch;
+}
+
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+
+.grid-margin {
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 576px) {
+    .grid-margin-sm-0 {
+      margin-bottom: 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .grid-margin-md-0 {
+      margin-bottom: 0;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .grid-margin-lg-0 {
+      margin-bottom: 0;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .grid-margin-xl-0 {
+      margin-bottom: 0;
+    }
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
