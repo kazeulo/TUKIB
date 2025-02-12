@@ -62,7 +62,7 @@ const AboutUs = () => {
 				{/* Section 2: Mission and Vision */}
 				<section className='mission-vision-section'>
 					<div className='cards-container'>
-						<div className='card vision-card'>
+						<div className='about-card vision-card'>
 							<img
 								src={visionPic}
 								alt='Vision Image'
@@ -74,7 +74,7 @@ const AboutUs = () => {
 								fields of Fisheries, Aquatic Sciences, and Allied disciplines.
 							</p>
 						</div>
-						<div className='card mission-card'>
+						<div className='about-card mission-card'>
 							<img
 								src={missionPic}
 								alt='Mission Image'

@@ -48,9 +48,9 @@ const Login = () => {
 
   // Redirect based on user role after login
   useEffect(() => {
-    if (role === 'admin') {
+    if (role === 'Admin') {
       navigate('/adminDashboard'); // Redirect to Admin Dashboard
-    } else if (role === 'client') {
+    } else if (role === 'Client') {
       navigate('/clientProfile'); // Redirect to Client Profile
     }
   }, [role, navigate]); // Trigger the effect when role changes
