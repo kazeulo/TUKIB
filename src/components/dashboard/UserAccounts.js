@@ -18,7 +18,6 @@ const fetchUsers = async (setUsers) => {
     }
 };
 
-// Function to delete a user
 const deleteUser = async (userId, setUsers, users) => {
     try {
         const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
@@ -48,8 +47,12 @@ const Users = () => {
     return (
         <div>
             <div className="table-container">
-                <h3>User Accounts</h3>
-                <button>Add Account</button>
+
+                <div className='userAccountsTitle'>
+                    <h3>User Accounts</h3>
+                    <button className='addAccount-btn'>Add Account</button>
+                </div>
+
                 <table className="user-table">
                     <thead>
                         <tr>

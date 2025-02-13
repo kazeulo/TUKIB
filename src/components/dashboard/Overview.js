@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+import '../../css/dashboard/Overview.css';
+
 import Card from './Card';
 import EventCalendar from '../partials/EventCalendar';
+
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -83,12 +86,12 @@ const Overview = () => {
           />
         </div>
 
-        <div className="row">
+        <div className="row ">
           <div className="col-md-7 stretch-card">
-            <div className="card stat-card">
+            <div className="card">
               <div className="card-body">
                 <div>
-                  <h4 className="card-title mb-2">Visit And Sales Statistics</h4>
+                  <h4 className="card-title-stat mb-2">Visit And Sales Statistics</h4>
                     {/* Line Chart */}
                     <Line data={visitSaleData} />
                 </div>
@@ -96,9 +99,9 @@ const Overview = () => {
             </div>
           </div>
           <div className="col-md-5 stretch-card">
-            <div className="card stat-card">
+            <div className="card">
               <div className="card-body">
-                <h4 className="card-title mb-2">Traffic Sources</h4>
+                <h4 className="card-title-stat mb-2">Traffic Sources</h4>
                 {/* Doughnut Chart */}
                 <Doughnut data={trafficSourceData} />
                 <div

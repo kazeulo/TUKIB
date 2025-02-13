@@ -82,7 +82,8 @@ CREATE TABLE newsTable (
     newsTable_id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     content TEXT,
-    dateposted TIMESTAMP
+    dateposted TIMESTAMP,
+    image BYTEA
 );
 
 -- PRIVILEGES

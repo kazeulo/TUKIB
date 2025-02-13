@@ -55,6 +55,13 @@ const ServiceRequest = () => {
                                     <td>{request.requested_by}</td>
                                     <td>{new Date(request.start).toLocaleString()}</td>
                                     <td>{request.status}</td>
+                                    <td>
+                                        {/* Delete button */}
+                                        <button 
+                                            className="cancel-btn">
+                                            Cancel
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         ) : (
