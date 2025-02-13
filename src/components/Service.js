@@ -16,10 +16,16 @@ const ServicePage = ({
   return (
     <>
       <Header /> {/* Placed outside the container */}
+      <div className='about-banner'>
+					<div className='banner-text'>
+						<h1>{title}</h1>
+						<p>{subtitle}</p>
+					</div>
+				</div>
 
       <div className="service-container">
-        <h1 className="service-title">{title}</h1>
-        <p className="service-subtitle">{subtitle}</p>
+        {/* <h1 className="service-title">{title}</h1>
+        <p className="service-subtitle">{subtitle}</p> */}
 
         {/* Tabs */}
         <div className="tabs">
@@ -66,11 +72,15 @@ const ServicePage = ({
 
           {activeTab === 'how-to-avail' && (
             <div className="steps">
-              {steps.map((step, idx) => (
-                <p key={idx}>{step}</p>
-              ))}
+              {/* <h2>How to Avail</h2> */}
+              <ol>
+                {steps.map((step, idx) => (
+                  <li key={idx}>{step}</li>
+                ))}
+              </ol>
             </div>
           )}
+
         </div>
 
         {/* Contact Information */}

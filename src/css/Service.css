@@ -181,3 +181,48 @@
   /* import Header from './partials/Header';
   import Footer from './partials/Footer';
   import '../css/Service.css'; */
+
+  button.tab {
+    background-color: #b8973c !important;
+    color: white !important;
+}
+
+button.tab:hover {
+    background-color: #8e1537 !important;
+    color: white !important;
+}
+
+button.tab.active {
+    background-color: #6e1214 !important;
+    color: white !important;
+}
+
+.content {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: black;
+  line-height: 1.6;
+
+}
+
+.overview{
+  font-weight: bold;
+}
+.steps h2 {
+  color: #6d1332;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.steps ol {
+  padding-left: 20px;
+  /* font-size: 1.1rem; */
+}
+
+.steps ol li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
