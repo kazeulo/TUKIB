@@ -1,56 +1,148 @@
-.services p, .services li{
-	font-size: 15px;
-	font-family: var(--secondary-font);
-}
-
-.services-banner {
-	position: relative;
-	width: 100%;
-	height: 17vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	background: linear-gradient(
-			to right,
-			rgba(110, 18, 20, 0.844) 15%,
-			rgba(108, 51, 141, 0.75) 45%,
-			rgba(218, 129, 60, 0.7) 75%,
-			rgba(255, 204, 53, 0.6) 100%
-		),
-		url('../assets/pagebanner.png');
-	background-size: cover;
-}
-
-.services-text{
-    text-align: center;
-}
-
-.services-text h1 {
-	font-size: 36px;
-	font-family: var(--primary-font);
-	color: #ffffff;
-	margin-top: 12px;
-}
-
-.services-text p {
-	font-size: 15px;
-	color: #ffffff;
-}
-
-.services-content{
-	margin: 0 30px;
-}
-
-.services-content h3{
-	margin-top: 35px;
+.service-container {
+	padding: 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+  }
+  
+  .service-title {
+	font-size: 32px;
+	margin-bottom: 10px;
+	color: #333;
+  }
+  
+  .service-subtitle {
+	color: #666;
+	margin-bottom: 30px;
+  }
+  
+  /* Tabs */
+  .tabs {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+  }
+  
+  .tab {
+	padding: 10px 20px;
+	margin-right: 5px;
+	background: none;
+	border: 1px solid #ddd;
+	border-bottom: none;
+	cursor: pointer;
+  }
+  
+  .tab.active {
+	background: #8B1538;
+	color: white;
+	border-color: #8B1538;
+  }
+  
+  /* Content */
+  .content {
+	margin-bottom: 30px;
+  }
+  
+  .overview p {
 	margin-bottom: 15px;
-}
+	line-height: 1.6;
+	color: #444;
+  }
+  
+  .pricing .price-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+	border-bottom: 1px solid #eee;
+  }
+  
+  .price-item .service-name {
+	color: #333;
+  }
+  
+  .price-item .price-value {
+	color: #8B1538;
+	font-weight: bold;
+  }
+  
+  .steps p {
+	margin-bottom: 15px;
+	line-height: 1.6;
+	color: #444;
+  }
+  
+  /* Contact Information */
+  .contact-info {
+	background: #f5f5f5;
+	padding: 20px;
+	margin-bottom: 20px;
+  }
+  
+  .contact-info h2 {
+	color: #8B1538;
+	margin-bottom: 15px;
+	font-size: 20px;
+  }
+  
+  .contact-info p {
+	margin-bottom: 10px;
+	color: #444;
+  }
+  
+  .request-btn {
+	background: #8B1538;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	margin-top: 10px;
+	width: 100%;
+  }
+  
+  .request-btn:hover {
+	background: #a01941;
+  }
+  
+  /* Important Notice */
+  .important-notice {
+	background: #f5f5f5;
+	padding: 20px;
+  }
+  
+  .important-notice h2 {
+	color: #8B1538;
+	margin-bottom: 15px;
+	font-size: 20px;
+  }
+  
+  .important-notice ul {
+	list-style: none;
+	padding: 0;
+  }
+  
+  .important-notice li {
+	margin-bottom: 10px;
+	color: #444;
+	position: relative;
+	padding-left: 15px;
+  }
+  
+  .important-notice li:before {
+	content: "•";
+	color: #8B1538;
+	position: absolute;
+	left: 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+	.service-container {
+	  padding: 10px;
+	}
+	
+	.tab {
+	  padding: 8px 15px;
+	}
+  }
 
-.services-content h4{
-	margin-top: 35px;
-}
-
-.services-content p{
-	text-align: justify;
-}
+  /* import Header from './partials/Header';
+  import Footer from './partials/Footer';
+  import '../css/Service.css'; */
