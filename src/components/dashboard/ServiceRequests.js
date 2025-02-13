@@ -58,8 +58,8 @@ const ServiceRequest = () => {
                                     <td>
                                         {/* Delete button */}
                                         <button 
-                                            className="delete-btn">
-                                            Delete
+                                            className="cancel-btn">
+                                            Cancel
                                         </button>
                                     </td>
                                 </tr>
