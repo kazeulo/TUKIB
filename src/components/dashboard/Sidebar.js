@@ -83,6 +83,13 @@ const Sidebar = ({ setSelectedSection }) => {
             <i className="fas fa-envelope-open"></i>
           </li>
 
+          <li onClick={() => handleClick('News')}>
+            <a href="#">
+              <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Equipment</span>
+            </a>
+            <i className="fas fa-tools"></i>
+          </li>
+
           <li onClick={handleLogout}>
             <a>
               <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Log out</span>  

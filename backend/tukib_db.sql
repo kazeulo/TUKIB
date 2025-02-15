@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS newsTable;
 
 -- ======== CREATES ========
 
--- Create the table 'users'
+-- Create the table 'usersTable'
 CREATE TABLE usersTable (
     user_id SERIAL PRIMARY KEY,            -- Automatically generated unique ID for each user
     name VARCHAR(100) NOT NULL,            -- Name of the user
@@ -51,7 +51,7 @@ CREATE TABLE usersTable (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for the last update
 );
 
--- Create the 'service_request' table with requested changes already included
+-- Create the table 'serviceRequestTable'
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,                 -- Automatically generated unique ID for each request
     user_id INT NOT NULL,                          -- ID of the user who requested the service
@@ -67,7 +67,7 @@ CREATE TABLE serviceRequestTable (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id)  -- Foreign key referencing the 'users' table
 );
 
--- Create the 'messagesTable' with the new columns 'sender_email' and 'body'
+-- Create the table 'messagesTable'
 CREATE TABLE messagesTable (
     message_id SERIAL PRIMARY KEY,             -- Automatically generated unique ID for each message
     subject VARCHAR(255) NOT NULL,             -- Subject of the message
@@ -78,6 +78,7 @@ CREATE TABLE messagesTable (
     remarks VARCHAR(10) CHECK (remarks IN ('read', 'unread'))  -- Message status (read/unread)
 );
 
+-- Create the table 'newsTable'
 CREATE TABLE newsTable (
     newsTable_id SERIAL PRIMARY KEY,
     title VARCHAR(255),
@@ -86,6 +87,7 @@ CREATE TABLE newsTable (
     image BYTEA
 );
 
+-- Create the table 'eventsTable'
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -104,7 +106,21 @@ CREATE TABLE events (
 CREATE INDEX idx_events_start_time ON events(start_time);
 CREATE INDEX idx_events_end_time ON events(end_time);
 
--- PRIVILEGES
+-- Create the table 'equipmentsTable'
+CREATE TABLE equipmentsTable (
+    equipment_id SERIAL PRIMARY KEY,               -- Automatically generated unique ID for each equipment
+    availability BOOLEAN NOT NULL,                 -- Availability status of the equipment (TRUE/FALSE)
+    equipment_name VARCHAR(255) NOT NULL,          -- Name of the equipment
+    brand VARCHAR(255),                            -- Brand of the equipment
+    quantity INT NOT NULL,                         -- Quantity of the equipment
+    model VARCHAR(255),                            -- Model of the equipment
+    serial_number VARCHAR(255),                    -- Serial number of the equipment
+    staff_name VARCHAR(255),                       -- Name of the staff responsible (accountable officer)
+    location VARCHAR(255) NOT NULL,                -- Location where the equipment is used/stored
+    sticker_paper_printed BOOLEAN NOT NULL         -- Whether a sticker is printed for the equipment (TRUE/FALSE)
+);
+
+-- ======== PRIVILEGES ========
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
 
@@ -142,6 +158,14 @@ VALUES
 ('Client Presentation', 'Presentation of project progress to the client.', '2025-03-05 14:00:00', '2025-03-10 15:30:00', 'Client Office', 1, FALSE, NULL),
 ('Code Review', 'Weekly code review session.', '2025-02-24 11:00:00', '2025-02-26 12:00:00', 'Online', 3, TRUE, 'weekly'),
 ('Team Outing', 'Team bonding event at a local restaurant.', '2025-02-25 17:00:00', '2025-02-25 19:00:00', 'Downtown Restaurant', 4, FALSE, NULL);
+
+
+-- Inserting dummy data into the 'equuipments' table
+INSERT INTO equipment (availability, equipment_name, brand, quantity, model, serial_number, staff_name, location, sticker_paper_printed)
+VALUES
+    (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Incubator-Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
+    (TRUE, 'Projector', 'BrandB', 3, 'Projector-ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE),
+    (TRUE, 'Spray Dryer', 'Buchi', 2, 'Mini Spray Dryer B_290', 'SN345678', 'Alice Johnson', 'Food, Feeds, Functional, Nutrition Lab', TRUE);
 
 -- ======== ALTERS ========
 
