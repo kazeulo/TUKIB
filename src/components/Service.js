@@ -1,84 +1,110 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-// css
-import '../css/Service.css';
-import '../css/Variables.css';
-
-//partials
 import Header from './partials/Header';
 import Footer from './partials/Footer';
+import '../css/Service.css'; 
 
-// images
-import spImage from '../assets/servicepage_sp.png';
-import equipmentImage from '../assets/servicepage_equipment.png';
-import trainingImage from '../assets/servicepage_training.png';
-import facilityImage from '../assets/servicepage_facility.png';
-// import bannerImage from '../assets/pagebanner.png';
+const ServicePage = ({ 
+  title,
+  subtitle,
+  description,
+  prices,
+  steps 
+}) => {
+  const [activeTab, setActiveTab] = useState('overview');
 
-const Service = () => {
-	const services = [
-		{
-			title: 'Sample Processing',
-			description:
-				'Lorem ipsum odor amet, consectetuer adipiscing elit. Volutpat praesent sollicitudin consectetur nostra euismod nulla tempus? Quisque at dui aenean facilisi vehicula nisl. Gravida aliquet ipsum viverra sollicitudin curae fames fames. Nibh turpis placerat egestas conubia ad dapibus aliquam non. Potenti habitasse nunc tortor dui erat varius. Magnis elit sapien interdum himenaeos pellentesque nisl vel.',
-			image: spImage,
-		},
-		{
-			title: 'Use of Equipment',
-			description:
-				'Lorem ipsum odor amet, consectetuer adipiscing elit. Volutpat praesent sollicitudin consectetur nostra euismod nulla tempus? Quisque at dui aenean facilisi vehicula nisl. Gravida aliquet ipsum viverra sollicitudin curae fames fames. Nibh turpis placerat egestas conubia ad dapibus aliquam non. Potenti habitasse nunc tortor dui erat varius. Magnis elit sapien interdum himenaeos pellentesque nisl vel.',
-			image: equipmentImage,
-		},
-		{
-			title: 'Training Service',
-			description:
-				'Lorem ipsum odor amet, consectetuer adipiscing elit. Volutpat praesent sollicitudin consectetur nostra euismod nulla tempus? Quisque at dui aenean facilisi vehicula nisl. Gravida aliquet ipsum viverra sollicitudin curae fames fames. Nibh turpis placerat egestas conubia ad dapibus aliquam non. Potenti habitasse nunc tortor dui erat varius. Magnis elit sapien interdum himenaeos pellentesque nisl vel.',
-			image: trainingImage,
-		},
-		{
-			title: 'Use of Facilities',
-			description:
-				'Lorem ipsum odor amet, consectetuer adipiscing elit. Volutpat praesent sollicitudin consectetur nostra euismod nulla tempus? Quisque at dui aenean facilisi vehicula nisl. Gravida aliquet ipsum viverra sollicitudin curae fames fames. Nibh turpis placerat egestas conubia ad dapibus aliquam non. Potenti habitasse nunc tortor dui erat varius. Magnis elit sapien interdum himenaeos pellentesque nisl vel.',
-			image: facilityImage,
-		},
-	];
-
-	return (
-		<div>
-			<Header />
-			<div className='service-page'>
-				<div className='service-banner'>
-					<div className='service-text'>
-						<h1>Our Services</h1>
-						<p>
-							Discover the range of services provided by UPV Regional Research
-							Center.
-						</p>
+  return (
+    <>
+      <Header /> {/* Placed outside the container */}
+      <div className='about-banner'>
+					<div className='banner-text'>
+						<h1>{title}</h1>
+						<p>{subtitle}</p>
 					</div>
 				</div>
 
-				<div className='service-cards'>
-					{services.map((service, index) => (
-						<div
-							key={index}
-							className='service-card_'>
-							<div className='service-content'>
-								<h3 className='service-title'>{service.title}</h3>
-								<p className='service-description'>{service.description}</p>
-							</div>
-							<div className='service-image'>
-								<img
-									src={service.image}
-									alt={service.title}
-								/>
-							</div>
-						</div>
-					))}
-				</div>
-				<Footer />
-			</div>
-		</div>
-	);
+      <div className="service-container">
+        {/* <h1 className="service-title">{title}</h1>
+        <p className="service-subtitle">{subtitle}</p> */}
+
+        {/* Tabs */}
+        <div className="tabs">
+          <button
+            className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
+            Overview
+          </button>
+          <button
+            className={`tab ${activeTab === 'pricing' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pricing')}
+          >
+            Pricing
+          </button>
+          <button
+            className={`tab ${activeTab === 'how-to-avail' ? 'active' : ''}`}
+            onClick={() => setActiveTab('how-to-avail')}
+          >
+            How to Avail
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="content">
+          {activeTab === 'overview' && (
+            <div className="overview">
+              {description.map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'pricing' && (
+            <div className="pricing">
+              {prices.map((price, idx) => (
+                <div key={idx} className="price-item">
+                  <span className="service-name">{price.service}</span>
+                  <span className="price-value">{price.range}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'how-to-avail' && (
+            <div className="steps">
+              {/* <h2>How to Avail</h2> */}
+              <ol>
+                {steps.map((step, idx) => (
+                  <li key={idx}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+        </div>
+
+        {/* Contact Information */}
+        <div className="contact-info">
+          <h2>Contact Information</h2>
+          <p>✉️ rrc.upvisayas@up.edu.ph</p>
+          <p>🕒 Mon-Fri: 8:00 AM - 5:00 PM</p>
+          <button className="request-btn">Request Service</button>
+        </div>
+
+        {/* Important Notice */}
+        <div className="important-notice">
+          <h2>Important Notice</h2>
+          <ul>
+            <li>Advance booking required</li>
+            <li>Payment must be made at UPV Cash Office</li>
+            <li>Please bring valid ID</li>
+          </ul>
+        </div>
+      </div>
+
+      <Footer /> {/* Placed outside the container */}
+    </>
+  );
 };
 
-export default Service;
+export default ServicePage;

@@ -1,0 +1,70 @@
+.table-container {
+    padding: 40px 25px;
+    background-color: white;
+    border-radius: 15px;
+    margin: auto;
+}
+
+table {
+    box-shadow: none !important;
+}
+
+thead,
+tbody,
+tfoot,
+td,
+th {
+    border: none; 
+    border-style: hidden !important;
+}
+
+td, th {
+    padding: 10px;
+}
+
+tr{
+    transition: all ease 0.4s;
+    border-bottom: #292929 !important;
+}
+
+tr:hover{
+    background-color: #eeeeee
+}
+
+button{
+    margin: 0 5px;
+    font-size: 14px;
+    padding: 5px 20px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+}
+
+.delete-btn{
+    z-index: 2;
+    background-color: #e8554a;
+    color: white;
+    transition: all ease 0.4s;
+}
+
+.delete-btn:hover{
+    background-color: #f0736a;
+}
+
+/* User accounts table */
+.userAccountsTitle{
+    display: flex;
+    justify-content:space-between;
+}
+
+.addAccount-btn{
+    margin-right: 50px;
+    border: 1px solid transparent;
+    background-color: #62c462;
+    color: white;
+    transition: all ease 0.4s; 
+}
+
+.addAccount-btn:hover{
+    color: #292929;
+    background-color: #55a455;
+}

@@ -4,9 +4,8 @@ const handleLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Query the database to check for valid user credentials
     const result = await pool.query(
-      'SELECT * FROM users WHERE email = $1 AND password = $2',
+      'SELECT * FROM usersTable WHERE email = $1 AND password = $2',
       [email, password]
     );
 
@@ -27,7 +26,7 @@ const handleLogin = async (req, res) => {
           role: role,
         },
         roleSpecificMessage:
-          role === 'admin' ? 'Welcome, Admin!' : 'Welcome, Client!',
+          role === 'Admin' ? 'Welcome, Admin!' : 'Welcome, Client!',
       });
     } else {
       res.status(401).json({ success: false, message: 'Invalid credentials' });
