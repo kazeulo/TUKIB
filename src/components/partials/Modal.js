@@ -1,8 +1,7 @@
-// Modal.js
 import React from 'react';
 import '../../css/partials/Modal.css'; 
 
-const Modal = ({ isOpen, onClose, onConfirm, title, content }) => {
+const Modal = ({ isOpen, onClose, onConfirm, title, content, footer }) => {
     if (!isOpen) return null;
 
     return (
@@ -12,11 +11,10 @@ const Modal = ({ isOpen, onClose, onConfirm, title, content }) => {
                     <h4>{title}</h4>
                 </div>
                 <div className="modal-body">
-                    <p>{content}</p>
+                    <div>{content}</div> 
                 </div>
                 <div className="modal-footer">
-                    <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
-                    <button className="btn btn-danger" onClick={onConfirm}>Log Out</button>
+                    {footer}
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ import Modal from '../partials/Modal';
 const Sidebar = ({ setSelectedSection }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [logoutConfirmed, setLogoutConfirmed] = useState(false);
+    // const [logoutConfirmed, setLogoutConfirmed] = useState(false);
     const navigate = useNavigate();
   
     // Toggle the sidebar between collapsed and expanded states
@@ -28,6 +28,14 @@ const Sidebar = ({ setSelectedSection }) => {
       setModalOpen(false); 
       navigate('/login'); 
     };
+
+    // Footer content with buttons for modal
+    const footerContent = (
+        <>
+            <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Cancel</button>
+            <button className="btn btn-danger" onClick={confirmLogout}>Log Out</button>
+        </>
+    );
 
     return (
       <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
@@ -72,7 +80,14 @@ const Sidebar = ({ setSelectedSection }) => {
             <a href="#">
               <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>News</span>
             </a>
-            <i className="fas fa-envelope-open"></i>
+            <i className="fas fa-newspaper"></i>
+          </li>
+
+          <li onClick={() => handleClick('Equipments')}>
+            <a href="#">
+              <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Equipments</span>
+            </a>
+            <i className="fas fa-tools"></i>
           </li>
 
           <li onClick={handleLogout}>
@@ -83,14 +98,14 @@ const Sidebar = ({ setSelectedSection }) => {
           </li>
           
         </ul>
-
-        {/* Modal for logout confirmation of log out*/}
+        
         <Modal
             isOpen={isModalOpen}
             onClose={() => setModalOpen(false)}
             onConfirm={confirmLogout}
             title="Confirm Log Out"
             content="Are you sure you want to log out?"
+            footer={footerContent}
         />
       </div>
     );

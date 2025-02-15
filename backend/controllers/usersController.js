@@ -17,11 +17,10 @@ const getUsers = async (req, res) => {
 	}
 };
 
-// Add a new user (new function)
 const createUser = async (req, res) => {
 	try {
 		const { name, email, role, password, institution, contact_number } =
-			req.body; // Include contact_number
+			req.body; 
 
 		// Validate required fields
 		if (!name || !email || !password) {
@@ -31,7 +30,6 @@ const createUser = async (req, res) => {
 			});
 		}
 
-		// Insert new user into the database
 		const result = await pool.query(
 			'INSERT INTO usersTable (name, email, role, password, institution, contact_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
 			[name, email, role, password, institution, contact_number] // Include contact_number in the query
