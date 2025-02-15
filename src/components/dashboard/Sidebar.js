@@ -6,7 +6,7 @@ import Modal from '../partials/Modal';
 const Sidebar = ({ setSelectedSection }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [logoutConfirmed, setLogoutConfirmed] = useState(false);
+    // const [logoutConfirmed, setLogoutConfirmed] = useState(false);
     const navigate = useNavigate();
   
     // Toggle the sidebar between collapsed and expanded states

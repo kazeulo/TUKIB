@@ -13,4 +13,12 @@ body{
 .add-account-form{
     display: flex;
     flex-direction: column;
+    font-family: var(--primary-font);
+}
+
+.add-account-form input, .add-account-form select{
+    border: solid 1px #171717;
+    margin: 10px;
+    font-size: 13px;
+    padding: 10px;
 }

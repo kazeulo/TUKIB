@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/dashboard/Table.css';
-import '../../css/AdminDashboard.css'
+import '../../css/AdminDashboard.css';
 import Modal from '../partials/Modal';
 
 const fetchUsers = async (setUsers) => {
@@ -87,7 +87,6 @@ const modalForm = (newUser, setNewUser) => (
       onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
       required
     />
-
     {/* Role Dropdown */}
     <select
       value={newUser.role}
@@ -120,7 +119,6 @@ const modalForm = (newUser, setNewUser) => (
       value={newUser.contact_number}
       onChange={(e) => setNewUser({ ...newUser, contact_number: e.target.value })}
     />
-
   </form>
 );
 
@@ -129,13 +127,14 @@ const Users = () => {
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
-    role: '', 
+    role: '',
     password: '',
     institution: '',
     contact_number: '',
   });
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     fetchUsers(setUsers);
@@ -143,31 +142,44 @@ const Users = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
-
-    // Call addUser with the newUser data
     addUser(newUser, setUsers);
-
-    // Reset the form after adding the user
     setNewUser({
       name: '',
       email: '',
-      role: '',  
+      role: '',
       password: '',
       institution: '',
       contact_number: '',
     });
+    setIsAddUserModalOpen(false);
+  };
 
-    // Close the modal after adding the user
-    setIsModalOpen(false);
+  const handleDeleteUser = () => {
+    if (userToDelete) {
+      deleteUser(userToDelete.user_id, setUsers, users);
+      setUserToDelete(null);
+      setIsDeleteUserModalOpen(false);
+    }
   };
 
   const formFooter = (
     <>
-      <button className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>
+      <button className="btn btn-secondary" onClick={() => setIsAddUserModalOpen(false)}>
         Cancel
       </button>
       <button className="btn btn-primary" onClick={handleAddUser}>
         Add
+      </button>
+    </>
+  );
+
+  const deleteModalFooter = (
+    <>
+      <button className="btn btn-secondary" onClick={() => setIsDeleteUserModalOpen(false)}>
+        Cancel
+      </button>
+      <button className="btn btn-danger" onClick={handleDeleteUser}>
+        Yes
       </button>
     </>
   );
@@ -177,21 +189,29 @@ const Users = () => {
       <div className="table-container">
         <div className="userAccountsTitle">
           <h3>User Accounts</h3>
-
-          {/* Button to trigger the modal */}
-          <button onClick={() => setIsModalOpen(true)} className="add-account-btn">
-            Add User
+          <button onClick={() => setIsAddUserModalOpen(true)} className="add-account-btn">
+            Add Account
           </button>
         </div>
 
         {/* Modal for adding user */}
         <Modal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)} 
-          onConfirm={handleAddUser} 
-          title="Add New User"
-          content={modalForm(newUser, setNewUser)} 
-          footer={formFooter} 
+          isOpen={isAddUserModalOpen}
+          onClose={() => setIsAddUserModalOpen(false)}
+          onConfirm={handleAddUser}
+          title="Add Account"
+          content={modalForm(newUser, setNewUser)}
+          footer={formFooter}
+        />
+
+        {/* Modal for deleting user */}
+        <Modal
+          isOpen={isDeleteUserModalOpen}
+          onClose={() => setIsDeleteUserModalOpen(false)}
+          onConfirm={handleDeleteUser}
+          title="Delete Account"
+          content="Are you sure you want to delete this account?"
+          footer={deleteModalFooter}
         />
 
         {/* User table */}
@@ -201,7 +221,7 @@ const Users = () => {
               <th>User ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th> 
+              <th>Role</th>
               <th>Institution</th>
               <th>Contact Number</th>
               <th>Action</th>
@@ -214,11 +234,17 @@ const Users = () => {
                   <td>{user.user_id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>{user.role}</td> 
+                  <td>{user.role}</td>
                   <td>{user.institution}</td>
                   <td>{user.contact_number}</td>
                   <td>
-                    <button onClick={() => deleteUser(user.user_id, setUsers, users)} className="delete-btn">
+                    <button
+                      onClick={() => {
+                        setUserToDelete(user);
+                        setIsDeleteUserModalOpen(true);
+                      }}
+                      className="delete-btn"
+                    >
                       Delete
                     </button>
                   </td>

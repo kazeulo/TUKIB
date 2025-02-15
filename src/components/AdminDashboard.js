@@ -14,7 +14,7 @@ const Admin = () => {
     const renderContent = () => {
         switch (selectedSection) {
             case 'Overview':
-                return <Overview />; // Render the Dashboard component
+                return <Overview />; 
             case 'Service Requests':
                 return <ServiceRequests />;
             case 'Users':
