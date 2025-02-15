@@ -29,6 +29,14 @@ const Sidebar = ({ setSelectedSection }) => {
       navigate('/login'); 
     };
 
+    // Footer content with buttons for modal
+    const footerContent = (
+        <>
+            <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Cancel</button>
+            <button className="btn btn-danger" onClick={confirmLogout}>Log Out</button>
+        </>
+    );
+
     return (
       <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
         
@@ -83,14 +91,14 @@ const Sidebar = ({ setSelectedSection }) => {
           </li>
           
         </ul>
-
-        {/* Modal for logout confirmation of log out*/}
+        
         <Modal
             isOpen={isModalOpen}
             onClose={() => setModalOpen(false)}
             onConfirm={confirmLogout}
             title="Confirm Log Out"
             content="Are you sure you want to log out?"
+            footer={footerContent}
         />
       </div>
     );
