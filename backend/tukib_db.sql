@@ -32,9 +32,11 @@
 -- Drop tables to ensure no errors when running
 --====== DROPS =======
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
-DROP TABLE IF EXISTS usersTable CASCADE;
+DROP TABLE IF EXISTS usersTable;
 DROP TABLE IF EXISTS messagesTable;
 DROP TABLE IF EXISTS newsTable;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS equipmentsTable;
 
 -- ======== CREATES ========
 
@@ -161,7 +163,7 @@ VALUES
 
 
 -- Inserting dummy data into the 'equuipments' table
-INSERT INTO equipment (availability, equipment_name, brand, quantity, model, serial_number, staff_name, location, sticker_paper_printed)
+INSERT INTO equipmentsTable (availability, equipment_name, brand, quantity, model, serial_number, staff_name, location, sticker_paper_printed)
 VALUES
     (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Incubator-Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
     (TRUE, 'Projector', 'BrandB', 3, 'Projector-ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE),

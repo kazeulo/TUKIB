@@ -8,6 +8,7 @@ const eventsController = require('./controllers/eventsController');
 const usersController = require('./controllers/usersController');
 const messagesController = require('./controllers/messagesController');
 const serviceRequestsController = require('./controllers/serviceRequestsController');
+const equipmentsController = require('./controllers/equipmentsController');
 
 const app = express();
 
@@ -34,6 +35,9 @@ app.delete('/api/users/:userId', usersController.deleteUser);
 
 // Endpoint to fetch service requests
 app.get('/api/serviceRequests', serviceRequestsController.getServiceRequests);
+
+// Endpoint to fetch equipments
+app.get('/api/equipments', equipmentsController.getEquipments)
 
 // Endpoint to cancel a service request (update status to 'Cancelled')
 app.put(

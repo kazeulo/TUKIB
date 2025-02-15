@@ -80,12 +80,12 @@ const Sidebar = ({ setSelectedSection }) => {
             <a href="#">
               <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>News</span>
             </a>
-            <i className="fas fa-envelope-open"></i>
+            <i className="fas fa-newspaper"></i>
           </li>
 
-          <li onClick={() => handleClick('News')}>
+          <li onClick={() => handleClick('Equipments')}>
             <a href="#">
-              <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Equipment</span>
+              <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Equipments</span>
             </a>
             <i className="fas fa-tools"></i>
           </li>
