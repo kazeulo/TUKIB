@@ -86,6 +86,24 @@ CREATE TABLE newsTable (
     image BYTEA
 );
 
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    location VARCHAR(255),
+    created_by INT NOT NULL, -- Reference to the user who created the event
+    is_recurring BOOLEAN DEFAULT FALSE,
+    recurrence_pattern VARCHAR(50), -- e.g., "daily", "weekly", etc.
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Optional: Create an index to speed up queries on frequently searched columns
+CREATE INDEX idx_events_start_time ON events(start_time);
+CREATE INDEX idx_events_end_time ON events(end_time);
+
 -- PRIVILEGES
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
@@ -115,6 +133,15 @@ INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
 VALUES
     ('Hillu', 'Sarah d', 'qws@example.com', 'hi mez hehe', 'unread'),
     ('test', 'BBM', 'qweerty.brown@example.com', 'test.', 'read');
+
+-- Inserting dummy data into the 'events' table
+INSERT INTO events (title, description, start_time, end_time, location, created_by, is_recurring, recurrence_pattern)
+VALUES
+('Project Kickoff', 'Initial meeting to discuss the project scope and goals.', '2025-02-20 10:00:00', '2025-02-21 11:00:00', 'Conference Room A', 1, FALSE, NULL),
+('Weekly Standup', 'Team standup meeting for project updates.', '2025-02-21 09:00:00', '2025-02-21 09:30:00', 'Online', 2, TRUE, 'weekly'),
+('Client Presentation', 'Presentation of project progress to the client.', '2025-03-05 14:00:00', '2025-03-10 15:30:00', 'Client Office', 1, FALSE, NULL),
+('Code Review', 'Weekly code review session.', '2025-02-24 11:00:00', '2025-02-26 12:00:00', 'Online', 3, TRUE, 'weekly'),
+('Team Outing', 'Team bonding event at a local restaurant.', '2025-02-25 17:00:00', '2025-02-25 19:00:00', 'Downtown Restaurant', 4, FALSE, NULL);
 
 -- ======== ALTERS ========
 
