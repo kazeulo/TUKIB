@@ -4,6 +4,7 @@ import Overview from './dashboard/Overview';
 import UserAccounts from './dashboard/UserAccounts';
 import ServiceRequests from './dashboard/ServiceRequests';
 import MessagesTable from './dashboard/Messages';
+import EquipmentsTable from './dashboard/Equipments';
 import '../css/AdminDashboard.css';
 
 // Define columns for the users table
@@ -22,6 +23,8 @@ const Admin = () => {
                 return <MessagesTable />;
             case 'News':
                 return <h1>News</h1>;
+            case 'Equipments':
+                    return <EquipmentsTable />;
             default:
                 return <h1>Welcome to the Admin Dashboard</h1>;
         }
