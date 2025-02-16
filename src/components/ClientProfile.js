@@ -99,13 +99,13 @@ const ClientProfile = () => {
         navigate('/sample-processing'); 
         break;
       case 'Training Services':
-        navigate('/training-services'); 
+        navigate('/TrainingServicesForm'); 
         break;
       case 'Use of Equipment':
-        navigate('/use-of-equipment');
+        navigate('/UseOfEquipmentForm');
         break;
       case 'Use of Facility':
-        navigate('/use-of-facility'); 
+        navigate('/UseOfFacilityForm'); 
         break;
       default:
         break;
