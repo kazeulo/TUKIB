@@ -19,6 +19,8 @@ TUKIB is an integrated system designed to streamline the full-service management
 - **PostgreSQL**: A powerful, open-source relational database system used for data storage.
 - **Rasa**: An open-source machine learning framework for building conversational AI and chatbots.
 
+### How to Run
+
 To run this project locally, follow these steps:
 
 1. Clone the repository.
