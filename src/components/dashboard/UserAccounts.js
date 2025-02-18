@@ -187,9 +187,9 @@ const Users = () => {
   return (
     <div>
       <div className="table-container">
-        <div className="userAccountsTitle">
+        <div className="tableTitle">
           <h3>User Accounts</h3>
-          <button onClick={() => setIsAddUserModalOpen(true)} className="add-account-btn">
+          <button onClick={() => setIsAddUserModalOpen(true)} className="add-btn">
             Add Account
           </button>
         </div>

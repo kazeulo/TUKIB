@@ -2,6 +2,7 @@
     padding: 40px 25px;
     background-color: white;
     /* border-radius: 15px; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin: auto;
 }
 
@@ -51,12 +52,12 @@ button{
 }
 
 /* User accounts table */
-.userAccountsTitle{
+.tableTitle{
     display: flex;
     justify-content:space-between;
 }
 
-.addAccount-btn{
+.add-btn{
     margin-right: 50px;
     border: 1px solid transparent;
     background-color: #62c462;
@@ -64,7 +65,7 @@ button{
     transition: all ease 0.4s; 
 }
 
-.addAccount-btn:hover{
-    color: #292929;
+.add-btn:hover{
+    /* color: #292929; */
     background-color: #55a455;
 }

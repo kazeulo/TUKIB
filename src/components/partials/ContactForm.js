@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/ContactForm.css';
+import '../../css/partials/ContactForm.css';
 
 const ContactForm = () => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
+		subject: '', 
 		message: '',
 	});
 
@@ -26,7 +27,6 @@ const ContactForm = () => {
 
 	return (
 		<div className='contact-us'>
-
 			<div className='contactInfo row'> 
 				<div className="col-md-6">
 					<div className="info-item d-flex align-items-center">
@@ -75,35 +75,54 @@ const ContactForm = () => {
 			</div>
 
 			<Form onSubmit={handleSubmit} className='contact-form'>
-				{/* Name Field */}
-				<Form.Group controlId='name'>
-					<Form.Label>Name</Form.Label>
+				<Row>
+					{/* Name Field */}
+					<Col md={6}>
+						<Form.Group controlId='name'>
+							{/* <Form.Label>Name</Form.Label> */}
+							<Form.Control
+								type='text'
+								name='name'
+								value={formData.name}
+								onChange={handleChange}
+								required
+								placeholder='Your name'
+							/>
+						</Form.Group>
+					</Col>
+
+					{/* Email Field */}
+					<Col md={6}>
+						<Form.Group controlId='email'>
+							{/* <Form.Label>Email address</Form.Label> */}
+							<Form.Control
+								type='email'
+								name='email'
+								value={formData.email}
+								onChange={handleChange}
+								required
+								placeholder='Your email'
+							/>
+						</Form.Group>
+					</Col>
+				</Row>
+
+				{/* Subject Field */}
+				<Form.Group controlId='subject'>
+					{/* <Form.Label>Subject</Form.Label> */}
 					<Form.Control
 						type='text'
-						name='name'
-						value={formData.name}
+						name='subject'
+						value={formData.subject}
 						onChange={handleChange}
 						required
-						placeholder='Enter your name'
-					/>
-				</Form.Group>
-
-				{/* Email Field */}
-				<Form.Group controlId='email'>
-					<Form.Label>Email address</Form.Label>
-					<Form.Control
-						type='email'
-						name='email'
-						value={formData.email}
-						onChange={handleChange}
-						required
-						placeholder='Enter your email'
+						placeholder='Subject'
 					/>
 				</Form.Group>
 
 				{/* Message Field */}
 				<Form.Group controlId='message'>
-					<Form.Label>Message</Form.Label>
+					{/* <Form.Label>Message</Form.Label> */}
 					<Form.Control
 						as='textarea'
 						rows={4}
@@ -111,7 +130,7 @@ const ContactForm = () => {
 						value={formData.message}
 						onChange={handleChange}
 						required
-						placeholder='Enter your message'
+						placeholder='Message'
 					/>
 				</Form.Group>
 
