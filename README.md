@@ -2,6 +2,15 @@
 
 TUKIB is an integrated system designed to streamline the full-service management cycle for the University of the Philippines Visayas Regional Research Center. This system aims to improve the efficiency and effectiveness of research center operations, ranging from project initiation to management and reporting.
 
+### Features
+
+- **User Accounts Based on Roles**: Users can be assigned specific roles with access levels tailored to their responsibilities.
+- **Automated Service Requests**: Automation of the end-to-end service management process of UPV RRC, from request initiation to completion.
+- **Chatbot for Consultation Process and Client Inquiries**: A conversational AI bot powered by Rasa to assist with consultations and client inquiries.
+- **Real-Time Tracking of Service Requests' Status and Equipment/Facility Availability**: Live updates on service requests status, equipment/facility availability for users.
+- **Data Management and Reporting**: Efficient management of data and generation of reports for research operations and decision-making.
+- **Feedback Mechanism**: A built-in feedback system that allows clients and users to provide valuable input on services.
+
 ### Tech Stack
 
 - **React**: A JavaScript library for building user interfaces.
