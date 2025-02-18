@@ -9,6 +9,8 @@ import Header from './partials/Header';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
