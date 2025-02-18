@@ -29,7 +29,13 @@ const Equipments = () => {
     return (
         <div>
             <div className="table-container">
-                <h3>Equipment List</h3>
+                <div className='tableTitle'>
+                    <h3>Equipment List</h3>
+                    <button className="add-btn">
+                        Add Equipment
+                    </button>
+
+                </div>
                 <table className="equipment-table">
                     <thead>
                         <tr>
@@ -38,6 +44,7 @@ const Equipments = () => {
                             <th>Quantity</th>
                             <th>Location</th>
                             <th>Staff Incharge</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +56,11 @@ const Equipments = () => {
                                     <td>{equipment.quantity}</td>
                                     <td>{equipment.location}</td>
                                     <td>{equipment.staff_name}</td>
+                                    <td>
+                                    <button className="delete-btn">
+                                    Delete
+                                    </button>
+                                </td>
                                 </tr>
                             ))
                         ) : (
