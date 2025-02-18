@@ -1,10 +1,14 @@
-# TUKIB: Integrated System Design for UPV Regional Research Center
+# TUKIB: Tracking Utility for Knowledge Integration and Benchmarking
 
 TUKIB is an integrated system designed to streamline the full-service management cycle for the University of the Philippines Visayas Regional Research Center. This system aims to improve the efficiency and effectiveness of research center operations, ranging from project initiation to management and reporting.
 
-## Features
+### Tech Stack
 
-### How to Run
+- **React**: A JavaScript library for building user interfaces.
+- **Node.js**: A JavaScript runtime for building server-side applications.
+- **Express**: A web application framework for Node.js used to build the backend server.
+- **PostgreSQL**: A powerful, open-source relational database system used for data storage.
+- **Rasa**: An open-source machine learning framework for building conversational AI and chatbots.
 
 To run this project locally, follow these steps:
 
@@ -15,8 +19,6 @@ To run this project locally, follow these steps:
 
 ### How to Contribute
 
-We welcome contributions to improve TUKIB. If you would like to contribute, please follow these steps:
-
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-name`).
 3. Make your changes.
@@ -24,7 +26,7 @@ We welcome contributions to improve TUKIB. If you would like to contribute, plea
 5. Push to the branch (`git push origin feature-name`).
 6. Open a Pull Request.
 
-Please ensure that your code adheres to the coding standards and passes any tests before submitting a pull request.
+Please ensure that there are no errors or issues before submitting a pull request.
 
 ### Contributors
 
