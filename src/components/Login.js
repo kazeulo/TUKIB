@@ -17,6 +17,7 @@ const Login = () => {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [role, setRole] = useState(''); // Track the user role
+	const [showPassword, setShowPassword] = useState(false);
 	const navigate = useNavigate(); // Initialize useNavigate hook
 
 	const handleLogin = async (e) => {
@@ -105,12 +106,22 @@ const Login = () => {
 							</div>
 							<div className='form-group'>
 								<label htmlFor='password'>Password</label>
-								<input
-									type='password'
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									required
-								/>
+								<div className='password-input-container'>
+									<input
+										type={showPassword ? 'text' : 'password'}
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										required
+										className='password-input'
+									/>
+									<button
+										type='button'
+										onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+										className='password-toggle-btn'>
+										{showPassword ? <FaEyeSlash /> : <FaEye />}{' '}
+										{/* Toggle icon */}
+									</button>
+								</div>
 							</div>
 
 							<button
