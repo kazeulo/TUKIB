@@ -7,12 +7,15 @@ import Header from './partials/Header';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [role, setRole] = useState(''); // Track the user role
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleLogin = async (e) => {
@@ -53,7 +56,7 @@ const Login = () => {
     } else if (role === 'Client') {
       navigate('/clientProfile'); // Redirect to Client Profile
     }
-  }, [role, navigate]); // Trigger the effect when role changes
+  }, [role, navigate]);           // Trigger the effect when role changes
 
   return (
     <div className="login">
@@ -82,12 +85,22 @@ const Login = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="password-input-container">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="password-input"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                    className="password-toggle-btn"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Toggle icon */}
+                  </button>
+                </div>
               </div>
 
               <button type="submit" className="login-button">
@@ -99,7 +112,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Original Powered By and Reminders for Desktop View */}
         <div className="login-reminders d-none d-md-inline">
           <h1>Powered By</h1>
           <div className="tukib-logo">
@@ -112,7 +124,6 @@ const Login = () => {
           </ul>
         </div>
 
-        {/* New Reminders for Mobile View */}
         <div className="mobile-reminders d-md-none">
           <h1>Important</h1>
           <ul className="login-reminders-list">
