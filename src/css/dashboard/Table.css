@@ -1,3 +1,5 @@
+/* Table.css */
+
 .table-container {
     padding: 40px 25px;
     background-color: white;
@@ -22,6 +24,11 @@ th {
 td, th {
     padding: 10px;
 }
+thead{
+    background: #8B1538;
+    color: white;
+
+}
 
 tr{
     transition: all ease 0.4s;
@@ -42,30 +49,32 @@ button{
 
 .delete-btn{
     z-index: 2;
-    background-color: #e8554a;
+    background-color: #8B1538;
     color: white;
     transition: all ease 0.4s;
 }
 
 .delete-btn:hover{
-    background-color: #f0736a;
+    background-color: #a41a43;
 }
 
 /* User accounts table */
 .tableTitle{
     display: flex;
     justify-content:space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .add-btn{
     margin-right: 50px;
     border: 1px solid transparent;
-    background-color: #62c462;
+    background-color: #8B1538;
     color: white;
     transition: all ease 0.4s; 
 }
 
 .add-btn:hover{
     /* color: #292929; */
-    background-color: #55a455;
+    background-color: #a41a43;
 }
