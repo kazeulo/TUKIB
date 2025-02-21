@@ -32,6 +32,7 @@
 -- Drop tables to ensure no errors when running
 --====== DROPS =======
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
+DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS usersTable;
 DROP TABLE IF EXISTS messagesTable;
 DROP TABLE IF EXISTS newsTable;
@@ -51,6 +52,16 @@ CREATE TABLE usersTable (
     contact_number VARCHAR(20),            -- User's contact number 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp when the user was created
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for the last update
+);
+
+-- Create the table 'user_tokens'
+CREATE TABLE user_tokens (
+    token_id SERIAL PRIMARY KEY,            -- Automatically generated unique ID for each token
+    user_id INT NOT NULL,                   -- ID of the user who owns the token
+    token VARCHAR(255) NOT NULL,            -- The token (e.g., JWT)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp when the token was created
+    expires_at TIMESTAMP,                  -- The expiration time for the token
+    FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
 
 -- Create the table 'serviceRequestTable'
@@ -97,9 +108,9 @@ CREATE TABLE events (
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
     location VARCHAR(255),
-    created_by INT NOT NULL, -- Reference to the user who created the event
+    created_by INT NOT NULL, 
     is_recurring BOOLEAN DEFAULT FALSE,
-    recurrence_pattern VARCHAR(50), -- e.g., "daily", "weekly", etc.
+    recurrence_pattern VARCHAR(50), 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -125,6 +136,9 @@ CREATE TABLE equipmentsTable (
 -- ======== PRIVILEGES ========
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
+GRANT USAGE, SELECT ON SEQUENCE user_tokens_token_id_seq TO tukib;
+GRANT USAGE, SELECT ON SEQUENCE public.user_tokens_token_id_seq TO tukib;
+
 
 -- ======== INSERTS ========
 
@@ -136,6 +150,15 @@ VALUES
     ('Alice Johnson', 'alice.johnson@example.com', 'University Researcher', 'urpassword', 'Institution C', '345-678-9012'),
     ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', 'University A', '456-789-0123'),
     ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234');
+
+-- Inserting dummy data into the 'user_tokens' table
+INSERT INTO user_tokens (user_id, token, expires_at)
+VALUES
+    (1, 'dummy-jwt-token-for-johndoe', '2025-12-31 23:59:59'),
+    (2, 'dummy-jwt-token-for-janesmith', '2025-12-31 23:59:59'),
+    (3, 'dummy-jwt-token-for-alicejohnson', '2025-12-31 23:59:59'),
+    (4, 'dummy-jwt-token-for-bobbrown', '2025-12-31 23:59:59'),
+    (5, 'dummy-jwt-token-for-charlielee', '2025-12-31 23:59:59');
 
 -- Inserting dummy data into the 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, status, requested_by, payment_option, charged_to_project, project_title, project_budget_code, start, "end")
