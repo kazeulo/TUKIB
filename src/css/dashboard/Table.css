@@ -10,6 +10,7 @@
 
 table {
     box-shadow: none !important;
+    width: 100%;
 }
 
 thead,

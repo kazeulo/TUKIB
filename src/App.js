@@ -9,7 +9,7 @@ import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
-import ClientProfile from './components/ClientProfile';
+import ClientProfile from './components/account pages/ClientProfile';
 import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
@@ -19,7 +19,6 @@ import SampleProcessingForm from './components/forms/SampleProcessingForm';
 import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
-
 
 // services
 import Sample_processing from './components/services/Sample_processing';
@@ -50,6 +49,7 @@ const App = () => {
 			) : (
 				<>
 					<Routes>
+						{/* main pages */}
 						<Route
 							path='/'
 							element={<Home />}
@@ -78,10 +78,8 @@ const App = () => {
 							path='/news'
 							element={<NewsPage />}
 						/>
-						<Route
-							path='/sample-processing'
-							element={<SampleProcessingForm />}
-						/>
+
+						{/* services page */}
 						<Route
 							path='/Sample_processing'
 							element={<Sample_processing />}
@@ -91,27 +89,33 @@ const App = () => {
 							element={<Equipment_rental />}
 						/>
 						<Route
-							path='/UseOfEquipmentForm'
-							element={<UseOfEquipmentForm />}
-						/>
-						<Route
 							path='/Facility_rental'
 							element={<Facility_rental />}
-						/>
-						<Route
-							path='/UseOfFacilityForm'
-							element={<UseOfFacilityForm />}
 						/>
 						<Route
 							path='/Training'
 							element={<Training />}
 						/>
-						<Route
-							path='/TrainingServicesForm'
-							element={<TrainingServicesForm />}
-						/>
 
+						{/* Forms */}
+						<Route 
+							path="/sample-processin-form" 
+							element={<SampleProcessingForm />} 
+						/>
+						<Route 
+							path="/training-form" 
+							element={<TrainingServicesForm />} 
+						/>
+						<Route 
+							path="/use-of-equipment-form" 
+							element={<UseOfEquipmentForm />} 
+						/>
+						<Route 
+							path="/use-of-facility-form" 
+							element={<UseOfFacilityForm />} 
+						/>
 					</Routes>
+					
 					<ScrollTop />
 					<Chatbot />
 				</>
