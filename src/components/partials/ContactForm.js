@@ -19,11 +19,31 @@ const ContactForm = () => {
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// form submission logic
-		console.log('Form submitted:', formData);
+	
+		try {
+			const response = await fetch('http://localhost:5000/api/messages/submit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				console.log('Form submitted successfully:', data);
+				// Optionally, reset form or show success message
+			} else {
+				const errorData = await response.json();
+				console.error('Error submitting form:', errorData);
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
 	};
+	
 
 	return (
 		<div className='contact-us'>
