@@ -75,11 +75,11 @@ const EventCalendar = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.events) {
-					// Ensure start and end are valid Date objects
+					// Ensure start_time and end_time are valid Date objects
 					const eventsWithDates = data.events.map((event) => ({
 						...event,
-						start: new Date(event.start), // Convert to Date object
-						end: new Date(event.end), // Convert to Date object
+						start: new Date(event.start_time), // Convert start_time to Date object
+						end: new Date(event.end_time), // Convert end_time to Date object
 					}));
 					setCalendarEvents(eventsWithDates); // Set events with valid dates
 				}

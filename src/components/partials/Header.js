@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, Button, Container } from 'react-bootstrap';
-import '../../css/Header.css';
-import '../../css/Variables.css';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
+import '../../css/partials/Header.css';
 import logo from '../../assets/new_logo.png';
 
-const Header = ({ isLoggedIn }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
+const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    window.location.href = '/login';
+    setIsLoggedIn(false);  
+    navigate('/login'); 
   };
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const username = user ? user.name : 'User'; 
+
+  // Do not render Header on adminDashboard route
+  if (location.pathname === '/adminDashboard') {
+    return null;
+  }
 
   return (
     <header>
@@ -41,30 +52,26 @@ const Header = ({ isLoggedIn }) => {
                 </Link>
               </Nav.Item>
 
-              <Nav.Item
-                className="dropdown"
-                onMouseEnter={() => setShowDropdown(true)}
-                onMouseLeave={() => setShowDropdown(false)}
-              >
-                <Link to="#" className="nav-link dropdown-toggle">
-                  Services
-                </Link>
-                {showDropdown && (
-                  <div className="dropdown-menu">
-                    <Link to="/Sample_processing" className="dropdown-item">
+              <Nav.Item>
+                <Dropdown>
+                  <Dropdown.Toggle variant="link" className="nav-link">
+                    Services
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/Sample_processing">
                       Sample Processing
-                    </Link>
-                    <Link to="/Equipment_rental" className="dropdown-item">
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/Equipment_rental">
                       Equipment Rental
-                    </Link>
-                    <Link to="/Facility_rental" className="dropdown-item">
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/Facility_rental">
                       Facility Rental
-                    </Link>
-                    <Link to="/Training" className="dropdown-item">
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/Training">
                       Training
-                    </Link>
-                  </div>
-                )}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Nav.Item>
 
               <Nav.Item>
@@ -82,16 +89,14 @@ const Header = ({ isLoggedIn }) => {
 
             {isLoggedIn ? (
               <div className="user-profile">
-                <span className="username">Welcome, {user ? user.username : 'User'}</span>
+                <span className="username">Welcome, {username}</span>
                 <Button className="primary-button" onClick={handleLogout}>
                   Logout
                 </Button>
               </div>
             ) : (
               <Link to="/login" className="nav-link">
-                <Button className="primary-button">
-                  Login
-                </Button>
+                <Button className="primary-button">Login</Button>
               </Link>
             )}
           </Navbar.Collapse>

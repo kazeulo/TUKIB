@@ -6,7 +6,6 @@ import '../css/Variables.css';
 import '../css/AboutUs.css';
 
 /* Page Imports */
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import logo from '../assets/new_logo.png';
 import missionPic from '../assets/missionpic.png';
@@ -17,7 +16,6 @@ const AboutUs = () => {
 	return (
 		<div>
 			{' '}
-			<Header />
 			<div className='about-us'>
 				<div className='about-banner'>
 					<div className='banner-text'>
@@ -62,7 +60,7 @@ const AboutUs = () => {
 				{/* Section 2: Mission and Vision */}
 				<section className='mission-vision-section'>
 					<div className='cards-container'>
-						<div className='card vision-card'>
+						<div className='about-card vision-card'>
 							<img
 								src={visionPic}
 								alt='Vision Image'
@@ -74,7 +72,7 @@ const AboutUs = () => {
 								fields of Fisheries, Aquatic Sciences, and Allied disciplines.
 							</p>
 						</div>
-						<div className='card mission-card'>
+						<div className='about-card mission-card'>
 							<img
 								src={missionPic}
 								alt='Mission Image'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './partials/SampleProcessingForm.css';
+import '../../css/ServiceRequestForm.css';
 
 const SampleProcessingForm = () => {
 	const navigate = useNavigate(); // Initialize useNavigate
@@ -52,12 +52,12 @@ const SampleProcessingForm = () => {
 	};
 
 	return (
-		<div className='sample-processing-form'>
+		<div className='service-request-form'>
 			<div className='form-title'>
 				<h3>Sample Processing Request Form</h3>
 			</div>
 			<form
-				className='sample-processing-form-contents'
+				className='service-request-form-contents'
 				onSubmit={handleSubmit}>
 				{/* Type of Analysis */}
 				<div className='form-group'>

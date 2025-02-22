@@ -1,7 +1,6 @@
 /* General header styling */
 .header {
 	width: 100%;
-	padding: 40px;
 	background-color: rgb(255, 255, 255);
 	color: var(--primary-color);
 	position: fixed;
@@ -10,6 +9,7 @@
 	z-index: 1000; 
 	box-sizing: border-box;
 	box-shadow: 4px 0px 7px rgba(0, 0, 0, 0.6);
+	position: relative;
 }
   
 /* gradient bar on top */

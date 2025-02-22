@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 
 // PostgreSQL connection pool setup
 const pool = new Pool({
-  user: 'tukib',        // alter as needed
+  user: 'tukib',        
   host: 'localhost',
   database: 'tukib_db',
   password: '123456789',

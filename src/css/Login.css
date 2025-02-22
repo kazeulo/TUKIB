@@ -98,7 +98,31 @@
 	color: #6e1214;
 }
 
-/* Mobile View - Show Powered By above login form and Reminders below in a column */
+.password-input-container {
+	position: relative;
+  }
+  
+  .password-input {
+	width: 100%;
+	padding-right: 35px; 
+  }
+  
+  .password-toggle-btn {
+	opacity: 0.3;
+	position: absolute;
+	top: 50%;
+	right: 0px;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	cursor: pointer;
+  }
+  
+  .password-toggle-btn svg {
+	width: 20px;
+	height: 20px;
+  }
+  
 .mobile-powered-by,
 .mobile-reminders {
 	display: none;

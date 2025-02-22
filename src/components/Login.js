@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import axios from 'axios'; 
 import '../css/Login.css';
 
 // import partials
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
+
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [role, setRole] = useState(''); // Track the user role
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const [role, setRole] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
+  const [googleLoading, setGoogleLoading] = useState(false); 
+  const navigate = useNavigate(); 
 
+  // Handle regular login
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    setError(''); // Clear previous errors
-    setSuccess(''); // Clear previous success messages
+    setError(''); 
+    setSuccess(''); 
+    setIsLoading(true);
 
     try {
       const response = await fetch('http://localhost:5000/api/login', {
@@ -30,12 +38,14 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
+	  console.log({ email, password });  
+
       const data = await response.json();
       if (data.success) {
         // Handle success: Store the user info in localStorage
-        localStorage.setItem('user', JSON.stringify(data.user)); // Save user details
+        localStorage.setItem('user', JSON.stringify(data.user));
         setSuccess('Login successful!');
-        setRole(data.user.role); // Store the role for redirection
+        setRole(data.user.role); 
       } else {
         setError(data.message);
         setSuccess('');
@@ -43,81 +53,150 @@ const Login = () => {
     } catch (error) {
       console.error('Error logging in', error);
       setError('Error logging in. Please try again.');
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
+  };
+
+  // Handle Google login success
+  const handleGoogleLoginSuccess = async (response) => {
+    setGoogleLoading(true);
+    try {
+      const res = await axios.post('http://localhost:5000/api/google-login', {
+        token: response.credential, 
+      });
+
+      const { user } = res.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      setSuccess('Google login successful!');
+      setRole(user.role); 
+    } catch (error) {
+      console.error('Google login error:', error);
+      setError('Google login failed. Please try again.');
+    } finally {
+      setGoogleLoading(false); 
     }
   };
 
   // Redirect based on user role after login
   useEffect(() => {
-    if (role === 'admin') {
-      navigate('/adminDashboard'); // Redirect to Admin Dashboard
-    } else if (role === 'client') {
-      navigate('/clientProfile'); // Redirect to Client Profile
+    if (role === 'Admin') {
+      navigate('/adminDashboard'); 
+    } else if (role === 'Client') {
+      navigate('/clientProfile');
+    } else if (role) {
+      setError('Invalid role. Please contact support.');
     }
-  }, [role, navigate]); // Trigger the effect when role changes
+  }, [role, navigate]); 
 
   return (
-    <div className="login">
-      <Header />
-      <main className="login-content">
-        {/* Powered By and Reminders for Mobile View */}
-        <div className="mobile-powered-by d-md-none">
+    <div className='login'>
+      <main className='login-content'>
+        <div className='mobile-powered-by d-md-none'>
           <h1>Powered By</h1>
-          <div className="tukib-logo">
-            <img src={tukibLogo} alt="TUKIB Logo" />
+          <div className='tukib-logo'>
+            <img
+              src={tukibLogo}
+              alt='TUKIB Logo'
+            />
           </div>
         </div>
 
-        <div className="login-container">
-          <div className="login-form">
+        <div className='login-container'>
+          <div className='login-form'>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-              <div className="form-group">
-                <label htmlFor="Email">Email</label>
+              <div className='form-group'>
+                <label htmlFor='Email'>Email</label>
                 <input
-                  type="text"
+                  type='text'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className={error && !email ? 'error' : ''}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+              <div className='form-group'>
+                <label htmlFor='password'>Password</label>
+                <div className='password-input-container'>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className={error && !password ? 'error' : ''}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => setShowPassword(!showPassword)} 
+                    className='password-toggle-btn'>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}{' '}
+                    {/* Toggle icon */}
+                  </button>
+                </div>
               </div>
 
-              <button type="submit" className="login-button">
-                Login
+              <button
+                type='submit'
+                className='login-button'
+                disabled={isLoading}
+              >
+                {isLoading ? 'Logging in...' : 'Login'}
               </button>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
+
+            {error && (
+              <div className="error-message">
+                <p style={{ color: 'red' }}>{error}</p>
+              </div>
+            )}
+
+            {success && (
+              <div className="success-message">
+                <p style={{ color: 'green' }}>{success}</p>
+              </div>
+            )}
+
+            {/* Google Login */}
+            <GoogleOAuthProvider clientId='99014928817-a55l0uqhc29c2jjn0ka4v025av2cfk9c.apps.googleusercontent.com'>
+              <div className='google-login'>
+                <GoogleLogin
+                  onSuccess={handleGoogleLoginSuccess}
+                  onError={() => setError('Google login failed.')}
+                  useOneTap={true} 
+                />
+                {googleLoading && <p>Logging in with Google...</p>}
+              </div>
+            </GoogleOAuthProvider>
           </div>
         </div>
 
-        {/* Original Powered By and Reminders for Desktop View */}
-        <div className="login-reminders d-none d-md-inline">
+        <div className='login-reminders d-none d-md-inline'>
           <h1>Powered By</h1>
-          <div className="tukib-logo">
-            <img src={tukibLogo} alt="TUKIB Logo" />
+          <div className='tukib-logo'>
+            <img
+              src={tukibLogo}
+              alt='TUKIB Logo'
+            />
           </div>
           <h1>Important</h1>
-          <ul className="login-reminders-list">
+          <ul className='login-reminders-list'>
             <li>DO NOT DISCLOSE YOUR LOG-IN PASSWORD TO ANYONE.</li>
-            <li>DO NOT PUT HYPHEN (-) BETWEEN YOUR STUDENT I.D. TYPE IT IN FULL E.g. 201512345</li>
+            <li>
+              DO NOT PUT HYPHEN (-) BETWEEN YOUR STUDENT I.D. TYPE IT IN FULL
+              E.g. 201512345
+            </li>
           </ul>
         </div>
 
-        {/* New Reminders for Mobile View */}
-        <div className="mobile-reminders d-md-none">
+        <div className='mobile-reminders d-md-none'>
           <h1>Important</h1>
-          <ul className="login-reminders-list">
+          <ul className='login-reminders-list'>
             <li>DO NOT DISCLOSE YOUR LOG-IN PASSWORD TO ANYONE.</li>
-            <li>DO NOT PUT HYPHEN (-) BETWEEN YOUR STUDENT I.D. TYPE IT IN FULL E.g. 201512345</li>
+            <li>
+              DO NOT PUT HYPHEN (-) BETWEEN YOUR STUDENT I.D. TYPE IT IN FULL
+              E.g. 201512345
+            </li>
           </ul>
         </div>
       </main>

@@ -4,7 +4,6 @@ import React from 'react';
 import '../css/NewsPage.css';
 
 // partials
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 
 // images
@@ -51,7 +50,6 @@ const NewsPage = () => {
 
 	return (
 		<div>
-			<Header />
 			<div className='news-page'>
 				<div className='news-banner'>
 					<div className='news-banner-text'>
