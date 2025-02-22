@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../partials/Header';
 import Footer from '../partials/Footer';
-import '../../css/account pages/ClientProfile.css';
+import '../../css/account pages/ClientProfile.css'
 
 const ClientProfile = () => {
   const navigate = useNavigate();
@@ -116,7 +115,6 @@ const ClientProfile = () => {
 
   return (
     <div className="client-profile">
-      <Header />
 
       <div className="client-profile-content">
         <div className="client-transactions">

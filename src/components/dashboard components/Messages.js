@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/dashboard/Table.css';
+import '../../css/dashboard components/Table.css';
 
 const fetchMessages = async (setMessages) => {
     try {

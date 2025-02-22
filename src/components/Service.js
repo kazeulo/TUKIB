@@ -1,32 +1,27 @@
 import React, { useState } from 'react';
 
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import '../css/Service.css'; 
 
-const ServicePage = ({ 
+const ServicePage = ({
   title,
   subtitle,
-  description,
-  prices,
-  steps 
+  description = [],
+  prices = [],
+  steps = []
 }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
     <>
-      <Header /> {/* Placed outside the container */}
-      <div className='about-banner'>
-					<div className='banner-text'>
-						<h1>{title}</h1>
-						<p>{subtitle}</p>
-					</div>
-				</div>
+      <div className="about-banner">
+        <div className="banner-text">
+          <h1>{title}</h1>
+          <p>{subtitle}</p>
+        </div>
+      </div>
 
       <div className="service-container">
-        {/* <h1 className="service-title">{title}</h1>
-        <p className="service-subtitle">{subtitle}</p> */}
-
         {/* Tabs */}
         <div className="tabs">
           <button
@@ -53,34 +48,42 @@ const ServicePage = ({
         <div className="content">
           {activeTab === 'overview' && (
             <div className="overview">
-              {description.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
+              {description.length > 0 ? (
+                description.map((para, idx) => <p key={idx}>{para}</p>)
+              ) : (
+                <p>No description available.</p>
+              )}
             </div>
           )}
 
           {activeTab === 'pricing' && (
             <div className="pricing">
-              {prices.map((price, idx) => (
-                <div key={idx} className="price-item">
-                  <span className="service-name">{price.service}</span>
-                  <span className="price-value">{price.range}</span>
-                </div>
-              ))}
+              {prices.length > 0 ? (
+                prices.map((price, idx) => (
+                  <div key={idx} className="price-item">
+                    <span className="service-name">{price.service}</span>
+                    <span className="price-value">{price.range}</span>
+                  </div>
+                ))
+              ) : (
+                <p>No pricing information available.</p>
+              )}
             </div>
           )}
 
           {activeTab === 'how-to-avail' && (
             <div className="steps">
-              {/* <h2>How to Avail</h2> */}
-              <ol>
-                {steps.map((step, idx) => (
-                  <li key={idx}>{step}</li>
-                ))}
-              </ol>
+              {steps.length > 0 ? (
+                <ol>
+                  {steps.map((step, idx) => (
+                    <li key={idx}>{step}</li>
+                  ))}
+                </ol>
+              ) : (
+                <p>No steps available.</p>
+              )}
             </div>
           )}
-
         </div>
 
         {/* Contact Information */}
@@ -102,7 +105,7 @@ const ServicePage = ({
         </div>
       </div>
 
-      <Footer /> {/* Placed outside the container */}
+      <Footer />
     </>
   );
 };

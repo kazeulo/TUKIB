@@ -1,6 +1,6 @@
 // Card.js
 import React from 'react';
-import '../../css/dashboard/Card.css'; 
+import '../../css/dashboard components/Card.css'; 
 import circleImage from '../../assets/dashboard/circle.svg'; 
 
 const Card = ({ title, value, change, gradientClass }) => {

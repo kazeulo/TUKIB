@@ -5,7 +5,6 @@ import axios from 'axios';
 import '../css/Login.css';
 
 // import partials
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 
@@ -92,7 +91,6 @@ const Login = () => {
 
   return (
     <div className='login'>
-      <Header />
       <main className='login-content'>
         <div className='mobile-powered-by d-md-none'>
           <h1>Powered By</h1>

@@ -12,8 +12,6 @@ const equipmentsController = require('../controllers/equipmentsController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
-
-// Routes for Google login
 router.post('/google-login', googleLoginController.googleLoginController);
 
 // Routes for fetching and managing events

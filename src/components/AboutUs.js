@@ -6,7 +6,6 @@ import '../css/Variables.css';
 import '../css/AboutUs.css';
 
 /* Page Imports */
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import logo from '../assets/new_logo.png';
 import missionPic from '../assets/missionpic.png';
@@ -17,7 +16,6 @@ const AboutUs = () => {
 	return (
 		<div>
 			{' '}
-			<Header />
 			<div className='about-us'>
 				<div className='about-banner'>
 					<div className='banner-text'>

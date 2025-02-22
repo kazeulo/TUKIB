@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import '../../css/dashboard/Sidebar.css'; 
+import '../../css/dashboard components/Sidebar.css'; 
 import Modal from '../partials/Modal';
 
-const Sidebar = ({ setSelectedSection }) => {
+const Sidebar = ({ setSelectedSection, setIsLoggedIn }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [logoutConfirmed, setLogoutConfirmed] = useState(false);
     const navigate = useNavigate();
   
     // Toggle the sidebar between collapsed and expanded states
@@ -18,18 +17,19 @@ const Sidebar = ({ setSelectedSection }) => {
       setSelectedSection(section);  
     };
 
+    // Function to open the modal for logout confirmation
     const handleLogout = () => {
       setModalOpen(true); 
     };
 
+    // Confirm logout action
     const confirmLogout = () => {
-      // Handle the log out logic here (e.g., clear user session)
-      console.log("User logged out"); 
-      setModalOpen(false); 
+      localStorage.removeItem('user'); 
+      // setIsLoggedIn(false); 
+      setModalOpen(false);
       navigate('/login'); 
     };
 
-    // Footer content with buttons for modal
     const footerContent = (
         <>
             <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Cancel</button>
