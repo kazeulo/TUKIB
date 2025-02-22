@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/dashboard/Table.css';
+import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
 // Fetch service requests from the API

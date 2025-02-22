@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/dashboard/Table.css';
+import '../../css/dashboard components/Table.css';
 import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
-import '../../css/dashboard/Equipments.css';
+import '../../css/dashboard components/Equipments.css';
 
 const fetchEquipments = async (setEquipments) => {
     try {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../css/dashboard/Table.css';
-import '../../css/AdminDashboard.css';
+import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
 const fetchUsers = async (setUsers) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBold, FaItalic, FaUnderline, FaLink, FaListUl, FaListOl } from 'react-icons/fa';
-import "../../css/dashboard/News.css";
+import "../../css/dashboard components/News.css";
 
 const categories = ["General", "Applied Chemistry", "Biology", "Food Science", "Material Science", "Nanotechnology"];
 

@@ -7,7 +7,6 @@ import '../css/Home.css';
 import '../css/Variables.css';
 
 /* page imports */
-import Header from './partials/Header';
 import Footer from './partials/Footer';
 import ContactForm from './partials/ContactForm';
 import StatCounter from './partials/StatCounter';
@@ -35,7 +34,6 @@ const Home = () => {
 
 	return (
 		<div>
-			<Header />
 			<main className='home-content'>
 				{/* banner */}
 				<div className='home-bg'>

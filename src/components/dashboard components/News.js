@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../css/dashboard/Card.css";
-import "../../css/dashboard/Table.css";
-import "../../css/dashboard/News.css";
+import "../../css/dashboard components/Card.css";
+import "../../css/dashboard components/Table.css";
+import "../../css/dashboard components/News.css";
 import NewsForm from "./NewsForm";
 import { FaEdit, FaTrash, FaChevronRight, FaClock, FaEye } from "react-icons/fa";
 

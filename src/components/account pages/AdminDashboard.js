@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './dashboard/Sidebar';
-import Overview from './dashboard/Overview'; 
-import UserAccounts from './dashboard/UserAccounts';
-import ServiceRequests from './dashboard/ServiceRequests';
-import MessagesTable from './dashboard/Messages';
-import EquipmentsTable from './dashboard/Equipments';
-import News from './dashboard/News';
-import '../css/AdminDashboard.css';
+import Sidebar from '../dashboard components/Sidebar';
+import Overview from '../dashboard components/Overview'; 
+import UserAccounts from '../dashboard components/UserAccounts';
+import ServiceRequests from '../dashboard components/ServiceRequests';
+import MessagesTable from '../dashboard components/Messages';
+import EquipmentsTable from '../dashboard components/Equipments';
+import News from '../dashboard components/News';
+import '../../css/account pages/AdminDashboard.css';
 
-// Define columns for the users table
 const Admin = () => {
-    const [selectedSection, setSelectedSection] = useState('Overview'); // Default section is 'Overview'
+    const [selectedSection, setSelectedSection] = useState('Overview'); 
 
     const renderContent = () => {
         switch (selectedSection) {
