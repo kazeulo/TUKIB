@@ -4,29 +4,71 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/partials/ContactForm.css';
 
 const ContactForm = () => {
-	const [formData, setFormData] = useState({
-		name: '',
-		email: '',
-		subject: '', 
-		message: '',
-	});
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+    });
+    const [messageStatus, setMessageStatus] = useState('');
+    const [messageType, setMessageType] = useState('');
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData({
-			...formData,
-			[name]: value,
-		});
-	};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		// form submission logic
-		console.log('Form submitted:', formData);
-	};
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-	return (
-		<div className='contact-us'>
+        try {
+            const response = await fetch('http://localhost:5000/api/messages/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Form submitted successfully:', data);
+
+                // Reset the form
+                setFormData({
+                    name: '',
+                    email: '',
+                    subject: '',
+                    message: '',
+                });
+
+                // Show success message
+                setMessageStatus('Your message has been successfully sent!');
+                setMessageType('success');
+
+                // Clear message after 5 seconds
+                setTimeout(() => {
+                    setMessageStatus('');
+                    setMessageType('');
+                }, 5000);
+            } else {
+                const errorData = await response.json();
+                console.error('Error submitting form:', errorData);
+                setMessageStatus('There was an error sending your message. Please try again.');
+                setMessageType('error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setMessageStatus('There was an error sending your message. Please try again.');
+            setMessageType('error');
+        }
+    };
+
+    return (
+        <div className="contact-us">
 			<div className='contactInfo row'> 
 				<div className="col-md-6">
 					<div className="info-item d-flex align-items-center">
@@ -74,73 +116,76 @@ const ContactForm = () => {
 				</div>
 			</div>
 
-			<Form onSubmit={handleSubmit} className='contact-form'>
-				<Row>
-					{/* Name Field */}
-					<Col md={6}>
-						<Form.Group controlId='name'>
-							{/* <Form.Label>Name</Form.Label> */}
-							<Form.Control
-								type='text'
-								name='name'
-								value={formData.name}
-								onChange={handleChange}
-								required
-								placeholder='Your name'
-							/>
-						</Form.Group>
-					</Col>
+            <Form onSubmit={handleSubmit} className='contact-form'>
+                <Row>
+                    {/* Name Field */}
+                    <Col md={6}>
+                        <Form.Group controlId='name'>
+                            <Form.Control
+                                type='text'
+                                name='name'
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                placeholder='Your name'
+                            />
+                        </Form.Group>
+                    </Col>
 
-					{/* Email Field */}
-					<Col md={6}>
-						<Form.Group controlId='email'>
-							{/* <Form.Label>Email address</Form.Label> */}
-							<Form.Control
-								type='email'
-								name='email'
-								value={formData.email}
-								onChange={handleChange}
-								required
-								placeholder='Your email'
-							/>
-						</Form.Group>
-					</Col>
-				</Row>
+                    {/* Email Field */}
+                    <Col md={6}>
+                        <Form.Group controlId='email'>
+                            <Form.Control
+                                type='email'
+                                name='email'
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                placeholder='Your email'
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-				{/* Subject Field */}
-				<Form.Group controlId='subject'>
-					{/* <Form.Label>Subject</Form.Label> */}
-					<Form.Control
-						type='text'
-						name='subject'
-						value={formData.subject}
-						onChange={handleChange}
-						required
-						placeholder='Subject'
-					/>
-				</Form.Group>
+                {/* Subject Field */}
+                <Form.Group controlId='subject'>
+                    <Form.Control
+                        type='text'
+                        name='subject'
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        placeholder='Subject'
+                    />
+                </Form.Group>
 
-				{/* Message Field */}
-				<Form.Group controlId='message'>
-					{/* <Form.Label>Message</Form.Label> */}
-					<Form.Control
-						as='textarea'
-						rows={4}
-						name='message'
-						value={formData.message}
-						onChange={handleChange}
-						required
-						placeholder='Message'
-					/>
-				</Form.Group>
+                {/* Message Field */}
+                <Form.Group controlId='message'>
+                    <Form.Control
+                        as='textarea'
+                        rows={4}
+                        name='message'
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        placeholder='Message'
+                    />
+                </Form.Group>
 
-				{/* Submit Button */}
-				<Button
-					type='submit'
-					className='primary-button'>
-					Submit
-				</Button>
-			</Form>
+                {/* Submit Button */}
+                <Button type='submit' className='primary-button'>
+                    Submit
+                </Button>
+
+                {/* Message Status (Success/Error) */}
+                {messageStatus && (
+                    <div
+                        className={`message-status ${messageType === 'success' ? 'success' : 'error'}`}
+                    >
+                        {messageStatus}
+                    </div>
+                )}
+            </Form>
 
 			<div className='location'>
 				<h5>Visit us</h5>
@@ -154,8 +199,8 @@ const ContactForm = () => {
 					loading='lazy'
 					referrerPolicy='no-referrer-when-downgrade'></iframe>
 			</div>
-		</div>
-	);
+        </div>
+    );
 };
 
 export default ContactForm;

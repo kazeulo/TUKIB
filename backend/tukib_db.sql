@@ -136,8 +136,8 @@ CREATE TABLE equipmentsTable (
 -- ======== PRIVILEGES ========
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
-GRANT USAGE, SELECT ON SEQUENCE user_tokens_token_id_seq TO tukib;
-GRANT USAGE, SELECT ON SEQUENCE public.user_tokens_token_id_seq TO tukib;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO tukib;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
 
 
 -- ======== INSERTS ========

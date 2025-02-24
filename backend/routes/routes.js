@@ -31,6 +31,10 @@ router.get('/equipments', equipmentsController.getEquipments);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
+router.post('/messages/submit', messagesController.insertMessage);
+router.get('/messages/:messageId/read', messagesController.updateMessageStatus);
+router.get('/messages/:messageId', messagesController.getMessageDetails);
+
 
 // Export the router
 module.exports = router;
