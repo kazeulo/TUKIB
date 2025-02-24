@@ -94,4 +94,23 @@
   border: 1 solid #6e1214;
 }
 
+/* message status when try to submit message */
+.message-status {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.message-status.success {
+  color: #289842;
+}
+
+.message-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
 

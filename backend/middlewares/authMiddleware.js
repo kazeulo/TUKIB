@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const pool = require('../backend'); 
-const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];

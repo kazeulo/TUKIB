@@ -37,4 +37,53 @@ const insertMessage = async (req, res) => {
     }
 };
 
-module.exports = { getMessages, insertMessage };
+// In your messagesController.js
+const updateMessageStatus = async (req, res) => {
+    const messageId = req.params.messageId;
+
+    try {
+        // Update status to 'read'
+        const query = `
+            UPDATE messagesTable
+            SET remarks = 'read'
+            WHERE message_id = $1
+            RETURNING *;
+        `;
+        const values = [messageId];
+
+        const result = await pool.query(query, values);
+
+        if (result.rows.length > 0) {
+            res.json({
+                status: 'success',
+                message: result.rows[0], 
+            });
+        } else {
+            res.status(404).json({ error: 'Message not found' });
+        }
+    } catch (error) {
+        console.error('Error updating message status:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+// Get a message by ID (for message details page)
+const getMessageDetails = async (req, res) => {
+    const messageId = req.params.messageId;
+
+    try {
+        const result = await pool.query('SELECT * FROM messagesTable WHERE message_id = $1', [messageId]);
+
+        if (result.rows.length > 0) {
+            res.json({ status: 'success', message: result.rows[0] });
+        } else {
+            res.status(404).json({ status: 'error', message: 'Message not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching message details:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+module.exports = { getMessages, insertMessage, updateMessageStatus, getMessageDetails };
+

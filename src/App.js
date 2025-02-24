@@ -23,6 +23,8 @@ import Equipment_rental from './components/services/Equipment_rental';
 import Facility_rental from './components/services/Facility_rental';
 import Training from './components/services/Training';
 
+import MessageDetails from './components/dashboard components/MessageDetails';
+
 import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
 import Header from './components/partials/Header';
@@ -70,7 +72,6 @@ const ProtectedRoute = ({ children, isLoggedIn }) => {
   
 	return children;
   };
-  
 
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
   const location = useLocation();
@@ -168,6 +169,12 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route 
           path="/use-of-facility-form" 
           element={<UseOfFacilityForm />} 
+        />
+
+        {/* detail pages */}
+        <Route 
+          path="/messageDetails/:messageId" 
+          element={<MessageDetails />} 
         />
       </Routes>
     </>
