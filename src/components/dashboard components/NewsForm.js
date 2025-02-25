@@ -14,20 +14,15 @@ const categories = [
 const NewsForm = ({ onAddNews }) => {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
-	const [category, setCategory] = useState('General'); // Default category
+	const [category, setCategory] = useState('General');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newNews = {
-			title,
-			content,
-			category,
-			date: new Date().toISOString(),
-		};
-		onAddNews(newNews);
+		const newNews = { title, content, category };
+		onAddNews(newNews); // Use the passed-in addNews function from news.js
 		setTitle('');
 		setContent('');
-		setCategory('General'); // Reset to default after submission
+		setCategory('General');
 	};
 
 	// Custom toolbar with formatting options

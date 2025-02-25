@@ -192,6 +192,14 @@ VALUES
     (TRUE, 'Projector', 'BrandB', 3, 'Projector-ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE),
     (TRUE, 'Spray Dryer', 'Buchi', 2, 'Mini Spray Dryer B_290', 'SN345678', 'Alice Johnson', 'Food, Feeds, Functional, Nutrition Lab', TRUE);
 
+CREATE TABLE news (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ======== ALTERS ========
 
 -- Add a foreign key reference if there’s a related table (optional example)

@@ -40,10 +40,8 @@ router.get('/messages/:messageId/read', messagesController.updateMessageStatus);
 router.get('/messages/:messageId', messagesController.getMessageDetails);
 
 // Routes for news management
-router.get('/news', newsController.getNews);
 router.post('/news', newsController.addNews);
-router.put('/news/:newsId', newsController.updateNews);
-router.delete('/news/:newsId', newsController.deleteNews);
+router.get('/news', newsController.getNews);
 
 // Export the router
 module.exports = router;
