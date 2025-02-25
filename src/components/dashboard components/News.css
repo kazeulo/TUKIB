@@ -1,0 +1,36 @@
+.news-container {
+	padding: 20px;
+}
+
+.tabs {
+	margin-bottom: 20px;
+}
+
+.tabs button {
+	padding: 10px 15px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.tabs button.active {
+	background-color: #007bff;
+	color: white;
+}
+
+.tab-content {
+	margin-top: 20px;
+}
+
+.news-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.news-item {
+	border-bottom: 1px solid #ddd;
+	padding: 15px 0;
+}
+
+.news-item h4 {
+	margin: 0;
+}
