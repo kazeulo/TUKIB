@@ -29,8 +29,7 @@ const NewsForm = ({ onAddNews }) => {
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
-			[{ size: [] }],
-			['bold', 'italic', 'underline', 'strike'], // Formatting options
+			['bold', 'italic', 'underline'], // Formatting options
 			[{ list: 'ordered' }, { list: 'bullet' }], // Lists (ordered, unordered)
 			[{ indent: '-1' }, { indent: '+1' }], // Indentation
 			['link', 'image'], // Insert links and images
