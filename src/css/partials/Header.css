@@ -50,12 +50,7 @@
 }
   
 .header-nav .nav-link:hover {
-	color: #e7b82b; /* Hover color */
-}
-
-.username {
-	margin-right: 10px;
-	font-weight: bold;
+	color: #e7b82b; 
 }
 
 /* Dropdown menu styling */
@@ -87,4 +82,46 @@
 	background-color: #e7b82b;
 	color: white;
   }
+
+  /* profile picture */
+.profile-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: inherit;
+	transition: ease all 0.5s;
+} 
+
+.profile-link:hover {
+	text-decoration: none; 
+}
+
+.profile-picture {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 8px;
+}
   
+.username {
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.username:hover {
+	text-decoration: none; 
+}
+
+.user-profile:hover .dropdown-menu {
+	display: block;
+}
+
+.user-profile .dropdown-menu{
+	display: none;
+}
+
+.profile-link:focus, .profile-link:active, .dropdown-toggle:focus, .dropdown-toggle:active {
+	text-decoration: none;
+	outline: none;
+	box-shadow: none;
+}

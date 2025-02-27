@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
 import '../../css/partials/Header.css';
 import logo from '../../assets/new_logo.png';
+import defaultProfilePic from '../../assets/profilepic.png'; 
 
 const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   const [user, setUser] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +22,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   };
 
   const username = user ? user.name : 'User'; 
+
+  // default profile pic nalang kay unnecessary naman na mag upload pa pic ang user
+  const profilePicture = defaultProfilePic;
 
   // Do not render Header on adminDashboard route
   if (location.pathname === '/adminDashboard') {
@@ -88,11 +93,30 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
             </Nav>
 
             {isLoggedIn ? (
-              <div className="user-profile">
-                <span className="username">Welcome, {username}</span>
-                <Button className="primary-button" onClick={handleLogout}>
-                  Logout
-                </Button>
+              <div
+                className="user-profile"
+                onMouseEnter={() => setShowDropdown(true)}
+                onMouseLeave={() => setShowDropdown(false)}
+              >
+                <Dropdown show={showDropdown} align="end">
+                  <Dropdown.Toggle variant="link" className="profile-link" as={Link} to="/clientProfile">
+                    <img
+                      src={profilePicture}
+                      alt="Profile"
+                      className="profile-picture"
+                    />
+                    <span className="username">{username}</span>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/clientProfile">
+                      Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>
+                      Logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
             ) : (
               <Link to="/login" className="nav-link">
