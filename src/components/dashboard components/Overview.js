@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
   ArcElement,
+  Filler
 } from 'chart.js';
 
 // Registering Chart.js components
@@ -23,6 +24,7 @@ CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  Filler,
   Title,
   Tooltip,
   Legend,

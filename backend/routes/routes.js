@@ -9,6 +9,7 @@ const usersController = require('../controllers/usersController');
 const messagesController = require('../controllers/messagesController');
 const serviceRequestsController = require('../controllers/serviceRequestsController');
 const equipmentsController = require('../controllers/equipmentsController');
+const newsController = require('../controllers/newsController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -24,13 +25,23 @@ router.delete('/users/:userId', usersController.deleteUser);
 
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
-router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
+router.put(
+	'/serviceRequests/:requestId/cancel',
+	serviceRequestsController.cancelServiceRequest
+);
 
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
+router.post('/messages/submit', messagesController.insertMessage);
+router.get('/messages/:messageId/read', messagesController.updateMessageStatus);
+router.get('/messages/:messageId', messagesController.getMessageDetails);
+
+// Routes for news management
+router.post('/news', newsController.addNews);
+router.get('/news', newsController.getNews);
 
 // Export the router
 module.exports = router;

@@ -136,8 +136,8 @@ CREATE TABLE equipmentsTable (
 -- ======== PRIVILEGES ========
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
-GRANT USAGE, SELECT ON SEQUENCE user_tokens_token_id_seq TO tukib;
-GRANT USAGE, SELECT ON SEQUENCE public.user_tokens_token_id_seq TO tukib;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO tukib;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
 
 
 -- ======== INSERTS ========
@@ -191,6 +191,14 @@ VALUES
     (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Incubator-Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
     (TRUE, 'Projector', 'BrandB', 3, 'Projector-ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE),
     (TRUE, 'Spray Dryer', 'Buchi', 2, 'Mini Spray Dryer B_290', 'SN345678', 'Alice Johnson', 'Food, Feeds, Functional, Nutrition Lab', TRUE);
+
+CREATE TABLE news (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 -- ======== ALTERS ========
 
