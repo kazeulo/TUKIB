@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../partials/Footer';
 import '../../css/account pages/ClientProfile.css'
+import FeedbackForm from '../feedback/FeedbackForm';
 
 const ClientProfile = () => {
   const navigate = useNavigate();
+
+  // remove once feedback form moved to the right place
+  const navigateToFeedbackForm = () => {
+      navigate('/feedback-form'); 
+  };
 
   // Simulated transactions data
   const [transactions] = useState([
@@ -129,7 +135,7 @@ const ClientProfile = () => {
               value={searchQuery}
               onChange={handleSearchChange}
             />
-
+            
             <div className="dropdown">
               <button className="new-service-btn" onClick={toggleDropdown}>
                 New Service Request
@@ -204,6 +210,11 @@ const ClientProfile = () => {
               className={activeTab === 'cancelled' ? 'active' : ''}
               onClick={() => handleTabChange('cancelled')}>
               Cancelled Transactions
+            </button>
+
+            {/* ADD FEEDBACK BUTTON (PLACED HERE TO VIEW OUTPUT, CAN MOVE/REMOVE LATER) */}
+            <button className="" onClick={navigateToFeedbackForm}>
+                Add Feedback
             </button>
           </div>
         </div>
