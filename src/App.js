@@ -18,6 +18,8 @@ import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 
+import FeedbackForm from './components/feedback/FeedbackForm';
+
 import Sample_processing from './components/services/Sample_processing';
 import Equipment_rental from './components/services/Equipment_rental';
 import Facility_rental from './components/services/Facility_rental';
@@ -169,6 +171,11 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route 
           path="/use-of-facility-form" 
           element={<UseOfFacilityForm />} 
+        />
+
+        <Route 
+          path="/feedback-form" 
+          element={<FeedbackForm />} 
         />
 
         {/* detail pages */}
