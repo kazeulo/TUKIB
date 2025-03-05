@@ -55,7 +55,7 @@ const FeedbackForm = () => {
 
     return (
         <div className="feedback-form-container">
-            <h2>RRC Feedback Form</h2>
+            <h2>RRC Service Feedback Form</h2>
             <form onSubmit={handleSubmit}>
 
                 {/* Age & Gender */}
@@ -67,6 +67,14 @@ const FeedbackForm = () => {
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label>Role:</label>
+                <select name="gender" value={feedback.gender} onChange={handleChange} required>
+                    <option value="">Select</option>
+                    <option value="SR">Student Reasearcher</option>
+                    <option value="URA">University Research Assistant</option>
                     <option value="Other">Other</option>
                 </select>
 

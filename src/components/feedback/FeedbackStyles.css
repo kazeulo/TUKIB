@@ -70,8 +70,8 @@ textarea {
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    /* height: 0;
-    width: 0; */
+    height: 0;
+    width: 0;
 }
 
 .radio-group label::before {
@@ -87,8 +87,11 @@ textarea {
     transition: all 0.3s ease;
     background-color: white; 
 }
+.radio-group input[type="radio"]:checked {
+    background-color: #4CAF50;
+}
 
-.radio-group input[type="radio"]:checked + label::before {
+.radio-group input[type="radio"]:checked::before {
     background-color: #4CAF50;
     box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
 }
