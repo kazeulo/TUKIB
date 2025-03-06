@@ -69,6 +69,16 @@ const CustomToolbar = ({ onNavigate, label, onView, currentView }) => {
 const EventCalendar = () => {
 	const [calendarEvents, setCalendarEvents] = useState([]);
 	const [currentView, setCurrentView] = useState('month');
+	const [selectedEvent, setSelectedEvent] = useState(null);
+	const [showEventModal, setShowEventModal] = useState(false);
+	const [showAddEventModal, setShowAddEventModal] = useState(false);
+	const [newEvent, setNewEvent] = useState({
+		title: '',
+		description: '',
+		start: '',
+		end: '',
+		recurrence: 'none',
+	});
 
 	useEffect(() => {
 		fetch('http://localhost:5000/api/events')
@@ -110,6 +120,35 @@ const EventCalendar = () => {
 		setCurrentView(view);
 	};
 
+	const handleSelectEvent = (event) => {
+		setSelectedEvent(event);
+		setShowEventModal(true);
+	};
+
+	const handleSelectSlot = ({ start, end }) => {
+		setNewEvent({ ...newEvent, start, end });
+		setShowAddEventModal(true);
+	};
+
+	const handleAddEvent = () => {
+		if (!newEvent.title || !newEvent.start || !newEvent.end) {
+			alert('Please fill in all fields before adding an event.');
+			return;
+		}
+
+		const eventToAdd = {
+			title: newEvent.title,
+			description: newEvent.description,
+			start: new Date(newEvent.start),
+			end: new Date(newEvent.end),
+			recurrence: newEvent.recurrence,
+			color: '#8e1537',
+		};
+
+		setCalendarEvents([...calendarEvents, eventToAdd]);
+		setShowAddEventModal(false);
+	};
+
 	return (
 		<div className='event-calendar-container'>
 			<BigCalendar
@@ -132,8 +171,105 @@ const EventCalendar = () => {
 				eventPropGetter={eventPropGetter}
 				view={currentView}
 				onView={handleViewChange}
+				onSelectEvent={handleSelectEvent}
+				selectable
+				onSelectSlot={handleSelectSlot}
 			/>
+
+			{/* Event Details Modal */}
+			{showEventModal && selectedEvent && (
+				<div className='show-event-modal'>
+					<div className='event-modal-content'>
+						<h3>{selectedEvent.title}</h3>
+						<p>{selectedEvent.description}</p>
+
+						<div className="event-datetime">
+							<strong>Start:</strong>
+							{moment(selectedEvent.start).format('LLL')}
+						</div>
+						
+						<div className="event-datetime">
+							<strong>End:</strong>
+							{moment(selectedEvent.end).format('LLL')}
+						</div>
+						<p>
+							<strong>Recurrence:</strong> {selectedEvent.recurrence}
+						</p>
+						<button onClick={() => setShowEventModal(false)}>Close</button>
+					</div>
+				</div>
+			)}
+
+			{/* Add Event Modal */}
+			{showAddEventModal && (
+				<div className='add-event-modal'>
+					<div className='event-modal-content'>
+						<h3>Add Event</h3>
+						<input
+							type='text'
+							placeholder='Title'
+							value={newEvent.title}
+							onChange={(e) =>
+								setNewEvent({ ...newEvent, title: e.target.value })
+							}
+						/>
+						<textarea
+							placeholder='Description'
+							value={newEvent.description}
+							onChange={(e) =>
+								setNewEvent({ ...newEvent, description: e.target.value })
+							}
+						></textarea>
+
+						<div className="time-fields">
+						<div className="time-field">
+							<label>Start Time:</label>
+							<input
+								type='datetime-local'
+								value={newEvent.start}
+								onChange={(e) =>
+									setNewEvent({ ...newEvent, start: e.target.value })
+								}
+							/>
+							<div className="field-helper">Event start date and time</div>
+						</div>
+
+						<div className="time-field">
+							<label>End Time:</label>
+							<input
+								type='datetime-local'
+								value={newEvent.end}
+								onChange={(e) =>
+									setNewEvent({ ...newEvent, end: e.target.value })
+								}
+							/>
+							<div className="field-helper">Event end date and time</div>
+						</div>
+						</div>
+
+						<label>Recurrence:</label>
+						<select
+							value={newEvent.recurrence}
+							onChange={(e) =>
+								setNewEvent({ ...newEvent, recurrence: e.target.value })
+							}>
+							<option value='none'>None</option>
+							<option value='daily'>Daily</option>
+							<option value='weekly'>Weekly</option>
+							<option value='monthly'>Monthly</option>
+							<option value='yearly'>Yearly</option>
+						</select>
+
+						<button onClick={handleAddEvent}>Add</button>
+						<button onClick={() => setShowAddEventModal(false)}>Cancel</button>
+					</div>
+				</div>
+			)}
+
+
 		</div>
+
+		
 	);
 };
 
