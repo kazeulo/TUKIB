@@ -316,3 +316,68 @@
     border-radius: 6px;
 }
 
+/* Edit Event Modal specific styles */
+.edit-event-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Darkened overlay background */
+    z-index: 1000;
+  }
+  
+  .edit-event-modal .event-modal-content {
+    background-color: white;
+    width: 100%;
+    max-width: 680px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 28px;
+    animation: modalFadeIn 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+/* Button layout for modals with multiple actions */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* .modal-actions button {
+    flex: 1;
+    margin-top: 0;
+} */
+
+/* Button variations */
+.event-btn-primary {
+    background-color: #8e1537;
+    color: white;
+}
+
+.event-btn-primary:hover {
+    background-color: #6e1214;
+}
+
+.event-btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.event-btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+.event-btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.event-btn-danger:hover {
+    background-color: #bd2130;
+}

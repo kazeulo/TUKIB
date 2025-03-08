@@ -72,6 +72,7 @@ const EventCalendar = () => {
 	const [selectedEvent, setSelectedEvent] = useState(null);
 	const [showEventModal, setShowEventModal] = useState(false);
 	const [showAddEventModal, setShowAddEventModal] = useState(false);
+	const [showEditEventModal, setShowEditEventModal] = useState(false);
 	const [newEvent, setNewEvent] = useState({
 		title: '',
 		description: '',
@@ -149,6 +150,26 @@ const EventCalendar = () => {
 		setShowAddEventModal(false);
 	};
 
+	const handleEditEvent = () => {
+		setShowEventModal(false);
+		setTimeout(() => {
+			setShowEditEventModal(true);
+		}, 300);};
+
+	const handleDeleteEvent = () => {
+		setCalendarEvents(calendarEvents.filter((event) => event.id !== selectedEvent.id));
+		setShowEventModal(false);
+	};
+
+	const handleSaveEdit = () => {
+		setCalendarEvents(
+			calendarEvents.map((event) =>
+				event.id === selectedEvent.id ? selectedEvent : event
+			)
+		);
+		setShowEditEventModal(false);
+	};
+
 	return (
 		<div className='event-calendar-container'>
 			<BigCalendar
@@ -195,7 +216,12 @@ const EventCalendar = () => {
 						<p>
 							<strong>Recurrence:</strong> {selectedEvent.recurrence}
 						</p>
-						<button onClick={() => setShowEventModal(false)}>Close</button>
+
+						 <div className="modal-actions">
+							<button className="event-btn-primary" onClick={handleEditEvent}>Edit</button>
+							<button className="event-btn-danger" onClick={handleDeleteEvent}>Delete</button>
+							<button className="event-btn-secondary" onClick={() => setShowEventModal(false)}>Close</button>
+						</div>
 					</div>
 				</div>
 			)}
@@ -266,10 +292,73 @@ const EventCalendar = () => {
 				</div>
 			)}
 
+			{/* Edit Event Modal */}
+			{showEditEventModal && selectedEvent && (
+				<div className='edit-event-modal'>
+					<div className='event-modal-content'>
+						<h3>Edit Event</h3>
+						<label>Title</label>
+						<input
+							type='text'
+							value={selectedEvent.title}
+							onChange={(e) => setSelectedEvent({ ...selectedEvent, title: e.target.value })}
+						/>
+						<label>Description</label>
+						<textarea
+							placeholder="Description"
+							value={selectedEvent.description}
+							onChange={(e) => setSelectedEvent({ ...selectedEvent, description: e.target.value })}
+						></textarea>
+						
+						<div className="time-fields">
+						<div className="time-field">
+							<label>Start Time:</label>
+							<input
+								type='datetime-local'
+								value={moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm')}
+								onChange={(e) => setSelectedEvent({ 
+									...selectedEvent, 
+									start: new Date(e.target.value) 
+								})}
+							/>
+							<div className="field-helper">Event start date and time</div>
+						</div>
+
+						<div className="time-field">
+							<label>End Time:</label>
+							<input
+								type='datetime-local'
+								value={moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm')}
+								onChange={(e) => setSelectedEvent({ 
+									...selectedEvent, 
+									end: new Date(e.target.value) 
+								})}
+							/>
+							<div className="field-helper">Event end date and time</div>
+						</div>
+					</div>
+					
+					<label>Recurrence:</label>
+					<select
+						value={selectedEvent.recurrence}
+						onChange={(e) => setSelectedEvent({ ...selectedEvent, recurrence: e.target.value })}>
+						<option value='none'>None</option>
+						<option value='daily'>Daily</option>
+						<option value='weekly'>Weekly</option>
+						<option value='monthly'>Monthly</option>
+						<option value='yearly'>Yearly</option>
+					</select>
+					
+					<div className="modal-actions">
+						<button className="event-btn-primary" onClick={handleSaveEdit}>Save</button>
+						<button className="event-btn-secondary" onClick={() => setShowEditEventModal(false)}>Cancel</button>
+					</div>
+
+					</div>
+				</div>
+			)}
 
 		</div>
-
-		
 	);
 };
 
