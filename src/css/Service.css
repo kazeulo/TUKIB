@@ -16,7 +16,7 @@
   }
   
   /* Tabs */
-  .tabs {
+  .service-tabs {
     display: flex;
     gap: 0;
     margin: 20px 0 30px 0;
@@ -24,50 +24,43 @@
     max-width: 600px; /* Adjust this value based on your design preferences */
 }
 
-.tab {
+.service-tabs {
     all: unset;
     display: inline-block;
     padding: 12px 24px;
     text-align: center;
-    background-color: #f2bcbc;
-    color: #6e1214;
-    border: 1px solid #6e1214;
     font-weight: 500;
     min-width: 150px;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
-.tab:hover {
-    background-color: #8e1537;
-    color: #ffffff;
-}
 
-.tab.active {
+.service-tabs.active {
     background-color: #6e1214 !important;
     color: #ffffff !important;
 }
 
 
 /* Remove default button styles */
-.tab:focus {
+.service-tabs:focus {
     outline: none;
     box-shadow: none;
 }
 
 /* Ensure first and last buttons have proper border radius */
-.tab:first-child {
+.service-tabs:first-child {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
 
-.tab:last-child {
+.service-tabs:last-child {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 }
 
 /* Ensure connected borders */
-.tab:not(:last-child) {
+.service-tabs:not(:last-child) {
     border-right: none;
 }
   
@@ -173,27 +166,27 @@
 	  padding: 10px;
 	}
 	
-	.tab {
+	.service-tab-btn {
 	  padding: 8px 15px;
 	}
   }
 
-  /* import Header from './partials/Header';
-  import Footer from './partials/Footer';
-  import '../css/Service.css'; */
 
-  button.tab {
-    background-color: #b8973c !important;
+.service-tab-btn {
+    width: 150px;
+    background-color: #d6aa30 !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: auto;
+}
+
+.service-tab-btn:hover {
+    background-color:  #ab8828!important;
     color: white !important;
 }
 
-button.tab:hover {
-    background-color: #8e1537 !important;
-    color: white !important;
-}
-
-button.tab.active {
-    background-color: #6e1214 !important;
+.service-tab-btn.active {
+    background-color: #951f21 !important;
     color: white !important;
 }
 

@@ -142,6 +142,8 @@ const EventCalendar = () => {
 		const eventToAdd = {
 			title: newEvent.title,
 			description: newEvent.description,
+			location: newEvent.location,
+			officer: newEvent.officer,
 			start: new Date(newEvent.start),
 			end: new Date(newEvent.end),
 			recurrence: newEvent.recurrence,
@@ -289,11 +291,11 @@ const EventCalendar = () => {
 							onChange={(e) =>
 								setNewEvent({ ...newEvent, recurrence: e.target.value })
 							}>
-							<option value='none'>None</option>
-							<option value='daily'>Daily</option>
-							<option value='weekly'>Weekly</option>
-							<option value='monthly'>Monthly</option>
-							<option value='yearly'>Yearly</option>
+							<option value='None'>None</option>
+							<option value='Daily'>Daily</option>
+							<option value='Weekly'>Weekly</option>
+							<option value='Monthly'>Monthly</option>
+							<option value='Yearly'>Yearly</option>
 						</select>
 
 						<button onClick={handleAddEvent}>Add</button>

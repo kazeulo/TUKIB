@@ -31,10 +31,16 @@
 	color: white;
 	border-radius: 8px;
 } */
+.rbc-day-bg:hover {
+    background-color: #d0b1b1 !important;
+} 
 
 .rbc-event:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(142, 21, 55, 0.2);
+    box-shadow: 0 2px 5px #ddb230f9;
+    /* rgba(142, 21, 55, 0.2); */
+    background-color:#eec035bb!important;
+    color: #49071a !important;
 }
 
 .rbc-off-range-bg {

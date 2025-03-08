@@ -13,15 +13,15 @@ const FacilityRental = () => {
     prices: [
       {
         service: "AVR Rental (e.g., for meetings, seminars, training sessions)",
-        range: "Php8000 - Php15000 per session"
+        range: "₱8000 - ₱15000 per session"
       },
       {
         service: "Meeting Room Rental (e.g., smaller spaces for group discussions)",
-        range: "Php5000 - Php8000 per session"
+        range: "₱5000 - ₱8000 per session"
       },
       {
         service: "Event Space Rental (e.g., for larger conferences, workshops)",
-        range: "Php10000 - Php20000 per session"
+        range: "₱10000 - ₱20000 per session"
       },
       {
         service: "Additional Services (e.g., AV equipment, setup assistance)",
