@@ -13,11 +13,11 @@ const EquipmentRental = () => {
     prices: [
       {
         service: "Basic Equipment Use (e.g., general laboratory instruments)",
-        range: "Php2000 - Php5000 per session"
+        range: "₱2000 - ₱5000 per session"
       },
       {
         service: "Advanced Equipment Use (e.g., specialized instruments)",
-        range: "Php5000 - Php10000 per session"
+        range: "₱5000 - ₱10000 per session"
       },
       {
         service: "Custom Equipment Packages (e.g., group use or long-term access)",

@@ -1,26 +1,29 @@
 /* EventCalendar.css */
 .event-calendar-container {
 	max-width: 1250px;
-	padding: 50px;
-	background-color: white;
-	/* border-radius: 18px; */
-	margin: 20px auto;
-	border: 1px solid rgb(217, 217, 217);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    padding: 30px;
+    background-color: white;
+    margin: 20px auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rbc-event {
-	background-color: #6e121430 !important;
-	color: #8e1537 !important;
-	border-radius: 0 !important;
-	padding: 5px;
-	font-size: 12px;
-	left: 0% !important;
-	border: 0 !important;
-	width: 100% !important;
-	border-left: 7px solid #8e1537 !important;
+	background-color: rgba(142, 21, 55, 0.1) !important;
+    color: #8e1537 !important;
+    border-radius: 4px !important;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-weight: 500;
+    left: 0% !important;
+    border: 0 !important;
+    width: 100% !important;
+    border-left: 5px solid #8e1537 !important;
+    transition: transform 0.2s ease;
 }
 
 /* .rbc-toolbar {
@@ -28,21 +31,37 @@
 	color: white;
 	border-radius: 8px;
 } */
+.rbc-day-bg:hover {
+    background-color: #d0b1b1 !important;
+} 
+
+.rbc-event:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px #ddb230f9;
+    /* rgba(142, 21, 55, 0.2); */
+    background-color:#eec035bb!important;
+    color: #49071a !important;
+}
 
 .rbc-off-range-bg {
-	background-color: white;
+    background-color: #f9f9f9;
 }
 
 .rbc-show-more {
 	color: #8e1537;
+	font-weight: 500;
+    text-decoration: none;
 }
 
 .rbc-show-more:hover {
 	color: #8e1537;
+	text-decoration: underline;
+
 }
 
 .rbc-current-time-indicator {
-	background: none;
+    background-color: #8e1537;
+    height: 2px;
 }
 
 .rbc-header + .rbc-header {
@@ -90,13 +109,26 @@
 	flex: 0; /* Prevent arrows from stretching */
 	font-size: 20px;
 	cursor: pointer;
+	width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.custom-toolbar .navigate-prev:hover,
+.custom-toolbar .navigate-next:hover {
+    background-color: #f0f0f0;
 }
 
 .custom-toolbar .month-label {
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 18px;
 	flex: 1; /* Allow month label to take available space */
 	text-align: center; /* Center the month label */
+	color: #333;
 }
 
 .view-switcher-wrapper {
@@ -108,7 +140,10 @@
 .view-switcher {
 	display: flex; /* Flexbox layout */
 	flex-direction: row-reverse; /* Align buttons from right to left */
-	gap: 10px; /* Spacing between buttons */
+	gap: 5px; /* Spacing between buttons */
+	background-color: #f5f7fa;
+    border-radius: 8px;
+    padding: 3px;
 }
 
 .custom-toolbar button {
@@ -117,24 +152,238 @@
 	border: none;
 	padding: 8px 16px;
 	font-size: 14px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: all 0.3s ease;
+	border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 .custom-toolbar button:hover {
-	background-color: #eec035;
+    background-color: #e9ecef;
+    color: #333;
 }
 
 .custom-toolbar button.active {
-	background-color: #eec035;
+	background-color: #eec035 !important;
 }
 
-.custom-toolbar button:active {
-	background-color: #eec035;
-}
 
 .rbc-agenda-view table.rbc-agenda-table td {
 	background-color: white;
 	color: black;
+	padding: 10px;
+}
+
+/* add event and show event modal styles */
+
+.add-event-modal, .show-event-modal {
+	position: fixed;
+	top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.event-modal-content {
+	background: white;
+	height: auto; 
+    max-height: 90vh;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 28px;
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+	overflow-y: auto; 
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.event-modal-content h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.event-modal-content input,
+.event-modal-content textarea,
+.event-modal-content select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.event-modal-content input:focus,
+.event-modal-content textarea:focus,
+.event-modal-content select:focus {
+    outline: none;
+    border-color: #8e1537;
+    box-shadow: 0 0 0 3px rgba(142, 21, 55, 0.1);
+}
+
+.event-modal-content textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.event-modal-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+}
+
+.event-modal-content button {
+    background-color: #8e1537;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.event-modal-content button:last-child {
+    background-color: #f0f0f0;
+    color: #333;
+    margin-top: 8px;
+}
+
+.event-modal-content button:hover {
+    background-color: #6e1214;
+}
+
+.event-modal-content button:last-child:hover {
+    background-color: #e0e0e0;
+}
+
+/* Specific styles for Add Event Modal */
+.add-event-modal .event-modal-content {
+    background-color: white;
+    background-image: linear-gradient(to bottom, #fffbeb, white 150px);
+}
+
+/* Show Event Modal specific styles */
+.show-event-modal .event-modal-content p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.show-event-modal .event-modal-content p strong {
+    color: #555;
+    min-width: 80px;
+    display: inline-block;
+}
+
+/* Field helper text */
+.field-helper {
+    font-size: 13px;
+    color: #777;
+    margin-top: -12px;
+    margin-bottom: 15px;
+}
+
+/* Styling for event datetime display in view mode */
+.show-event-modal .event-datetime {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background-color: #f8f8f8;
+    border-radius: 6px;
+}
+
+/* Edit Event Modal specific styles */
+.edit-event-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Darkened overlay background */
+    z-index: 1000;
+  }
+  
+  .edit-event-modal .event-modal-content {
+    background-color: white;
+    width: 100%;
+    max-width: 680px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 28px;
+    animation: modalFadeIn 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+/* Button layout for modals with multiple actions */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* .modal-actions button {
+    flex: 1;
+    margin-top: 0;
+} */
+
+/* Button variations */
+.event-btn-primary {
+    background-color: #8e1537;
+    color: white;
+}
+
+.event-btn-primary:hover {
+    background-color: #6e1214;
+}
+
+.event-btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.event-btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+.event-btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.event-btn-danger:hover {
+    background-color: #bd2130;
 }
