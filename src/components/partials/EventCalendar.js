@@ -76,6 +76,8 @@ const EventCalendar = () => {
 	const [newEvent, setNewEvent] = useState({
 		title: '',
 		description: '',
+		location: '',
+		officer: '',
 		start: '',
 		end: '',
 		recurrence: 'none',
@@ -204,13 +206,17 @@ const EventCalendar = () => {
 						<h3>{selectedEvent.title}</h3>
 						<p>{selectedEvent.description}</p>
 
+						<p><strong>Location:</strong> {selectedEvent.location}</p>
+						<p><strong>Officer in Charge:</strong> 
+						{selectedEvent.officer}</p>
+						
 						<div className="event-datetime">
-							<strong>Start:</strong>
+							<strong>Start:&emsp;</strong>
 							{moment(selectedEvent.start).format('LLL')}
 						</div>
 						
 						<div className="event-datetime">
-							<strong>End:</strong>
+							<strong>End:&emsp;</strong>
 							{moment(selectedEvent.end).format('LLL')}
 						</div>
 						<p>
@@ -246,6 +252,10 @@ const EventCalendar = () => {
 								setNewEvent({ ...newEvent, description: e.target.value })
 							}
 						></textarea>
+
+						<input type='text' placeholder='Location' value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
+
+						<input type='text' placeholder='Officer In-Charge' value={newEvent.officer} onChange={(e) => setNewEvent({ ...newEvent, officer: e.target.value })} />
 
 						<div className="time-fields">
 						<div className="time-field">
@@ -309,6 +319,12 @@ const EventCalendar = () => {
 							value={selectedEvent.description}
 							onChange={(e) => setSelectedEvent({ ...selectedEvent, description: e.target.value })}
 						></textarea>
+
+						<label>Location</label>
+						<input type='text' value={selectedEvent.location} onChange={(e) => setSelectedEvent({ ...selectedEvent, location: e.target.value })} />
+
+						<label>Officer In-Charge</label>
+						<input type='text' value={selectedEvent.officer} onChange={(e) => setSelectedEvent({ ...selectedEvent, officer: e.target.value })} />
 						
 						<div className="time-fields">
 						<div className="time-field">
