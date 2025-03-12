@@ -31,12 +31,14 @@
 
 -- Drop tables to ensure no errors when running
 --====== DROPS =======
+
+DROP TABLE IF EXISTS trainingRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS usersTable;
 DROP TABLE IF EXISTS messagesTable;
-DROP TABLE IF EXISTS newsTable;
-DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS news;
 DROP TABLE IF EXISTS equipmentsTable;
 
 -- ======== CREATES ========
@@ -50,8 +52,8 @@ CREATE TABLE usersTable (
     password VARCHAR(255) NOT NULL,        -- User password
     institution VARCHAR(255),              -- Institution the user is associated with
     contact_number VARCHAR(20),            -- User's contact number 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp when the user was created
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for the last update
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp when the user was created
+    -- updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for the last update
 );
 
 -- Create the table 'user_tokens'
@@ -77,7 +79,22 @@ CREATE TABLE serviceRequestTable (
     project_budget_code INT,                       -- Budget code for the project (integer)
     start TIMESTAMP NOT NULL,                      -- Start time of the service request
     "end" TIMESTAMP,                               -- End time of the service request
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id)  -- Foreign key referencing the 'users' table
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE  -- Foreign key referencing the 'users' table
+);
+
+-- Create the table 'trainingRequests'
+CREATE TABLE trainingRequests (
+    trainingrequest_id SERIAL PRIMARY KEY,
+    -- request_id INT NOT NULL,                            -- Automatically generated unique ID for each request
+    user_id INT NOT NULL,                                     -- ID of the user who requested the training
+    trainingTitle VARCHAR(255) NOT NULL,                       -- Training title (required)
+    trainingDate DATE NOT NULL,                                -- Training date (required)
+    participantCount INT NOT NULL,                             -- Number of participants (required)
+    necessaryDocuments VARCHAR(255),                           -- Path or filename of the uploaded document (nullable)
+    acknowledgeTerms BOOLEAN NOT NULL,                         -- Acknowledgement of terms and conditions (required)
+    partnerLab partner_lab NOT NULL                         -- Partner lab (required)
+    -- FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE,  -- Foreign key referencing the 'usersTable'
+    -- FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE  -- Foreign key referencing the 'usersTable'
 );
 
 -- Create the table 'messagesTable'
@@ -91,13 +108,12 @@ CREATE TABLE messagesTable (
     remarks VARCHAR(10) CHECK (remarks IN ('read', 'unread'))  -- Message status (read/unread)
 );
 
--- Create the table 'newsTable'
-CREATE TABLE newsTable (
-    newsTable_id SERIAL PRIMARY KEY,
-    title VARCHAR(255),
-    content TEXT,
-    dateposted TIMESTAMP,
-    image BYTEA
+CREATE TABLE news (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the table 'eventsTable'
@@ -138,7 +154,6 @@ CREATE TABLE equipmentsTable (
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO tukib;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
-
 
 -- ======== INSERTS ========
 
@@ -191,14 +206,6 @@ VALUES
     (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Incubator-Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
     (TRUE, 'Projector', 'BrandB', 3, 'Projector-ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE),
     (TRUE, 'Spray Dryer', 'Buchi', 2, 'Mini Spray Dryer B_290', 'SN345678', 'Alice Johnson', 'Food, Feeds, Functional, Nutrition Lab', TRUE);
-
-CREATE TABLE news (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    category VARCHAR(255) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- ======== ALTERS ========
 

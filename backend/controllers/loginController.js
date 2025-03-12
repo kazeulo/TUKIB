@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const pool = require('../backend'); 
-const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key'; 
+const SECRET_KEY = process.env.SECRET_KEY; 
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
