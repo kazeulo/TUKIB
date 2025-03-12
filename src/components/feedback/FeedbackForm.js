@@ -87,7 +87,7 @@ const FeedbackForm = () => {
                     <option value="equipment-rental">Equipment Rental</option>
                     <option value="facility-rental">Facility Rental</option>
                     <option value="training">Training</option>
-                </select>z
+                </select>
 
                 {/* Overall Satisfaction */}
                 <label>Overall Satisfaction:</label>
