@@ -35,6 +35,8 @@ const FeedbackForm = () => {
                 setFeedback({
                     age: "",
                     gender: "",
+                    role: "",
+                    servicetype: "",
                     satisfaction: "",
                     staffResponsiveness: "",
                     equipmentCondition: "",
@@ -71,12 +73,21 @@ const FeedbackForm = () => {
                 </select>
 
                 <label>Role:</label>
-                <select name="gender" value={feedback.gender} onChange={handleChange} required>
+                <select name="role" value={feedback.role} onChange={handleChange} required>
                     <option value="">Select</option>
                     <option value="SR">Student Reasearcher</option>
-                    <option value="URA">University Research Assistant</option>
+                    <option value="RA">University Research Assistant</option>
                     <option value="Other">Other</option>
                 </select>
+
+                <label>Service Availed:</label>
+                <select name="servicetype" value={feedback.servicetype} onChange={handleChange} required>
+                    <option value="">Select</option>
+                    <option value="sample-processing">Sample Processing</option>
+                    <option value="equipment-rental">Equipment Rental</option>
+                    <option value="facility-rental">Facility Rental</option>
+                    <option value="training">Training</option>
+                </select>z
 
                 {/* Overall Satisfaction */}
                 <label>Overall Satisfaction:</label>
