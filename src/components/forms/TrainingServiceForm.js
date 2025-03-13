@@ -4,7 +4,13 @@ import axios from 'axios';
 function TrainingServiceForm({ isLoggedIn }) {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
-    user_id: '',  // This will be populated once the user is logged in
+    user_id: '',
+    service_name: 'training',
+    status: 'pending',
+    payment_option: '', 
+    charged_to_project: false,
+    project_title: '',
+    project_budget_code: '',
     trainingTitle: '',
     trainingDate: '',
     participantCount: '',
@@ -13,14 +19,14 @@ function TrainingServiceForm({ isLoggedIn }) {
     partnerLab: '',
   });
 
-  // Fetching user data 
+  // Fetching user data
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
       setFormData((prevData) => ({
         ...prevData,
-        user_id: storedUser.user_id, 
+        user_id: storedUser.user_id,
       }));
     }
   }, [isLoggedIn]);
@@ -48,7 +54,12 @@ function TrainingServiceForm({ isLoggedIn }) {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    formDataToSend.append('user_id', formData.user_id);  // Include the user_id from formData
+    formDataToSend.append('user_id', formData.user_id);
+    formDataToSend.append('status', formData.status);
+    formDataToSend.append('payment_option', formData.payment_option);
+    formDataToSend.append('charged_to_project', formData.charged_to_project);
+    formDataToSend.append('project_title', formData.project_title);
+    formDataToSend.append('project_budget_code', formData.project_budget_code);
     formDataToSend.append('trainingTitle', formData.trainingTitle);
     formDataToSend.append('trainingDate', formData.trainingDate);
     formDataToSend.append('participantCount', formData.participantCount);
@@ -56,7 +67,7 @@ function TrainingServiceForm({ isLoggedIn }) {
     formDataToSend.append('partnerLab', formData.partnerLab);
 
     formData.necessaryDocuments.forEach((file) => {
-      formDataToSend.append('necessaryDocuments', file); // Append all necessary documents
+      formDataToSend.append('necessaryDocuments', file);
     });
 
     try {
@@ -82,18 +93,57 @@ function TrainingServiceForm({ isLoggedIn }) {
         onChange={handleChange}
         placeholder="Training Title"
       />
+
       <input
         type="date"
         name="trainingDate"
         value={formData.trainingDate}
         onChange={handleChange}
       />
+
       <input
         type="number"
         name="participantCount"
         value={formData.participantCount}
         onChange={handleChange}
         placeholder="Number of Participants"
+      />
+      
+      <label>Laboratory Partner</label>
+      <select
+        name="partnerLab"
+        value={formData.partnerLab}
+        onChange={handleChange}
+        >
+        <option value="">Select Laboratory Partner</option>
+        <option value="Microbiology">Mircrobiology</option>
+        <option value="Feeds">FEEDS</option>
+      </select>
+
+      <label>
+        Charged to project:
+        <input
+          type="checkbox"
+          name="charged_to_project"
+          checked={formData.charged_to_project}
+          onChange={(e) => setFormData({ ...formData, charged_to_project: e.target.checked })}
+        />
+      </label>
+
+      <input
+        type="text"
+        name="project_title"
+        value={formData.project_title}
+        onChange={handleChange}
+        placeholder="Project Title"
+      />
+
+      <input
+        type="number"
+        name="project_budget_code"
+        value={formData.project_budget_code}
+        onChange={handleChange}
+        placeholder="Project Budget Code"
       />
 
       {/* File input for multiple file uploads */}
@@ -105,14 +155,16 @@ function TrainingServiceForm({ isLoggedIn }) {
         multiple
       />
 
+      <label>Mode of Payment</label>
       <select
-        name="partnerLab"
-        value={formData.partnerLab}
+        name="payment_option"
+        value={formData.payment_optio}
         onChange={handleChange}
-      >
-        <option value='Applied Chemistry'>Applied Chemistry</option>
-        <option value='Biology'>Biology</option>
-        <option value='Material Science'>Material Science</option>
+        >
+        <option value="">Select Payment Option</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Cash">Cash</option>
       </select>
 
       <label>

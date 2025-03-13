@@ -2,10 +2,18 @@ const pool = require('../backend');
 
 // Function to create a new training request
 const createTrainingRequest = async (req, res) => {
-    console.log('File Info:', req.file);
+  console.log('File Info:', req.files); // Logging multiple files
 
   const {
     user_id,
+    service_name,
+    status,
+    payment_option,
+    charged_to_project,
+    project_title,
+    project_budget_code,
+    start,
+    end,
     trainingTitle,
     trainingDate,
     participantCount,
@@ -17,22 +25,45 @@ const createTrainingRequest = async (req, res) => {
   console.log('Necessary Documents Path:', necessaryDocuments);
 
   try {
-    // Insert the new training request into the database
-    const result = await pool.query(
-      `INSERT INTO trainingRequests (user_id, trainingTitle, trainingDate, participantCount, necessaryDocuments, acknowledgeTerms, partnerLab)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    // First, insert the data into the serviceRequestTable
+    const serviceResult = await pool.query(
+      `INSERT INTO serviceRequestTable 
+       (user_id, service_name, status, payment_option, charged_to_project, project_title, project_budget_code, start, "end")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NULL) 
+       RETURNING request_id`,
       [
         user_id,
-        trainingTitle,
-        trainingDate,
-        participantCount,
-        necessaryDocuments.join(','), 
-        acknowledgeTerms,
-        partnerLab,
+        service_name,
+        status,
+        payment_option,
+        charged_to_project,
+        project_title,
+        project_budget_code,
+        start,
+        end
       ]
     );
 
-    // Respond with the newly inserted request
+    // Retrieve the generated request_id from the serviceRequestTable insertion
+    const request_id = serviceResult.rows[0].request_id;
+
+    // Then, insert the data into the trainingRequests table
+    const result = await pool.query(
+      `INSERT INTO trainingRequests 
+       (trainingTitle, trainingDate, participantCount, necessaryDocuments, acknowledgeTerms, partnerLab, request_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) 
+       RETURNING *`,
+      [
+        trainingTitle,
+        trainingDate,
+        participantCount,
+        necessaryDocuments.join(','),
+        acknowledgeTerms,
+        partnerLab,
+        request_id, 
+      ]
+    );
+
     return res.status(201).json({
       message: 'Training request created successfully!',
       data: result.rows[0],

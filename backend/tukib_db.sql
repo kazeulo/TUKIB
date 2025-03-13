@@ -72,7 +72,6 @@ CREATE TABLE serviceRequestTable (
     user_id INT NOT NULL,                          -- ID of the user who requested the service
     service_name VARCHAR(255) NOT NULL,            -- Name of the requested service
     status VARCHAR(50) NOT NULL,                   -- Status of the request (e.g., pending, completed, etc.)
-    requested_by VARCHAR(100),                    -- Name of the user requesting the service
     payment_option VARCHAR(50),                    -- Payment option (e.g., credit card, invoice, etc.)
     charged_to_project BOOLEAN,                    -- Whether the charge is assigned to a project (TRUE/FALSE)
     project_title VARCHAR(255),                    -- Title of the associated project
@@ -85,16 +84,14 @@ CREATE TABLE serviceRequestTable (
 -- Create the table 'trainingRequests'
 CREATE TABLE trainingRequests (
     trainingrequest_id SERIAL PRIMARY KEY,
-    -- request_id INT NOT NULL,                            -- Automatically generated unique ID for each request
-    user_id INT NOT NULL,                                     -- ID of the user who requested the training
+    request_id INT NOT NULL,                            -- Automatically generated unique ID for each request
     trainingTitle VARCHAR(255) NOT NULL,                       -- Training title (required)
     trainingDate DATE NOT NULL,                                -- Training date (required)
     participantCount INT NOT NULL,                             -- Number of participants (required)
     necessaryDocuments VARCHAR(255),                           -- Path or filename of the uploaded document (nullable)
     acknowledgeTerms BOOLEAN NOT NULL,                         -- Acknowledgement of terms and conditions (required)
-    partnerLab partner_lab NOT NULL                         -- Partner lab (required)
-    -- FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE,  -- Foreign key referencing the 'usersTable'
-    -- FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE  -- Foreign key referencing the 'usersTable'
+    partnerLab partner_lab NOT NULL,                     -- Partner lab (required)
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE  -- Foreign key referencing the 'usersTable'
 );
 
 -- Create the table 'messagesTable'
@@ -174,15 +171,6 @@ VALUES
     (3, 'dummy-jwt-token-for-alicejohnson', '2025-12-31 23:59:59'),
     (4, 'dummy-jwt-token-for-bobbrown', '2025-12-31 23:59:59'),
     (5, 'dummy-jwt-token-for-charlielee', '2025-12-31 23:59:59');
-
--- Inserting dummy data into the 'serviceRequestTable'
-INSERT INTO serviceRequestTable (user_id, service_name, status, requested_by, payment_option, charged_to_project, project_title, project_budget_code, start, "end")
-VALUES
-    (1, 'Sample processing', 'Pending', 'John Doe', 'credit card', FALSE, NULL, 111, '2025-02-07 10:00:00', NULL),
-    (1, 'Training', 'Completed', 'John Doe', 'gcash', TRUE, 'AI Project', '101', '2025-01-15 09:00:00', '2025-01-15 17:00:00'),
-    (3, 'Equipment rental', 'In-progress',  'Alice Johnson', 'credit card', FALSE, NULL, NULL, '2025-02-05 08:30:00', NULL),
-    (2, 'Facility rental', 'Pending', 'Jane Smith', 'credit card', TRUE, 'App Development', '102', '2025-02-10 09:00:00', NULL),
-    (2, 'Sample processing', 'Completed', 'Jane Smith', 'f2f', TRUE, 'Market Research', '103', '2025-01-20 10:00:00', '2025-01-20 15:00:00');
 
 -- Inserting dummy data into the 'messages' table
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
