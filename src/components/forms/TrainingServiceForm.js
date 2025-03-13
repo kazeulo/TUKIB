@@ -17,6 +17,8 @@ function TrainingServiceForm({ isLoggedIn }) {
     necessaryDocuments: [],
     acknowledgeTerms: false,
     partnerLab: '',
+    start: '',
+    end: ''
   });
 
   // Fetching user data
@@ -40,6 +42,15 @@ function TrainingServiceForm({ isLoggedIn }) {
     }));
   };
 
+  // Handle checkbox changes
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: checked,
+    }));
+  };
+
   // Handle file input change for multiple files
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -55,6 +66,7 @@ function TrainingServiceForm({ isLoggedIn }) {
 
     const formDataToSend = new FormData();
     formDataToSend.append('user_id', formData.user_id);
+    formDataToSend.append('service_name', formData.service_name);
     formDataToSend.append('status', formData.status);
     formDataToSend.append('payment_option', formData.payment_option);
     formDataToSend.append('charged_to_project', formData.charged_to_project);
@@ -104,7 +116,7 @@ function TrainingServiceForm({ isLoggedIn }) {
       <input
         type="number"
         name="participantCount"
-        value={formData.participantCount}
+        value={formData.participantCount || ''}
         onChange={handleChange}
         placeholder="Number of Participants"
       />
@@ -114,10 +126,14 @@ function TrainingServiceForm({ isLoggedIn }) {
         name="partnerLab"
         value={formData.partnerLab}
         onChange={handleChange}
-        >
+      >
         <option value="">Select Laboratory Partner</option>
-        <option value="Microbiology">Mircrobiology</option>
-        <option value="Feeds">FEEDS</option>
+        <option value="Applied Chemistry">Applied Chemistry</option>
+        <option value="Biology">Biology</option>
+        <option value="Foods Feeds">Foods Feeds</option>
+        <option value="Functional Nutrition (Food)">Functional Nutrition (Food)</option>
+        <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
+        <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
       </select>
 
       <label>
@@ -125,8 +141,8 @@ function TrainingServiceForm({ isLoggedIn }) {
         <input
           type="checkbox"
           name="charged_to_project"
-          checked={formData.charged_to_project}
-          onChange={(e) => setFormData({ ...formData, charged_to_project: e.target.checked })}
+          checked={formData.charged_to_project} // ✅ Proper checkbox handling
+          onChange={handleCheckboxChange}
         />
       </label>
 
@@ -141,7 +157,7 @@ function TrainingServiceForm({ isLoggedIn }) {
       <input
         type="number"
         name="project_budget_code"
-        value={formData.project_budget_code}
+        value={formData.project_budget_code || ''} // ✅ Ensuring default value
         onChange={handleChange}
         placeholder="Project Budget Code"
       />
@@ -158,9 +174,9 @@ function TrainingServiceForm({ isLoggedIn }) {
       <label>Mode of Payment</label>
       <select
         name="payment_option"
-        value={formData.payment_optio}
+        value={formData.payment_option} // ✅ Fixed typo
         onChange={handleChange}
-        >
+      >
         <option value="">Select Payment Option</option>
         <option value="Credit Card">Credit Card</option>
         <option value="Bank Transfer">Bank Transfer</option>
@@ -171,8 +187,8 @@ function TrainingServiceForm({ isLoggedIn }) {
         <input
           type="checkbox"
           name="acknowledgeTerms"
-          checked={formData.acknowledgeTerms}
-          onChange={(e) => setFormData({ ...formData, acknowledgeTerms: e.target.checked })}
+          checked={formData.acknowledgeTerms} // ✅ Proper checkbox handling
+          onChange={handleCheckboxChange}
         />
         I acknowledge the terms and conditions
       </label>
