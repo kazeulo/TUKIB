@@ -1,130 +1,185 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../css/ServiceRequestForm.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const TrainingServicesForm = () => {
-	const navigate = useNavigate();
+function TrainingServiceForm({ isLoggedIn }) {
+  const [user, setUser] = useState(null);
+  const [formData, setFormData] = useState({
+    user_id: '',
+    service_name: 'training',
+    status: 'pending',
+    payment_option: '', 
+    charged_to_project: false,
+    project_title: '',
+    project_budget_code: '',
+    trainingTitle: '',
+    trainingDate: '',
+    participantCount: '',
+    necessaryDocuments: [],
+    acknowledgeTerms: false,
+    partnerLab: '',
+  });
 
-	const [formData, setFormData] = useState({
-		trainingTitle: '',
-		trainingDate: '',
-		participantCount: '',
-		projectBudgetCode: '',
-		modeOfPayment: '',
-		necessaryDocuments: null,
-		acknowledgeTerms: false,
-	});
+  // Fetching user data
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+      setFormData((prevData) => ({
+        ...prevData,
+        user_id: storedUser.user_id,
+      }));
+    }
+  }, [isLoggedIn]);
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
-	};
+  // Handle changes for form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-	const handleFileChange = (e) => {
-		const { name, files } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: files[0] }));
-	};
+  // Handle file input change for multiple files
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData((prevData) => ({
+      ...prevData,
+      necessaryDocuments: files,
+    }));
+  };
 
-	const handleCheckboxChange = (e) => {
-		setFormData((prev) => ({ ...prev, acknowledgeTerms: e.target.checked }));
-	};
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log('Training Services Form Data:', formData);
-	};
+    const formDataToSend = new FormData();
+    formDataToSend.append('user_id', formData.user_id);
+    formDataToSend.append('status', formData.status);
+    formDataToSend.append('payment_option', formData.payment_option);
+    formDataToSend.append('charged_to_project', formData.charged_to_project);
+    formDataToSend.append('project_title', formData.project_title);
+    formDataToSend.append('project_budget_code', formData.project_budget_code);
+    formDataToSend.append('trainingTitle', formData.trainingTitle);
+    formDataToSend.append('trainingDate', formData.trainingDate);
+    formDataToSend.append('participantCount', formData.participantCount);
+    formDataToSend.append('acknowledgeTerms', formData.acknowledgeTerms);
+    formDataToSend.append('partnerLab', formData.partnerLab);
 
-	const handleCancel = () => {
-		navigate('/clientProfile');
-	};
+    formData.necessaryDocuments.forEach((file) => {
+      formDataToSend.append('necessaryDocuments', file);
+    });
 
-	return (
-		<div className='service-request-form'>
-			<div className='form-title'>
-				<h3>Training Services Request Form</h3>
-			</div>
-			<form className='service-request-form-contents' onSubmit={handleSubmit}>
-				<div className='form-group'>
-					<label>Training Title</label>
-					<input
-						type='text'
-						name='trainingTitle'
-						value={formData.trainingTitle}
-						onChange={handleInputChange}
-					/>
-				</div>
+    try {
+      const response = await axios.post('http://localhost:5000/api/training-requests', formDataToSend, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log('Data successfully submitted:', response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
 
-				<div className='form-group'>
-					<label>Training Date</label>
-					<input
-						type='date'
-						name='trainingDate'
-						value={formData.trainingDate}
-						onChange={handleInputChange}
-					/>
-				</div>
+  if (!user) {
+    return <div>Please log in to submit the form.</div>;
+  }
 
-				<div className='form-group'>
-					<label>Number of Participants</label>
-					<input
-						type='number'
-						name='participantCount'
-						value={formData.participantCount}
-						onChange={handleInputChange}
-					/>
-				</div>
+  return (
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <input
+        type="text"
+        name="trainingTitle"
+        value={formData.trainingTitle}
+        onChange={handleChange}
+        placeholder="Training Title"
+      />
 
-				<div className='form-group'>
-					<label>Project Budget Code</label>
-					<input
-						type='text'
-						name='projectBudgetCode'
-						value={formData.projectBudgetCode}
-						onChange={handleInputChange}
-					/>
-				</div>
+      <input
+        type="date"
+        name="trainingDate"
+        value={formData.trainingDate}
+        onChange={handleChange}
+      />
 
-				<div className='form-group'>
-					<label>Mode of Payment</label>
-					<select
-						name='modeOfPayment'
-						value={formData.modeOfPayment}
-						onChange={handleInputChange}>
-						<option value=''>Select Payment Option</option>
-						<option value='Credit Card'>Credit Card</option>
-						<option value='Bank Transfer'>Bank Transfer</option>
-						<option value='Cash'>Cash</option>
-					</select>
-				</div>
+      <input
+        type="number"
+        name="participantCount"
+        value={formData.participantCount}
+        onChange={handleChange}
+        placeholder="Number of Participants"
+      />
+      
+      <label>Laboratory Partner</label>
+      <select
+        name="partnerLab"
+        value={formData.partnerLab}
+        onChange={handleChange}
+        >
+        <option value="">Select Laboratory Partner</option>
+        <option value="Microbiology">Mircrobiology</option>
+        <option value="Feeds">FEEDS</option>
+      </select>
 
-				<div className='form-group'>
-					<label>Upload Necessary Documents</label>
-					<input type='file' name='necessaryDocuments' onChange={handleFileChange} />
-				</div>
+      <label>
+        Charged to project:
+        <input
+          type="checkbox"
+          name="charged_to_project"
+          checked={formData.charged_to_project}
+          onChange={(e) => setFormData({ ...formData, charged_to_project: e.target.checked })}
+        />
+      </label>
 
-				<div className='form-group'>
-					<label className='checkbox-label'>
-						<input
-							type='checkbox'
-							name='acknowledgeTerms'
-							checked={formData.acknowledgeTerms}
-							onChange={handleCheckboxChange}
-						/>
-						I acknowledge that I have read and understood the terms and conditions.
-					</label>
-				</div>
+      <input
+        type="text"
+        name="project_title"
+        value={formData.project_title}
+        onChange={handleChange}
+        placeholder="Project Title"
+      />
 
-				<div className='form-actions'>
-					<button type='button' className='cancel-btn' onClick={handleCancel}>
-						Cancel
-					</button>
-					<button type='submit' className='submit-btn'>
-						Submit Request
-					</button>
-				</div>
-			</form>
-		</div>
-	);
-};
+      <input
+        type="number"
+        name="project_budget_code"
+        value={formData.project_budget_code}
+        onChange={handleChange}
+        placeholder="Project Budget Code"
+      />
 
-export default TrainingServicesForm;
+      {/* File input for multiple file uploads */}
+      <input
+        type="file"
+        name="necessaryDocuments"
+        onChange={handleFileChange}
+        placeholder="Upload Documents"
+        multiple
+      />
+
+      <label>Mode of Payment</label>
+      <select
+        name="payment_option"
+        value={formData.payment_optio}
+        onChange={handleChange}
+        >
+        <option value="">Select Payment Option</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Cash">Cash</option>
+      </select>
+
+      <label>
+        <input
+          type="checkbox"
+          name="acknowledgeTerms"
+          checked={formData.acknowledgeTerms}
+          onChange={(e) => setFormData({ ...formData, acknowledgeTerms: e.target.checked })}
+        />
+        I acknowledge the terms and conditions
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default TrainingServiceForm;
