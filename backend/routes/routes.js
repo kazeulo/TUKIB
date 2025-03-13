@@ -46,10 +46,7 @@ router.post('/news', newsController.addNews);
 router.get('/news', newsController.getNews);
 
 // Routes for training requests
-// Routes for training requests
 router.post('/training-requests', upload.uploadDocuments, trainingRequestsController.createTrainingRequest);
-
-
 
 // Export the router
 module.exports = router;

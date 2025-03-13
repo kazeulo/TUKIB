@@ -2,7 +2,7 @@ const pool = require('../backend');
 
 // Function to create a new training request
 const createTrainingRequest = async (req, res) => {
-  console.log('File Info:', req.files); // Logging multiple files
+  console.log('File Info:', req.files);
 
   const {
     user_id,
@@ -12,8 +12,6 @@ const createTrainingRequest = async (req, res) => {
     charged_to_project,
     project_title,
     project_budget_code,
-    start,
-    end,
     trainingTitle,
     trainingDate,
     participantCount,
@@ -21,11 +19,11 @@ const createTrainingRequest = async (req, res) => {
     partnerLab
   } = req.body;
 
+  // Store necessary documents as an array
   const necessaryDocuments = req.files ? req.files.map(file => file.path) : [];
-  console.log('Necessary Documents Path:', necessaryDocuments);
 
   try {
-    // First, insert the data into the serviceRequestTable
+    // Insert into serviceRequestTable
     const serviceResult = await pool.query(
       `INSERT INTO serviceRequestTable 
        (user_id, service_name, status, payment_option, charged_to_project, project_title, project_budget_code, start, "end")
@@ -38,16 +36,14 @@ const createTrainingRequest = async (req, res) => {
         payment_option,
         charged_to_project,
         project_title,
-        project_budget_code,
-        start,
-        end
+        project_budget_code
       ]
     );
 
-    // Retrieve the generated request_id from the serviceRequestTable insertion
+    // Retrieve the generated request_id
     const request_id = serviceResult.rows[0].request_id;
 
-    // Then, insert the data into the trainingRequests table
+    // Insert into trainingRequests table
     const result = await pool.query(
       `INSERT INTO trainingRequests 
        (trainingTitle, trainingDate, participantCount, necessaryDocuments, acknowledgeTerms, partnerLab, request_id)
@@ -57,10 +53,10 @@ const createTrainingRequest = async (req, res) => {
         trainingTitle,
         trainingDate,
         participantCount,
-        necessaryDocuments.join(','),
+        necessaryDocuments,
         acknowledgeTerms,
         partnerLab,
-        request_id, 
+        request_id
       ]
     );
 
