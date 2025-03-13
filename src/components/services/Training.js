@@ -13,12 +13,12 @@ const Training = () => {
     prices: [
       {
         service: "Basic Equipment Training",
-        range: "Php5000 - Php10000 per session",
+        range: "₱5000 - ₱10000 per session",
         notes: "Includes simple instruments and basic usage training"
       },
       {
         service: "Advanced Equipment Training",
-        range: "Php10000 - Php20000 per session",
+        range: "₱10000 - ₱20000 per session",
         notes: "Includes specialized instruments and in-depth training"
       },
       {

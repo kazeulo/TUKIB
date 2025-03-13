@@ -1,0 +1,90 @@
+.error-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  gap: 30px; 
+  padding: 40px 80px;
+  background-color: #ffffff;
+  min-height: calc(100vh - 80px);
+}
+
+.error-content {
+  max-width: 45%;
+  text-align: left; 
+}
+
+.error404-title,.error500-title {
+  text-align: left;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #1b2e35; 
+}
+
+
+
+.error-text {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #1b2e35;
+  line-height: 1.6;
+  text-align: left; 
+}
+
+.error404-btn, .error500-btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+  display: inline-block; 
+  background-color: #ffc801;
+  color: #1b2e35;
+}
+
+.error500-btn:hover,.error404-btn:hover {
+  background-color: #1b2e35;
+  color: #ffc801;
+}
+
+.error-image-container {
+  position: relative;
+  max-width: 50%;
+  display: flex;
+  justify-content: center; 
+}
+
+.error-img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 992px) {
+  .error-container {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 20px;
+  }
+  
+  .error-content, .error-image-container {
+    max-width: 100%;
+  }
+  
+  .error-content {
+    margin-bottom: 20px;
+    text-align: center; /* Center text on mobile */
+  }
+  
+  .error-title, .error-text {
+    text-align: center; /* Center text on mobile */
+  }
+  
+  .error-btn {
+    margin: 0 auto;
+    display: block;
+  }
+}

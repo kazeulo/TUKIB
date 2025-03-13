@@ -23,21 +23,21 @@ const ServicePage = ({
 
       <div className="service-container">
         {/* Tabs */}
-        <div className="tabs">
+        <div className="service-tabs">
           <button
-            className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
+            className={`service-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
             onClick={() => setActiveTab('overview')}
           >
             Overview
           </button>
           <button
-            className={`tab ${activeTab === 'pricing' ? 'active' : ''}`}
+            className={`service-tab-btn ${activeTab === 'pricing' ? 'active' : ''}`}
             onClick={() => setActiveTab('pricing')}
           >
             Pricing
           </button>
           <button
-            className={`tab ${activeTab === 'how-to-avail' ? 'active' : ''}`}
+            className={`service-tab-btn ${activeTab === 'how-to-avail' ? 'active' : ''}`}
             onClick={() => setActiveTab('how-to-avail')}
           >
             How to Avail

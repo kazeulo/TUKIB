@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const upload = require ('../middlewares/multerConfig')
 
 // Import controller files
 const loginController = require('../controllers/loginController');
@@ -10,6 +11,7 @@ const messagesController = require('../controllers/messagesController');
 const serviceRequestsController = require('../controllers/serviceRequestsController');
 const equipmentsController = require('../controllers/equipmentsController');
 const newsController = require('../controllers/newsController');
+const trainingRequestsController = require('../controllers/trainingRequestsController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -42,6 +44,9 @@ router.get('/messages/:messageId', messagesController.getMessageDetails);
 // Routes for news management
 router.post('/news', newsController.addNews);
 router.get('/news', newsController.getNews);
+
+// Routes for training requests
+router.post('/training-requests', upload.uploadDocuments, trainingRequestsController.createTrainingRequest);
 
 // Export the router
 module.exports = router;

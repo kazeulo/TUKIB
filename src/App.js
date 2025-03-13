@@ -18,6 +18,10 @@ import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 
+import FeedbackForm from './components/feedback/FeedbackForm';
+import Error404 from './components/error/Error404';
+import Error500 from './components/error/Error500';
+
 import Sample_processing from './components/services/Sample_processing';
 import Equipment_rental from './components/services/Equipment_rental';
 import Facility_rental from './components/services/Facility_rental';
@@ -29,22 +33,48 @@ import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
 import Header from './components/partials/Header';
 
+const INACTIVITY_LIMIT = 1200000; // 20 minutes of inactivity (in milliseconds)
+
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
 
+    // Clear localStorage and logout if the user is inactive for the defined time
+    let inactivityTimer;
+
+    const resetInactivityTimer = () => {
+      if (inactivityTimer) {
+        clearTimeout(inactivityTimer); 
+      }
+
+      inactivityTimer = setTimeout(() => {
+        localStorage.clear(); 
+        setIsLoggedIn(false); 
+      }, INACTIVITY_LIMIT); 
+    };
+
+    const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
+    activityEvents.forEach(event => window.addEventListener(event, resetInactivityTimer));
+
+    resetInactivityTimer();
+
+    return () => {
+      clearTimeout(timer);
+      activityEvents.forEach(event => window.removeEventListener(event, resetInactivityTimer));
+    };
+  }, []);
+
+  useEffect(() => {
     // Check if user is logged in
     const user = localStorage.getItem('user');
     if (user) {
       setIsLoggedIn(true);
     }
-
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -63,15 +93,6 @@ const App = () => {
     </Router>
   );
 };
-
-// ProtectedRoute component to guard routes for logged-in users only
-const ProtectedRoute = ({ children, isLoggedIn }) => {
-	if (!isLoggedIn) {
-	  return <Navigate to="/login" />;
-	}
-  
-	return children;
-  };
 
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
   const location = useLocation();
@@ -103,24 +124,6 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           element={<ClientProfile />}
         />
         
-        {/* Protected Routes */}
-        {/* <Route 
-          path="/adminDashboard" 
-          element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/clientProfile" 
-          element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <ClientProfile />
-            </ProtectedRoute>
-          }
-        /> */}
-
         {/* public main pages */}
         <Route 
           path="/services" 
@@ -171,12 +174,32 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           element={<UseOfFacilityForm />} 
         />
 
+        <Route 
+          path="/feedback-form" 
+          element={<FeedbackForm />} 
+        />
+
         {/* detail pages */}
         <Route 
           path="/messageDetails/:messageId" 
           element={<MessageDetails />} 
         />
+      
+        {/* error pages */}
+        <Route 
+          path="/error404" 
+          element={<Error404 />}
+          />
+        <Route
+          path="/error500"
+          element={<Error500 />} 
+          />
+
+
       </Routes>
+
+      
+      
     </>
   );
 };

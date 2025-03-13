@@ -12,17 +12,17 @@ const SampleProcessing = () => {
     prices: [
       {
         service: "Basic Sample Analysis",
-        range: "Php500 - Php1000 per sample",
+        range: "₱500 - ₱1000 per sample",
         notes: "Includes simple chemical analysis, pH testing"
       },
       {
         service: "Advanced Sample Analysis",
-        range: "Php1500 - Php3000 per sample",
+        range: "₱1500 - ₱3000 per sample",
         notes: "Includes spectrometry, chromatography"
       },
       {
         service: "Specialized Testing",
-        range: "Php2000 - Php5000 per sample",
+        range: "₱2000 - ₱5000 per sample",
         notes: "Includes environmental samples, complex biological samples"
       }
     ],
