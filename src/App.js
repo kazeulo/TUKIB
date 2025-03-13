@@ -19,6 +19,8 @@ import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 
 import FeedbackForm from './components/feedback/FeedbackForm';
+import Error404 from './components/error/Error404';
+import Error500 from './components/error/Error500';
 
 import Sample_processing from './components/services/Sample_processing';
 import Equipment_rental from './components/services/Equipment_rental';
@@ -182,7 +184,22 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           path="/messageDetails/:messageId" 
           element={<MessageDetails />} 
         />
+      
+        {/* error pages */}
+        <Route 
+          path="/error404" 
+          element={<Error404 />}
+          />
+        <Route
+          path="/error500"
+          element={<Error500 />} 
+          />
+
+
       </Routes>
+
+      
+      
     </>
   );
 };
