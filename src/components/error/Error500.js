@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Errorstyles.css";
+import error500img from "../../assets/error500img.png";
 
 export default function Error500() {
     const navigate = useNavigate();
@@ -10,12 +11,16 @@ export default function Error500() {
     };
     
     return (
-        <div class='error-container'>
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnUwbnJuaTNsYzgwemo0MDJlYmVsYnYzazY5M2VjZWxxajlrcjJleSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/nrXif9YExO9EI/giphy.gif"  className="error-gif" /> <br/>
-            <h1 className="error-title">Internal Server Error (500 Error)</h1>
-            <p className="error-message">Looks like our servers ran into an unexpected problem. Spongebob is still trying to deal with it .</p>
-            <p className="error-message">Try refreshing the page or come back later while we recalibrate.</p>
-            <button onClick={goHome} className="error-btn">Back to Safety</button>
+        <div className='error-container'>
+            <div className="error-content">
+                <h2 className='error500-title'>Internal Server Error</h2>
+                <p className='error-text'>Oops! Looks like someone messed with our server.<br/>Try refreshing the page or come back later <br/> while we find who owns this puppy.</p>
+                <button onClick={goHome} className="error500-btn">Go to Homepage</button>
+            </div>
+            
+            <div className="error-image-container">
+                <img src={error500img} alt="500 Error" className="error-img" />
+            </div>
         </div>
     );
 }

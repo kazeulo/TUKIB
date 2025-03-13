@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Errorstyles.css";
+import error404img from "../../assets/error404img.png";
 
 export default function Error404() {
     const navigate = useNavigate();
@@ -10,12 +11,16 @@ export default function Error404() {
     };
     
     return (
-        <div class='error-container'>
-            <img src="https://media.giphy.com/media/5qcnRWFWfZyXC/giphy.gif?cid=790b76118oz4ca2a2e45lttuy3wbqex8g7pzkiisqvm1dijy&ep=v1_gifs_search&rid=giphy.gif&ct=g"  className="error-gif" /> <br/>
-            <h1 className="error-title">📂 Missing Data! (404 Error) 🔍</h1>
-            <p className="error-message">The page you're looking for is either misplaced, archived, or never recorded.</p>
-            <p className="error-message">Spongebob can't seem to find it.</p>
-            <button onClick={goHome} className="error-btn">Go Back To Homepage</button>
+        <div className='error-container'>
+            <div className="error-content">
+                <h2 className='error404-title'>Page Not Found</h2>
+                <p className='error-text'>We can't seem to find the page you're looking for.<br/>Please check the URL for any typos.</p>
+                <button onClick={goHome} className="error404-btn">Go to Homepage</button>
+            </div>
+            
+            <div className="error-image-container">
+                <img src={error404img} alt="404 Error" className="error-img" />
+            </div>
         </div>
     );
 }
