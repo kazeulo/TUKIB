@@ -24,7 +24,9 @@ const handleLogin = async (req, res) => {
           { expiresIn: '1h' } // Token expiration in 1 hour
         );
 
-        // Optionally, store the token in a table to track user sessions
+        console.log(token)
+
+        // Store the token in a table to track user sessions
         const insertTokenQuery = 'INSERT INTO user_tokens (user_id, token, created_at) VALUES ($1, $2, $3)';
         await pool.query(insertTokenQuery, [user.user_id, token, new Date()]);
 

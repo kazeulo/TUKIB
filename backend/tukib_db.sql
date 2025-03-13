@@ -36,9 +36,11 @@ DROP TABLE IF EXISTS usersTable CASCADE;
 DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
+DROP TYPE IF EXISTS lab_enum CASCADE;
 
 -- ======== ENUM TYPES ========
--- Creating ENUM for lab partners
+
+-- Creating ENUM for laboratories
 CREATE TYPE lab_enum AS ENUM (
   'Applied Chemistry',
   'Biology',
@@ -81,7 +83,7 @@ CREATE TABLE serviceRequestTable (
     payment_option VARCHAR(50),
     charged_to_project BOOLEAN,
     project_title VARCHAR(255),
-    project_budget_code INT,
+    project_budget_code VARCHAR(50),
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
@@ -94,9 +96,9 @@ CREATE TABLE trainingRequests (
     trainingTitle VARCHAR(255) NOT NULL,
     trainingDate DATE NOT NULL,
     participantCount INT NOT NULL,
-    necessaryDocuments TEXT[], -- ✅ Fixed from "TYPE TEXT[]"
+    necessaryDocuments TEXT[],
     acknowledgeTerms BOOLEAN NOT NULL,
-    partnerLab lab_enum NOT NULL, -- ✅ Using ENUM instead of VARCHAR
+    partnerLab lab_enum NOT NULL,
     FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 );
 
@@ -160,17 +162,20 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
 
 -- ======== INSERTING DUMMY DATA ========
 
--- Insert Dummy Users
+-- Inserting dummy data into the 'users' table
 INSERT INTO usersTable (name, email, role, password, institution, contact_number)
 VALUES
     ('John Doe', 'johndoe@example.com', 'Admin', 'adminpassword', 'University A', '123-456-7890'),
-    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', 'University B', '234-567-8901');
+    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', 'University B', '234-567-8901'),
+    ('Alice Johnson', 'alice.johnson@example.com', 'University Researcher', 'urpassword', 'Institution C', '345-678-9012'),
+    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', 'University A', '456-789-0123'),
+    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234');
 
 -- Insert Dummy User Tokens
-INSERT INTO user_tokens (user_id, token, expires_at)
-VALUES
-    (1, 'dummy-jwt-token-for-johndoe', '2025-12-31 23:59:59'),
-    (2, 'dummy-jwt-token-for-janesmith', '2025-12-31 23:59:59');
+-- INSERT INTO user_tokens (user_id, token, expires_at)
+-- VALUES
+--     (1, 'dummy-jwt-token-for-johndoe', '2025-12-31 23:59:59'),
+--     (2, 'dummy-jwt-token-for-janesmith', '2025-12-31 23:59:59');
 
 -- Insert Dummy Messages
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
