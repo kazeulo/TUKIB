@@ -29,6 +29,7 @@
 -- ======== DROPS ========
 -- Drop tables in reverse order to avoid foreign key constraints
 DROP TABLE IF EXISTS trainingRequests CASCADE;
+DROP TABLE IF EXISTS sampleProcessingRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
@@ -82,8 +83,6 @@ CREATE TABLE serviceRequestTable (
     status VARCHAR(50) NOT NULL,
     payment_option VARCHAR(50),
     charged_to_project BOOLEAN,
-    project_title VARCHAR(255),
-    project_budget_code VARCHAR(50),
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
@@ -96,11 +95,29 @@ CREATE TABLE trainingRequests (
     trainingTitle VARCHAR(255) NOT NULL,
     trainingDate DATE NOT NULL,
     participantCount INT NOT NULL,
-    necessaryDocuments TEXT[],
     acknowledgeTerms BOOLEAN NOT NULL,
     partnerLab lab_enum NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    additionalInformation TEXT,
+    necessaryDocuments TEXT[],
     FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 );
+
+-- Sample Processing Requests Table
+-- CREATE TABLE sampleProcessingRequests (
+--     sampleprocessing_request_id SERIAL PRIMARY KEY,
+--     trainingTitle VARCHAR(255) NOT NULL,
+--     sample_description TEXT NOT NULL,
+--     sample_volume INT,
+--     method_settings VARCHAR NOT NULL,
+--     sample_hazard_description TEXT NOT NULL,
+--     schedule_of_sample_submission DATE NOT NULL,
+--     additional_information TEXT,
+--     necessaryDocuments TEXT[]
+-- )
 
 -- Messages Table
 CREATE TABLE messagesTable (

@@ -4,56 +4,53 @@ const path = require('path');
 // Define the uploads folder path
 const uploadPath = path.join(__dirname, '..', '../uploads');
 
-// Function to check file type for news images (accepts .png, .jpg)
+// Allowed file types for images
 const imageFileFilter = (req, file, cb) => {
     const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
     if (!allowedTypes.includes(file.mimetype)) {
-        return cb(new Error('Only .png, .jpg, .jpeg files are allowed for news'), false);
+        return cb(new Error('Only .png, .jpg, .jpeg files are allowed'), false);
     }
     cb(null, true);
 };
 
-// Function to check file type for service requests documents (accepts .pdf)
+// Allowed file types for documents (PDFs)
 const documentsFileFilter = (req, file, cb) => {
-    const allowedTypes = ['application/pdf'];
-    if (!allowedTypes.includes(file.mimetype)) {
+    if (file.mimetype !== 'application/pdf') {
         return cb(new Error('Only .pdf files are allowed for documents'), false);
     }
     cb(null, true);
 };
 
-// Multer storage configurations for news images
-const imageStorage = multer.diskStorage({
+// Multer storage configuration
+const fs = require('fs');
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(uploadPath, 'News')); 
+        let folder = path.join(__dirname, '../../uploads/', file.fieldname);
+        if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
+        cb(null, folder);
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); 
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
-// Multer storage configurations for service requests documents
-const documentsStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(uploadPath, 'Documents')); 
+
+// Multer configuration for multiple fields
+const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+
+        if (!allowedTypes.includes(file.mimetype)) {
+            return cb(new Error('Only PNG, JPG, JPEG, and PDF files are allowed'), false);
+        }
+        cb(null, true);
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); 
-    }
-});
+    limits: { fileSize: 20 * 1024 * 1024 } // 20MB per file limit
+}).fields([
+    { name: 'proofOfFunds', maxCount: 1 },
+    { name: 'paymentConforme', maxCount: 1 },
+    { name: 'necessaryDocuments', maxCount: 5 }
+]);
 
-// Create multer upload middleware for news
-const uploadImage = multer({
-    storage: imageStorage,
-    fileFilter: imageFileFilter,
-    limits: { fileSize: 10 * 1024 * 1024 }, 
-});
-
-// Create multer upload middleware for service requests documents
-const uploadDocuments = multer({
-    storage: documentsStorage,
-    fileFilter: documentsFileFilter,
-    limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB file size limit
-  }).array('necessaryDocuments', 5); 
-  
-module.exports = { uploadImage, uploadDocuments };
+module.exports = upload;

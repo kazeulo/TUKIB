@@ -7,6 +7,9 @@ import Modal from '../partials/Modal';
 function TrainingServiceForm({ isLoggedIn }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);  
+
   const [formData, setFormData] = useState({
     user_id: '',
     service_name: 'training',
@@ -15,17 +18,18 @@ function TrainingServiceForm({ isLoggedIn }) {
     charged_to_project: false,
     project_title: '',
     project_budget_code: '',
+    proofOfFunds: '',
+    paymentConforme: '',
     trainingTitle: '',
     trainingDate: '',
     participantCount: '',
     necessaryDocuments: [],
+    additionalInformation: '',
     acknowledgeTerms: false,
     partnerLab: '',
     start: '',
     end: ''
   });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);  // State for the modal visibility
 
   // Fetching user data
   useEffect(() => {
@@ -37,7 +41,7 @@ function TrainingServiceForm({ isLoggedIn }) {
         user_id: storedUser.user_id,
       }));
     } else {
-      setIsModalOpen(true);  // Show the modal if the user is not logged in
+      setIsModalOpen(true);
     }
   }, [isLoggedIn]);
 
@@ -59,52 +63,94 @@ function TrainingServiceForm({ isLoggedIn }) {
     }));
   };
 
-  // Handle file input change for multiple files
+  // handle file change, for single and multiple
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setFormData((prevData) => ({
-      ...prevData,
-      necessaryDocuments: files,
-    }));
-  };
+    const { name, files } = e.target;
+  
+    if (name === 'necessaryDocuments') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: Array.from(files),
+      }));
+    } else {
+
+      if (files.length === 1) {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: files[0],
+        }));
+      }
+
+      else if (files.length > 1) {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: Array.from(files),
+        }));
+      }
+    }
+  };  
 
   const handleCancel = () => {
-    navigate('/clientProfile'); // This navigates to the ClientProfile page
+    navigate('/clientProfile');
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formDataToSend = new FormData();
+  
+    // Append other form fields to formData
     formDataToSend.append('user_id', formData.user_id);
     formDataToSend.append('service_name', formData.service_name);
     formDataToSend.append('status', formData.status);
     formDataToSend.append('payment_option', formData.payment_option);
     formDataToSend.append('charged_to_project', formData.charged_to_project);
     formDataToSend.append('project_title', formData.project_title);
-    formDataToSend.append('project_budget_code', formData.project_budget_code);
-    formDataToSend.append('trainingTitle', formData.trainingTitle);
     formDataToSend.append('trainingDate', formData.trainingDate);
+    formDataToSend.append('trainingTitle', formData.trainingTitle);
     formDataToSend.append('participantCount', formData.participantCount);
+    formDataToSend.append('additional_information', formData.additionalInformation);
     formDataToSend.append('acknowledgeTerms', formData.acknowledgeTerms);
     formDataToSend.append('partnerLab', formData.partnerLab);
-
-    formData.necessaryDocuments.forEach((file) => {
-      formDataToSend.append('necessaryDocuments', file);
-    });
-
+  
+    if (formData.proofOfFunds) {
+      formDataToSend.append('proofOfFunds', formData.proofOfFunds);
+    }
+  
+    if (formData.paymentConforme) {
+      formDataToSend.append('paymentConforme', formData.paymentConforme);
+    }
+  
+    if (Array.isArray(formData.necessaryDocuments)) {
+      formData.necessaryDocuments.forEach((file) => {
+        formDataToSend.append('necessaryDocuments', file);
+      });
+    } else {
+      formDataToSend.append('necessaryDocuments', formData.necessaryDocuments);
+    }
+  
     try {
       const response = await axios.post('http://localhost:5000/api/training-requests', formDataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+
       console.log('Data successfully submitted:', response.data);
+
+      setSuccessMessage('Form submitted successfully!');
+      
+      // Hide success message after 3 seconds and navigate to client profile
+      setTimeout(() => {
+        setSuccessMessage('');
+        setIsModalOpen(false);
+        navigate('/clientProfile');
+      }, 3000);
       
       // Reset the form data after successful submission
       setFormData({
         user_id: '',
-        service_name: 'training',
-        status: 'pending',
+        service_name: 'Training',
+        status: 'Pending',
         payment_option: '',
         charged_to_project: false,
         project_title: '',
@@ -118,11 +164,11 @@ function TrainingServiceForm({ isLoggedIn }) {
         start: '',
         end: ''
       });
-
+  
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-  };
+  };    
 
   // Modal close handler (redirect to client profile)
   const handleModalClose = () => {
@@ -152,7 +198,7 @@ function TrainingServiceForm({ isLoggedIn }) {
           </div>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="form-group">
-              <label>Training Title</label>
+              <label>Training Topic</label>
               <input
                 type="text"
                 name="trainingTitle"
@@ -208,7 +254,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                   checked={formData.charged_to_project}
                   onChange={handleCheckboxChange}
                 />
-                Charged to project:
+                Charged to project
               </label>
             </div>
 
@@ -235,8 +281,40 @@ function TrainingServiceForm({ isLoggedIn }) {
                     placeholder="Project Budget Code"
                   />
                 </div>
+
+                {/* Proof of Funds Availability */}
+                <div className='form-group'>
+                  <label>Proof of Funds Availability</label>
+                  <input
+                    type='file'
+                    name='proofOfFunds'
+                    onChange={handleFileChange}
+                  />
+                </div>
+
+                {/* Payment Conforme */}
+                <div className='form-group'>
+                  <label>Payment Conforme</label>
+                  <input
+                    type='file'
+                    name='paymentConforme'
+                    onChange={handleFileChange}
+                  />
+                </div>
               </>
             )}
+
+            <div className='form-group'>
+              <label>Upload other necessary documents</label>
+              <small><i>Max no. of files accepted: 5</i></small>
+              <input
+                type="file"
+                name="necessaryDocuments"
+                onChange={handleFileChange}
+                placeholder="Upload Documents"
+                multiple
+              />
+            </div>
 
             <div className="form-group">
               <label>Mode of Payment</label>
@@ -250,6 +328,17 @@ function TrainingServiceForm({ isLoggedIn }) {
                 <option value="Bank Transfer">Bank Transfer</option>
                 <option value="Cash">Cash</option>
               </select>
+            </div>
+
+            {/* Additional Information */}
+            <div className='form-group'>
+              <label>Additional Information</label>
+              <textarea
+                name='additionalInformation'
+                value={formData.additionalInformation}
+                onChange={handleChange}
+                rows='4'
+              />
             </div>
 
             <div className="form-group">
