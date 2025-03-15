@@ -11,8 +11,6 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [errors, setErrors] = useState({});
    
-	
-
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
 		service_name: 'Sample processing',
@@ -20,14 +18,13 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		payment_option: '', 
 		project_title: '',
 		project_budget_code: '',
-		proofOfFunds: '',
-		paymentConforme: '',
+		proofOfFunds: null,
+		paymentConforme: null,
 		sampleType: '',
 		laboratory: '',
 		sampleDescription: '',
 		sampleVolume: '',
-		unit: '',
-		methodsSettings: '',
+		methodSettings: '',
 		sampleHazardDescription: '',
 		scheduleSampleSubmission: '',
 		additionalInformation: '',
@@ -108,7 +105,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		if (!formData.sampleVolume) newErrors.sampleVolume = "This field is required.";
 		if (!formData.scheduleSampleSubmission) newErrors.scheduleSampleSubmission = "This field is required.";
 		if (!formData.payment_option) newErrors.payment_option = "This field is required.";
-		if (!formData.methodsSettings) newErrors.methodsSettings = "This field is required.";
+		if (!formData.methodSettings) newErrors.methodSettings = "This field is required.";
 		if (!formData.sampleVolume) newErrors.sampleVolume = "This field is required.";
 		if (!formData.sampleHazardDescription) newErrors.sampleHazardDescription = "This field is required.";
 	  
@@ -142,12 +139,17 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		formDataToSend.append('status', formData.status);
 		formDataToSend.append('payment_option', formData.payment_option);
 		formDataToSend.append('project_title', formData.project_title);
-		formDataToSend.append('trainingDate', formData.trainingDate);
-		formDataToSend.append('trainingTitle', formData.trainingTitle);
-		formDataToSend.append('participantCount', formData.participantCount);
+		formDataToSend.append('project_budget_code', formData.project_budget_code);
 		formDataToSend.append('additional_information', formData.additionalInformation);
 		formDataToSend.append('acknowledgeTerms', formData.acknowledgeTerms);
-		formDataToSend.append('partnerLab', formData.laboratory);
+		formDataToSend.append('laboratory', formData.laboratory);
+		formDataToSend.append('typeOfAnalysis', formData.typeOfAnalysis);
+		formDataToSend.append('sampleType', formData.sampleType);
+		formDataToSend.append('sampleDescription', formData.sampleDescription);
+		formDataToSend.append('sampleVolume', formData.sampleVolume);
+		formDataToSend.append('methodSettings', formData.methodSettings);
+		formDataToSend.append('sampleHazardDescription', formData.sampleHazardDescription);
+		formDataToSend.append('scheduleSampleSubmission', formData.scheduleSampleSubmission);
 	  
 		if (formData.proofOfFunds) {
 		  formDataToSend.append('proofOfFunds', formData.proofOfFunds);
@@ -166,7 +168,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		}
 	  
 		try {
-		  const response = await axios.post('http://localhost:5000/api/training-requests', formDataToSend, {
+		  const response = await axios.post('http://localhost:5000/api/sample-processing-requests', formDataToSend, {
 			headers: { 'Content-Type': 'multipart/form-data' },
 		});
 	
@@ -297,19 +299,19 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								value={formData.sampleVolume}
 								onChange={handleChange}
 							/>
-							{errors.methodsSettings && <p className="error">{errors.methodsSettings}</p>}
+							{errors.sampleVolume && <p className="error">{errors.sampleVolume}</p>}
 						</div>
 
 						{/* Methods/Settings */}
 						<div className='form-group'>
 							<label>Methods/Settings</label>
 							<textarea
-								name='methodsSettings'
-								value={formData.methodsSettings}
+								name='methodSettings'
+								value={formData.methodSettings}
 								onChange={handleChange}
 								rows='4'
 							/>
-							{errors.methodsSettings && <p className="error">{errors.methodsSettings}</p>}
+							{errors.methodSettings && <p className="error">{errors.methodSettings}</p>}
 						</div>
 
 						{/* Sample Hazard Description */}

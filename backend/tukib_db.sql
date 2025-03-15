@@ -106,19 +106,25 @@ CREATE TABLE trainingRequests (
 );
 
 -- Sample Processing Requests Table
--- CREATE TABLE sampleProcessingRequests (
---     sampleprocessing_request_id SERIAL PRIMARY KEY,
---     request_id INT NOT NULL,
---     trainingTitle VARCHAR(255) NOT NULL,
---     sample_description TEXT NOT NULL,
---     sample_volume INT,
---     method_settings VARCHAR NOT NULL,
---     sample_hazard_description TEXT NOT NULL,
---     schedule_of_sample_submission DATE NOT NULL,
---     additional_information TEXT,
---     necessaryDocuments TEXT[]
---     FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
--- )
+CREATE TABLE sampleProcessingRequests (
+    sampleprocessing_request_id SERIAL PRIMARY KEY,
+    laboratory lab_enum NOT NULL,
+    request_id INT NOT NULL,
+    type_of_analysis VARCHAR(50) NOT NULL,
+    sample_type VARCHAR (50) NOT NULL,
+    sample_description TEXT NOT NULL,
+    sample_volume VARCHAR(100),
+    method_settings VARCHAR NOT NULL,
+    sample_hazard_description TEXT NOT NULL,
+    schedule_of_sample_submission DATE NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    additional_information TEXT,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
 
 -- Messages Table
 CREATE TABLE messagesTable (
