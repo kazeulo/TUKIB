@@ -12,6 +12,7 @@ const serviceRequestsController = require('../controllers/serviceRequestsControl
 const equipmentsController = require('../controllers/equipmentsController');
 const newsController = require('../controllers/newsController');
 const trainingRequestsController = require('../controllers/trainingRequestsController');
+const sampleProcessingRequestController = require('../controllers/sampleProcessingRequestController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -56,6 +57,19 @@ router.post('/training-requests', upload, async (req, res) => {
         res.status(500).json({ message: 'Error processing the request' });
     }
 });
+
+// Route for sample processing requests
+router.post('/sample-processing-requests', upload, async (req, res) => {
+    console.log('Files received:', req.files); // Log incoming files
+    console.log('Body received:', req.body);
+    try {
+        // Call the controller function to handle the request creation
+        await sampleProcessingRequestController.createSampleProcessingRequest(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Error processing the request' });
+    }
+});
+
 
 // Export the router
 module.exports = router;
