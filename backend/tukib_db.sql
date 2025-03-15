@@ -81,8 +81,7 @@ CREATE TABLE serviceRequestTable (
     user_id INT NOT NULL,
     service_name VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    payment_option VARCHAR(50),
-    charged_to_project BOOLEAN,
+    payment_option VARCHAR(50) NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
@@ -109,6 +108,7 @@ CREATE TABLE trainingRequests (
 -- Sample Processing Requests Table
 -- CREATE TABLE sampleProcessingRequests (
 --     sampleprocessing_request_id SERIAL PRIMARY KEY,
+--     request_id INT NOT NULL,
 --     trainingTitle VARCHAR(255) NOT NULL,
 --     sample_description TEXT NOT NULL,
 --     sample_volume INT,
@@ -117,6 +117,7 @@ CREATE TABLE trainingRequests (
 --     schedule_of_sample_submission DATE NOT NULL,
 --     additional_information TEXT,
 --     necessaryDocuments TEXT[]
+--     FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 -- )
 
 -- Messages Table

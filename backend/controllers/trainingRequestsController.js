@@ -2,46 +2,39 @@ const pool = require('../backend');
 
 // Function to create a new training request
 const createTrainingRequest = async (req, res) => {
-  console.log('File Info:', req.files);
-
-  const {
-    user_id,
-    service_name,
-    status,
-    payment_option,
-    charged_to_project,
-    project_title,
-    project_budget_code,
-    trainingTitle,
-    trainingDate,
-    participantCount,
-    acknowledgeTerms,
-    partnerLab,
-    additionalInformation
-  } = req.body;
-
-  const necessaryDocuments = req.files['necessaryDocuments']
-    ? req.files['necessaryDocuments'].map(file => file.path)
-    : [];
-
-  const proofOfFunds = req.files['proofOfFunds'] ? req.files['proofOfFunds'][0].path : null;
-  const paymentConforme = req.files['paymentConforme'] ? req.files['paymentConforme'][0].path : null;
-
-
   try {
-    // Insert into serviceRequestTables
+    console.log('File Info:', req.files);
+
+    const {
+      user_id,
+      service_name = 'training',
+      status = 'pending',
+      payment_option,
+      project_title = null,
+      project_budget_code = null,
+      trainingTitle,
+      trainingDate,
+      participantCount,
+      acknowledgeTerms = false,
+      partnerLab,
+      additionalInformation = null
+    } = req.body;
+
+    // Handle file uploads
+    const necessaryDocuments = req.files?.['necessaryDocuments']
+      ? req.files['necessaryDocuments'].map(file => file.path)
+      : [];
+
+    const proofOfFunds = req.files?.['proofOfFunds']?.[0]?.path || null;
+    const paymentConforme = req.files?.['paymentConforme']?.[0]?.path || null;
+
+    // Insert into serviceRequestTable
     const serviceResult = await pool.query(
       `INSERT INTO serviceRequestTable 
-       (user_id, service_name, status, payment_option, charged_to_project, start, "end")
-       VALUES ($1, $2, $3, $4, $5, NOW(), NULL) 
+       (user_id, service_name, status, payment_option, start, "end")
+       VALUES ($1, $2, $3, $4, NOW(), NULL) 
        RETURNING request_id`,
-      [
-        user_id,
-        service_name,
-        status,
-        payment_option,
-        charged_to_project,
-      ]
+      [user_id, service_name, status, payment_option]
     );
 
     // Retrieve the generated request_id
@@ -50,22 +43,22 @@ const createTrainingRequest = async (req, res) => {
     // Insert into trainingRequests table
     const result = await pool.query(
       `INSERT INTO trainingRequests 
-       (trainingTitle, trainingDate, participantCount, necessaryDocuments, proofOfFunds, paymentConforme, acknowledgeTerms, partnerLab, request_id, project_title, project_budget_code, additionalInformation)
+       (trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments, request_id)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
        RETURNING *`,
       [
         trainingTitle,
         trainingDate,
         participantCount,
-        necessaryDocuments,
-        proofOfFunds,
-        paymentConforme,
         acknowledgeTerms,
         partnerLab,
-        request_id,
         project_title,
         project_budget_code,
-        additionalInformation
+        proofOfFunds,
+        paymentConforme,
+        additionalInformation,
+        necessaryDocuments,
+        request_id
       ]
     );
 
