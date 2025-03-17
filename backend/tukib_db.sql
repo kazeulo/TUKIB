@@ -30,6 +30,7 @@
 -- Drop tables in reverse order to avoid foreign key constraints
 DROP TABLE IF EXISTS trainingRequests CASCADE;
 DROP TABLE IF EXISTS sampleProcessingRequests CASCADE;
+DROP TABLE IF EXISTS equipmentRentalRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
@@ -45,8 +46,7 @@ DROP TYPE IF EXISTS lab_enum CASCADE;
 CREATE TYPE lab_enum AS ENUM (
   'Applied Chemistry',
   'Biology',
-  'Foods Feeds',
-  'Functional Nutrition (Food)',
+  'Foods, Feeds and Functional Nutrition',
   'Material Science and Nanotechnology',
   'Microbiology and Bioengineering'
 );
@@ -117,6 +117,29 @@ CREATE TABLE sampleProcessingRequests (
     method_settings VARCHAR NOT NULL,
     sample_hazard_description TEXT NOT NULL,
     schedule_of_sample_submission DATE NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    additional_information TEXT,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
+
+-- Equipment rental requests table
+CREATE TABLE equipmentRentalRequests (
+    equipmentRental_request_id SERIAL PRIMARY KEY,
+    request_id INT NOT NULL,
+    authorized_representative VARCHAR(50) NOT NULl,
+    laboratory lab_enum NOT NULL,
+    equipment_name VARCHAR(255) NOT NULL,
+    equipment_settings TEXT NOT NULL,
+    sample_type VARCHAR(255) NOT NULL,
+    sample_description TEXT NOT NULL,
+    sample_volume VARCHAR(100) NOT NULL,
+    sample_hazard_description TEXT NOT NULL,
+    schedule_of_use DATE NOT NULL,
+    estimated_use_duration VARCHAR(50) NOT NULL,
     project_title VARCHAR(255),
     project_budget_code VARCHAR(50),
     proofOfFunds TEXT,

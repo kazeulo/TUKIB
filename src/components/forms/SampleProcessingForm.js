@@ -186,8 +186,8 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		  // Reset the form data after successful submission
 		setFormData({
 			user_id: '',
-			service_name: 'Training',
-			status: 'Pending',
+			service_name: 'Sample Processing',
+			status: 'Pending for Approval',
 			payment_option: '',
 			charged_to_project: false,
 			project_title: '',
@@ -246,8 +246,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								<option value="">Select Laboratory Partner</option>
 								<option value="Applied Chemistry">Applied Chemistry</option>
 								<option value="Biology">Biology</option>
-								<option value="Foods Feeds">Foods Feeds</option>
-								<option value="Functional Nutrition (Food)">Functional Nutrition (Food)</option>
+								<option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
 								<option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
 								<option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
 							</select>
@@ -350,9 +349,9 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								<option value="Cash">Cash</option>
 							</select>
 							{errors.payment_option && <p className="error">{errors.payment_option}</p>}
-							</div>
+						</div>
 
-							{formData.payment_option === "Charged to Project" && (
+						{formData.payment_option === "Charged to Project" && (
 							<>
 								<div className="form-group">
 								<label>Project Title</label>
@@ -400,7 +399,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								{errors.paymentConforme && <p className="error">{errors.paymentConforme}</p>}
 								</div>
 							</>
-							)}
+						)}
 
 						<div className='form-group'>
 							<label>Upload other necessary documents</label>

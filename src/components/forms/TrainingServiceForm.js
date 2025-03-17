@@ -272,8 +272,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 <option value="">Select Laboratory Partner</option>
                 <option value="Applied Chemistry">Applied Chemistry</option>
                 <option value="Biology">Biology</option>
-                <option value="Foods Feeds">Foods Feeds</option>
-                <option value="Functional Nutrition (Food)">Functional Nutrition (Food)</option>
+                <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
                 <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
                 <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
               </select>
