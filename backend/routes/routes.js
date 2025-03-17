@@ -49,10 +49,9 @@ router.get('/news', newsController.getNews);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
-    console.log('Files received:', req.files); // Log incoming files
+    console.log('Files received:', req.files);
     console.log('Body received:', req.body);
     try {
-        // Call the controller function to handle the request creation
         await trainingRequestsController.createTrainingRequest(req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error processing the request' });
@@ -61,10 +60,9 @@ router.post('/training-requests', upload, async (req, res) => {
 
 // Route for sample processing requests
 router.post('/sample-processing-requests', upload, async (req, res) => {
-    console.log('Files received:', req.files); // Log incoming files
+    console.log('Files received:', req.files);
     console.log('Body received:', req.body);
     try {
-        // Call the controller function to handle the request creation
         await sampleProcessingRequestController.createSampleProcessingRequest(req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error processing the request' });
@@ -73,16 +71,14 @@ router.post('/sample-processing-requests', upload, async (req, res) => {
 
 // Route for equipment rental requests
 router.post('/equipment-rental-requests', upload, async (req, res) => {
-    console.log('Files received:', req.files); // Log incoming files
+    console.log('Files received:', req.files);
     console.log('Body received:', req.body);
     try {
-        // Call the controller function to handle the request creation
         await createEquipmentRentalRequestController.createEquipmentRentalRequest (req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error processing the request' });
     }
 });
-
 
 // Export the router
 module.exports = router;

@@ -213,6 +213,16 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		navigate('/login');
 	};
 
+	const handlePaymentOptionChange = (e) => {
+		const { value } = e.target;
+		setFormData((prevData) => ({
+		  ...prevData,
+		  payment_option: value,
+		  project_title: value === 'Cash' ? '' : prevData.project_title, 
+		  project_budget_code: value === 'Cash' ? '' : prevData.project_budget_code,
+		}));
+	};
+
 	return (
 		<>
 			<Modal
@@ -342,7 +352,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 							<select
 								name="payment_option"
 								value={formData.payment_option}
-								onChange={handleChange}
+								onChange={handlePaymentOptionChange}
 							>
 								<option value="">Select Payment Option</option>
 								<option value="Charged to Project">Charged to Project</option>
