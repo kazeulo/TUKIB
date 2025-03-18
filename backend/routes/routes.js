@@ -13,7 +13,8 @@ const equipmentsController = require('../controllers/equipmentsController');
 const newsController = require('../controllers/newsController');
 const trainingRequestsController = require('../controllers/trainingRequestsController');
 const sampleProcessingRequestController = require('../controllers/sampleProcessingRequestController');
-const createEquipmentRentalRequestController = require('../controllers/equipmentRentalRequestController');
+const equipmentRentalRequestController = require('../controllers/equipmentRentalRequestController');
+const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -74,11 +75,22 @@ router.post('/equipment-rental-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
     console.log('Body received:', req.body);
     try {
-        await createEquipmentRentalRequestController.createEquipmentRentalRequest (req, res);
+        await equipmentRentalRequestController.createEquipmentRentalRequest (req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error processing the request' });
     }
 });
+
+router.post('/facility-rental-requests', upload, async (req, res) => {
+    console.log('Files received:', req.files);
+    console.log('Body received:', req.body);
+    try {
+        await facilityRentalRequestsController.createFacilityRetntalRequest (req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Error processing the request' });
+    }
+});
+
 
 // Export the router
 module.exports = router;

@@ -31,6 +31,7 @@
 DROP TABLE IF EXISTS trainingRequests CASCADE;
 DROP TABLE IF EXISTS sampleProcessingRequests CASCADE;
 DROP TABLE IF EXISTS equipmentRentalRequests CASCADE;
+DROP TABLE IF EXISTS facilityRentalRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
@@ -39,6 +40,8 @@ DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TYPE IF EXISTS lab_enum CASCADE;
+DROP TYPE IF EXISTS payment_option CASCADE;
+DROP TYPE IF EXISTS facilities CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -49,6 +52,17 @@ CREATE TYPE lab_enum AS ENUM (
   'Foods, Feeds and Functional Nutrition',
   'Material Science and Nanotechnology',
   'Microbiology and Bioengineering'
+);
+
+-- Creating ENUM for laboratories
+CREATE TYPE payment_option AS ENUM (
+  'Cash',
+  'Charged to Project'
+);
+
+CREATE TYPE facilities AS ENUM (
+  'Audio/Visual Room',
+  'Collaboration Room'
 );
 
 -- ======== TABLE CREATION ========
@@ -81,7 +95,7 @@ CREATE TABLE serviceRequestTable (
     user_id INT NOT NULL,
     service_name VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    payment_option VARCHAR(50) NOT NULL,
+    payment_option payment_option NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
@@ -145,6 +159,24 @@ CREATE TABLE equipmentRentalRequests (
     proofOfFunds TEXT,
     paymentConforme TEXT,
     additional_information TEXT,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
+
+-- Facility rental requests table
+CREATE TABLE facilityRentalRequests (
+    facilityRental_request_id SERIAL PRIMARY KEY,
+    request_id INT NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    selected_facility facilities NOT NULL,
+    start_of_use TIMESTAMP NOT NULL,
+    end_of_use TIMESTAMP NOT NULL,
+    participant_count INT NOT NULL,
+    additional_information TEXT,
+    acknowledge_terms BOOLEAN NOT NULL DEFAULT FALSE,
     necessaryDocuments TEXT[],
     FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 );
