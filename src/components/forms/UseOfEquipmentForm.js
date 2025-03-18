@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
-import Modal from '../partials/Modal'; // Modal component for login prompt
+import Modal from '../partials/Modal';
 
 const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
   const navigate = useNavigate();
@@ -35,19 +35,25 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
     acknowledgeTerms: false,
   });
 
-  // Fetching user data on mount
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      setUser(storedUser);
-      setFormData((prevData) => ({
-        ...prevData,
-        user_id: storedUser.user_id,
-      }));
-    } else {
-      setIsModalOpen(true);
-    }
-  }, [isLoggedIn]);
+  // Fetching user data
+    useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+        setUser(storedUser);
+        setFormData((prevData) => ({
+          ...prevData,
+          user_id: storedUser.user_id,
+        }));
+      } else {
+        setIsModalOpen(true);
+      }
+    }, [isLoggedIn]);
+  
+    useEffect(() => {
+      if (user) {
+        setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
+      }
+    }, [user]);
 
   // Handle input changes for form fields
   const handleChange = (e) => {
@@ -89,9 +95,41 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
     navigate('/clientProfile');
   };
 
+  const validateForm = () => {
+    let newErrors = {};
+  
+    if (!formData.authorizedRepresentative.trim()) newErrors.authorizedRepresentative = "This field is required.";
+    if (!formData.laboratory) newErrors.laboratory = "This field is required.";
+    if (!formData.equipmentName) newErrors.equipmentName = "This field is required.";
+    if (!formData.equipmentSettings) newErrors.equipmentSettings = "This field is required.";
+    if (!formData.sampleType) newErrors.sampleType = "This field is required.";
+    if (!formData.sampleDescription) newErrors.sampleDescription = "This field is required.";
+    if (!formData.sampleVolume) newErrors.sampleVolume = "This field is required.";
+    if (!formData.sampleHazardDescription) newErrors.sampleHazardDescription = "This field is required.";
+    if (!formData.estimatedUseDuration.trim()) newErrors.estimatedUseDuration = "This field is required.";
+    if (!formData.scheduleOfUse) newErrors.scheduleOfUse = "This field is required.";
+    if (!formData.payment_option) newErrors.payment_option = "This field is required.";
+  
+    if (formData.payment_option === "Charged to Project") {
+      if (!formData.project_title.trim()) newErrors.project_title = "This field is required.";
+      if (!formData.project_budget_code.trim()) newErrors.project_budget_code = "This field is required.";
+      if (!formData.proofOfFunds) newErrors.proofOfFunds = "This field is required.";
+      if (!formData.paymentConforme) newErrors.paymentConforme = "This field is required.";
+    }
+  
+    if (!formData.acknowledgeTerms) newErrors.acknowledgeTerms = "This field is required.";
+    setErrors(newErrors);
+    console.log(newErrors);
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const formDataToSend = new FormData();
 
@@ -102,20 +140,20 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
       }
     });
 
-    // Add necessary documents files if they are selected
-    if (formData.necessaryDocuments.length > 0) {
-      formData.necessaryDocuments.forEach((file) => {
-        formDataToSend.append('necessaryDocuments', file);
-      });
-    }
-
-    // Add proof of funds and payment conforme files if they are selected
     if (formData.proofOfFunds) {
       formDataToSend.append('proofOfFunds', formData.proofOfFunds);
     }
-
+  
     if (formData.paymentConforme) {
       formDataToSend.append('paymentConforme', formData.paymentConforme);
+    }
+  
+    if (Array.isArray(formData.necessaryDocuments)) {
+      formData.necessaryDocuments.forEach((file) => {
+        formDataToSend.append('necessaryDocuments', file);
+      });
+    } else {
+      formDataToSend.append('necessaryDocuments', formData.necessaryDocuments);
     }
 
     try {
@@ -210,25 +248,26 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 value={formData.authorizedRepresentative}
                 onChange={handleChange}
               />
+              {errors.authorizedRepresentative && <p className="error">{errors.authorizedRepresentative}</p>}
             </div>
 
             {/* Laboratory */}
             <div className="form-group">
-				<label>Please select laboratory.</label>
-				<select
-					name="laboratory"
-					value={formData.laboratory}
-					onChange={handleChange}
-				>
-                    <option value="">Select Laboratory</option>
-                    <option value="Applied Chemistry">Applied Chemistry</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
-                    <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
-                    <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
-			    </select>
-			    {errors.laboratory && <p className="error">{errors.laboratory}</p>}
-			</div>
+              <label>Please select laboratory.</label>
+              <select
+                name="laboratory"
+                value={formData.laboratory}
+                onChange={handleChange}
+              >
+                <option value="">Select Laboratory</option>
+                <option value="Applied Chemistry">Applied Chemistry</option>
+                <option value="Biology">Biology</option>
+                <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
+                <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
+                <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
+              </select>
+              {errors.laboratory && <p className="error">{errors.laboratory}</p>}
+            </div>
 
             {/* Equipment Name */}
             <div className="form-group">
@@ -238,11 +277,12 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 name="equipmentName"
                 value={formData.equipmentName}
                 onChange={handleChange}
-              />
+                />
+                {errors.equipmentName && <p className="error">{errors.equipmentName}</p>}
             </div>
 
             {/* Equipment Settings */}
-            <div className="form-group">
+          <div className="form-group">
               <label>Equipment Settings</label>
               <textarea
                 name="equipmentSettings"
@@ -250,6 +290,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 onChange={handleChange}
                 rows="4"
               />
+              {errors.equipmentSettings && <p className="error">{errors.equipmentSettings}</p>}
             </div>
 
             {/* Sample Type */}
@@ -261,28 +302,31 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 value={formData.sampleType}
                 onChange={handleChange}
               />
+              {errors.sampleType && <p className="error">{errors.sampleType}</p>}
             </div>
 
             {/* Sample Description */}
             <div className="form-group">
               <label>Sample Description</label>
               <textarea
-                name="sampleDescription"
-                value={formData.sampleDescription}
-                onChange={handleChange}
-                rows="4"
+              name="sampleDescription"
+              value={formData.sampleDescription}
+              onChange={handleChange}
+              rows="4"
               />
+              {errors.sampleDescription && <p className="error">{errors.sampleDescription}</p>}
             </div>
 
             {/* Sample Volume */}
             <div className="form-group">
               <label>Sample Volume</label>
               <input
-                type="text"
-                name="sampleVolume"
-                value={formData.sampleVolume}
-                onChange={handleChange}
+              type="text"
+              name="sampleVolume"
+              value={formData.sampleVolume}
+              onChange={handleChange}
               />
+              {errors.sampleVolume && <p className="error">{errors.sampleVolume}</p>}
             </div>
 
             {/* Sample Hazard Description */}
@@ -294,6 +338,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 onChange={handleChange}
                 rows="4"
               />
+              {errors.sampleHazardDescription && <p className="error">{errors.sampleHazardDescription}</p>}
             </div>
 
             {/* Schedule of Use */}
@@ -305,6 +350,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 value={formData.scheduleOfUse}
                 onChange={handleChange}
               />
+              {errors.scheduleOfUse && <p className="error">{errors.scheduleOfUse}</p>}
             </div>
 
             {/* Estimated Use Duration */}
@@ -316,72 +362,73 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 value={formData.estimatedUseDuration}
                 onChange={handleChange}
               />
+              {errors.estimatedUseDuration && <p className="error">{errors.estimatedUseDuration}</p>}
             </div>
 
             {/*Mode of Payment */}
             <div className="form-group">
-				<label>Mode of Payment</label>
-				<select
-				    name="payment_option"
-				    value={formData.payment_option}
-					onChange={handlePaymentOptionChange}
-				>
-					<option value="">Select Payment Option</option>
-					<option value="Charged to Project">Charged to Project</option>
-					<option value="Cash">Cash</option>
-				</select>
-				{errors.payment_option && <p className="error">{errors.payment_option}</p>}
-			</div>
+              <label>Mode of Payment</label>
+              <select
+                  name="payment_option"
+                  value={formData.payment_option}
+                onChange={handlePaymentOptionChange}
+              >
+                <option value="">Select Payment Option</option>
+                <option value="Charged to Project">Charged to Project</option>
+                <option value="Cash">Cash</option>
+              </select>
+              {errors.payment_option && <p className="error">{errors.payment_option}</p>}
+            </div>
 
-			{formData.payment_option === "Charged to Project" && (
-				<>
-				<div className="form-group">
-                    <label>Project Title</label>
-                    <input
-						type="text"
-						name="project_title"
-						value={formData.project_title}
-						onChange={handleChange}
-						placeholder="Project Title"
-					/>
-					{errors.project_title && <p className="error">{errors.project_title}</p>}
-				</div>
+            {formData.payment_option === "Charged to Project" && (
+              <>
+                <div className="form-group">
+                  <label>Project Title</label>
+                  <input
+                    type="text"
+                    name="project_title"
+                    value={formData.project_title}
+                    onChange={handleChange}
+                    placeholder="Project Title"
+                  />
+                  {errors.project_title && <p className="error">{errors.project_title}</p>}
+                </div>
 
-				<div className="form-group">
-					<label>Project Budget Code</label>
-					<input
-                        type="text"
-                        name="project_budget_code"
-						value={formData.project_budget_code || ''}
-						onChange={handleChange}
-						placeholder="Project Budget Code"
-					/>
-					{errors.project_budget_code && <p className="error">{errors.project_budget_code}</p>}
-				</div>
+                <div className="form-group">
+                  <label>Project Budget Code</label>
+                  <input
+                    type="text"
+                    name="project_budget_code"
+                    value={formData.project_budget_code || ''}
+                    onChange={handleChange}
+                    placeholder="Project Budget Code"
+                  />
+                  {errors.project_budget_code && <p className="error">{errors.project_budget_code}</p>}
+                </div>
 
-				{/* Proof of Funds Availability */}
-				<div className='form-group'>
-                    <label>Proof of Funds Availability</label>
-                    <input
-                        type='file'
-                        name='proofOfFunds'
-                        onChange={handleFileChange}
-                    />
-                    {errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
-				</div>
+                {/* Proof of Funds Availability */}
+                <div className='form-group'>
+                  <label>Proof of Funds Availability</label>
+                  <input
+                    type='file'
+                    name='proofOfFunds'
+                    onChange={handleFileChange}
+                  />
+                  {errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
+                </div>
 
-				{/* Payment Conforme */}
-				<div className='form-group'>
-					<label>Payment Conforme</label>
-					<input
-						type='file'
-						name='paymentConforme'
-						onChange={handleFileChange}
-					/>
-					{errors.paymentConforme && <p className="error">{errors.paymentConforme}</p>}
-				</div>
-			    </>
-			)}
+                {/* Payment Conforme */}
+                <div className='form-group'>
+                  <label>Payment Conforme</label>
+                  <input
+                    type='file'
+                    name='paymentConforme'
+                    onChange={handleFileChange}
+                  />
+                  {errors.paymentConforme && <p className="error">{errors.paymentConforme}</p>}
+                </div>
+              </>
+            )}
 
             {/* Additional Information */}
             <div className="form-group">
@@ -416,6 +463,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 />
                 I acknowledge the terms and conditions
               </label>
+              {errors.acknowledgeTerms && <p className="error">{errors.acknowledgeTerms}</p>}
             </div>
 
             {/* Submit Button */}

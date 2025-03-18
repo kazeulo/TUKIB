@@ -14,7 +14,7 @@ function TrainingServiceForm({ isLoggedIn }) {
   const [formData, setFormData] = useState({
     user_id: '',
     service_name: 'Training',
-    status: 'Pending',
+    status: 'Pending for approval',
     payment_option: '', 
     project_title: '',
     project_budget_code: '',
@@ -50,7 +50,6 @@ function TrainingServiceForm({ isLoggedIn }) {
       setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
     }
   }, [user]);
-  
 
   // Handle changes for form fields
   const handleChange = (e) => {
@@ -181,7 +180,7 @@ function TrainingServiceForm({ isLoggedIn }) {
       setFormData({
         user_id: '',
         service_name: 'Training',
-        status: 'Pending',
+        status: 'Pending for approval',
         payment_option: '',
         project_title: '',
         project_budget_code: '',
