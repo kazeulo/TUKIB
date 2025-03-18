@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+// Main pages
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -13,22 +14,30 @@ import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
 
+// Service Request Forms
 import SampleProcessingForm from './components/forms/SampleProcessingForm';
 import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 
+// Feedback form
 import FeedbackForm from './components/feedback/FeedbackForm';
+
+// Error pages
 import Error404 from './components/error/Error404';
 import Error500 from './components/error/Error500';
 
+// Services
 import Sample_processing from './components/services/Sample_processing';
 import Equipment_rental from './components/services/Equipment_rental';
 import Facility_rental from './components/services/Facility_rental';
 import Training from './components/services/Training';
 
-import MessageDetails from './components/dashboard components/MessageDetails';
+// Detail pages
+import MessageDetails from './components/dashboard components/details pages/MessageDetails';
+import ServiceRequestDetails from './components/dashboard components/details pages/ServiceRequestDetails';
 
+// Partial pages
 import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
 import Header from './components/partials/Header';
@@ -183,6 +192,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route 
           path="/messageDetails/:messageId" 
           element={<MessageDetails />} 
+        />
+        <Route 
+          path="/serviceRequestDetails/:id" 
+          element={<ServiceRequestDetails />} 
         />
       
         {/* error pages */}

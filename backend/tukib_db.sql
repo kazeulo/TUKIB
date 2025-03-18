@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TYPE IF EXISTS lab_enum CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
 DROP TYPE IF EXISTS facilities CASCADE;
+DROP TYPE IF EXISTS service_type CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -64,6 +65,13 @@ CREATE TYPE facilities AS ENUM (
   'Audio/Visual Room',
   'Collaboration Room'
 );
+
+CREATE TYPE service_type AS ENUM{
+    'Training',
+    'Sample Processing',
+    'Use of Equipment',
+    'Use of Facility',
+};
 
 -- ======== TABLE CREATION ========
 
@@ -93,7 +101,7 @@ CREATE TABLE user_tokens (
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    service_name VARCHAR(255) NOT NULL,
+    service_name service_type VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
     payment_option payment_option NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

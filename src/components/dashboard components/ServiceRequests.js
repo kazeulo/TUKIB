@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
-// Fetch service requests from the API
 const fetchServiceRequests = async (setServiceRequests) => {
   try {
     const response = await fetch('http://localhost:5000/api/serviceRequests');
-
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const data = await response.json();
-
     if (data.status === 'success' && Array.isArray(data.serviceRequests)) {
       setServiceRequests(data.serviceRequests);
     } else {
@@ -24,21 +21,14 @@ const fetchServiceRequests = async (setServiceRequests) => {
 };
 
 // Cancel service request function
-const cancelServiceRequest = async (
-  requestId,
-  setServiceRequests,
-  serviceRequests
-) => {
+const cancelServiceRequest = async (requestId, setServiceRequests, serviceRequests) => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/serviceRequests/${requestId}/cancel`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/api/serviceRequests/${requestId}/cancel`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -48,15 +38,9 @@ const cancelServiceRequest = async (
 
     if (data.status === 'success') {
       console.log('Service request cancelled:', requestId);
-
-      // Update the state by mapping over the serviceRequests array
-      setServiceRequests(
-        serviceRequests.map((request) =>
-          request.request_id === requestId
-            ? { ...request, status: 'Cancelled' }
-            : request
-        )
-      );
+      setServiceRequests(serviceRequests.map((request) =>
+        request.request_id === requestId ? { ...request, status: 'Cancelled' } : request
+      ));
     } else {
       console.error('Error cancelling service request:', data);
     }
@@ -69,28 +53,27 @@ const ServiceRequest = () => {
   const [serviceRequests, setServiceRequests] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestToCancel, setRequestToCancel] = useState(null);
+  const navigate = useNavigate();
 
-  // Fetch service requests on component mount
   useEffect(() => {
     fetchServiceRequests(setServiceRequests);
   }, []);
 
   const handleCancelRequest = (requestId) => {
-    setRequestToCancel(
-      serviceRequests.find((request) => request.request_id === requestId)
-    );
+    setRequestToCancel(serviceRequests.find((request) => request.request_id === requestId));
     setIsModalOpen(true);
   };
 
   const handleConfirmCancel = () => {
     if (requestToCancel) {
-      cancelServiceRequest(
-        requestToCancel.request_id,
-        setServiceRequests,
-        serviceRequests
-      );
+      cancelServiceRequest(requestToCancel.request_id, setServiceRequests, serviceRequests);
     }
     setIsModalOpen(false);
+  };
+
+  const handleRowClick = (requestId) => {
+    // Navigate to the details page when a row is clicked
+    navigate(`/serviceRequestDetails/${requestId}`);
   };
 
   const modalFooter = (
@@ -125,7 +108,7 @@ const ServiceRequest = () => {
               <th>Request ID</th>
               <th>Service Name</th>
               <th>Requested By</th>
-              <th>Start</th>
+              <th>Date Requested</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -133,7 +116,11 @@ const ServiceRequest = () => {
           <tbody>
             {serviceRequests.length > 0 ? (
               serviceRequests.map((request) => (
-                <tr key={request.request_id}>
+                <tr
+                  key={request.request_id}
+                  onClick={() => handleRowClick(request.request_id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <td>{request.request_id}</td>
                   <td>{request.service_name}</td>
                   <td>{request.user_name}</td>
@@ -144,7 +131,11 @@ const ServiceRequest = () => {
                     {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
                       <button
                         className="cancel-btn"
-                        onClick={() => handleCancelRequest(request.request_id)}>
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCancelRequest(request.request_id);
+                        }}
+                      >
                         Cancel
                       </button>
                     ) : (
