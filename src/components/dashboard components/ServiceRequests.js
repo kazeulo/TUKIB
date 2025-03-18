@@ -136,7 +136,7 @@ const ServiceRequest = () => {
                 <tr key={request.request_id}>
                   <td>{request.request_id}</td>
                   <td>{request.service_name}</td>
-                  <td>{request.requested_by}</td>
+                  <td>{request.user_name}</td>
                   <td>{new Date(request.start).toLocaleString()}</td>
                   <td>{request.status}</td>
                   <td>
