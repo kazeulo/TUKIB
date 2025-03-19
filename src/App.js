@@ -35,7 +35,10 @@ import Training from './components/services/Training';
 
 // Detail pages
 import MessageDetails from './components/dashboard components/details pages/MessageDetails';
-import ServiceRequestDetails from './components/dashboard components/details pages/ServiceRequestDetails';
+import UseOfEquipmentRequestDetails from './components/dashboard components/details pages/UseOfEquipmentRequestDetails';
+import UseOfFacilityRequestDetails from './components/dashboard components/details pages/UseOfFacilityRequestDetails';
+import SampleProcessingRequestDetails from './components/dashboard components/details pages/SampleProcessingRequestDetails';
+import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
 
 // Partial pages
 import ScrollTop from './components/partials/ScrollTop';
@@ -193,9 +196,25 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           path="/messageDetails/:messageId" 
           element={<MessageDetails />} 
         />
+
         <Route 
-          path="/serviceRequestDetails/:id" 
-          element={<ServiceRequestDetails />} 
+          path="/useOfEquipmentRequestDetails/:id" 
+          element={<UseOfEquipmentRequestDetails />} 
+        />
+
+        <Route 
+          path="/useOfFacilityRequestDetails/:id" 
+          element={<UseOfFacilityRequestDetails />} 
+        />
+
+        <Route 
+          path="/sampleProcessingRequestDetails/:id" 
+          element={<SampleProcessingRequestDetails />} 
+        />
+
+        <Route 
+          path="/TrainingRequestDetails/:id" 
+          element={<TrainingRequestDetails />} 
         />
       
         {/* error pages */}

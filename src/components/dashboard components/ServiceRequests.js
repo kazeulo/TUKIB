@@ -71,9 +71,20 @@ const ServiceRequest = () => {
     setIsModalOpen(false);
   };
 
-  const handleRowClick = (requestId) => {
-    // Navigate to the details page when a row is clicked
-    navigate(`/serviceRequestDetails/${requestId}`);
+  const handleRowClick = (requestId, serviceName) => {
+    // Navigate to different pages based on the service name
+
+    const service = serviceName.toLowerCase();
+
+    if (service === 'training') {
+      navigate(`/trainingRequestDetails/${requestId}`);
+    } else if (service === 'sample processing') {
+      navigate(`/sampleProcessingRequestDetails/${requestId}`);
+    } else if (service === 'use of equipment') {
+      navigate(`/useOfEquipmentRequestDetails/${requestId}`);
+    } else if (service === 'use of facility') {
+      navigate(`/useOfFacilityRequestDetails/${requestId}`);
+    } 
   };
 
   const modalFooter = (
@@ -118,7 +129,7 @@ const ServiceRequest = () => {
               serviceRequests.map((request) => (
                 <tr
                   key={request.request_id}
-                  onClick={() => handleRowClick(request.request_id)}
+                  onClick={() => handleRowClick(request.request_id, request.service_name)}
                   style={{ cursor: 'pointer' }}
                 >
                   <td>{request.request_id}</td>
