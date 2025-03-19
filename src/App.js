@@ -20,6 +20,10 @@ import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 
+//Charge Slip
+import ChargeSlipForm from "./components/forms/ChargeSlipForm";
+import ChargeSlip from "./components/forms/ChargeSlip";
+
 // Feedback form
 import FeedbackForm from './components/feedback/FeedbackForm';
 
@@ -207,6 +211,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           path="/error500"
           element={<Error500 />} 
           />
+
+        {/* charge slip */}
+        <Route path="/charge-slip-form" element={<ChargeSlipForm />} />
+        <Route path="/charge-slip" element={<ChargeSlip />} />
 
 
       </Routes>
