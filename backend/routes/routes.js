@@ -44,7 +44,7 @@ router.get('/news', newsController.getNews);
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
 router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
-router.get('/serviceRequests/:id', serviceRequestsController.getServiceRequestById);
+// router.get('/serviceRequests/:id', serviceRequestsController.getServiceRequestById);
 
 
 // Route for training requests
