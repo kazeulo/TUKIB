@@ -19,6 +19,7 @@ import SampleProcessingForm from './components/forms/SampleProcessingForm';
 import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
+import CombinedServiceRequestForm from './components/forms/CombinedServiceRequestForm';
 
 //Charge Slip
 import ChargeSlipForm from "./components/forms/ChargeSlipForm";
@@ -185,6 +186,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route 
           path="/use-of-facility-form" 
           element={<UseOfFacilityForm />} 
+        />
+        <Route 
+          path="/combined-service-request-form" 
+          element={<CombinedServiceRequestForm />} 
         />
 
         <Route 

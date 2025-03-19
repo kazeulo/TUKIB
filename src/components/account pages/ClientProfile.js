@@ -144,8 +144,9 @@ const ClientProfile = () => {
               {dropdownOpen && (
                 <div className="dropdown-menu">
                   <button onClick={() => handleNewServiceRequest('sample-processin-form')}>Sample Processing</button>
-                  <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
                   <button onClick={() => handleNewServiceRequest('use-of-equipment-form')}>Use of Equipment</button>
+                  <button onClick={() => handleNewServiceRequest('combined-service-request-form')}>Combined Service Request</button>
+                  <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
                   <button onClick={() => handleNewServiceRequest('use-of-facility-form')}>Use of Facility</button>
                 </div>
               )}
