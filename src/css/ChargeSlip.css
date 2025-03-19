@@ -1,0 +1,338 @@
+/* ChargeSlip.css */
+/* All classes are prefixed with cs- (charge slip) or csf- (charge slip form) to avoid conflicts */
+
+/* Charge Slip Styles */
+.cs-container {
+  padding: 1rem;
+}
+
+.cs-document {
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+}
+
+.cs-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.cs-logo {
+  height: 4rem;
+  margin-right: 1rem;
+}
+
+.cs-university-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #800000; /* Maroon color */
+  margin: 0;
+}
+
+.cs-rrc-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cs-slip-info {
+  text-align: right;
+}
+
+.cs-slip-number {
+  font-weight: 600;
+  margin: 0;
+}
+
+.cs-slip-date {
+  margin: 0;
+}
+
+.cs-address {
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.cs-address p {
+  margin: 0.25rem 0;
+}
+
+.cs-client-info {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 0.25rem;
+}
+
+.cs-section-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.cs-client-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.cs-label {
+  font-weight: 500;
+}
+
+.cs-service-details {
+  margin-bottom: 1.5rem;
+}
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cs-table-header {
+  border: 1px solid #d1d1d1;
+  padding: 0.5rem;
+  text-align: left;
+  background-color: #f5f5f5;
+}
+
+.cs-table-cell {
+  border: 1px solid #d1d1d1;
+  padding: 0.5rem;
+}
+
+.cs-table-footer {
+  border: 1px solid #d1d1d1;
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.cs-amount {
+  text-align: right;
+}
+
+.cs-payment-method {
+  margin-bottom: 1.5rem;
+}
+
+.cs-signatures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.cs-signature-box {
+  text-align: center;
+}
+
+.cs-signature-image {
+  height: 4rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-signature {
+  height: 100%;
+  max-width: 100%;
+}
+
+.cs-approved {
+  color: #22c55e;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cs-signature-line {
+  border-top: 1px solid #d1d1d1;
+  padding-top: 0.5rem;
+}
+
+.cs-signature-name {
+  font-weight: 500;
+  margin: 0.25rem 0;
+}
+
+.cs-signature-title {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.cs-terms {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.cs-terms p {
+  margin: 0.25rem 0;
+}
+
+.cs-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cs-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cs-download {
+  background-color: #2563eb;
+  color: white;
+}
+
+.cs-download:hover {
+  background-color: #1d4ed8;
+}
+
+.cs-approve {
+  background-color: #16a34a;
+  color: white;
+}
+
+.cs-approve:hover {
+  background-color: #15803d;
+}
+
+/* Charge Slip Form Styles */
+.csf-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+}
+
+.csf-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #800000; /* Maroon color */
+}
+
+.csf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.csf-section {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.csf-section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.csf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.csf-field {
+  margin-bottom: 0.5rem;
+}
+
+.csf-full-width {
+  grid-column: span 2;
+}
+
+.csf-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.csf-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d1d1;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.csf-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.csf-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.csf-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #800000; /* Maroon color */
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.csf-button:hover {
+  background-color: #6b0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cs-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .cs-slip-info {
+    text-align: left;
+    margin-top: 1rem;
+  }
+  
+  .cs-client-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .cs-signatures {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .csf-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .csf-full-width {
+    grid-column: span 1;
+  }
+}

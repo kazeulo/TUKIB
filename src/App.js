@@ -213,8 +213,8 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           />
 
         {/* charge slip */}
-        <Route path="/charge-slip-form" element={<ChargeSlipForm />} />
-        <Route path="/charge-slip" element={<ChargeSlip />} />
+        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
+        <Route path="/chargeslip" element={<ChargeSlip />} />
 
 
       </Routes>
