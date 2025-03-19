@@ -28,13 +28,6 @@ router.get('/users', usersController.getUsers);
 router.post('/users', usersController.createUser);
 router.delete('/users/:userId', usersController.deleteUser);
 
-// Routes for service requests
-router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
-router.put(
-	'/serviceRequests/:requestId/cancel',
-	serviceRequestsController.cancelServiceRequest
-);
-
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
 
@@ -47,6 +40,12 @@ router.get('/messages/:messageId', messagesController.getMessageDetails);
 // Routes for news management
 router.post('/news', newsController.addNews);
 router.get('/news', newsController.getNews);
+
+// Routes for service requests
+router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
+router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
+router.get('/serviceRequests/:id', serviceRequestsController.getServiceRequestById);
+
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
@@ -90,7 +89,6 @@ router.post('/facility-rental-requests', upload, async (req, res) => {
         res.status(500).json({ message: 'Error processing the request' });
     }
 });
-
 
 // Export the router
 module.exports = router;

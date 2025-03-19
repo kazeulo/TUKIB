@@ -13,7 +13,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
    
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
-		service_name: 'Sample processing',
+		service_name: 'Sample Processing',
     	status: 'Pending for approval',
 		payment_option: '', 
 		project_title: '',
