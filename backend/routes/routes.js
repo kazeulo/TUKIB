@@ -44,8 +44,10 @@ router.get('/news', newsController.getNews);
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
 router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
-// router.get('/serviceRequests/:id', serviceRequestsController.getServiceRequestById);
-
+router.get('/useOfEquipmentRequestDetails/:id', serviceRequestsController.getEquipmentRentalRequestById);
+router.get('/useOfFacilityRequestDetails/:id', serviceRequestsController.getFacilityRentalRequestById);
+router.get('/trainingRequestDetails/:id', serviceRequestsController.getTrainingRequestById);
+router.get('/sampleProcessingRequestDetails/:id', serviceRequestsController.getSampleProcessingRequestById);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
@@ -84,7 +86,7 @@ router.post('/facility-rental-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
     console.log('Body received:', req.body);
     try {
-        await facilityRentalRequestsController.createFacilityRetntalRequest (req, res);
+        await facilityRentalRequestsController.createFacilityRentalRequest (req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error processing the request' });
     }

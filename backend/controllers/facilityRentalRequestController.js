@@ -2,7 +2,7 @@ const { request } = require('express');
 const pool = require('../backend');
 
 // Function to create a new training request
-const createFacilityRetntalRequest = async (req, res) => {
+const createFacilityRentalRequest = async (req, res) => {
   try {
     console.log('File Info:', req.files);
 
@@ -74,4 +74,4 @@ const createFacilityRetntalRequest = async (req, res) => {
   }
 };
 
-module.exports = { createFacilityRetntalRequest };
+module.exports = { createFacilityRentalRequest };
