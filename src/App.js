@@ -19,6 +19,11 @@ import SampleProcessingForm from './components/forms/SampleProcessingForm';
 import TrainingServicesForm from './components/forms/TrainingServiceForm';
 import UseOfFacilityForm from './components/forms/UseOfFacilityForm';
 import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
+import CombinedServiceRequestForm from './components/forms/CombinedServiceRequestForm';
+
+//Charge Slip
+import ChargeSlipForm from "./components/forms/ChargeSlipForm";
+import ChargeSlip from "./components/forms/ChargeSlip";
 
 // Feedback form
 import FeedbackForm from './components/feedback/FeedbackForm';
@@ -185,6 +190,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           path="/use-of-facility-form" 
           element={<UseOfFacilityForm />} 
         />
+        <Route 
+          path="/combined-service-request-form" 
+          element={<CombinedServiceRequestForm />} 
+        />
 
         <Route 
           path="/feedback-form" 
@@ -226,6 +235,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
           path="/error500"
           element={<Error500 />} 
           />
+
+        {/* charge slip */}
+        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
+        <Route path="/chargeslip" element={<ChargeSlip />} />
 
 
       </Routes>

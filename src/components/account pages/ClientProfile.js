@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../partials/Footer';
 import '../../css/account pages/ClientProfile.css'
-import FeedbackForm from '../feedback/FeedbackForm';
+// import FeedbackForm from '../feedback/FeedbackForm';
 
 const ClientProfile = () => {
   const navigate = useNavigate();
 
   // remove once feedback form moved to the right place
-  const navigateToFeedbackForm = () => {
-      navigate('/feedback-form'); 
-  };
+  // const navigateToFeedbackForm = () => {
+  //     navigate('/feedback-form'); 
+  // };
 
   // Simulated transactions data
   const [transactions] = useState([
@@ -144,8 +144,9 @@ const ClientProfile = () => {
               {dropdownOpen && (
                 <div className="dropdown-menu">
                   <button onClick={() => handleNewServiceRequest('sample-processin-form')}>Sample Processing</button>
-                  <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
                   <button onClick={() => handleNewServiceRequest('use-of-equipment-form')}>Use of Equipment</button>
+                  <button onClick={() => handleNewServiceRequest('combined-service-request-form')}>Combined Service Request</button>
+                  <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
                   <button onClick={() => handleNewServiceRequest('use-of-facility-form')}>Use of Facility</button>
                 </div>
               )}
@@ -213,9 +214,9 @@ const ClientProfile = () => {
             </button>
 
             {/* ADD FEEDBACK BUTTON (PLACED HERE TO VIEW OUTPUT, CAN MOVE/REMOVE LATER) */}
-            <button className="" onClick={navigateToFeedbackForm}>
+            {/* <button className="" onClick={navigateToFeedbackForm}>
                 Add Feedback
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
