@@ -1,117 +1,155 @@
 version: '3.1'
+
 intents:
-  - affirm
+  # General
   - avail_service
-  - confirm_details
-  - contact_details
-  - deny
-  - goodbye
-  - greet
-  - inquire_equipment_usage
-  - inquire_lab_rentals
-  - inquire_sample_processing
-  - inquire_training_programs
-  - location
-  - provide_email
-  - provide_first_name
-  - provide_last_name
-  - provide_service
-  - service_inquiry
-  - who_am_i
-responses:
-  utter_greet:
-    - text: Hello! How can I assist you today?
-  utter_goodbye:
-    - text: Goodbye! Have a great day!
-  utter_who_am_i:
-    - text: I'm LIRA, your RRC AI Assistant. How can I help you today?
-  utter_fallback:
-    - text: I'm sorry, I didn't understand that. Could you rephrase?
-  utter_location:
-    - text: We are located at RRC building. Is there anything I can help you with?
-  utter_contact_details:
-    - text: 'You can contact us through email: rrc@up.edu.ph. What else can I do for you?'
-  utter_services:
-    - text: We offer sample processing, lab rentals, training programs, and equipment usage. Do you want to learn more about a specific service?
-  utter_inquire_sample_processing:
-    - text: Sample processing is available for a fee of 500 pesos per sample. Do you want to avail this service?
-  utter_inquire_lab_rentals:
-    - text: Lab rentals are available for a fee of 1000 pesos per hour. Do you want to avail this service?
-  utter_inquire_training_programs:
-    - text: Training programs are available for a fee of 500 pesos per participant. Do you want to avail this service?
-  utter_inquire_equipment_usage:
-    - text: Equipment usage is available for a fee of 200 pesos per hour. Do you want to avail this service?
-  utter_avail_service:
-    - text: Which service would you like to avail?
-  utter_ask_first_name:
-    - text: What is your first name?
-  utter_ask_last_name:
-    - text: What is your last name?
-  utter_provide_email:
-    - text: What is your email address?
-  utter_account_sent:
-    - text: Your account has been sent to your email address. Thank you.
-  utter_what_else:
-    - text: What else can I do for you?
-entities:
-  - service
+  - select_service
   - first_name
-  - email
   - last_name
-  - confirmation
+  - affiliation
+  - email
+
+  # Sample Processing
+  - select_lab_partner
+  - select_date
+
+  # Use of Facility
+  - select_facility
+  - select_start_date
+  - select_end_date
+
+entities:
+  # General
+  - first_name
+  - last_name
+  - affiliation
+  - email
+  - service
+
+  # Sample Processing
+  - lab_partner
+  - date
+
+  # Use of Facility
+  - facility
+  - start_date
+  - end_date
+
 slots:
   first_name:
     type: text
-    influence_conversation: true
     mappings:
       - type: from_entity
         entity: first_name
   last_name:
     type: text
-    influence_conversation: true
     mappings:
       - type: from_entity
         entity: last_name
+  affiliation:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: affiliation
   email:
     type: text
-    influence_conversation: true
     mappings:
       - type: from_entity
         entity: email
   service:
     type: categorical
-    values:
-      - sample processing
-      - lab rentals
-      - training programs
-      - equipment usage
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: service
-  confirmation:
-    type: categorical
     values:
-      - yes
-      - no
-    influence_conversation: true
+      - sample processing
+      - use of facility
+  lab_partner:
+    type: text
     mappings:
-      - type: from_intent
-        intent: affirm
-        value: yes
-      - type: from_intent
-        intent: deny
-        value: no
-actions:
-  - action_review_details
-  - utter_what_else
-  - utter_avail_service
-  - utter_ask_first_name
-  - utter_provide_email
-  - utter_ask_last_name
-  - utter_account_sent
-  - action_confirm_details
-  - utter_confirm_details
+      - type: from_entity
+        entity: lab_partner
+  facility:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: facility
+  date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: date
+  start_date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: start_date
+  end_date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: end_date
+
+forms:
+  # Sample Processing
+  avail_sample_processing_form:
+    required_slots:
+      - lab_partner
+      - date
+      - first_name
+      - last_name
+      - affiliation
+      - email
+
+  # Use of Facility
+  use_facility_form:
+    required_slots:
+      - facility
+      - start_date
+      - end_date
+      - first_name
+      - last_name
+      - affiliation
+      - email
+
+responses:
+  # General
+  utter_ask_service_type:
+    - text: 'What kind of service would you like to avail?'
+
+  utter_ask_first_name:
+    - text: 'What is your first name?'
+
+  utter_ask_last_name:
+    - text: 'What is your last name?'
+
+  utter_ask_affiliation:
+    - text: 'What is your affiliation?'
+
+  utter_ask_email:
+    - text: 'What is your email?'
+
+  utter_thanks:
+    - text: 'Thank you!'
+
+  # Sample Processing
+  utter_ask_lab_partner:
+    - text: 'What lab will you be partnering with?'
+
+  utter_ask_date:
+    - text: 'When are you availing sample processing?'
+
+  # Use of Facility
+  utter_ask_facility:
+    - text: 'What facility will you be using?'
+
+  utter_ask_start_date:
+    - text: 'When you will start using the facility?'
+
+  utter_ask_end_date:
+    - text: 'When you will stop using the facility?'
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

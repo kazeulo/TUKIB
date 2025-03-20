@@ -1,52 +1,42 @@
 version: '3.1'
 
 rules:
-  - rule: Respond to greetings
+  # General
+  - rule: User wants to avail a service
     steps:
-      - intent: greet
-      - action: utter_greet
+      - intent: avail_service
+      - action: utter_ask_service_type
 
-  - rule: Respond to goodbye
+  # Sample Processing
+  - rule: User selects sample processing service
     steps:
-      - intent: goodbye
-      - action: utter_goodbye
+      - intent: select_service
+      - slot_was_set:
+          - service: sample processing
+      - action: avail_sample_processing_form
+      - active_loop: avail_sample_processing_form # Activate the form for Sample Processing
 
-  - rule: Respond to who am I
+  - rule: Submit sample processing form
+    condition:
+      - active_loop: avail_sample_processing_form
     steps:
-      - intent: who_am_i
-      - action: utter_who_am_i
+      - action: avail_sample_processing_form
+      - active_loop: null # End the form after submission
+      - action: utter_thanks
 
-  - rule: Respond to location
+  # Use of Facility
+  - rule: User selects use of facility service
     steps:
-      - intent: location
-      - action: utter_location
+      - intent: select_service
+      - slot_was_set:
+          - service: use of facility
+      - action: use_facility_form
+      - active_loop: use_facility_form # Activate the form for Use of Facility
 
-  - rule: Respond to contact details
+  - rule: Submit use of facility form
+    condition:
+      - active_loop: use_facility_form
     steps:
-      - intent: contact_details
-      - action: utter_contact_details
-
-  - rule: Respond to service inquiries
-    steps:
-      - intent: service_inquiry
-      - action: utter_services
-
-  - rule: Respond to sample processing inquiries
-    steps:
-      - intent: inquire_sample_processing
-      - action: utter_inquire_sample_processing
-
-  - rule: Respond to lab rental inquiries
-    steps:
-      - intent: inquire_lab_rentals
-      - action: utter_inquire_lab_rentals
-
-  - rule: Respond to training program inquiries
-    steps:
-      - intent: inquire_training_programs
-      - action: utter_inquire_training_programs
-
-  - rule: Respond to equipment usage inquiries
-    steps:
-      - intent: inquire_equipment_usage
-      - action: utter_inquire_equipment_usage
+      - action: use_facility_form
+      - active_loop: null # End the form after submission
+      - action: utter_thanks
