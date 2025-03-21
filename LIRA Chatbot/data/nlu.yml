@@ -46,29 +46,31 @@ nlu:
   - intent: select_lab_partner
     examples: |
       - [Applied Chemistry](lab_partner)
-      - [Microbiology](lab_partner)
-      - I want to partner with [Applied Physics](lab_partner)
-      - My lab partner is [Chemical Engineering](lab_partner)
+      - [Biology](lab_partner)
+      - [Foods, Feeds, and Functional Nutrition](lab_partner)
+      - [Material Science and Nanotechnology](lab_partner)
+      - [Microbiology and Bioengineering](lab_partner)
 
   - intent: select_date
     examples: |
       - [2024-02-20](date)
       - [2025-09-30](date)
+      - [today](date)
 
   # Use of Facility
   - intent: select_facility
     examples: |
-      - [AV Room](facility)
-      - [Conference Room](facility)
-      - I want to use [Laboratory](facility)
-      - My facility is [Classroom](facility)
+      - [Audio/Visual Room](facility)
+      - [Collaboration Room](facility)
 
   - intent: select_start_date
     examples: |
       - [2024-02-20](start_date)
       - [2025-09-30](start_date)
+      - [today](start_date)
 
   - intent: select_end_date
     examples: |
       - [2024-02-20](end_date)
       - [2025-09-30](end_date)
+      - [tomorrow](end_date)

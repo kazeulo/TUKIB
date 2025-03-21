@@ -13,24 +13,17 @@ const Chatbot = () => {
 	const [input, setInput] = useState('');
 	const [isChatVisible, setIsChatVisible] = useState(false);
 	const [hasNewMessage, setHasNewMessage] = useState(false);
-	const [suggestions, setSuggestions] = useState([
-		'I want to avail a service',
-		'What services do you offer?',
-		'How can I contact you?',
-	]);
-	// eslint-disable-next-line
-	const [conversationStage, setConversationStage] = useState('start'); // Track conversation stage
+	const [buttons, setButtons] = useState([]); // For dynamic buttons
 	const messagesEndRef = useRef(null);
 
-	const expirationTime = 1800000; // Set timeout for 30 minutes (1800000 in milliseconds)
+	const expirationTime = 1800000; // 30 minutes timeout
 
-	// Handle sending messages
-	const handleSend = async (e, messageText) => {
+	const handleSend = async (e, messageText, payload = null) => {
 		if (e) e.preventDefault();
 		const textToSend = messageText || input;
 
 		if (textToSend.trim()) {
-			// Add the user's message
+			// Add the user's message (the title, not the payload)
 			setMessages((prevMessages) => [
 				...prevMessages,
 				{ text: textToSend, sender: 'user' },
@@ -38,54 +31,37 @@ const Chatbot = () => {
 			setInput('');
 			setHasNewMessage(false); // Reset notification when user sends a message
 
-			// Simulate a delay for the bot's reply
-			setTimeout(async () => {
-				// Send the user's message to the Rasa server
-				try {
-					const response = await axios.post(
-						'http://localhost:5005/webhooks/rest/webhook',
-						{
-							sender: 'user',
-							message: textToSend,
-						}
-					);
+			// Send the payload to the Rasa server if provided (otherwise send textToSend)
+			try {
+				const response = await axios.post(
+					'http://localhost:5005/webhooks/rest/webhook',
+					{
+						sender: 'user',
+						message: payload || textToSend, // Send payload if exists
+					}
+				);
 
-					// Add bot's response to messages
-					response.data.forEach((msg) => {
-						setMessages((prevMessages) => [
-							...prevMessages,
-							{ text: msg.text, sender: 'bot' },
-						]);
-						setHasNewMessage(true);
-					});
+				// Add bot's response to messages
+				response.data.forEach((msg) => {
+					setMessages((prevMessages) => [
+						...prevMessages,
+						{ text: msg.text, sender: 'bot' },
+					]);
+					setHasNewMessage(true);
 
-					// Update suggestions based on the bot's response and current conversation stage
-					updateSuggestions(response.data, textToSend);
-				} catch (error) {
-					console.error('Error sending message to Rasa:', error);
-				}
-			}, Math.floor(Math.random() * 1000) + 1000); // Random delay between 1 to 2 seconds
+					// If there are buttons (quick replies), set them
+					if (msg.buttons) {
+						setButtons(msg.buttons); // Dynamically display buttons
+					} else {
+						setButtons([]); // Clear buttons if there are no buttons in the response
+					}
+				});
+			} catch (error) {
+				console.error('Error sending message to Rasa:', error);
+			}
 		}
 	};
 
-	// Function to dynamically update suggestions based on the conversation stage
-	const updateSuggestions = (botResponse, userMessage) => {
-		if (userMessage.includes('I want to avail a service')) {
-			setSuggestions([
-				'Sample processing',
-				'Lab rentals',
-				'Training programs',
-				'Equipment usage',
-			]);
-			setConversationStage('services');
-		} else {
-			// Default suggestions
-			setSuggestions([null]); // This will hide the suggestions
-			setConversationStage('start');
-		}
-	};
-
-	// Toggle chat visibility
 	const toggleChat = () => {
 		setIsChatVisible(!isChatVisible);
 		if (isChatVisible) {
@@ -93,7 +69,6 @@ const Chatbot = () => {
 		}
 	};
 
-	// Minimize chat
 	const handleMinimize = () => {
 		setIsChatVisible(false);
 		setHasNewMessage(false);
@@ -114,14 +89,13 @@ const Chatbot = () => {
 				// Clear expired messages
 				localStorage.removeItem('chatMessages');
 				localStorage.removeItem('chatMessagesTime');
-				// Set initial messages
 				setMessages([
 					{
 						text: "Hello! I'm LIRA, your RRC AI Assistant.",
 						sender: 'bot',
 					},
 					{
-						text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
+						text: 'How can I help you today?',
 						sender: 'bot',
 					},
 				]);
@@ -134,15 +108,15 @@ const Chatbot = () => {
 					sender: 'bot',
 				},
 				{
-					text: 'How can I help you today? You can choose from the suggestions below or type in your question.',
+					text: 'How can I help you today?',
 					sender: 'bot',
 				},
 			]);
 		}
-		setHasNewMessage(true); // Set notification to true for initial messages
+		setHasNewMessage(true); // Initial messages notification
 	}, []);
 
-	// Save messages to localStorage whenever they change
+	// Save messages to localStorage
 	useEffect(() => {
 		if (messages.length > 0) {
 			localStorage.setItem('chatMessages', JSON.stringify(messages));
@@ -184,19 +158,23 @@ const Chatbot = () => {
 						))}
 						<div ref={messagesEndRef} />
 					</div>
-					{/* Conditionally render suggestions only if they are not null or empty */}
-					{suggestions && suggestions.length > 0 && suggestions[0] !== null && (
+
+					{/* Dynamically render buttons from the bot response */}
+					{buttons && buttons.length > 0 && (
 						<div className='suggestions'>
-							{suggestions.map((suggestion, index) => (
+							{buttons.map((button, index) => (
 								<button
 									key={index}
 									className='suggestion-button'
-									onClick={() => handleSend(null, suggestion)}>
-									{suggestion}
+									onClick={() =>
+										handleSend(null, button.title, button.payload)
+									}>
+									{button.title}
 								</button>
 							))}
 						</div>
 					)}
+
 					<form
 						className='chatbot-input'
 						onSubmit={(e) => handleSend(e)}>

@@ -63,18 +63,29 @@ slots:
       - type: from_entity
         entity: service
     values:
-      - sample processing
-      - use of facility
+      - Sample Processing
+      - Use of Facility
   lab_partner:
-    type: text
+    type: categorical
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: lab_partner
+    values:
+      - Applied Chemistry
+      - Biology
+      - Foods, Feeds, and Functional Nutrition
+      - Material Science and Nanotechnology
+      - Microbiology and Bioengineering
   facility:
-    type: text
+    type: categorical
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: facility
+    values:
+      - Audio/Visual Room
+      - Collaboration Room
   date:
     type: text
     mappings:
@@ -117,6 +128,11 @@ responses:
   # General
   utter_ask_service_type:
     - text: 'What kind of service would you like to avail?'
+      buttons:
+        - title: 'Sample Processing'
+          payload: '/select_service{"service": "Sample Processing"}'
+        - title: 'Use of Facility'
+          payload: '/select_service{"service": "Use of Facility"}'
 
   utter_ask_first_name:
     - text: 'What is your first name?'
@@ -136,6 +152,17 @@ responses:
   # Sample Processing
   utter_ask_lab_partner:
     - text: 'What lab will you be partnering with?'
+      buttons:
+        - title: 'Applied Chemistry'
+          payload: '/select_lab_partner{"lab_partner": "Applied Chemistry"}'
+        - title: 'Biology'
+          payload: '/select_lab_partner{"lab_partner": "Biology"}'
+        - title: 'Foods, Feeds, and Functional Nutrition (Foods)'
+          payload: '/select_lab_partner{"lab_partner": "Foods, Feeds, and Functional Nutrition"}'
+        - title: 'Material Science and Nanotechnology'
+          payload: '/select_lab_partner{"lab_partner": "Material Science and Nanotechnology"}'
+        - title: 'Microbiology and Bioengineering'
+          payload: '/select_lab_partner{"lab_partner": "Microbiology and Bioengineering"}'
 
   utter_ask_date:
     - text: 'When are you availing sample processing?'
@@ -143,12 +170,20 @@ responses:
   # Use of Facility
   utter_ask_facility:
     - text: 'What facility will you be using?'
+      buttons:
+        - title: 'Audio/Visual Room'
+          payload: '/select_facility{"facility": "Audio/Visual Room"}'
+        - title: 'Collaboration Room'
+          payload: '/select_facility{"facility": "Collaboration Room"}'
 
   utter_ask_start_date:
     - text: 'When you will start using the facility?'
 
   utter_ask_end_date:
     - text: 'When you will stop using the facility?'
+
+actions:
+  - action_save_service_request_to_csv
 
 session_config:
   session_expiration_time: 60

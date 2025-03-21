@@ -1,0 +1,48 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [0.0, 1.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "use_facility_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [0.0, 1.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}, {\"active_loop\": {\"name\": \"use_facility_form\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}, \"slots\": {\"service\": [0.0, 1.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [1.0, 0.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "avail_sample_processing_form",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [1.0, 0.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}, {\"active_loop\": {\"name\": \"avail_sample_processing_form\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}, \"slots\": {\"service\": [1.0, 0.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "action_listen",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}]": "utter_thanks",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}]": "action_save_service_request_to_csv",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_service_request_to_csv\"}}]": "action_listen",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}]": "utter_thanks",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}]": "action_save_service_request_to_csv",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_service_request_to_csv\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"avail_service\"}}]": "utter_ask_service_type",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"avail_service\"}}, {\"prev_action\": {\"action_name\": \"utter_ask_service_type\"}, \"user\": {\"intent\": \"avail_service\"}}]": "action_listen"
+    },
+    "rule_only_slots": [
+      "service"
+    ],
+    "rule_only_loops": [
+      "avail_sample_processing_form",
+      "use_facility_form"
+    ],
+    "rules_for_loop_unhappy_path": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"use_facility_form\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}, \"slots\": {\"service\": [0.0, 1.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "do_not_predict_loop_action",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"avail_sample_processing_form\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}, \"slots\": {\"service\": [1.0, 0.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]": "do_not_predict_loop_action"
+    },
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [0.0, 1.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_service_request_to_csv\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}]",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"avail_service\"}}, {\"prev_action\": {\"action_name\": \"utter_ask_service_type\"}, \"user\": {\"intent\": \"avail_service\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}]",
+      "predicting default action with intent restart",
+      "handling active loops and forms - use_facility_form",
+      "handling active loops and forms - avail_sample_processing_form - action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"service\": [1.0, 0.0, 0.0]}, \"user\": {\"intent\": \"select_service\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"avail_sample_processing_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"avail_service\"}}]",
+      "handling active loops and forms - avail_sample_processing_form",
+      "handling active loops and forms - use_facility_form - action_listen",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"use_facility_form\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_thanks\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_save_service_request_to_csv\"}}]",
+      "predicting default action with intent back"
+    ]
+  }
+}

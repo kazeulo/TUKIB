@@ -12,7 +12,7 @@ rules:
     steps:
       - intent: select_service
       - slot_was_set:
-          - service: sample processing
+          - service: Sample Processing
       - action: avail_sample_processing_form
       - active_loop: avail_sample_processing_form # Activate the form for Sample Processing
 
@@ -23,13 +23,14 @@ rules:
       - action: avail_sample_processing_form
       - active_loop: null # End the form after submission
       - action: utter_thanks
+      - action: action_save_service_request_to_csv
 
   # Use of Facility
   - rule: User selects use of facility service
     steps:
       - intent: select_service
       - slot_was_set:
-          - service: use of facility
+          - service: Use of Facility
       - action: use_facility_form
       - active_loop: use_facility_form # Activate the form for Use of Facility
 
@@ -40,3 +41,4 @@ rules:
       - action: use_facility_form
       - active_loop: null # End the form after submission
       - action: utter_thanks
+      - action: action_save_service_request_to_csv
