@@ -17,6 +17,24 @@ const getUsers = async (req, res) => {
 	}
 };
 
+// Fetch a user by user_id 
+const getUserById = async (req, res) => {
+	try {
+	  const { userId } = req.params;
+	  const result = await pool.query('SELECT * FROM usersTable WHERE user_id = $1', [userId]);
+	  const user = result.rows[0];
+	  
+	  if (!user) {
+		return res.status(404).json({ status: 'error', message: 'User not found' });
+	  }
+  
+	  res.json({ status: 'success', user });
+	} catch (error) {
+	  console.error('Error fetching user:', error);
+	  res.status(500).json({ error: 'Internal server error' });
+	}
+};
+
 const createUser = async (req, res) => {
 	try {
 		const { name, email, role, password, institution, contact_number } =
@@ -70,4 +88,4 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-module.exports = { getUsers, createUser, deleteUser }; // Export all three functions
+module.exports = { getUsers, getUserById, createUser, deleteUser };

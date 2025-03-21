@@ -25,6 +25,7 @@ router.get('/events', eventsController.getEvents);
 
 // Routes for users management
 router.get('/users', usersController.getUsers);
+router.get('/users/:userId', usersController.getUserById);
 router.post('/users', usersController.createUser);
 router.delete('/users/:userId', usersController.deleteUser);
 
@@ -43,6 +44,7 @@ router.get('/news', newsController.getNews);
 
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
+router.get('/serviceRequests/:userId', serviceRequestsController.getServiceRequestsById);
 router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
 router.get('/useOfEquipmentRequestDetails/:id', serviceRequestsController.getEquipmentRentalRequestById);
 router.get('/useOfFacilityRequestDetails/:id', serviceRequestsController.getFacilityRentalRequestById);
