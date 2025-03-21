@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../../../css/dashboard components/Messages.css';
 
 const MessageDetails = () => {
     const { messageId } = useParams(); 
@@ -26,19 +27,56 @@ const MessageDetails = () => {
         fetchMessageDetails();
     }, [messageId]);
 
+    const handleBackToPreviousPage = () => {
+        window.history.back();
+    };
+
+
     return (
-        <div>
+        <div className="message-detail-container">
             {message ? (
-                <div>
-                    <h2>{message.subject}</h2>
-                    <p>{message.body}</p>
-                    <p><strong>Sender:</strong> {message.sender}</p>
-                    <p><strong>Email:</strong> {message.sender_email}</p>
-                    <p><strong>Date Sent:</strong> {new Date(message.date).toLocaleString()}</p>
-                    <p><strong>Status:</strong> {message.remarks}</p>
+                <div className="message-detail-content">
+                    <div className="message-detail-header">
+                        <h2 className="message-detail-subject">
+                            {message.subject}
+                        </h2>
+                        <button 
+                            className="message-detail-back-button"
+                            onClick={handleBackToPreviousPage}>
+                            Back to Messages
+                        </button>
+                    </div>
+
+                    <div className="message-detail-body">
+                        <p className="message-detail-text">{message.body}</p>
+                    </div>
+
+                    <div className="message-detail-info">
+                        <div className="message-detail-info-item">
+                            <span className="message-detail-label">Sender:</span>
+                            <span className="message-detail-value">{message.sender}</span>
+                        </div>
+                        
+                        <div className="message-detail-info-item">
+                            <span className="message-detail-label">Email:</span>
+                            <span className="message-detail-value">{message.sender_email}</span>
+                        </div>
+                        
+                        <div className="message-detail-info-item">
+                            <span className="message-detail-label">Date Sent:</span>
+                            <span className="message-detail-value">{new Date(message.date).toLocaleString()}</span>
+                        </div>
+                        
+                        <div className="message-detail-info-item">
+                            <span className="message-detail-label">Status:</span>
+                            <span className={`message-detail-status message-detail-status-${message.remarks}`}>
+                                {message.remarks}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             ) : (
-                <p>Loading message details...</p>
+                <p className="message-detail-loading">Loading message details...</p>
             )}
         </div>
     );

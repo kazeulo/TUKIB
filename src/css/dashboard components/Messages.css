@@ -1,0 +1,118 @@
+/* MessageDetails.css - styling for message details view */
+
+.message-detail-container {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 120px);
+}
+
+.message-detail-content {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.message-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.message-detail-subject {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+    font-weight: 500;
+}
+
+.message-detail-back-button {
+    background-color: #800020;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.message-detail-back-button:hover {
+    background-color: #600018;
+}
+
+.message-detail-body {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.message-detail-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.message-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-detail-info-item {
+    display: flex;
+    align-items: baseline;
+}
+
+.message-detail-label {
+    font-weight: 600;
+    color: #333;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.message-detail-value {
+    color: #555;
+}
+
+.message-detail-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-transform: lowercase;
+    color: white;
+}
+
+.message-detail-status-unread {
+    background-color: #dc3545;
+}
+
+.message-detail-status-read {
+    background-color: #28a745;
+}
+
+.message-detail-loading {
+    text-align: center;
+    padding: 30px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .message-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .message-detail-back-button {
+        width: 100%;
+    }
+}
