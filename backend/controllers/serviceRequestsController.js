@@ -120,7 +120,7 @@ const getTrainingRequestById = async (req, res) => {
             return res.status(404).json({ status: 'error', message: 'Service request not found' });
         }
 		
-		console.log(result)
+		// console.log('Result', result)
 
         return res.status(200).json({
             status: 'success',
