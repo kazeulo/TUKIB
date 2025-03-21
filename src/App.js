@@ -45,6 +45,9 @@ import UseOfFacilityRequestDetails from './components/dashboard components/detai
 import SampleProcessingRequestDetails from './components/dashboard components/details pages/SampleProcessingRequestDetails';
 import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
 
+// Transaction history
+import UserTransactionHistory from './components/dashboard components/UserTransactionHistory';
+
 // Partial pages
 import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
@@ -230,21 +233,31 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route 
           path="/error404" 
           element={<Error404 />}
-          />
+        />
+
         <Route
           path="/error500"
           element={<Error500 />} 
-          />
+        />
 
         {/* charge slip */}
-        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
-        <Route path="/chargeslip" element={<ChargeSlip />} />
+        <Route 
+          path="/chargeslipform" 
+          element={<ChargeSlipForm />} 
+        />
 
+        <Route 
+          path="/chargeslip" 
+          element={<ChargeSlip />} 
+        />
+
+        {/* transaction history */}
+        <Route 
+          path="/userTransactionHistory/:userId" 
+          element={<UserTransactionHistory />} 
+        />
 
       </Routes>
-
-      
-      
     </>
   );
 };

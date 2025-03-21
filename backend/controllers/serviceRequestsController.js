@@ -23,11 +23,46 @@ const getServiceRequests = async (req, res) => {
 	}
 };
 
+const getServiceRequestsById = async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      if (!userId || isNaN(userId)) {
+        return res.status(400).json({ message: 'Invalid user ID' });
+      }
+  
+      const result = await pool.query(
+        `SELECT 
+            sr.request_id, 
+            sr.service_name, 
+            sr.status, 
+            sr.payment_option, 
+            sr.start, 
+            sr."end", 
+            u.name AS user_name
+         FROM serviceRequestTable sr
+         JOIN usersTable u ON sr.user_id = u.user_id
+         WHERE sr.user_id = $1`, 
+        [userId]
+      );
+  
+      const serviceRequests = result.rows;
+  
+      if (serviceRequests.length > 0) {
+        res.json({ status: 'success', serviceRequests });
+      } else {
+        res.status(404).json({ message: 'No service requests found for this user' });
+      }
+    } catch (error) {
+      console.error('Error fetching service requests:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+};
+  
 const cancelServiceRequest = async (req, res) => {
 	const { requestId } = req.params;
 
 	try {
-		// Update the status to 'Cancelled' for the given request ID
 		const result = await pool.query(
 			'UPDATE serviceRequestTable SET status = $1 WHERE request_id = $2 RETURNING *',
 			['Cancelled', requestId]
@@ -289,6 +324,7 @@ const getSampleProcessingRequestById = async (req, res) => {
 
 module.exports = {
 	getServiceRequests,
+    getServiceRequestsById,
 	cancelServiceRequest,
 	getTrainingRequestById,
 	getEquipmentRentalRequestById,

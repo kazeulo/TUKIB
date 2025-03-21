@@ -195,8 +195,7 @@ const ClientProfile = ({ isLoggedIn }) => {
             <thead>
               <tr>
                 <th>Request ID</th>
-                <th>Service Name</th>
-                <th>Requested By</th>
+                <th>Service Tyoe</th>
                 <th>Date Requested</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -213,7 +212,6 @@ const ClientProfile = ({ isLoggedIn }) => {
                   >
                     <td>{request.request_id}</td>
                     <td>{request.service_name}</td>
-                    <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
                     <td>{request.status}</td>
                     <td>
