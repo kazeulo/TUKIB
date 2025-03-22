@@ -9,8 +9,9 @@
 }
 
 table {
-    box-shadow: none !important;
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 thead,
@@ -30,17 +31,12 @@ thead{
     color: white;
 }
 
-table tr:nth-child(0) td:hover { /* disable first row's table cells on hover */
-    background-color: none; 
-    color: none; 
-}
-
 tr{
     transition: all ease 0.4s;
     border-bottom: #292929 !important;
 }
 
-tr:hover{
+tbody tr:hover{
     background-color: #eeeeee
 }
 

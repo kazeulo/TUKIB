@@ -101,7 +101,9 @@ const ServiceRequest = () => {
   return (
     <div>
       <div className="table-container">
-        <h3>Service Requests</h3>
+        <div className='tableTitle'>
+          <h3>Service Requests</h3>
+        </div>
 
         {/* Modal for confirmation */}
         <Modal

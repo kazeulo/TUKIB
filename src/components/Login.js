@@ -10,7 +10,7 @@ import tukibLogo from '../assets/tukib_logo.png';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -38,7 +38,7 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-	  console.log({ email, password });  
+      console.log({ email, password });  
 
       const data = await response.json();
       if (data.success) {
@@ -46,6 +46,7 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(data.user));
         setSuccess('Login successful!');
         setRole(data.user.role); 
+        setIsLoggedIn(true); 
       } else {
         setError(data.message);
         setSuccess('');
@@ -70,6 +71,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(user));
       setSuccess('Google login successful!');
       setRole(user.role); 
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Google login error:', error);
       setError('Google login failed. Please try again.');
@@ -80,14 +82,20 @@ const Login = () => {
 
   // Redirect based on user role after login
   useEffect(() => {
-    if (role === 'Admin') {
-      navigate('/adminDashboard'); 
-    } else if (role === 'Client') {
-      navigate('/clientProfile');
+    const roleRedirectMap = {
+      Admin: '/dashboard',
+      Client: '/clientProfile',
+      'University Researcher': '/dashboard',
+      'TECD Staff': '/dashboard',
+    };
+  
+    if (role && roleRedirectMap[role]) {
+      navigate(roleRedirectMap[role]);
     } else if (role) {
       setError('Invalid role. Please contact support.');
     }
-  }, [role, navigate]); 
+  }, [role, navigate]);
+  
 
   return (
     <div className='login'>
@@ -131,7 +139,6 @@ const Login = () => {
                     onClick={() => setShowPassword(!showPassword)} 
                     className='password-toggle-btn'>
                     {showPassword ? <FaEyeSlash /> : <FaEye />}{' '}
-                    {/* Toggle icon */}
                   </button>
                 </div>
               </div>
