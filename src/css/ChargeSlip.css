@@ -1,0 +1,381 @@
+/* ChargeSlip.css */
+.csf-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.csf-title {
+  color: #7B1113;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.csf-section {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.csf-section-title {
+  color: #7B1113;
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.csf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.csf-form input,
+.csf-form select,
+.csf-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.csf-form select[multiple] {
+  height: 100px;
+}
+
+.csf-form button {
+  background-color: #7B1113;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.csf-form button:hover {
+  background-color: #5A0D0F;
+}
+
+.csf-submit {
+  background-color: #7B1113;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.csf-submit:hover {
+  background-color: #5A0D0F;
+}
+
+/* ChargeSlip Styles  */
+.cs-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
+  font-family: 'Arial', sans-serif;
+  background-color: #F5F5F5;
+}
+
+.cs-document {
+  background-color: #FFFFFF;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.cs-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #7B1113;
+  padding-bottom: 10px;
+}
+
+.cs-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.cs-logo {
+  height: 60px;
+  margin-right: 10px;
+}
+
+.cs-university-name {
+  color: #7B1113;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.cs-rrc-name {
+  color: #5A0D0F;
+  font-size: 16px;
+  margin: 2px 0 0;
+}
+
+.cs-slip-info {
+  text-align: right;
+  font-size: 14px;
+}
+
+.cs-slip-number, .cs-slip-date, .cs-request-code {
+  margin: 3px 0;
+  font-weight: bold;
+}
+
+.cs-address {
+  text-align: right;
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #444444;
+}
+
+.cs-address p {
+  margin: 1px 0;
+}
+
+.cs-section-title {
+  color: #7B1113;
+  border-bottom: 1px solid #B31B1E;
+  padding-bottom: 3px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.cs-client-info, .cs-payment-info {
+  margin-bottom: 15px;
+}
+
+.cs-client-details, .cs-payment-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  font-size: 14px;
+}
+
+.cs-label {
+  font-weight: bold;
+  color: #444444;
+}
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.cs-table-header {
+  background-color: #7B1113;
+  color: #FFFFFF;
+  padding: 8px;
+  text-align: left;
+}
+
+.cs-table-cell {
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.cs-amount {
+  text-align: right;
+  font-weight: bold;
+}
+
+.cs-table-footer {
+  background-color: #E9E9E9;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: right;
+}
+
+.cs-amount-in-words {
+  font-size: 13px;
+  font-style: italic;
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: #F8F4E3;
+}
+
+.cs-words {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.cs-signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.cs-signature-box {
+  width: 45%;
+  text-align: center;
+}
+
+.cs-signature {
+  max-width: 150px;
+  max-height: 40px;
+}
+
+.cs-approved {
+  color: #0B5F1A;
+  font-weight: bold;
+  border: 2px solid #0B5F1A;
+  display: inline-block;
+  padding: 3px 10px;
+  transform: rotate(-10deg);
+  font-size: 14px;
+}
+
+.cs-signature-line {
+  border-top: 1px solid #444444;
+  padding-top: 3px;
+}
+
+.cs-signature-name {
+  margin: 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.cs-signature-position {
+  margin: 2px 0;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.cs-signature-title {
+  margin: 2px 0;
+  color: #444444;
+  font-size: 12px;
+}
+
+.cs-terms {
+  margin-top: 15px;
+  font-size: 11px;
+  padding: 8px;
+  background-color: #F8F4E3;
+  border-radius: 3px;
+  color: #444444;
+}
+
+.cs-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.cs-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cs-download {
+  background-color: #7B1113;
+  color: #FFFFFF;
+}
+
+.cs-download:hover {
+  background-color: #5A0D0F;
+}
+
+.cs-approve {
+  background-color: #0B5F1A;
+  color: #FFFFFF;
+}
+
+.cs-approve:hover {
+  background-color: #084212;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: white;
+  }
+  
+  .cs-container {
+    padding: 0;
+    background-color: white;
+  }
+  
+  .cs-document {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .cs-actions {
+    display: none;
+  }
+}
+/* Signature image styling */
+.cs-signature-image {
+  width: 70px;
+  height: auto;
+  margin-bottom: 5px;
+  display: block;
+  margin: 0 auto 10px auto; /* Centers the image and adds spacing */
+}
+/* .cs-signature-image {
+  min-height: 40px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+} */
+
+/* Approval indicator */
+.cs-approval-indicator {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 2px solid #088d2c;
+  /* border-radius: 4px; */
+  color: #088d2c;
+  font-weight: bold;
+  margin-top: 10px;
+  /* background-color: rgba(52, 168, 83, 0.1); */
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* Styling for the approved signature box */
+.cs-signature-box.approved {
+  position: relative;
+}
+
+.cs-signature-box.approved::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(52, 168, 83, 0.05);
+  border-radius: 4px;
+  z-index: -1;
+}

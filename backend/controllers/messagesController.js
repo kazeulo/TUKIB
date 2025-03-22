@@ -37,7 +37,6 @@ const insertMessage = async (req, res) => {
     }
 };
 
-// In your messagesController.js
 const updateMessageStatus = async (req, res) => {
     const messageId = req.params.messageId;
 

@@ -1,198 +1,234 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../partials/Footer';
-import '../../css/account pages/ClientProfile.css'
-import FeedbackForm from '../feedback/FeedbackForm';
+import { FaChevronDown } from 'react-icons/fa';
+import Modal from '../partials/Modal';
+import '../../css/account pages/ClientProfile.css';
 
-const ClientProfile = () => {
+
+const ClientProfile = ({ isLoggedIn }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [requestToCancel, setRequestToCancel] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState('all');
+  const [serviceRequests, setServiceRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
   // remove once feedback form moved to the right place
-  const navigateToFeedbackForm = () => {
-      navigate('/feedback-form'); 
+  // const navigateToFeedbackForm = () => {
+  //     navigate('/feedback-form'); 
+  // };
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      console.error('No user found in localStorage');
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (user) {
+      const fetchServiceRequests = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/serviceRequests/${user.user_id}`);
+          const data = await response.json();
+
+          if (data.status === 'success') {
+            setServiceRequests(data.serviceRequests);
+            setLoading(false);
+          } else {
+            console.error('No service requests found for this user');
+            setLoading(false);
+          }
+        } catch (error) {
+          console.error('Error fetching service requests', error);
+          setLoading(false);
+        }
+      };
+      fetchServiceRequests();
+    }
+  }, [user]);
+
+  // Cancel service request function
+  const cancelServiceRequest = async (requestId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/serviceRequests/${requestId}/cancel`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        setServiceRequests(serviceRequests.map((request) =>
+          request.request_id === requestId ? { ...request, status: 'Cancelled' } : request
+        ));
+      } else {
+        console.error('Error cancelling service request:', data);
+      }
+    } catch (error) {
+      console.error('Error cancelling service request:', error);
+    }
   };
 
-  // Simulated transactions data
-  const [transactions] = useState([
-    {
-      description: 'Sample Processing',
-      id: '#12548796',
-      lab: 'Bio Lab',
-      status: 'Completed',
-      date: '28 Jan, 12:30 AM',
-      amount: 500,
-    },
-    {
-      description: 'Sample Processing',
-      id: '#12548797',
-      lab: 'Bio Lab',
-      status: 'Completed',
-      date: '25 Jan, 10:40 PM',
-      amount: 750,
-    },
-    {
-      description: 'Sample Processing',
-      id: '#12548798',
-      lab: 'MicroBio Lab',
-      status: 'Completed',
-      date: '20 Jan, 10:40 PM',
-      amount: 150,
-    },
-    {
-      description: 'Use of Equipment',
-      id: '#12548799',
-      lab: 'Bio Lab',
-      status: 'Cancelled',
-      date: '15 Jan, 03:29 PM',
-      amount: 0,
-    },
-    {
-      description: 'Use of Equipment',
-      id: '#12548800',
-      lab: 'Bio Lab',
-      status: 'Completed',
-      date: '14 Jan, 10:40 PM',
-      amount: 840,
-    },
-  ]);
+  const handleCancelRequest = (requestId) => {
+    setRequestToCancel(serviceRequests.find((request) => request.request_id === requestId));
+    setIsModalOpen(true);
+  };
 
-  // States for active tab, pagination, search query, and dropdown visibility
-  const [activeTab, setActiveTab] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const transactionsPerPage = 5;
+  const handleConfirmCancel = () => {
+    if (requestToCancel) {
+      cancelServiceRequest(requestToCancel.request_id);
+    }
+    setIsModalOpen(false);
+  };
 
-  // Filter transactions based on the active tab and search query
-  const filteredTransactions =
-    activeTab === 'all'
-      ? transactions.filter((transaction) =>
-          transaction.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          transaction.id.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : transactions
-          .filter((transaction) => transaction.status === activeTab)
-          .filter((transaction) =>
-            transaction.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            transaction.id.toLowerCase().includes(searchQuery.toLowerCase())
-          );
+  const handleRowClick = (requestId, serviceName) => {
+    const service = serviceName.toLowerCase();
 
-  // Pagination calculations
-  const indexOfLastTransaction = currentPage * transactionsPerPage;
-  const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
-  const currentTransactions = filteredTransactions.slice(
-    indexOfFirstTransaction,
-    indexOfLastTransaction
+    if (service === 'training') {
+      navigate(`/trainingRequestDetails/${requestId}`);
+    } else if (service === 'sample processing') {
+      navigate(`/sampleProcessingRequestDetails/${requestId}`);
+    } else if (service === 'use of equipment') {
+      navigate(`/useOfEquipmentRequestDetails/${requestId}`);
+    } else if (service === 'use of facility') {
+      navigate(`/useOfFacilityRequestDetails/${requestId}`);
+    }
+  };
+
+  const modalFooter = (
+    <>
+      <button className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>
+        Cancel
+      </button>
+      <button className="btn btn-danger" onClick={handleConfirmCancel}>
+        Confirm Cancel
+      </button>
+    </>
   );
-
-  const totalPages = Math.ceil(filteredTransactions.length / transactionsPerPage);
 
   // Handle tab switch
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setCurrentPage(1); 
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
+  // Handle new service request button
   const handleNewServiceRequest = (type) => {
-    setDropdownOpen(false); 
-    navigate(`/${type}`);  
+    navigate(`/${type}`);
+    setDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
+  // Function to filter service requests based on status and active tab
+  const filterServiceRequests = (status) => {
+    return serviceRequests.filter((request) => {
+      if (status === 'all') return true;
+      return request.status.toLowerCase() === status.toLowerCase();
+    });
   };
 
-  const handleClickOutside = (e) => {
-    if (dropdownOpen && !e.target.closest('.dropdown')) {
-      setDropdownOpen(false);
-    }
-  };
-
+  // Close dropdown if click outside
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [dropdownOpen]);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="client-profile">
-
       <div className="client-profile-content">
         <div className="client-transactions">
           <h2>Transactions</h2>
           <p className="subtitle">All transaction history</p>
 
-          <div className="search-container">
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Search transactions..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            
-            <div className="dropdown">
-              <button className="new-service-btn" onClick={toggleDropdown}>
-                New Service Request
-              </button>
-
-              {dropdownOpen && (
-                <div className="dropdown-menu">
-                  <button onClick={() => handleNewServiceRequest('sample-processin-form')}>Sample Processing</button>
-                  <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
-                  <button onClick={() => handleNewServiceRequest('use-of-equipment-form')}>Use of Equipment</button>
-                  <button onClick={() => handleNewServiceRequest('use-of-facility-form')}>Use of Facility</button>
-                </div>
-              )}
-            </div>
+          <div className="dropdown" ref={dropdownRef}>
+            <button className="new-service-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
+              New Service Request
+              <FaChevronDown className={`dropdown-icon ${dropdownOpen ? 'open' : ''}`} />
+            </button>
+            {dropdownOpen && (
+              <div className="dropdown-menu">
+                <button onClick={() => handleNewServiceRequest('sample-processin-form')}>Sample Processing</button>
+                <button onClick={() => handleNewServiceRequest('use-of-equipment-form')}>Use of Equipment</button>
+                <button onClick={() => handleNewServiceRequest('combined-service-request-form')}>Combined Service Request</button>
+                <button onClick={() => handleNewServiceRequest('training-form')}>Training</button>
+                <button onClick={() => handleNewServiceRequest('use-of-facility-form')}>Use of Facility</button>
+              </div>
+            )}
           </div>
 
           {/* Transactions Table */}
           <table>
             <thead>
               <tr>
-                <th>Description</th>
-                <th>Transaction ID</th>
-                <th>Laboratory</th>
+                <th>Request ID</th>
+                <th>Service Type</th>
+                <th>Date Requested</th>
                 <th>Status</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Receipt</th>
+                <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
-              {currentTransactions.map((transaction, index) => (
-                <tr key={index}>
-                  <td>{transaction.description}</td>
-                  <td>{transaction.id}</td>
-                  <td>{transaction.lab}</td>
-                  <td>{transaction.status}</td>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.amount}</td>
-                  <td>
-                    <button className="receipt-download-btn">Download</button>
-                  </td>
+              {serviceRequests.length > 0 ? (
+                filterServiceRequests(activeTab).map((request) => (
+                  <tr
+                    key={request.request_id}
+                    onClick={() => handleRowClick(request.request_id, request.service_name)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td>{request.request_id}</td>
+                    <td>{request.service_name}</td>
+                    <td>{new Date(request.start).toLocaleString()}</td>
+                    <td>{request.status}</td>
+                    <td>
+                      {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
+                        <button
+                          className="cancel-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCancelRequest(request.request_id);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <span>{request.status}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No service requests found.</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
-
-          {/* Pagination */}
-          <div className="pagination">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index}
-                className={currentPage === index + 1 ? 'active' : ''}
-                onClick={() => setCurrentPage(index + 1)}>
-                {index + 1}
-              </button>
-            ))}
-          </div>
 
           {/* Tabs for All, Ongoing, and Cancelled Transactions */}
           <div className="tabs">
@@ -211,14 +247,14 @@ const ClientProfile = () => {
               onClick={() => handleTabChange('cancelled')}>
               Cancelled Transactions
             </button>
-
-            {/* ADD FEEDBACK BUTTON (PLACED HERE TO VIEW OUTPUT, CAN MOVE/REMOVE LATER) */}
-            <button className="" onClick={navigateToFeedbackForm}>
-                Add Feedback
-            </button>
           </div>
         </div>
       </div>
+      
+      {/* ADD FEEDBACK BUTTON (PLACED HERE TO VIEW OUTPUT, CAN MOVE/REMOVE LATER) */}
+      {/* <button className="" onClick={navigateToFeedbackForm}>
+      Add Feedback
+      </button> */}
 
       <Footer />
     </div>

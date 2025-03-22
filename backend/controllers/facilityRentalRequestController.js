@@ -1,22 +1,23 @@
+const { request } = require('express');
 const pool = require('../backend');
 
 // Function to create a new training request
-const createTrainingRequest = async (req, res) => {
+const createFacilityRentalRequest = async (req, res) => {
   try {
     console.log('File Info:', req.files);
 
     const {
       user_id,
-      service_name = 'training',
-      status = 'pending',
       payment_option,
       project_title = null,
       project_budget_code = null,
-      trainingTitle,
-      trainingDate,
+      selectedFacility,
+      service_name,
+      status,
+      startOfUse,
+      endOfUse,
       participantCount,
       acknowledgeTerms = false,
-      partnerLab,
       additionalInformation = null
     } = req.body;
 
@@ -42,28 +43,29 @@ const createTrainingRequest = async (req, res) => {
 
     // Insert into trainingRequests table
     const result = await pool.query(
-      `INSERT INTO trainingRequests 
-       (trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments, request_id)
+      `INSERT INTO facilityRentalRequests 
+       (request_id, selected_facility, start_of_use, end_of_use, participant_count, project_title, project_budget_code, 
+        proofOfFunds, paymentConforme, additional_information, necessaryDocuments, acknowledge_terms)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
        RETURNING *`,
       [
-        trainingTitle,
-        trainingDate,
+        request_id,
+        selectedFacility,
+        startOfUse,
+        endOfUse,
         participantCount,
-        acknowledgeTerms,
-        partnerLab,
         project_title,
         project_budget_code,
         proofOfFunds,
         paymentConforme,
         additionalInformation,
         necessaryDocuments,
-        request_id
+        acknowledgeTerms
       ]
     );
 
     return res.status(201).json({
-      message: 'Training request created successfully!',
+      message: 'Use of facility request created successfully!',
       data: result.rows[0],
     });
   } catch (error) {
@@ -72,4 +74,4 @@ const createTrainingRequest = async (req, res) => {
   }
 };
 
-module.exports = { createTrainingRequest };
+module.exports = { createFacilityRentalRequest };

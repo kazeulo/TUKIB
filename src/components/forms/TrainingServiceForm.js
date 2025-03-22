@@ -9,13 +9,13 @@ function TrainingServiceForm({ isLoggedIn }) {
   const [user, setUser] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);  
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     user_id: '',
-    service_name: 'training',
-    status: 'pending',
+    service_name: 'Training',
+    status: 'Pending for approval',
     payment_option: '', 
-    charged_to_project: false,
     project_title: '',
     project_budget_code: '',
     proofOfFunds: '',
@@ -44,6 +44,12 @@ function TrainingServiceForm({ isLoggedIn }) {
       setIsModalOpen(true);
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (user) {
+      setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
+    }
+  }, [user]);
 
   // Handle changes for form fields
   const handleChange = (e) => {
@@ -94,9 +100,34 @@ function TrainingServiceForm({ isLoggedIn }) {
     navigate('/clientProfile');
   };
 
+  const validateForm = () => {
+    let newErrors = {};
+  
+    if (!formData.trainingTitle.trim()) newErrors.trainingTitle = "This field is required.";
+    if (!formData.trainingDate) newErrors.trainingDate = "This field is required.";
+    if (!formData.participantCount) newErrors.participantCount = "This field is required.";
+    if (!formData.partnerLab) newErrors.partnerLab = "This field is required.";
+    if (!formData.payment_option) newErrors.payment_option = "This field is required.";
+  
+    if (formData.payment_option === "Charged to Project") {
+      if (!formData.project_title.trim()) newErrors.project_title = "This field is required.";
+      if (!formData.project_budget_code.trim()) newErrors.project_budget_code = "This field is required.";
+      if (!formData.proofOfFunds) newErrors.proofOfFunds = "This field is required.";
+      if (!formData.paymentConforme) newErrors.paymentConforme = "This field is required.";
+    }
+  
+    if (!formData.acknowledgeTerms) newErrors.acknowledgeTerms = "This field is required.";
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // validate
+    if (!validateForm()) return;
   
     const formDataToSend = new FormData();
   
@@ -105,7 +136,6 @@ function TrainingServiceForm({ isLoggedIn }) {
     formDataToSend.append('service_name', formData.service_name);
     formDataToSend.append('status', formData.status);
     formDataToSend.append('payment_option', formData.payment_option);
-    formDataToSend.append('charged_to_project', formData.charged_to_project);
     formDataToSend.append('project_title', formData.project_title);
     formDataToSend.append('trainingDate', formData.trainingDate);
     formDataToSend.append('trainingTitle', formData.trainingTitle);
@@ -150,9 +180,8 @@ function TrainingServiceForm({ isLoggedIn }) {
       setFormData({
         user_id: '',
         service_name: 'Training',
-        status: 'Pending',
+        status: 'Pending for approval',
         payment_option: '',
-        charged_to_project: false,
         project_title: '',
         project_budget_code: '',
         trainingTitle: '',
@@ -174,6 +203,16 @@ function TrainingServiceForm({ isLoggedIn }) {
   const handleModalClose = () => {
     setIsModalOpen(false);
     navigate('/login');
+  };
+
+  const handlePaymentOptionChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      payment_option: value,
+      project_title: value === 'Cash' ? '' : prevData.project_title, 
+      project_budget_code: value === 'Cash' ? '' : prevData.project_budget_code,
+    }));
   };
 
   return (
@@ -206,6 +245,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 onChange={handleChange}
                 placeholder="Training Title"
               />
+              {errors.trainingTitle && <p className="error">{errors.trainingTitle}</p>}
             </div>
 
             <div className="form-group">
@@ -216,6 +256,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 value={formData.trainingDate}
                 onChange={handleChange}
               />
+              {errors.trainingDate && <p className="error">{errors.trainingDate}</p>}
             </div>
 
             <div className="form-group">
@@ -227,6 +268,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 onChange={handleChange}
                 placeholder="Number of Participants"
               />
+              {errors.participantCount && <p className="error">{errors.participantCount}</p>}
             </div>
 
             <div className="form-group">
@@ -239,26 +281,28 @@ function TrainingServiceForm({ isLoggedIn }) {
                 <option value="">Select Laboratory Partner</option>
                 <option value="Applied Chemistry">Applied Chemistry</option>
                 <option value="Biology">Biology</option>
-                <option value="Foods Feeds">Foods Feeds</option>
-                <option value="Functional Nutrition (Food)">Functional Nutrition (Food)</option>
+                <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
                 <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
                 <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
               </select>
+              {errors.partnerLab && <p className="error">{errors.partnerLab}</p>}
             </div>
 
             <div className="form-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  name="charged_to_project"
-                  checked={formData.charged_to_project}
-                  onChange={handleCheckboxChange}
-                />
-                Charged to project
-              </label>
+              <label>Mode of Payment</label>
+              <select
+                name="payment_option"
+                value={formData.payment_option}
+                onChange={handlePaymentOptionChange}
+              >
+                <option value="">Select Payment Option</option>
+                <option value="Charged to Project">Charged to Project</option>
+                <option value="Cash">Pay at University Registrar</option>
+              </select>
+              {errors.payment_option && <p className="error">{errors.payment_option}</p>}
             </div>
 
-            {formData.charged_to_project && (
+            {formData.payment_option === "Charged to Project" && (
               <>
                 <div className="form-group">
                   <label>Project Title</label>
@@ -269,6 +313,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                     onChange={handleChange}
                     placeholder="Project Title"
                   />
+                  {errors.project_title && <p className="error">{errors.project_title}</p>}
                 </div>
 
                 <div className="form-group">
@@ -280,6 +325,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                     onChange={handleChange}
                     placeholder="Project Budget Code"
                   />
+                  {errors.project_budget_code && <p className="error">{errors.project_budget_code}</p>}
                 </div>
 
                 {/* Proof of Funds Availability */}
@@ -290,6 +336,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                     name='proofOfFunds'
                     onChange={handleFileChange}
                   />
+                  {errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
                 </div>
 
                 {/* Payment Conforme */}
@@ -300,6 +347,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                     name='paymentConforme'
                     onChange={handleFileChange}
                   />
+                  {errors.paymentConforme && <p className="error">{errors.paymentConforme}</p>}
                 </div>
               </>
             )}
@@ -314,20 +362,6 @@ function TrainingServiceForm({ isLoggedIn }) {
                 placeholder="Upload Documents"
                 multiple
               />
-            </div>
-
-            <div className="form-group">
-              <label>Mode of Payment</label>
-              <select
-                name="payment_option"
-                value={formData.payment_option}
-                onChange={handleChange}
-              >
-                <option value="">Select Payment Option</option>
-                <option value="Credit Card">Credit Card</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-                <option value="Cash">Cash</option>
-              </select>
             </div>
 
             {/* Additional Information */}
@@ -351,6 +385,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 />
                 I acknowledge the terms and conditions
               </label>
+              {errors.acknowledgeTerms && <p className="error">{errors.acknowledgeTerms}</p>}
             </div>
 
             <div className="form-actions">

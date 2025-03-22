@@ -21,10 +21,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
     navigate('/login'); 
   };
 
-  const username = user ? user.name : 'User'; 
-
-  // default profile pic nalang kay unnecessary naman na mag upload pa pic ang user
+  const username = user ? user.name : 'User';
+  const userRole = user ? user.role : '';  
   const profilePicture = defaultProfilePic;
+
+  // Define the redirect URL based on user role
+  const profileLink = userRole === 'Admin' ? '/adminDashboard' : '/clientProfile';
 
   // Do not render Header on adminDashboard route
   if (location.pathname === '/adminDashboard') {
@@ -99,7 +101,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
                 onMouseLeave={() => setShowDropdown(false)}
               >
                 <Dropdown show={showDropdown} align="end">
-                  <Dropdown.Toggle variant="link" className="profile-link" as={Link} to="/clientProfile">
+                  <Dropdown.Toggle variant="link" className="profile-link" as={Link} to={profileLink}>
                     <img
                       src={profilePicture}
                       alt="Profile"
@@ -109,7 +111,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/clientProfile">
+                    <Dropdown.Item as={Link} to={profileLink}>
                       Profile
                     </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>

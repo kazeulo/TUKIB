@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const MessageDetails = () => {
     const { messageId } = useParams(); 
@@ -25,7 +25,6 @@ const MessageDetails = () => {
     
         fetchMessageDetails();
     }, [messageId]);
-    
 
     return (
         <div>

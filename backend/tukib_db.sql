@@ -30,6 +30,8 @@
 -- Drop tables in reverse order to avoid foreign key constraints
 DROP TABLE IF EXISTS trainingRequests CASCADE;
 DROP TABLE IF EXISTS sampleProcessingRequests CASCADE;
+DROP TABLE IF EXISTS equipmentRentalRequests CASCADE;
+DROP TABLE IF EXISTS facilityRentalRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
@@ -38,6 +40,9 @@ DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TYPE IF EXISTS lab_enum CASCADE;
+DROP TYPE IF EXISTS payment_option CASCADE;
+DROP TYPE IF EXISTS facilities CASCADE;
+DROP TYPE IF EXISTS service_type CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -45,11 +50,28 @@ DROP TYPE IF EXISTS lab_enum CASCADE;
 CREATE TYPE lab_enum AS ENUM (
   'Applied Chemistry',
   'Biology',
-  'Foods Feeds',
-  'Functional Nutrition (Food)',
+  'Foods, Feeds and Functional Nutrition',
   'Material Science and Nanotechnology',
   'Microbiology and Bioengineering'
 );
+
+-- Creating ENUM for laboratories
+CREATE TYPE payment_option AS ENUM (
+  'Cash',
+  'Charged to Project'
+);
+
+CREATE TYPE facilities AS ENUM (
+  'Audio/Visual Room',
+  'Collaboration Room'
+);
+
+CREATE TYPE service_type AS ENUM{
+    'Training',
+    'Sample Processing',
+    'Use of Equipment',
+    'Use of Facility',
+};
 
 -- ======== TABLE CREATION ========
 
@@ -79,10 +101,9 @@ CREATE TABLE user_tokens (
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    service_name VARCHAR(255) NOT NULL,
+    service_name service_type VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    payment_option VARCHAR(50),
-    charged_to_project BOOLEAN,
+    payment_option payment_option NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
@@ -107,17 +128,66 @@ CREATE TABLE trainingRequests (
 );
 
 -- Sample Processing Requests Table
--- CREATE TABLE sampleProcessingRequests (
---     sampleprocessing_request_id SERIAL PRIMARY KEY,
---     trainingTitle VARCHAR(255) NOT NULL,
---     sample_description TEXT NOT NULL,
---     sample_volume INT,
---     method_settings VARCHAR NOT NULL,
---     sample_hazard_description TEXT NOT NULL,
---     schedule_of_sample_submission DATE NOT NULL,
---     additional_information TEXT,
---     necessaryDocuments TEXT[]
--- )
+CREATE TABLE sampleProcessingRequests (
+    sampleprocessing_request_id SERIAL PRIMARY KEY,
+    laboratory lab_enum NOT NULL,
+    request_id INT NOT NULL,
+    type_of_analysis VARCHAR(50) NOT NULL,
+    sample_type VARCHAR (50) NOT NULL,
+    sample_description TEXT NOT NULL,
+    sample_volume VARCHAR(100),
+    method_settings VARCHAR NOT NULL,
+    sample_hazard_description TEXT NOT NULL,
+    schedule_of_sample_submission DATE NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    additional_information TEXT,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
+
+-- Equipment rental requests table
+CREATE TABLE equipmentRentalRequests (
+    equipmentRental_request_id SERIAL PRIMARY KEY,
+    request_id INT NOT NULL,
+    authorized_representative VARCHAR(50) NOT NULl,
+    laboratory lab_enum NOT NULL,
+    equipment_name VARCHAR(255) NOT NULL,
+    equipment_settings TEXT NOT NULL,
+    sample_type VARCHAR(255) NOT NULL,
+    sample_description TEXT NOT NULL,
+    sample_volume VARCHAR(100) NOT NULL,
+    sample_hazard_description TEXT NOT NULL,
+    schedule_of_use DATE NOT NULL,
+    estimated_use_duration VARCHAR(50) NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    additional_information TEXT,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
+
+-- Facility rental requests table
+CREATE TABLE facilityRentalRequests (
+    facilityRental_request_id SERIAL PRIMARY KEY,
+    request_id INT NOT NULL,
+    project_title VARCHAR(255),
+    project_budget_code VARCHAR(50),
+    proofOfFunds TEXT,
+    paymentConforme TEXT,
+    selected_facility facilities NOT NULL,
+    start_of_use TIMESTAMP NOT NULL,
+    end_of_use TIMESTAMP NOT NULL,
+    participant_count INT NOT NULL,
+    additional_information TEXT,
+    acknowledge_terms BOOLEAN NOT NULL DEFAULT FALSE,
+    necessaryDocuments TEXT[],
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+);
 
 -- Messages Table
 CREATE TABLE messagesTable (

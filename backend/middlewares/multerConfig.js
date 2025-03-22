@@ -34,7 +34,6 @@ const storage = multer.diskStorage({
     }
 });
 
-
 // Multer configuration for multiple fields
 const upload = multer({
     storage,
@@ -46,7 +45,7 @@ const upload = multer({
         }
         cb(null, true);
     },
-    limits: { fileSize: 20 * 1024 * 1024 } // 20MB per file limit
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB per file limit
 }).fields([
     { name: 'proofOfFunds', maxCount: 1 },
     { name: 'paymentConforme', maxCount: 1 },
