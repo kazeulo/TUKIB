@@ -8,11 +8,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Chatbot from './components/Chatbot';
 import Home from './components/Home';
 import Login from './components/Login';
-import AdminDashboard from './components/account pages/AdminDashboard';
-import ClientProfile from './components/account pages/ClientProfile';
 import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
+
+// Account pages
+import AdminDashboard from './components/account pages/AdminDashboard';
+import ClientProfile from './components/account pages/ClientProfile';
+import URDashboard from './components/account pages/URDashboard';
+import TECDDashboard from './components/account pages/TECDDashboard';
 
 // Service Request Forms
 import SampleProcessingForm from './components/forms/SampleProcessingForm';
@@ -89,8 +93,8 @@ const App = () => {
     };
   }, []);
 
+  // Check if user is logged in on initial load
   useEffect(() => {
-    // Check if user is logged in
     const user = localStorage.getItem('user');
     if (user) {
       setIsLoggedIn(true);
@@ -121,142 +125,56 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
     <>
       {/* Header and Chatbot */}
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} location={location} />
-      {location.pathname !== "/adminDashboard" && <Chatbot />}
+      
+      {/* Only show Chatbot on non-dashboard routes */}
+      {location.pathname !== "/adminDashboard" && location.pathname !== "/urDashboard" && location.pathname !== "/tecdDashboard" && <Chatbot />}
 
       <Routes>
         {/* main pages */}
-        <Route 
-          path="/" 
-          element={<Home />} 
-        />
-        <Route 
-          path="/login" 
-          element={<Login setIsLoggedIn={setIsLoggedIn} />} 
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
 
-        <Route
-          path="/adminDashboard"
-          element={<AdminDashboard />}
-        />
-
-        <Route
-          path="/ClientProfile"
-          element={<ClientProfile />}
-        />
+        {/* accounts */}
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
+        <Route path="/ClientProfile" element={<ClientProfile />} />
+        <Route path="/urDashboard" element={<URDashboard />} />
         
         {/* public main pages */}
-        <Route 
-          path="/services" 
-          element={<Service />} 
-        />
-        <Route 
-          path="/about" 
-          element={<AboutUs />} 
-        />
-        <Route 
-          path="/news" 
-          element={<NewsPage />} 
-        />
+        <Route path="/services" element={<Service />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/news" element={<NewsPage />} />
 
         {/* services pages */}
-        <Route 
-          path="/Sample_processing" 
-          element={<Sample_processing />} 
-        />
-        <Route 
-          path="/Equipment_rental" 
-          element={<Equipment_rental />} 
-        />
-        <Route 
-          path="/Facility_rental" 
-          element={<Facility_rental />} 
-        />
-        <Route 
-          path="/Training" 
-          element={<Training />} 
-        />
+        <Route path="/Sample_processing" element={<Sample_processing />} />
+        <Route path="/Equipment_rental" element={<Equipment_rental />} />
+        <Route path="/Facility_rental" element={<Facility_rental />} />
+        <Route path="/Training" element={<Training />} />
 
         {/* forms */}
-        <Route 
-          path="/sample-processin-form" 
-          element={<SampleProcessingForm />} 
-        />
-        <Route 
-          path="/training-form" 
-          element={<TrainingServicesForm />} 
-        />
-        <Route 
-          path="/use-of-equipment-form" 
-          element={<UseOfEquipmentForm />} 
-        />
-        <Route 
-          path="/use-of-facility-form" 
-          element={<UseOfFacilityForm />} 
-        />
-        <Route 
-          path="/combined-service-request-form" 
-          element={<CombinedServiceRequestForm />} 
-        />
-
-        <Route 
-          path="/feedback-form" 
-          element={<FeedbackForm />} 
-        />
+        <Route path="/sample-processin-form" element={<SampleProcessingForm />} />
+        <Route path="/training-form" element={<TrainingServicesForm />} />
+        <Route path="/use-of-equipment-form" element={<UseOfEquipmentForm />} />
+        <Route path="/use-of-facility-form" element={<UseOfFacilityForm />} />
+        <Route path="/combined-service-request-form" element={<CombinedServiceRequestForm />} />
+        <Route path="/feedback-form" element={<FeedbackForm />} />
 
         {/* detail pages */}
-        <Route 
-          path="/messageDetails/:messageId" 
-          element={<MessageDetails />} 
-        />
-
-        <Route 
-          path="/useOfEquipmentRequestDetails/:id" 
-          element={<UseOfEquipmentRequestDetails />} 
-        />
-
-        <Route 
-          path="/useOfFacilityRequestDetails/:id" 
-          element={<UseOfFacilityRequestDetails />} 
-        />
-
-        <Route 
-          path="/sampleProcessingRequestDetails/:id" 
-          element={<SampleProcessingRequestDetails />} 
-        />
-
-        <Route 
-          path="/TrainingRequestDetails/:id" 
-          element={<TrainingRequestDetails />} 
-        />
+        <Route path="/messageDetails/:messageId" element={<MessageDetails />} />
+        <Route path="/useOfEquipmentRequestDetails/:id" element={<UseOfEquipmentRequestDetails />} />
+        <Route path="/useOfFacilityRequestDetails/:id" element={<UseOfFacilityRequestDetails />} />
+        <Route path="/sampleProcessingRequestDetails/:id" element={<SampleProcessingRequestDetails />} />
+        <Route path="/TrainingRequestDetails/:id" element={<TrainingRequestDetails />} />
       
         {/* error pages */}
-        <Route 
-          path="/error404" 
-          element={<Error404 />}
-        />
-
-        <Route
-          path="/error500"
-          element={<Error500 />} 
-        />
+        <Route path="/error404" element={<Error404 />} />
+        <Route path="/error500" element={<Error500 />} />
 
         {/* charge slip */}
-        <Route 
-          path="/chargeslipform" 
-          element={<ChargeSlipForm />} 
-        />
-
-        <Route 
-          path="/chargeslip" 
-          element={<ChargeSlip />} 
-        />
+        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
+        <Route path="/chargeslip" element={<ChargeSlip />} />
 
         {/* transaction history */}
-        <Route 
-          path="/userTransactionHistory/:userId" 
-          element={<UserTransactionHistory />} 
-        />
-
+        <Route path="/userTransactionHistory/:userId" element={<UserTransactionHistory />} />
       </Routes>
     </>
   );

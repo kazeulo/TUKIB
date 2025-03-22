@@ -10,7 +10,7 @@ import tukibLogo from '../assets/tukib_logo.png';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {  // Pass setIsLoggedIn as prop
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -38,7 +38,7 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-	  console.log({ email, password });  
+      console.log({ email, password });  
 
       const data = await response.json();
       if (data.success) {
@@ -46,6 +46,7 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(data.user));
         setSuccess('Login successful!');
         setRole(data.user.role); 
+        setIsLoggedIn(true);  // Update isLoggedIn in App.js
       } else {
         setError(data.message);
         setSuccess('');
@@ -70,6 +71,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(user));
       setSuccess('Google login successful!');
       setRole(user.role); 
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Google login error:', error);
       setError('Google login failed. Please try again.');
@@ -84,6 +86,8 @@ const Login = () => {
       navigate('/adminDashboard'); 
     } else if (role === 'Client') {
       navigate('/clientProfile');
+    } else if (role === 'University Researcher') {
+      navigate('/urDashboard');
     } else if (role) {
       setError('Invalid role. Please contact support.');
     }
@@ -131,7 +135,6 @@ const Login = () => {
                     onClick={() => setShowPassword(!showPassword)} 
                     className='password-toggle-btn'>
                     {showPassword ? <FaEyeSlash /> : <FaEye />}{' '}
-                    {/* Toggle icon */}
                   </button>
                 </div>
               </div>

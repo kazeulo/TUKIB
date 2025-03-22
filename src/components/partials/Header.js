@@ -3,33 +3,53 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
 import '../../css/partials/Header.css';
 import logo from '../../assets/new_logo.png';
-import defaultProfilePic from '../../assets/profilepic.png'; 
+import defaultProfilePic from '../../assets/profilepic.png';
 
 const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   const [user, setUser] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false); 
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    setUser(storedUser);
+    if (isLoggedIn) {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      setUser(storedUser);
+    } else {
+      setUser(null);
+    }
   }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    setIsLoggedIn(false);  
-    navigate('/login'); 
+    setIsLoggedIn(false); // Update App.js state
+    setUser(null);
+    navigate('/login'); // Redirect to login page
   };
 
   const username = user ? user.name : 'User';
-  const userRole = user ? user.role : '';  
-  const profilePicture = defaultProfilePic;
+  const userRole = user ? user.role : '';
+  const profilePicture = user && user.profilePicture ? user.profilePicture : defaultProfilePic;
 
   // Define the redirect URL based on user role
-  const profileLink = userRole === 'Admin' ? '/adminDashboard' : '/clientProfile';
+  let profileLink = '';
+  switch (userRole) {
+    case 'Admin':
+      profileLink = '/adminDashboard';
+      break;
+    case 'University Researcher':
+      profileLink = '/urDashboard';
+      break;
+    case 'TECD Staff':
+      profileLink = '/tecdDashboard';
+      break;
+    default:
+      profileLink = '/clientProfile';
+      break;
+  }
 
-  // Do not render Header on adminDashboard route
-  if (location.pathname === '/adminDashboard') {
+  // Do not render Header on specific routes
+  const excludedRoutes = ['/adminDashboard', '/urDashboard', '/tecdDashboard'];
+  if (excludedRoutes.includes(location.pathname)) {
     return null;
   }
 
