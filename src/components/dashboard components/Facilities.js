@@ -33,7 +33,7 @@ const FacilityAvailability = () => {
   return (
     <div className="table-container">
       <div className='tableTitle'>
-        <h3>Facilities</h3>
+        <h3>Facilities Availability</h3>
       </div>
 
       <table className="facilityAvailability-table">

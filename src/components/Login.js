@@ -10,7 +10,7 @@ import tukibLogo from '../assets/tukib_logo.png';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const Login = ({ setIsLoggedIn }) => {  // Pass setIsLoggedIn as prop
+const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -46,7 +46,7 @@ const Login = ({ setIsLoggedIn }) => {  // Pass setIsLoggedIn as prop
         localStorage.setItem('user', JSON.stringify(data.user));
         setSuccess('Login successful!');
         setRole(data.user.role); 
-        setIsLoggedIn(true);  // Update isLoggedIn in App.js
+        setIsLoggedIn(true); 
       } else {
         setError(data.message);
         setSuccess('');
@@ -82,16 +82,20 @@ const Login = ({ setIsLoggedIn }) => {  // Pass setIsLoggedIn as prop
 
   // Redirect based on user role after login
   useEffect(() => {
-    if (role === 'Admin') {
-      navigate('/adminDashboard'); 
-    } else if (role === 'Client') {
-      navigate('/clientProfile');
-    } else if (role === 'University Researcher') {
-      navigate('/urDashboard');
+    const roleRedirectMap = {
+      Admin: '/dashboard',
+      Client: '/clientProfile',
+      'University Researcher': '/dashboard',
+      'TECD Staff': '/dashboard',
+    };
+  
+    if (role && roleRedirectMap[role]) {
+      navigate(roleRedirectMap[role]);
     } else if (role) {
       setError('Invalid role. Please contact support.');
     }
-  }, [role, navigate]); 
+  }, [role, navigate]);
+  
 
   return (
     <div className='login'>

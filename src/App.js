@@ -13,10 +13,8 @@ import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
 
 // Account pages
-import AdminDashboard from './components/account pages/AdminDashboard';
 import ClientProfile from './components/account pages/ClientProfile';
-import URDashboard from './components/account pages/URDashboard';
-import TECDDashboard from './components/account pages/TECDDashboard';
+import Dashboard from './components/account pages/Dashboard';
 
 // Service Request Forms
 import SampleProcessingForm from './components/forms/SampleProcessingForm';
@@ -127,7 +125,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} location={location} />
       
       {/* Only show Chatbot on non-dashboard routes */}
-      {location.pathname !== "/adminDashboard" && location.pathname !== "/urDashboard" && location.pathname !== "/tecdDashboard" && <Chatbot />}
+      {location.pathname !== "/dashboard"  && <Chatbot />}
 
       <Routes>
         {/* main pages */}
@@ -135,9 +133,8 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
 
         {/* accounts */}
-        <Route path="/adminDashboard" element={<AdminDashboard />} />
+        <Route path="/dashboard" element={<Dashboard setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/ClientProfile" element={<ClientProfile />} />
-        <Route path="/urDashboard" element={<URDashboard />} />
         
         {/* public main pages */}
         <Route path="/services" element={<Service />} />

@@ -5,11 +5,20 @@ import UserAccounts from '../dashboard components/UserAccounts';
 import ServiceRequests from '../dashboard components/ServiceRequests';
 import MessagesTable from '../dashboard components/Messages';
 import EquipmentsTable from '../dashboard components/Equipments';
+import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/News';
 import '../../css/account pages/AdminDashboard.css';
 
 const Admin = () => {
-    const [selectedSection, setSelectedSection] = useState('Overview'); 
+    // Load from sessionStorage or default to 'Overview'
+    const [selectedSection, setSelectedSection] = useState(
+        sessionStorage.getItem('selectedSection') || 'Overview'
+    );
+
+    // Save selectedSection to sessionStorage whenever it changes
+    useEffect(() => {
+        sessionStorage.setItem('selectedSection', selectedSection);
+    }, [selectedSection]);
 
     const renderContent = () => {
         switch (selectedSection) {
@@ -22,9 +31,11 @@ const Admin = () => {
             case 'Messages':
                 return <MessagesTable />;
             case 'News':
-                return <News/>;
+                return <News />;
             case 'Equipments':
-                    return <EquipmentsTable />;
+                return <EquipmentsTable />;
+            case 'Facilities':
+                return <Facilities />;
             default:
                 return <h1>Welcome to the Admin Dashboard</h1>;
         }

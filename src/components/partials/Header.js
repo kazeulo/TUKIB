@@ -21,9 +21,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    setIsLoggedIn(false); // Update App.js state
+    setIsLoggedIn(false);
     setUser(null);
-    navigate('/login'); // Redirect to login page
+    navigate('/login');
   };
 
   const username = user ? user.name : 'User';
@@ -31,28 +31,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   const profilePicture = user && user.profilePicture ? user.profilePicture : defaultProfilePic;
 
   // Define the redirect URL based on user role
-  let profileLink = '';
-  switch (userRole) {
-    case 'Admin':
-      profileLink = '/adminDashboard';
-      break;
-    case 'University Researcher':
-      profileLink = '/urDashboard';
-      break;
-    case 'TECD Staff':
-      profileLink = '/tecdDashboard';
-      break;
-    default:
-      profileLink = '/clientProfile';
-      break;
-  }
+  const profileLink = userRole === 'Admin' ? '/dashboard' : '/clientProfile';
 
-  // Do not render Header on specific routes
-  const excludedRoutes = ['/adminDashboard', '/urDashboard', '/tecdDashboard'];
-  if (excludedRoutes.includes(location.pathname)) {
+  // Do not render Header on adminDashboard route
+  if (location.pathname === '/dashboard') {
     return null;
   }
-
   return (
     <header>
       <Navbar expand="lg" className="header header-nav">
