@@ -20,7 +20,6 @@ class ActionSaveServiceRequestToCSV(Action):
         email = tracker.get_slot('email')
         affiliation = tracker.get_slot('affiliation')
         lab_partner = tracker.get_slot('lab_partner')
-        date = tracker.get_slot('date')
         facility = tracker.get_slot('facility')
         start_date = tracker.get_slot('start_date')
         end_date = tracker.get_slot('end_date')
@@ -34,10 +33,10 @@ class ActionSaveServiceRequestToCSV(Action):
             writer = csv.writer(file)
             # Write the header row only if the file is empty
             if file.tell() == 0:
-                writer.writerow(['Service', 'First Name', 'Last Name', 'Email', 'Affiliation', 'Lab Partner', 'Date', 'Facility', 'Start Date', 'End Date'])
+                writer.writerow(['Service', 'First Name', 'Last Name', 'Email', 'Affiliation', 'Lab Partner', 'Facility', 'Start Date', 'End Date'])
             
             # Write the slot values
-            writer.writerow([service, first_name, last_name, email, affiliation, lab_partner, date, facility, start_date, end_date])
+            writer.writerow([service, first_name, last_name, email, affiliation, lab_partner, facility, start_date, end_date])
 
         # Send a message to the user confirming the request is saved
         dispatcher.utter_message(text="Your service request has been saved.")

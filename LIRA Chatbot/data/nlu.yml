@@ -51,11 +51,34 @@ nlu:
       - [Material Science and Nanotechnology](lab_partner)
       - [Microbiology and Bioengineering](lab_partner)
 
-  - intent: select_date
+  # Use of Equipment
+  - intent: auth_representative
     examples: |
-      - [2024-02-20](date)
-      - [2025-09-30](date)
-      - [today](date)
+      - [Rainer Mayagma](auth_representative)
+      - [Szophia Ceniza](auth_representative)
+      - [Kurt Amodia](auth_representative)
+      - [Luis Magtoto](auth_representative)
+
+  - intent: equipment_name
+    examples: |
+      - [Spectrophotometer](equipment_name)
+      - [Microscope](equipment_name)
+      - [PCR Machine](equipment_name)
+      - [Thermal Cycler](equipment_name)
+
+  # Training
+  - intent: training_topic
+    examples: |
+      - [Data Analysis](training_topic)
+      - [Lab Safety](training_topic)
+      - [Lab Equipment Operation](training_topic)
+      - [Research Ethics](training_topic)
+
+  - intent: number_of_participants
+    examples: |
+      - (5)[number_of_participants]
+      - (10)[number_of_participants]
+      - (20)[number_of_participants]
 
   # Use of Facility
   - intent: select_facility
@@ -65,12 +88,14 @@ nlu:
 
   - intent: select_start_date
     examples: |
-      - [2024-02-20](start_date)
-      - [2025-09-30](start_date)
-      - [today](start_date)
+      - [12-03-2023](start_date)
+      - [25-12-2025](start_date)
 
   - intent: select_end_date
     examples: |
-      - [2024-02-20](end_date)
-      - [2025-09-30](end_date)
-      - [tomorrow](end_date)
+      - [20-05-2024](end_date)
+      - [30-11-2025](end_date)
+
+  - regex: date_dd_mm_yyyy
+    examples: |
+      - \d{2}-\d{2}-\d{4}

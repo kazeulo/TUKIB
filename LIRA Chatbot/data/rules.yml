@@ -14,14 +14,50 @@ rules:
       - slot_was_set:
           - service: Sample Processing
       - action: avail_sample_processing_form
-      - active_loop: avail_sample_processing_form # Activate the form for Sample Processing
+      - active_loop: avail_sample_processing_form
 
   - rule: Submit sample processing form
     condition:
       - active_loop: avail_sample_processing_form
     steps:
       - action: avail_sample_processing_form
-      - active_loop: null # End the form after submission
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv
+
+  # Use of Equipment
+  - rule: User selects use of equipment service
+    steps:
+      - intent: select_service
+      - slot_was_set:
+          - service: Use of Equipment
+      - action: avail_equipment_form
+      - active_loop: avail_equipment_form
+
+  - rule: Submit use of equipment form
+    condition:
+      - active_loop: avail_equipment_form
+    steps:
+      - action: avail_equipment_form
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv
+
+  # Training
+  - rule: User selects training service
+    steps:
+      - intent: select_service
+      - slot_was_set:
+          - service: Training
+      - action: avail_training_from
+      - active_loop: avail_training_from
+
+  - rule: Submit training form
+    condition:
+      - active_loop: avail_training_from
+    steps:
+      - action: avail_training_from
+      - active_loop: null
       - action: utter_thanks
       - action: action_save_service_request_to_csv
 
@@ -31,14 +67,14 @@ rules:
       - intent: select_service
       - slot_was_set:
           - service: Use of Facility
-      - action: use_facility_form
-      - active_loop: use_facility_form # Activate the form for Use of Facility
+      - action: avail_facility_form
+      - active_loop: avail_facility_form
 
   - rule: Submit use of facility form
     condition:
-      - active_loop: use_facility_form
+      - active_loop: avail_facility_form
     steps:
-      - action: use_facility_form
-      - active_loop: null # End the form after submission
+      - action: avail_facility_form
+      - active_loop: null
       - action: utter_thanks
       - action: action_save_service_request_to_csv

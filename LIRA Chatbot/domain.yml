@@ -13,6 +13,14 @@ intents:
   - select_lab_partner
   - select_date
 
+  # Use of Equipment
+  - auth_representative
+  - equipment_name
+
+  # Training
+  - training_topic
+  - number_of_participants
+
   # Use of Facility
   - select_facility
   - select_start_date
@@ -28,7 +36,14 @@ entities:
 
   # Sample Processing
   - lab_partner
-  - date
+
+  # Use of Equipment
+  - auth_representative
+  - equipment_name
+
+  # Training
+  - training_topic
+  - number_of_participants
 
   # Use of Facility
   - facility
@@ -36,6 +51,7 @@ entities:
   - end_date
 
 slots:
+  # General
   first_name:
     type: text
     mappings:
@@ -64,7 +80,11 @@ slots:
         entity: service
     values:
       - Sample Processing
+      - Use of Equipment
+      - Training
       - Use of Facility
+
+  # Sample Processing
   lab_partner:
     type: categorical
     influence_conversation: false
@@ -77,6 +97,32 @@ slots:
       - Foods, Feeds, and Functional Nutrition
       - Material Science and Nanotechnology
       - Microbiology and Bioengineering
+
+  # Use of Equipment
+  auth_representative:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: auth_representative
+  equipment_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: equipment_name
+
+  # Training
+  training_topic:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: training_topic
+  number_of_participants:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: number_of_participants
+
+  # Use of Facility
   facility:
     type: categorical
     influence_conversation: false
@@ -86,11 +132,6 @@ slots:
     values:
       - Audio/Visual Room
       - Collaboration Room
-  date:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: date
   start_date:
     type: text
     mappings:
@@ -107,14 +148,29 @@ forms:
   avail_sample_processing_form:
     required_slots:
       - lab_partner
-      - date
+      - start_date
       - first_name
       - last_name
       - affiliation
       - email
 
+  # Use of Equipment
+  avail_equipment_form:
+    required_slots:
+      - auth_representative
+      - equipment_name
+      - start_date
+
+  # Training
+  avail_training_from:
+    required_slots:
+      - training_topic
+      - lab_partner
+      - start_date
+      - number_of_participants
+
   # Use of Facility
-  use_facility_form:
+  avail_facility_form:
     required_slots:
       - facility
       - start_date
@@ -131,6 +187,10 @@ responses:
       buttons:
         - title: 'Sample Processing'
           payload: '/select_service{"service": "Sample Processing"}'
+        - title: 'Use of Equipment'
+          payload: '/select_service{"service": "Use of Equipment"}'
+        - title: 'Training'
+          payload: '/select_service{"service": "Training"}'
         - title: 'Use of Facility'
           payload: '/select_service{"service": "Use of Facility"}'
 
@@ -164,8 +224,19 @@ responses:
         - title: 'Microbiology and Bioengineering'
           payload: '/select_lab_partner{"lab_partner": "Microbiology and Bioengineering"}'
 
-  utter_ask_date:
-    - text: 'When are you availing sample processing?'
+  # Use of equipment
+  utter_ask_auth_representative:
+    - text: 'Is there an authorized representative? Please state the name of the representative.'
+
+  utter_ask_equipment_name:
+    - text: 'What is the name of the equipment you will be using?'
+
+  # Training
+  utter_ask_training_topic:
+    - text: 'What is the topic of the training?'
+
+  utter_ask_number_of_participants:
+    - text: 'How many participants will be attending?'
 
   # Use of Facility
   utter_ask_facility:
