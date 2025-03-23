@@ -3,36 +3,40 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
 import '../../css/partials/Header.css';
 import logo from '../../assets/new_logo.png';
-import defaultProfilePic from '../../assets/profilepic.png'; 
+import defaultProfilePic from '../../assets/profilepic.png';
 
 const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   const [user, setUser] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false); 
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    setUser(storedUser);
+    if (isLoggedIn) {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      setUser(storedUser);
+    } else {
+      setUser(null);
+    }
   }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    setIsLoggedIn(false);  
-    navigate('/login'); 
+    setIsLoggedIn(false);
+    setUser(null);
+    navigate('/login');
   };
 
   const username = user ? user.name : 'User';
-  const userRole = user ? user.role : '';  
-  const profilePicture = defaultProfilePic;
+  const userRole = user ? user.role : '';
+  const profilePicture = user && user.profilePicture ? user.profilePicture : defaultProfilePic;
 
   // Define the redirect URL based on user role
-  const profileLink = userRole === 'Admin' ? '/adminDashboard' : '/clientProfile';
+  const profileLink = userRole === 'Admin' ? '/dashboard' : '/clientProfile';
 
   // Do not render Header on adminDashboard route
-  if (location.pathname === '/adminDashboard') {
+  if (location.pathname === '/dashboard') {
     return null;
   }
-
   return (
     <header>
       <Navbar expand="lg" className="header header-nav">
