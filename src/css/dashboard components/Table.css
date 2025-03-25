@@ -30,10 +30,14 @@ thead{
     background: #8B1538;
     color: white;
 }
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
 
 tr{
     transition: all ease 0.4s;
     border-bottom: #292929 !important;
+
 }
 
 tbody tr:hover{

@@ -58,7 +58,7 @@ const Messages = () => {
     return (
         <div>
             <div className="table-container">
-                <h3>Messages</h3>
+                {/* <h3>Messages</h3> */}
                 <table className="message-table">
                     <thead>
                         <tr>
