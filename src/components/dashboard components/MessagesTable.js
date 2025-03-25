@@ -298,7 +298,7 @@ const MessagesTable = () => {
           </div> */}
         </div>
           
-          <div className="table-container">
+          <div className="message-table-container">
             <table className="messages-table">
               <thead>
                 <tr>

@@ -425,7 +425,7 @@
   background-color: white;
 }
 
-.table-container {
+.message-table-container {
   margin-top: -2.5rem; /* Decreased the space at the top */
   border-radius: 6px;
   overflow: hidden;
