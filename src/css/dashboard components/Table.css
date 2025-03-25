@@ -9,8 +9,9 @@
 }
 
 table {
-    box-shadow: none !important;
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 thead,

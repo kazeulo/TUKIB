@@ -48,8 +48,8 @@ const handleLogin = async (req, res) => {
             contact: user.contact_number,
             role: user.role,
           },
-          roleSpecificMessage:
-            user.role === 'Admin' ? 'Welcome, Admin!' : 'Welcome, Client!',
+          // roleSpecificMessage:
+          //   user.role === 'Admin' ? 'Welcome, Admin!' : 'Welcome, Client!',
           token: token, // Send the JWT token
         });
       } else {

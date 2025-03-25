@@ -1,52 +1,80 @@
 version: '3.1'
 
 rules:
-  - rule: Respond to greetings
+  # General
+  - rule: User wants to avail a service
     steps:
-      - intent: greet
-      - action: utter_greet
+      - intent: avail_service
+      - action: utter_ask_service_type
 
-  - rule: Respond to goodbye
+  # Sample Processing
+  - rule: User selects sample processing service
     steps:
-      - intent: goodbye
-      - action: utter_goodbye
+      - intent: select_service
+      - slot_was_set:
+          - service: Sample Processing
+      - action: avail_sample_processing_form
+      - active_loop: avail_sample_processing_form
 
-  - rule: Respond to who am I
+  - rule: Submit sample processing form
+    condition:
+      - active_loop: avail_sample_processing_form
     steps:
-      - intent: who_am_i
-      - action: utter_who_am_i
+      - action: avail_sample_processing_form
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv
 
-  - rule: Respond to location
+  # Use of Equipment
+  - rule: User selects use of equipment service
     steps:
-      - intent: location
-      - action: utter_location
+      - intent: select_service
+      - slot_was_set:
+          - service: Use of Equipment
+      - action: avail_equipment_form
+      - active_loop: avail_equipment_form
 
-  - rule: Respond to contact details
+  - rule: Submit use of equipment form
+    condition:
+      - active_loop: avail_equipment_form
     steps:
-      - intent: contact_details
-      - action: utter_contact_details
+      - action: avail_equipment_form
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv
 
-  - rule: Respond to service inquiries
+  # Training
+  - rule: User selects training service
     steps:
-      - intent: service_inquiry
-      - action: utter_services
+      - intent: select_service
+      - slot_was_set:
+          - service: Training
+      - action: avail_training_from
+      - active_loop: avail_training_from
 
-  - rule: Respond to sample processing inquiries
+  - rule: Submit training form
+    condition:
+      - active_loop: avail_training_from
     steps:
-      - intent: inquire_sample_processing
-      - action: utter_inquire_sample_processing
+      - action: avail_training_from
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv
 
-  - rule: Respond to lab rental inquiries
+  # Use of Facility
+  - rule: User selects use of facility service
     steps:
-      - intent: inquire_lab_rentals
-      - action: utter_inquire_lab_rentals
+      - intent: select_service
+      - slot_was_set:
+          - service: Use of Facility
+      - action: avail_facility_form
+      - active_loop: avail_facility_form
 
-  - rule: Respond to training program inquiries
+  - rule: Submit use of facility form
+    condition:
+      - active_loop: avail_facility_form
     steps:
-      - intent: inquire_training_programs
-      - action: utter_inquire_training_programs
-
-  - rule: Respond to equipment usage inquiries
-    steps:
-      - intent: inquire_equipment_usage
-      - action: utter_inquire_equipment_usage
+      - action: avail_facility_form
+      - active_loop: null
+      - action: utter_thanks
+      - action: action_save_service_request_to_csv

@@ -1,200 +1,30 @@
-version: '3.1'
+# version: '3.1'
 
-stories:
-  - story: Complete transaction
-    steps:
-      - intent: avail_service
-      - action: utter_avail_service
-      - intent: provide_service
-        entities:
-          - service: 'lab rentals'
-      - slot_was_set:
-          - service: 'lab rentals'
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Szophia
-      - slot_was_set:
-          - first_name: Szophia
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Ceniza
-      - slot_was_set:
-          - last_name: Ceniza
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: sc@gmail.com
-      - slot_was_set:
-          - email: sc@gmail.com
-      - action: action_review_details
-      - intent: affirm
-        entities:
-          - confirmation: Yes
-      - slot_was_set:
-          - confirmation: yes
-      - action: action_confirm_details
-      - action: utter_account_sent
-      - action: utter_what_else
+# stories:
+#   - story: Sample Processing
+#     steps:
+#       - intent: select_service
+#       - action: avail_sample_processing_form
+#       - active_loop: avail_sample_processing_form
+#       - slot_was_set:
+#           - service: 'sample processing'
 
-  - story: Complete transaction with not final details
-    steps:
-      - intent: avail_service
-      - action: utter_avail_service
-      - intent: provide_service
-        entities:
-          - service: 'lab rentals'
-      - slot_was_set:
-          - service: 'lab rentals'
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Szophia
-      - slot_was_set:
-          - first_name: Szophia
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Ceniza
-      - slot_was_set:
-          - last_name: Ceniza
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: sc@gmail.com
-      - slot_was_set:
-          - email: sc@gmail.com
-      - action: action_review_details
-      - intent: deny
-        entities:
-          - confirmation: No
-      - slot_was_set:
-          - confirmation: no
-      - action: action_confirm_details
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Szophia
-      - slot_was_set:
-          - first_name: Szophia
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Ceniza
-      - slot_was_set:
-          - last_name: Ceniza
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: sc@gmail.com
-      - slot_was_set:
-          - email: sc@gmail.com
-      - action: action_review_details
-      - intent: affirm
-        entities:
-          - confirmation: Yes
-      - slot_was_set:
-          - confirmation: yes
-      - action: action_confirm_details
-      - action: utter_account_sent
-      - action: utter_what_else
+#   - story: Submit sample processing form
+#     steps:
+#       - action: avail_sample_processing_form
+#       - active_loop: null
+#       - action: utter_thanks
 
-  - story: interactive_story_1
-    steps:
-      - intent: avail_service
-      - action: utter_avail_service
-      - intent: provide_service
-        entities:
-          - service: lab rentals
-      - slot_was_set:
-          - service: lab rentals
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Rainer
-      - slot_was_set:
-          - first_name: Rainer
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Mayagma
-      - slot_was_set:
-          - last_name: Mayagma
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: rtm@gmail.com
-      - slot_was_set:
-          - email: rtm@gmail.com
-      - action: action_review_details
-      - intent: affirm
-        entities:
-          - confirmation: Yes
-      - slot_was_set:
-          - confirmation: yes
-      - action: action_confirm_details
-      - action: utter_account_sent
-      - action: utter_what_else
+#   - story: Use of Facility
+#     steps:
+#       - intent: select_service
+#       - action: use_facility_form
+#       - active_loop: use_facility_form
+#       - slot_was_set:
+#           - service: 'use of facility'
 
-  - story: interactive_story_1
-    steps:
-      - intent: avail_service
-      - action: utter_avail_service
-      - intent: provide_service
-        entities:
-          - service: 'lab rentals'
-      - slot_was_set:
-          - service: 'lab rentals'
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Szophia
-      - slot_was_set:
-          - first_name: Szophia
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Ceniza
-      - slot_was_set:
-          - last_name: Ceniza
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: sc@gmail.com
-      - slot_was_set:
-          - email: sc@gmail.com
-      - action: action_review_details
-      - intent: deny
-        entities:
-          - confirmation: No
-      - slot_was_set:
-          - confirmation: no
-      - action: action_confirm_details
-      - action: utter_ask_first_name
-      - intent: provide_first_name
-        entities:
-          - first_name: Szophia
-      - slot_was_set:
-          - first_name: Szophia
-      - action: utter_ask_last_name
-      - intent: provide_last_name
-        entities:
-          - last_name: Ceniza
-      - slot_was_set:
-          - last_name: Ceniza
-      - action: utter_provide_email
-      - intent: provide_email
-        entities:
-          - email: sc@gmail.com
-      - slot_was_set:
-          - email: sc@gmail.com
-      - action: action_review_details
-      - intent: affirm
-        entities:
-          - confirmation: Yes
-      - slot_was_set:
-          - confirmation: yes
-      - action: action_confirm_details
-      - action: utter_account_sent
-      - action: utter_what_else
+#   - story: Submit use of facility form
+#     steps:
+#       - action: use_facility_form
+#       - active_loop: null
+#       - action: utter_thanks

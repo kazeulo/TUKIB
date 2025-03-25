@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
@@ -134,6 +135,7 @@ const Users = () => {
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers(setUsers);
@@ -159,6 +161,11 @@ const Users = () => {
       setUserToDelete(null);
       setIsDeleteUserModalOpen(false);
     }
+  };
+
+  const handleRowClick = (userId) => {
+    // Navigate to the userTransactionHistory page, passing the userId in the URL
+    navigate(`/userTransactionHistory/${userId}`);
   };
 
   const formFooter = (
@@ -229,7 +236,11 @@ const Users = () => {
           <tbody>
             {users.length > 0 ? (
               users.map((user) => (
-                <tr key={user.user_id}>
+                <tr
+                  key={user.user_id}
+                  onClick={() => handleRowClick(user.user_id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <td>{user.user_id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
@@ -238,7 +249,8 @@ const Users = () => {
                   <td>{user.contact_number}</td>
                   <td>
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setUserToDelete(user);
                         setIsDeleteUserModalOpen(true);
                       }}

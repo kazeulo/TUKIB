@@ -1,119 +1,101 @@
-version: "3.1"
+version: '3.1'
+
 nlu:
-- intent: greet
-  examples: |
-    - Hello
-    - Hi
-    - Hey
-    - Good morning
-- intent: goodbye
-  examples: |
-    - Goodbye
-    - Bye
-    - See you later
-- intent: who_am_i
-  examples: |
-    - Who are you?
-    - Are you a bot?
-    - What can you do?
-- intent: location
-  examples: |
-    - Where are you located?
-    - What is your location?
-    - Can you tell me where your office is?
-- intent: contact_details
-  examples: |
-    - How can I contact you?
-    - What are your contact details?
-    - How can I reach you?
-- intent: service_inquiry
-  examples: |
-    - What services do you offer?
-    - What services are available?
-    - Can you tell me about your services?
-- intent: inquire_sample_processing
-  examples: |
-    - Tell me more about sample processing
-    - How do you process samples?
-    - What is involved in sample processing?
-- intent: inquire_lab_rentals
-  examples: |
-    - Tell me more about lab rentals
-    - How do you rent out labs?
-    - Can I rent a lab?
-- intent: inquire_training_programs
-  examples: |
-    - Tell me more about training programs
-    - What training programs do you offer?
-    - Can I sign up for a training program?
-- intent: inquire_equipment_usage
-  examples: |
-    - Tell me more about equipment usage
-    - How do you use equipment?
-    - Can I rent equipment?
-- intent: avail_service
-  examples: |
-    - I want to avail a service
-    - I want to book a service
-    - Can I avail your service?
-    - i want to avail a service
-- intent: provide_service
-  examples: |
-    - I want to avail [sample processing](service)
-    - I want to book [lab rentals](service)
-    - I want to book [training programs](service)
-    - I want to avail [equipment usage](service)
-    - i want to avail [sample processing](service)
-    - [sample processing](service)
-    - [lab rentals](service)
-    - [training programs](service)
-    - [equipment usage](service)
-    - [lab rentals](service)
-- intent: provide_first_name
-  examples: |
-    - [Szophia](first_name)
-    - [John Doe](first_name)
-    - It's [Jane Doe](first_name)
-    - [Rainer](first_name)
-    - [rainer]{"entity": "first_name", "value": "Rainer"}
-    - [rainer]{"entity": "first_name", "value": "Rainer"}
-- intent: provide_last_name
-  examples: |
-    - [Ceniza](last_name)
-    - [Mayagma](last_name)
-    - [De Jesus](last_name)
-    - It's [Delos Reyes](last_name)
-    - [mayagma]{"entity": "last_name", "value": "Mayagma"}
-    - [mayagma]{"entity": "last_name", "value": "Mayagma"}
-- intent: provide_email
-  examples: |
-    - My email is [johndoe@gmail.com](email)
-    - It's [janedoe@university.edu.ph](email)
-    - You can reach me at [alex@example.com](email)
-    - [alex@email.gov.ph](email)
-    - [sc@gmail.com](email)
-    - [rtm@gmail.com](email)
-    - [rtm@gmail.com](email)
-- intent: affirm
-  examples: |
-    - [Yes](confirmation)
-    - [Correct](confirmation)
-    - [That's right](confirmation)
-    - [yes](confirmation)
-    - [yes]{"entity": "confirmation", "value": "Yes"}
-    - [yes]{"entity": "confirmation", "value": "Yes"}
-- intent: deny
-  examples: |
-    - [No](confirmation)
-    - [Not now](confirmation)
-    - [Maybe later](confirmation)
-    - [no](confirmation)
-- synonym: Rainer
-  examples: |
-    - rainer
-- synonym: Mayagma
-  examples: |
-    - mayagma
-- synonym: Yes
-  examples: |
-    - yes
+  # General
+  - intent: avail_service
+    examples: |
+      - I want to avail a service
+      - I want to choose a service
+
+  - intent: select_service
+    examples: |
+      - [Sample processing](service)
+      - [Use of facility](service)
+      - I want to avail [sample processing](service)
+      - I want to [use a facility](service)
+
+  - intent: first_name
+    examples: |
+      - [Rainer](first_name)
+      - [Szophia](first_name)
+      - My first name is [Kurt](first_name)
+      - It's [Luis](first_name)
+
+  - intent: last_name
+    examples: |
+      - [Mayagma](last_name)
+      - [Ceniza](last_name)
+      - My last name is [Amodia](last_name)
+      - It's [Magtoto](last_name)
+
+  - intent: affiliation
+    examples: |
+      - [Student](affiliation)
+      - [Researcher](affiliation)
+      - I am a [Faculty](affiliation)
+      - I'm a [Staff](affiliation)
+
+  - intent: email
+    examples: |
+      - [rtmayagma@up.edu.ph](email)
+      - [szceniza@up.edu.ph](email)
+      - My email is [kurtamodia@gmail.com](email)
+      - It's [luismagtoto@email.com](email)
+
+  # Sample Processing
+  - intent: select_lab_partner
+    examples: |
+      - [Applied Chemistry](lab_partner)
+      - [Biology](lab_partner)
+      - [Foods, Feeds, and Functional Nutrition](lab_partner)
+      - [Material Science and Nanotechnology](lab_partner)
+      - [Microbiology and Bioengineering](lab_partner)
+
+  # Use of Equipment
+  - intent: auth_representative
+    examples: |
+      - [Rainer Mayagma](auth_representative)
+      - [Szophia Ceniza](auth_representative)
+      - [Kurt Amodia](auth_representative)
+      - [Luis Magtoto](auth_representative)
+
+  - intent: equipment_name
+    examples: |
+      - [Spectrophotometer](equipment_name)
+      - [Microscope](equipment_name)
+      - [PCR Machine](equipment_name)
+      - [Thermal Cycler](equipment_name)
+
+  # Training
+  - intent: training_topic
+    examples: |
+      - [Data Analysis](training_topic)
+      - [Lab Safety](training_topic)
+      - [Lab Equipment Operation](training_topic)
+      - [Research Ethics](training_topic)
+
+  - intent: number_of_participants
+    examples: |
+      - (5)[number_of_participants]
+      - (10)[number_of_participants]
+      - (20)[number_of_participants]
+
+  # Use of Facility
+  - intent: select_facility
+    examples: |
+      - [Audio/Visual Room](facility)
+      - [Collaboration Room](facility)
+
+  - intent: select_start_date
+    examples: |
+      - [12-03-2023](start_date)
+      - [25-12-2025](start_date)
+
+  - intent: select_end_date
+    examples: |
+      - [20-05-2024](end_date)
+      - [30-11-2025](end_date)
+
+  - regex: date_dd_mm_yyyy
+    examples: |
+      - \d{2}-\d{2}-\d{4}
