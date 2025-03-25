@@ -29,18 +29,17 @@ thead{
     background: #8B1538;
     color: white;
 }
-
-table tr:nth-child(0) td:hover { /* disable first row's table cells on hover */
-    background-color: none; 
-    color: none; 
-}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
 
 tr{
     transition: all ease 0.4s;
     border-bottom: #292929 !important;
+
 }
 
-tr:hover{
+tbody tr:hover{
     background-color: #eeeeee
 }
 
