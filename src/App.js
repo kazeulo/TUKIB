@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	useLocation,
+} from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Main pages
@@ -24,8 +29,8 @@ import UseOfEquipmentForm from './components/forms/UseOfEquipmentForm';
 import CombinedServiceRequestForm from './components/forms/CombinedServiceRequestForm';
 
 //Charge Slip
-import ChargeSlipForm from "./components/forms/ChargeSlipForm";
-import ChargeSlip from "./components/forms/ChargeSlip";
+import ChargeSlipForm from './components/forms/ChargeSlipForm';
+import ChargeSlip from './components/forms/ChargeSlip';
 
 // Feedback form
 import FeedbackForm from './components/feedback/FeedbackForm';
@@ -35,9 +40,9 @@ import Error404 from './components/error/Error404';
 import Error500 from './components/error/Error500';
 
 // Services
-import Sample_processing from './components/services/Sample_processing';
-import Equipment_rental from './components/services/Equipment_rental';
-import Facility_rental from './components/services/Facility_rental';
+import SampleProcessing from './components/services/Sample_processing';
+import EquipmentRental from './components/services/Equipment_rental';
+import FacilityRental from './components/services/Facility_rental';
 import Training from './components/services/Training';
 
 // Detail pages
@@ -58,123 +63,212 @@ import Header from './components/partials/Header';
 const INACTIVITY_LIMIT = 1200000; // 20 minutes of inactivity (in milliseconds)
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+	const [loading, setLoading] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Clear localStorage and logout if the user is inactive for the defined time
-    let inactivityTimer;
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 1000);
 
-    const resetInactivityTimer = () => {
-      if (inactivityTimer) {
-        clearTimeout(inactivityTimer); 
-      }
+		// Clear localStorage and logout if the user is inactive for the defined time
+		let inactivityTimer;
 
-      inactivityTimer = setTimeout(() => {
-        localStorage.clear(); 
-        setIsLoggedIn(false); 
-      }, INACTIVITY_LIMIT); 
-    };
+		const resetInactivityTimer = () => {
+			if (inactivityTimer) {
+				clearTimeout(inactivityTimer);
+			}
 
-    const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
-    activityEvents.forEach(event => window.addEventListener(event, resetInactivityTimer));
+			inactivityTimer = setTimeout(() => {
+				localStorage.clear();
+				setIsLoggedIn(false);
+			}, INACTIVITY_LIMIT);
+		};
 
-    resetInactivityTimer();
+		const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
+		activityEvents.forEach((event) =>
+			window.addEventListener(event, resetInactivityTimer)
+		);
 
-    return () => {
-      clearTimeout(timer);
-      activityEvents.forEach(event => window.removeEventListener(event, resetInactivityTimer));
-    };
-  }, []);
+		resetInactivityTimer();
 
-  // Check if user is logged in on initial load
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+		return () => {
+			clearTimeout(timer);
+			activityEvents.forEach((event) =>
+				window.removeEventListener(event, resetInactivityTimer)
+			);
+		};
+	}, []);
 
-  return (
-    <Router>
-      {loading ? (
-        <Preloader />
-      ) : (
-        <>
-          <LocationWrapper 
-            isLoggedIn={isLoggedIn} 
-            setIsLoggedIn={setIsLoggedIn} 
-          />
-          <ScrollTop />
-        </>
-      )}
-    </Router>
-  );
+	// Check if user is logged in on initial load
+	useEffect(() => {
+		const user = localStorage.getItem('user');
+		if (user) {
+			setIsLoggedIn(true);
+		}
+	}, []);
+
+	return (
+		<Router>
+			{loading ? (
+				<Preloader />
+			) : (
+				<>
+					<LocationWrapper
+						isLoggedIn={isLoggedIn}
+						setIsLoggedIn={setIsLoggedIn}
+					/>
+					<ScrollTop />
+				</>
+			)}
+		</Router>
+	);
 };
 
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
-  const location = useLocation();
+	const location = useLocation();
 
-  return (
-    <>
-      {/* Header and Chatbot */}
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} location={location} />
-      
-      {/* Only show Chatbot on non-dashboard routes */}
-      {location.pathname !== "/dashboard"  && <Chatbot />}
+	return (
+		<>
+			{/* Header and Chatbot */}
+			<Header
+				isLoggedIn={isLoggedIn}
+				setIsLoggedIn={setIsLoggedIn}
+				location={location}
+			/>
 
-      <Routes>
-        {/* main pages */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+			{/* Only show Chatbot on non-dashboard routes */}
+			{location.pathname !== '/dashboard' && <Chatbot />}
 
-        {/* accounts */}
-        <Route path="/dashboard" element={<Dashboard setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/ClientProfile" element={<ClientProfile />} />
-        
-        {/* public main pages */}
-        <Route path="/services" element={<Service />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/news" element={<NewsPage />} />
+			<Routes>
+				{/* main pages */}
+				<Route
+					path='/'
+					element={<Home />}
+				/>
+				<Route
+					path='/login'
+					element={<Login setIsLoggedIn={setIsLoggedIn} />}
+				/>
 
-        {/* services pages */}
-        <Route path="/Sample_processing" element={<Sample_processing />} />
-        <Route path="/Equipment_rental" element={<Equipment_rental />} />
-        <Route path="/Facility_rental" element={<Facility_rental />} />
-        <Route path="/Training" element={<Training />} />
+				{/* accounts */}
+				<Route
+					path='/dashboard'
+					element={<Dashboard setIsLoggedIn={setIsLoggedIn} />}
+				/>
+				<Route
+					path='/ClientProfile'
+					element={<ClientProfile />}
+				/>
 
-        {/* forms */}
-        <Route path="/sample-processin-form" element={<SampleProcessingForm />} />
-        <Route path="/training-form" element={<TrainingServicesForm />} />
-        <Route path="/use-of-equipment-form" element={<UseOfEquipmentForm />} />
-        <Route path="/use-of-facility-form" element={<UseOfFacilityForm />} />
-        <Route path="/combined-service-request-form" element={<CombinedServiceRequestForm />} />
-        <Route path="/feedback-form" element={<FeedbackForm />} />
+				{/* public main pages */}
+				<Route
+					path='/services'
+					element={<Service />}
+				/>
+				<Route
+					path='/about'
+					element={<AboutUs />}
+				/>
+				<Route
+					path='/news'
+					element={<NewsPage />}
+				/>
 
-        {/* detail pages */}
-        <Route path="/messageDetails/:messageId" element={<MessageDetails />} />
-        <Route path="/useOfEquipmentRequestDetails/:id" element={<UseOfEquipmentRequestDetails />} />
-        <Route path="/useOfFacilityRequestDetails/:id" element={<UseOfFacilityRequestDetails />} />
-        <Route path="/sampleProcessingRequestDetails/:id" element={<SampleProcessingRequestDetails />} />
-        <Route path="/TrainingRequestDetails/:id" element={<TrainingRequestDetails />} />
-      
-        {/* error pages */}
-        <Route path="/error404" element={<Error404 />} />
-        <Route path="/error500" element={<Error500 />} />
+				{/* services pages */}
+				<Route
+					path='/Sample_processing'
+					element={<SampleProcessing />}
+				/>
+				<Route
+					path='/Equipment_rental'
+					element={<EquipmentRental />}
+				/>
+				<Route
+					path='/Facility_rental'
+					element={<FacilityRental />}
+				/>
+				<Route
+					path='/Training'
+					element={<Training />}
+				/>
 
-        {/* charge slip */}
-        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
-        <Route path="/chargeslip" element={<ChargeSlip />} />
+				{/* forms */}
+				<Route
+					path='/sample-processin-form'
+					element={<SampleProcessingForm />}
+				/>
+				<Route
+					path='/training-form'
+					element={<TrainingServicesForm />}
+				/>
+				<Route
+					path='/use-of-equipment-form'
+					element={<UseOfEquipmentForm />}
+				/>
+				<Route
+					path='/use-of-facility-form'
+					element={<UseOfFacilityForm />}
+				/>
+				<Route
+					path='/combined-service-request-form'
+					element={<CombinedServiceRequestForm />}
+				/>
+				<Route
+					path='/feedback-form'
+					element={<FeedbackForm />}
+				/>
 
-        {/* transaction history */}
-        <Route path="/userTransactionHistory/:userId" element={<UserTransactionHistory />} />
-      </Routes>
-    </>
-  );
+				{/* detail pages */}
+				<Route
+					path='/messageDetails/:messageId'
+					element={<MessageDetails />}
+				/>
+				<Route
+					path='/useOfEquipmentRequestDetails/:id'
+					element={<UseOfEquipmentRequestDetails />}
+				/>
+				<Route
+					path='/useOfFacilityRequestDetails/:id'
+					element={<UseOfFacilityRequestDetails />}
+				/>
+				<Route
+					path='/sampleProcessingRequestDetails/:id'
+					element={<SampleProcessingRequestDetails />}
+				/>
+				<Route
+					path='/TrainingRequestDetails/:id'
+					element={<TrainingRequestDetails />}
+				/>
+
+				{/* error pages */}
+				<Route
+					path='/error404'
+					element={<Error404 />}
+				/>
+				<Route
+					path='/error500'
+					element={<Error500 />}
+				/>
+
+				{/* charge slip */}
+				<Route
+					path='/chargeslipform'
+					element={<ChargeSlipForm />}
+				/>
+				<Route
+					path='/chargeslip'
+					element={<ChargeSlip />}
+				/>
+
+				{/* transaction history */}
+				<Route
+					path='/userTransactionHistory/:userId'
+					element={<UserTransactionHistory />}
+				/>
+			</Routes>
+		</>
+	);
 };
 
 export default App;
