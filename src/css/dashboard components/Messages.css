@@ -426,7 +426,7 @@
 }
 
 .message-table-container {
-  margin-top: -2.5rem; /* Decreased the space at the top */
+  margin-top: 0.5rem; /* Decreased the space at the top */
   border-radius: 6px;
   overflow: hidden;
   box-shadow: none;
