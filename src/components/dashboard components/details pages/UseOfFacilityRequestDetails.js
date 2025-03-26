@@ -34,7 +34,7 @@ const UseOfFacilityRequestDetails = () => {
   
   return (
     <div>
-      <h3>Service Request Details (Sample Processing)</h3>
+      <h3>Service Request Details</h3>
       {requestDetails ? (
         <div>
           <p><strong>Request ID:</strong> {requestDetails.request_id}</p>
