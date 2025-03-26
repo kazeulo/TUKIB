@@ -128,7 +128,7 @@ const App = () => {
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 	const location = useLocation();
 
-	// Define an array of routes where the chatbot should NOT appear
+	// array of routes where the chatbot should NOT appear
 	const noChatbotRoutes = [
 		'/dashboard',
 		'/messageDetails',
@@ -138,7 +138,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/trainingRequestDetails',
 	];
 
-	// Check if the current path is in the noChatbotRoutes list
+	// check if the current path is in the noChatbotRoutes list
 	const shouldShowChatbot = !noChatbotRoutes.some(route => location.pathname.startsWith(route));
 
 	return (

@@ -34,7 +34,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   const profileLink = userRole === 'Admin' ? '/dashboard' : '/clientProfile';
 
   // Do not render Header if user role is not client
-  if (userRole !== 'Client') {
+  if (userRole !== 'Client' && isLoggedIn) {
     return null;
   }
 
