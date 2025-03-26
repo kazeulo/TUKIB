@@ -19,7 +19,7 @@ intents:
 
   # Training
   - training_topic
-  - number_of_participants
+  - select_number_of_participants
 
   # Use of Facility
   - select_facility

@@ -21,6 +21,7 @@ const Chatbot = () => {
 	const datePickerRef = useRef(null); // Reference for detecting outside clicks
 	const [isAskingStartDate, setIsAskingStartDate] = useState(false);
 	const [isAskingEndDate, setIsAskingEndDate] = useState(false);
+	const [botMessagesQueue, setBotMessagesQueue] = useState([]);
 
 	const expirationTime = 60000; // 1 minute timeout
 
@@ -37,6 +38,7 @@ const Chatbot = () => {
 			setIsAskingStartDate(false);
 			setIsAskingEndDate(false);
 			setHasNewMessage(false);
+			setButtons([]);
 
 			try {
 				const response = await axios.post(
@@ -47,40 +49,62 @@ const Chatbot = () => {
 					}
 				);
 
-				// Add bot's response to messages
-				response.data.forEach((msg) => {
-					setMessages((prevMessages) => [
-						...prevMessages,
-						{ text: msg.text, sender: 'bot' },
-					]);
-
-					setHasNewMessage(true);
-					// Debugging message check
-					console.log('Bot Message:', msg.text);
-
-					// Check if the bot's message asks for a start or end date
-					if (msg.text === 'When you will start using this service?') {
-						setIsAskingStartDate(true);
-						setIsAskingEndDate(false);
-					} else if (msg.text === 'When you will stop using this service?') {
-						setIsAskingEndDate(true);
-						setIsAskingStartDate(false);
-					} else {
-						setIsAskingStartDate(false);
-						setIsAskingEndDate(false);
-					}
-
-					if (msg.buttons) {
-						setButtons(msg.buttons);
-					} else {
-						setButtons([]);
-					}
-				});
+				// Add bot's response to the queue for delayed rendering
+				setBotMessagesQueue((prevQueue) => [
+					...prevQueue,
+					...response.data.map((msg) => ({
+						text: msg.text,
+						buttons: msg.buttons || [],
+					})),
+				]);
 			} catch (error) {
 				console.error('Error sending message to Rasa:', error);
 			}
 		}
 	};
+
+	// Function to handle adding bot messages one by one with a delay
+	useEffect(() => {
+		if (botMessagesQueue.length > 0) {
+			const delay = 1500; // Set delay to 1.5 seconds
+			const timer = setTimeout(() => {
+				// Get the first message from the queue
+				const nextMessage = botMessagesQueue[0];
+
+				// Add the next message to the messages array
+				setMessages((prevMessages) => [
+					...prevMessages,
+					{ text: nextMessage.text, sender: 'bot' },
+				]);
+
+				// Handle bot prompts asking for dates
+				if (nextMessage.text === 'When you will start using this service?') {
+					setIsAskingStartDate(true);
+					setIsAskingEndDate(false);
+				} else if (
+					nextMessage.text === 'When you will stop using this service?'
+				) {
+					setIsAskingEndDate(true);
+					setIsAskingStartDate(false);
+				} else {
+					setIsAskingStartDate(false);
+					setIsAskingEndDate(false);
+				}
+
+				// Set buttons if available
+				if (nextMessage.buttons.length > 0) {
+					setButtons(nextMessage.buttons);
+				} else {
+					setButtons([]);
+				}
+
+				// Remove the processed message from the queue
+				setBotMessagesQueue((prevQueue) => prevQueue.slice(1));
+			}, delay);
+
+			return () => clearTimeout(timer); // Clear timeout on unmount or update
+		}
+	}, [botMessagesQueue]);
 
 	const toggleChat = () => {
 		setIsChatVisible(!isChatVisible);

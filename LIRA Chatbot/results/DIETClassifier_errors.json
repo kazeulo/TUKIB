@@ -1,0 +1,50 @@
+[
+  {
+    "text": "End date: 20-05-2024",
+    "entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "20-05-2024",
+        "entity": "end_date"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "start_date",
+        "start": 10,
+        "end": 20,
+        "confidence_entity": 0.516764223575592,
+        "value": "20-05-2024",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "End date: 30-11-2025",
+    "entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "30-11-2025",
+        "entity": "end_date"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "start_date",
+        "start": 10,
+        "end": 20,
+        "confidence_entity": 0.516764223575592,
+        "value": "30-11-2025",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  }
+]
