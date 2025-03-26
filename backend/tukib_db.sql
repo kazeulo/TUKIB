@@ -66,12 +66,12 @@ CREATE TYPE facilities AS ENUM (
   'Collaboration Room'
 );
 
-CREATE TYPE service_type AS ENUM{
+CREATE TYPE service_type AS ENUM(
     'Training',
     'Sample Processing',
     'Use of Equipment',
-    'Use of Facility',
-};
+    'Use of Facility'
+);
 
 -- ======== TABLE CREATION ========
 
@@ -101,7 +101,7 @@ CREATE TABLE user_tokens (
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    service_name service_type VARCHAR(255) NOT NULL,
+    service_name service_type NOT NULL,
     status VARCHAR(50) NOT NULL,
     payment_option payment_option NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -256,13 +256,8 @@ VALUES
     ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', 'University B', '234-567-8901'),
     ('Alice Johnson', 'alice.johnson@example.com', 'University Researcher', 'urpassword', 'Institution C', '345-678-9012'),
     ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', 'University A', '456-789-0123'),
-    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234');
-
--- Insert Dummy User Tokens
--- INSERT INTO user_tokens (user_id, token, expires_at)
--- VALUES
---     (1, 'dummy-jwt-token-for-johndoe', '2025-12-31 23:59:59'),
---     (2, 'dummy-jwt-token-for-janesmith', '2025-12-31 23:59:59');
+    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234'),
+    ('Marc Hualde', 'client@example.com', 'Client', 'password', 'UPV', '09123456789');
 
 -- Insert Dummy Messages
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
@@ -273,8 +268,8 @@ VALUES
 -- Insert Dummy Events
 INSERT INTO events (title, description, start_time, end_time, location, created_by, is_recurring, recurrence_pattern)
 VALUES
-('Project Kickoff', 'Initial meeting to discuss the project scope.', '2025-02-20 10:00:00', '2025-02-21 11:00:00', 'Conference Room A', 1, FALSE, NULL),
-('Client Presentation', 'Project progress presentation.', '2025-03-05 14:00:00', '2025-03-05 15:30:00', 'Client Office', 1, FALSE, NULL);
+    ('Project Kickoff', 'Initial meeting to discuss the project scope.', '2025-02-20 10:00:00', '2025-02-21 11:00:00', 'Conference Room A', 1, FALSE, NULL),
+    ('Client Presentation', 'Project progress presentation.', '2025-03-05 14:00:00', '2025-03-05 15:30:00', 'Client Office', 1, FALSE, NULL);
 
 -- Insert Dummy Equipments
 INSERT INTO equipmentsTable (availability, equipment_name, brand, quantity, model, serial_number, staff_name, location, sticker_paper_printed)
@@ -282,6 +277,41 @@ VALUES
     (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
     (TRUE, 'Projector', 'BrandB', 3, 'ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE);
 
+-- Inserting dummy data into 'serviceRequestTable'
+INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end")
+VALUES
+    (6, 'Training', 'Pending', 'Cash', '2025-03-01 09:00:00', '2025-03-01 12:00:00'),
+    (2, 'Sample Processing', 'Completed', 'Cash', '2025-03-02 10:00:00', '2025-03-02 15:00:00'),
+    (2, 'Use of Equipment', 'Approved', 'Cash', '2025-03-05 08:00:00', '2025-03-05 17:00:00'),
+    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00');
+
+-- Inserting dummy data into 'trainingRequests'
+INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
+VALUES
+    (1, 'Advanced Chemistry Training', '2025-03-01', 15, TRUE, 'Applied Chemistry', 'Chemistry Research', 'AC123', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']),
+    (2, 'Biology Sample Processing Training', '2025-03-02', 10, TRUE, 'Biology', 'Bio Research', 'BR456', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']);
+
+-- Inserting dummy data into 'equipmentRentalRequests'
+INSERT INTO equipmentRentalRequests (request_id, authorized_representative, laboratory, equipment_name, equipment_settings, sample_type, sample_description, sample_volume, sample_hazard_description, schedule_of_use, estimated_use_duration, project_title, project_budget_code, proofOfFunds, paymentConforme, additional_information, necessaryDocuments)
+VALUES
+    (3, 'John Doe', 'Material Science and Nanotechnology', 'Electron Microscope', 'High magnification', 'Tissue', 'Electron microscopy for tissue sample analysis', '10 ml', 'Handle with care', '2025-03-05', '5 hours', 'Nano Research', 'NR789', 'Proof of funds document', 'Payment conforms', 'Additional equipment details', ARRAY['Document9.pdf', 'Document10.pdf']);
+
+-- Inserting dummy data into 'facilityRentalRequests'
+INSERT INTO facilityRentalRequests (request_id, project_title, project_budget_code, proofOfFunds, paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, additional_information, acknowledge_terms, necessaryDocuments)
+VALUES
+    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
+
+-- Inserting dummy data into 'sampleProcessingRequests' table
+INSERT INTO sampleProcessingRequests 
+    (laboratory, request_id, type_of_analysis, sample_type, sample_description, sample_volume, 
+     method_settings, sample_hazard_description, schedule_of_sample_submission, project_title, 
+     project_budget_code, proofOfFunds, paymentConforme, additional_information, necessaryDocuments)
+VALUES
+    -- Sample 1: Linked to 'serviceRequestTable' request_id 2 (Sample Processing)
+    ('Microbiology and Bioengineering', 2, 'Bacterial Identification', 'Water Sample', 
+     'Testing for bacteria in water', '500 ml', 'Incubation at 37°C for 48 hours', 
+     'Handle with care. Potential for contamination', '2025-03-02', 'Water Quality Research', 
+     'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
 
 -- ======== ALTERS ========
 
