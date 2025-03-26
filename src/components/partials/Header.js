@@ -33,10 +33,11 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   // Define the redirect URL based on user role
   const profileLink = userRole === 'Admin' ? '/dashboard' : '/clientProfile';
 
-  // Do not render Header on adminDashboard route
-  if (location.pathname === '/dashboard') {
+  // Do not render Header if user role is not client
+  if (userRole !== 'Client') {
     return null;
   }
+
   return (
     <header>
       <Navbar expand="lg" className="header header-nav">

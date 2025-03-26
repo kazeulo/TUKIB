@@ -128,6 +128,19 @@ const App = () => {
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 	const location = useLocation();
 
+	// Define an array of routes where the chatbot should NOT appear
+	const noChatbotRoutes = [
+		'/dashboard',
+		'/messageDetails',
+		'/useOfEquipmentRequestDetails',
+		'/useOfFacilityRequestDetails',
+		'/sampleProcessingRequestDetails',
+		'/trainingRequestDetails',
+	];
+
+	// Check if the current path is in the noChatbotRoutes list
+	const shouldShowChatbot = !noChatbotRoutes.some(route => location.pathname.startsWith(route));
+
 	return (
 		<>
 			{/* Header and Chatbot */}
@@ -136,9 +149,9 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				setIsLoggedIn={setIsLoggedIn}
 				location={location}
 			/>
-
-			{/* Only show Chatbot on non-dashboard routes */}
-			{location.pathname !== '/dashboard' && <Chatbot />}
+			
+			{/* only show chatbot on non-dashboard pages */}
+			{shouldShowChatbot && <Chatbot />}
 
 			<Routes>
 				{/* main pages */}
@@ -237,7 +250,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 					element={<SampleProcessingRequestDetails />}
 				/>
 				<Route
-					path='/TrainingRequestDetails/:id'
+					path='/trainingRequestDetails/:id'
 					element={<TrainingRequestDetails />}
 				/>
 
