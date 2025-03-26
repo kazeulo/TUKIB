@@ -3,6 +3,9 @@ version: '3.1'
 rules:
   # General
   - rule: User wants to avail a service
+    condition:
+      # Only trigger this rule when no active loop is set (no form active)
+      - active_loop: null
     steps:
       - intent: avail_service
       - action: utter_ask_service_type
@@ -22,8 +25,8 @@ rules:
     steps:
       - action: avail_sample_processing_form
       - active_loop: null
-      - action: utter_thanks
       - action: action_save_service_request_to_csv
+      - action: utter_thanks
 
   # Use of Equipment
   - rule: User selects use of equipment service
@@ -40,8 +43,8 @@ rules:
     steps:
       - action: avail_equipment_form
       - active_loop: null
-      - action: utter_thanks
       - action: action_save_service_request_to_csv
+      - action: utter_thanks
 
   # Training
   - rule: User selects training service
@@ -58,8 +61,8 @@ rules:
     steps:
       - action: avail_training_from
       - active_loop: null
-      - action: utter_thanks
       - action: action_save_service_request_to_csv
+      - action: utter_thanks
 
   # Use of Facility
   - rule: User selects use of facility service
@@ -76,5 +79,5 @@ rules:
     steps:
       - action: avail_facility_form
       - active_loop: null
-      - action: utter_thanks
       - action: action_save_service_request_to_csv
+      - action: utter_thanks

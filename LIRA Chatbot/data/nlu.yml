@@ -80,6 +80,10 @@ nlu:
       - (10)[number_of_participants]
       - (20)[number_of_participants]
 
+  - regex: participants_number
+    examples: |
+      - \d{1,2}
+
   # Use of Facility
   - intent: select_facility
     examples: |
@@ -88,14 +92,18 @@ nlu:
 
   - intent: select_start_date
     examples: |
-      - [12-03-2023](start_date)
-      - [25-12-2025](start_date)
+      - Start date: [12-03-2023](start_date)
+      - Start date: [25-12-2025](start_date)
+
+  - regex: start_date
+    examples: |
+      - \d{2}-\d{2}-\d{4}
 
   - intent: select_end_date
     examples: |
-      - [20-05-2024](end_date)
-      - [30-11-2025](end_date)
+      - End date: [20-05-2024](end_date)
+      - End date: [30-11-2025](end_date)
 
-  - regex: date_dd_mm_yyyy
+  - regex: end_date
     examples: |
       - \d{2}-\d{2}-\d{4}

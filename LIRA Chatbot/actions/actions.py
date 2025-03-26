@@ -41,4 +41,24 @@ class ActionSaveServiceRequestToCSV(Action):
         # Send a message to the user confirming the request is saved
         dispatcher.utter_message(text="Your service request has been saved.")
 
-        return []
+        # Clear the slots after saving the request
+        return [
+            # General
+            SlotSet("service", None),
+            SlotSet("first_name", None),
+            SlotSet("last_name", None),
+            SlotSet("email", None),
+            SlotSet("affiliation", None),
+            # Sample Processing
+            SlotSet("lab_partner", None),
+            SlotSet("start_date", None),
+            SlotSet("end_date", None),
+            # Use of Equipment
+            SlotSet("auth_representative", None),
+            SlotSet("equipment_name", None),
+            # Training
+            SlotSet("training_topic", None),
+            SlotSet("number_of_participants", None),
+            # Use of Facility
+            SlotSet("facility", None)
+        ]
