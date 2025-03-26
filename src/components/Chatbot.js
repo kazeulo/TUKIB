@@ -19,6 +19,8 @@ const Chatbot = () => {
 	const [showDatePicker, setShowDatePicker] = useState(false); // State to toggle DatePicker
 	const messagesEndRef = useRef(null);
 	const datePickerRef = useRef(null); // Reference for detecting outside clicks
+	const [isAskingStartDate, setIsAskingStartDate] = useState(false);
+	const [isAskingEndDate, setIsAskingEndDate] = useState(false);
 
 	const expirationTime = 60000; // 1 minute timeout
 
@@ -27,21 +29,21 @@ const Chatbot = () => {
 		const textToSend = messageText || input;
 
 		if (textToSend.trim()) {
-			// Add the user's message (the title, not the payload)
 			setMessages((prevMessages) => [
 				...prevMessages,
 				{ text: textToSend, sender: 'user' },
 			]);
 			setInput('');
-			setHasNewMessage(false); // Reset notification when user sends a message
+			setIsAskingStartDate(false);
+			setIsAskingEndDate(false);
+			setHasNewMessage(false);
 
-			// Send the payload to the Rasa server if provided (otherwise send textToSend)
 			try {
 				const response = await axios.post(
 					'http://localhost:5005/webhooks/rest/webhook',
 					{
 						sender: 'user',
-						message: payload || textToSend, // Send payload if exists
+						message: payload || textToSend,
 					}
 				);
 
@@ -51,13 +53,27 @@ const Chatbot = () => {
 						...prevMessages,
 						{ text: msg.text, sender: 'bot' },
 					]);
-					setHasNewMessage(true);
 
-					// If there are buttons (quick replies), set them
-					if (msg.buttons) {
-						setButtons(msg.buttons); // Dynamically display buttons
+					setHasNewMessage(true);
+					// Debugging message check
+					console.log('Bot Message:', msg.text);
+
+					// Check if the bot's message asks for a start or end date
+					if (msg.text === 'When you will start using this service?') {
+						setIsAskingStartDate(true);
+						setIsAskingEndDate(false);
+					} else if (msg.text === 'When you will stop using this service?') {
+						setIsAskingEndDate(true);
+						setIsAskingStartDate(false);
 					} else {
-						setButtons([]); // Clear buttons if there are no buttons in the response
+						setIsAskingStartDate(false);
+						setIsAskingEndDate(false);
+					}
+
+					if (msg.buttons) {
+						setButtons(msg.buttons);
+					} else {
+						setButtons([]);
 					}
 				});
 			} catch (error) {
@@ -78,13 +94,18 @@ const Chatbot = () => {
 		setHasNewMessage(false);
 	};
 
-	// Handle date selection from DatePicker
 	const handleDateSelect = (date) => {
 		const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(
 			date.getMonth() + 1
 		).padStart(2, '0')}-${date.getFullYear()}`;
-		setInput(formattedDate);
-		setShowDatePicker(false); // Hide DatePicker after date is selected
+
+		if (isAskingStartDate) {
+			setInput(`Start date: ${formattedDate}`);
+		} else if (isAskingEndDate) {
+			setInput(`End date: ${formattedDate}`);
+		}
+
+		setShowDatePicker(false); // Close the date picker after selection
 	};
 
 	// Close DatePicker when clicking outside the modal
@@ -214,23 +235,29 @@ const Chatbot = () => {
 						<div ref={messagesEndRef} />
 						{buttons && buttons.length > 0 && (
 							<div className='suggestions'>
-								{buttons.map((button, index) => (
-									<button
-										key={index}
-										className='suggestion-button'
-										onClick={() =>
-											handleSend(null, button.title, button.payload)
-										}>
-										{button.title}
-									</button>
-								))}
-								{/* Add a Select Date button */}
-								<button
-									className='suggestion-button'
-									onClick={() => setShowDatePicker(true)}>
-									Select Date
-								</button>
+								{buttons && buttons.length > 0 && (
+									<div className='suggestions'>
+										{buttons.map((button, index) => (
+											<button
+												key={index}
+												className='suggestion-button'
+												onClick={() =>
+													handleSend(null, button.title, button.payload)
+												}>
+												{button.title}
+											</button>
+										))}
+									</div>
+								)}
 							</div>
+						)}
+						{/* Show the Select Date button if the bot asks for a start or end date */}
+						{(isAskingStartDate || isAskingEndDate) && (
+							<button
+								className='suggestion-button'
+								onClick={() => setShowDatePicker(true)}>
+								{isAskingStartDate ? 'Select Start Date' : 'Select End Date'}
+							</button>
 						)}
 					</div>
 
