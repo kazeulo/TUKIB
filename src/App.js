@@ -126,6 +126,65 @@ const App = () => {
 };
 
 const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
+client-profile-information
+  const location = useLocation();
+
+  return (
+    <>
+      {/* Header and Chatbot */}
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} location={location} />
+      
+      {/* Only show Chatbot on non-dashboard routes */}
+      {location.pathname !== "/dashboard"  && <Chatbot />}
+
+      <Routes>
+        {/* main pages */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+
+        {/* accounts */}
+        <Route path="/dashboard" element={<Dashboard setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/ClientProfile" element={<ClientProfile />} />
+        
+        {/* public main pages */}
+        <Route path="/services" element={<Service />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/news" element={<NewsPage />} />
+
+        {/* services pages */}
+        <Route path="/Sample_processing" element={<Sample_processing />} />
+        <Route path="/Equipment_rental" element={<Equipment_rental />} />
+        <Route path="/Facility_rental" element={<Facility_rental />} />
+        <Route path="/Training" element={<Training />} />
+
+        {/* forms */}
+        <Route path="/sample-processing-form" element={<SampleProcessingForm />} />
+        <Route path="/training-form" element={<TrainingServicesForm />} />
+        <Route path="/use-of-equipment-form" element={<UseOfEquipmentForm />} />
+        <Route path="/use-of-facility-form" element={<UseOfFacilityForm />} />
+        <Route path="/combined-service-request-form" element={<CombinedServiceRequestForm />} />
+        <Route path="/feedback-form" element={<FeedbackForm />} />
+
+        {/* detail pages */}
+        <Route path="/messageDetails/:messageId" element={<MessageDetails />} />
+        <Route path="/useOfEquipmentRequestDetails/:id" element={<UseOfEquipmentRequestDetails />} />
+        <Route path="/useOfFacilityRequestDetails/:id" element={<UseOfFacilityRequestDetails />} />
+        <Route path="/sampleProcessingRequestDetails/:id" element={<SampleProcessingRequestDetails />} />
+        <Route path="/TrainingRequestDetails/:id" element={<TrainingRequestDetails />} />
+      
+        {/* error pages */}
+        <Route path="/error404" element={<Error404 />} />
+        <Route path="/error500" element={<Error500 />} />
+
+        {/* charge slip */}
+        <Route path="/chargeslipform" element={<ChargeSlipForm />} />
+        <Route path="/chargeslip" element={<ChargeSlip />} />
+
+        {/* transaction history */}
+        <Route path="/userTransactionHistory/:userId" element={<UserTransactionHistory />} />
+      </Routes>
+    </>
+  );
 	const location = useLocation();
 
 	// array of routes where the chatbot should NOT appear
@@ -282,6 +341,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 			</Routes>
 		</>
 	);
+main
 };
 
 export default App;

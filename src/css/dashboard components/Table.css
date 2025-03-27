@@ -24,7 +24,9 @@ th {
 }
 
 td, th {
-    padding: 10px;
+    padding: 12px;
+    word-break: break-word;
+
 }
 thead{
     background: #8B1538;
