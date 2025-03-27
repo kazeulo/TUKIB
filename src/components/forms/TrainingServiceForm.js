@@ -18,17 +18,15 @@ function TrainingServiceForm({ isLoggedIn }) {
     payment_option: '', 
     project_title: '',
     project_budget_code: '',
-    proofOfFunds: '',
-    paymentConforme: '',
+    proofOfFunds: null, 
+    paymentConforme: null,
     trainingTitle: '',
     trainingDate: '',
     participantCount: '',
-    necessaryDocuments: [],
+    necessaryDocuments: null,
     additionalInformation: '',
     acknowledgeTerms: false,
     partnerLab: '',
-    start: '',
-    end: ''
   });
 
   // Fetching user data

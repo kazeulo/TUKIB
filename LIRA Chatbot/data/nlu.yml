@@ -74,11 +74,21 @@ nlu:
       - [Lab Equipment Operation](training_topic)
       - [Research Ethics](training_topic)
 
-  - intent: number_of_participants
+  - intent: select_number_of_participants
     examples: |
-      - (5)[number_of_participants]
-      - (10)[number_of_participants]
-      - (20)[number_of_participants]
+      - There will be [5](number_of_participants) participants.
+      - A total of [10](number_of_participants) people will attend.
+      - Expecting [14](number_of_participants) attendees.
+      - We will have [27](number_of_participants).
+      - I expect [68](number_of_participants) to join.
+      - Number of participants: [8](number_of_participants)
+      - [99](number_of_participants) participants.
+      - [43](number_of_participants)
+      - [85](number_of_participants)
+
+  - regex: number_of_participants
+    examples: |
+      - \d{1,2}
 
   # Use of Facility
   - intent: select_facility
@@ -88,14 +98,26 @@ nlu:
 
   - intent: select_start_date
     examples: |
-      - [12-03-2023](start_date)
-      - [25-12-2025](start_date)
+      - Start date: [12-03-2023](start_date)
+      - Start date: [25-12-2025](start_date)
+      - Start date: [30-09-2025](start_date)
+      - Start date: [01-05-2026](start_date)
+      - Start date: [05-11-2037](start_date)
+      - Start date: [16-01-2034](start_date)
+
+  - regex: start_date
+    examples: |
+      - \d{2}-\d{2}-\d{4}
 
   - intent: select_end_date
     examples: |
-      - [20-05-2024](end_date)
-      - [30-11-2025](end_date)
+      - End date: [20-05-2024](end_date)
+      - End date: [30-11-2025](end_date)
+      - End date: [31-02-2026](end_date)
+      - End date: [12-06-2025](end_date)
+      - End date: [04-12-2034](end_date)
+      - End date: [08-10-2032](end_date)
 
-  - regex: date_dd_mm_yyyy
+  - regex: end_date
     examples: |
       - \d{2}-\d{2}-\d{4}

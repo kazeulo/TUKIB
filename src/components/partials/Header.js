@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
 import '../../css/partials/Header.css';
 import logo from '../../assets/new_logo.png';
 import defaultProfilePic from '../../assets/profilepic.png';
 
-const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // To get the current route
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -33,10 +34,23 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
   // Define the redirect URL based on user role
   const profileLink = userRole === 'Admin' ? '/dashboard' : '/clientProfile';
 
-  // Do not render Header on adminDashboard route
-  if (location.pathname === '/dashboard') {
+  // Routes where Header should not render for Admin role
+  const noHeaderRoutes = [
+    '/dashboard',
+    '/messageDetails',
+    '/useOfEquipmentRequestDetails',
+    '/useOfFacilityRequestDetails',
+    '/sampleProcessingRequestDetails',
+    '/trainingRequestDetails',
+  ];
+
+  const shouldHideHeader =
+    noHeaderRoutes.some(route => location.pathname.startsWith(route)) && userRole === 'Admin';
+
+  if (shouldHideHeader) {
     return null;
   }
+
   return (
     <header>
       <Navbar expand="lg" className="header header-nav">
@@ -116,7 +130,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, location }) => {
 
                   <Dropdown.Menu>
                     <Dropdown.Item as={Link} to={profileLink}>
-                      Profile
+                      {userRole === 'Client' ? 'Profile' : 'Dashboard'}
                     </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>
                       Logout

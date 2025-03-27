@@ -19,7 +19,7 @@ intents:
 
   # Training
   - training_topic
-  - number_of_participants
+  - select_number_of_participants
 
   # Use of Facility
   - select_facility
@@ -160,6 +160,10 @@ forms:
       - auth_representative
       - equipment_name
       - start_date
+      - first_name
+      - last_name
+      - affiliation
+      - email
 
   # Training
   avail_training_from:
@@ -168,6 +172,10 @@ forms:
       - lab_partner
       - start_date
       - number_of_participants
+      - first_name
+      - last_name
+      - affiliation
+      - email
 
   # Use of Facility
   avail_facility_form:
@@ -248,14 +256,14 @@ responses:
           payload: '/select_facility{"facility": "Collaboration Room"}'
 
   utter_ask_start_date:
-    - text: 'When you will start using the facility?'
+    - text: 'When you will start using this service?'
 
   utter_ask_end_date:
-    - text: 'When you will stop using the facility?'
+    - text: 'When you will stop using this service?'
 
 actions:
   - action_save_service_request_to_csv
 
 session_config:
-  session_expiration_time: 60
+  session_expiration_time: 1
   carry_over_slots_to_new_session: true
