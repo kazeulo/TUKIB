@@ -134,6 +134,7 @@ const getTrainingRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 u.name AS user_name,
+                approver.name AS approver_name,
                 tr.trainingTitle, 
                 tr.trainingDate, 
                 tr.participantCount, 
@@ -147,6 +148,7 @@ const getTrainingRequestById = async (req, res) => {
                 tr.necessaryDocuments
              FROM serviceRequestTable sr
              JOIN usersTable u ON sr.user_id = u.user_id
+             LEFT JOIN usersTable approver ON sr.approved_by = approver.user_id
              LEFT JOIN trainingRequests tr ON sr.request_id = tr.request_id
              WHERE sr.request_id = $1`, [id]
         );
@@ -185,6 +187,7 @@ const getEquipmentRentalRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 u.name AS user_name,
+                approver.name AS approver_name,
                 err.authorized_representative, 
                 err.laboratory, 
                 err.equipment_name, 
@@ -204,6 +207,7 @@ const getEquipmentRentalRequestById = async (req, res) => {
              FROM serviceRequestTable sr
              JOIN usersTable u ON sr.user_id = u.user_id
              LEFT JOIN equipmentRentalRequests err ON sr.request_id = err.request_id
+             LEFT JOIN usersTable approver ON sr.approved_by = approver.user_id
              WHERE sr.request_id = $1`, [id]
         );
 
@@ -239,6 +243,7 @@ const getFacilityRentalRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 u.name AS user_name,
+                approver.name AS approver_name,
                 frr.project_title, 
                 frr.project_budget_code, 
                 frr.proofOfFunds, 
@@ -252,6 +257,7 @@ const getFacilityRentalRequestById = async (req, res) => {
                 frr.necessaryDocuments
              FROM serviceRequestTable sr
              JOIN usersTable u ON sr.user_id = u.user_id
+             LEFT JOIN usersTable approver ON sr.approved_by = approver.user_id
              LEFT JOIN facilityRentalRequests frr ON sr.request_id = frr.request_id
              WHERE sr.request_id = $1`, [id]
         );
@@ -288,6 +294,7 @@ const getSampleProcessingRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 u.name AS user_name,
+                approver.name AS approver_name,
                 spr.laboratory, 
                 spr.type_of_analysis, 
                 spr.sample_type, 
@@ -302,10 +309,11 @@ const getSampleProcessingRequestById = async (req, res) => {
                 spr.paymentConforme, 
                 spr.additional_information, 
                 spr.necessaryDocuments
-             FROM serviceRequestTable sr
-             JOIN usersTable u ON sr.user_id = u.user_id
-             LEFT JOIN sampleProcessingRequests spr ON sr.request_id = spr.request_id
-             WHERE sr.request_id = $1`, [id]
+            FROM serviceRequestTable sr
+            JOIN usersTable u ON sr.user_id = u.user_id
+            LEFT JOIN usersTable approver ON sr.approved_by = approver.user_id
+            LEFT JOIN sampleProcessingRequests spr ON sr.request_id = spr.request_id
+            WHERE sr.request_id = $1`, [id]
         );
 
         if (result.rows.length === 0) {

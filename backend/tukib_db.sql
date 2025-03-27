@@ -106,7 +106,9 @@ CREATE TABLE serviceRequestTable (
     payment_option payment_option NOT NULL,
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
+    approved_by INT,
+    FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
 
 -- Training Requests Table
@@ -278,12 +280,12 @@ VALUES
     (TRUE, 'Projector', 'BrandB', 3, 'ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE);
 
 -- Inserting dummy data into 'serviceRequestTable'
-INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end")
+INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
 VALUES
-    (6, 'Training', 'Pending', 'Cash', '2025-03-01 09:00:00', '2025-03-01 12:00:00'),
-    (2, 'Sample Processing', 'Completed', 'Cash', '2025-03-02 10:00:00', '2025-03-02 15:00:00'),
-    (2, 'Use of Equipment', 'Approved', 'Cash', '2025-03-05 08:00:00', '2025-03-05 17:00:00'),
-    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00');
+    (6, 'Training', 'Pending', 'Cash', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
+    (2, 'Sample Processing', 'Completed', 'Cash', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
+    (2, 'Use of Equipment', 'Approved', 'Cash', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
+    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
