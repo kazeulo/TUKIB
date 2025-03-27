@@ -148,7 +148,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
         <Route path="/Training" element={<Training />} />
 
         {/* forms */}
-        <Route path="/sample-processin-form" element={<SampleProcessingForm />} />
+        <Route path="/sample-processing-form" element={<SampleProcessingForm />} />
         <Route path="/training-form" element={<TrainingServicesForm />} />
         <Route path="/use-of-equipment-form" element={<UseOfEquipmentForm />} />
         <Route path="/use-of-facility-form" element={<UseOfFacilityForm />} />

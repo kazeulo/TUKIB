@@ -1,30 +1,150 @@
 /* Transactions section */
 .client-transactions {
-  height: 100%;
+  flex: 3;
+  padding: 20px 10px 20px 20px; /* Minimized right padding */
+  border-radius: 10px;
+  margin: 0;
+  width: 100%;
+  max-height: 400px; /* Set maximum height */
+  overflow-y: auto; /* Add vertical scrolling when content exceeds max height */
 }
 
-.client-profile-content{
-  /* max-width: 1400px; */
-  background-color: white;
-  border-radius: 5px;
-  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+/* User profile section styling */
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
   margin: 40px 60px;
-  padding: 30px;
+  flex-wrap: nowrap;
 }
 
-.tabs button {
+.user-profile-section img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 2px solid #8b1e41;
+}
+
+.user-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.user-info h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.user-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.user-details p {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+  background-color: #f9f9f9;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.profile-edit-button {
+  background: #8b1e41;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.profile-edit-button:hover {
+  background: #6a3d48;
+}
+
+/* Action Buttons below profile section */
+.client-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.client-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: none;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 250px; 
+  justify-content: center;
+}
+
+.client-action-btn i {
+  font-size: 16px;
+}
+
+.client-action-btn:hover {
+  background: #f5f5f5;
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+i {
+  color:#8b1e41;
+}
+
+
+.transaction-tabs {
+  display: flex;
+  justify-content: left;
+  gap: 10px; /* Space between items */
+  margin-top: 20px; /* Space above the buttons */
+}
+
+.transaction-tabs button {
   padding: 10px;
   font-size: 14px;
-  background-color: #007bff;
+  background-color: rgb(2, 162, 2);
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   transition: all ease 0.5s;
+  width: 200px;
+  text-align: center;
 }
 
-.tabs button.active {
-  background-color: #0056b3;
+.transaction-tabs button.active {
+  background-color: rgb(1, 109, 1);
+  color: white;
 }
 
 table {
@@ -54,7 +174,7 @@ table th, table td {
 }
 
 .pagination button.active {
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: white;
 }
 
@@ -91,20 +211,6 @@ table th, table td {
   position: relative;
 }
 
-/* Button that triggers the dropdown */
-.new-service-btn {
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.new-service-btn:hover {
-  background-color: #218838;
-}
-
 /* Dropdown menu */
 .dropdown-menu {
   position: absolute;
@@ -134,6 +240,103 @@ table th, table td {
   background-color: #f1f1f1;
 }
 
+.client-profile-content { 
+  display: flex;
+  gap: 20px;
+  padding: 25px;
+  background-color: transparent; 
+  /* align-items: flex-start; */
+}
+.client-profile-content > div {
+  margin: 0;
+}
+
+/* Transactions Section (Takes More Space) */
+/* .client-transactions{
+  flex: 2;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+} */
+
+/* Sidebar (Calendar + Reminders) */
+.sidebar-section {
+  flex: 1;
+  min-width: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Reminders Widget */
+.reminders-widget {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  max-width: 350px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.reminders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8b1e41;
+  color: white;
+  padding: 12px 15px;
+}
+
+.reminders-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.reminder-badge {
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.reminders-content {
+  padding: 15px;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.reminder-item:last-child {
+  border-bottom: none;
+}
+
+.reminder-item:hover {
+  background-color: #f5f5f5;
+}
+
+.reminder-icon {
+  margin-right: 12px;
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+.reminder-item span:last-child {
+  font-size: 14px;
+  color: #333;
+}
+
+
 /* Responsive styling */
 @media (max-width: 768px) {
   .profile-layout {
@@ -143,4 +346,75 @@ table th, table td {
   .client-transactions {
     padding: 15px;
   }
+}
+
+/* edit modal styling */
+.edit-user-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.edit-user-modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 20px;
+}
+
+.edit-user-modal-content h2 {
+  margin-bottom: 15px;
+}
+
+.edit-user-modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.edit-user-modal-buttons {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.edit-user-modal-buttons button {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 100px;
+}
+
+.edit-user-modal-buttons button:first-child {
+  background: #ccc;
+  color: #333;
+}
+
+.edit-user-modal-buttons button:last-child {
+  background: #8b1e41;
+  color: white;
+}
+
+.edit-user-modal-buttons button:hover {
+  opacity: 0.8;
 }
