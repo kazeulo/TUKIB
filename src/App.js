@@ -208,7 +208,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 
 				{/* forms */}
 				<Route
-					path='/sample-processin-form'
+					path='/sample-processing-form'
 					element={<SampleProcessingForm />}
 				/>
 				<Route
