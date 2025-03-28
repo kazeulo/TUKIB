@@ -32,42 +32,44 @@ const FacilityAvailability = () => {
 
   return (
     <div className="table-container">
-      <div className='tableTitle'>
-        <h3>Facilities Availability</h3>
+      <div className='table-header'>
+        <h2>FACILITIES</h2>
       </div>
 
-      <table className="facilityAvailability-table">
-        <thead>
-          <tr>
-            <th>Facility Name</th>
-            <th>Unavailable Dates</th>
-          </tr>
-        </thead>
-        <tbody>
-          {facilityAvailability.length > 0 ? (
-            facilityAvailability.map((facility) => (
-              <tr key={facility.facility_name}>
-                <td>{facility.facility_name}</td>
-                <td>
-                  {facility.unavailable_dates.length > 0 ? (
-                    facility.unavailable_dates.map((date, index) => (
-                      <div key={index}>
-                        {new Date(date).toLocaleString()}
-                      </div>
-                    ))
-                  ) : (
-                    <span>Available</span>
-                  )}
-                </td>
-              </tr>
-            ))
-          ) : (
+      <div className='table-wrapper table-responsive'>
+        <table className="facilityAvailability-table">
+          <thead>
             <tr>
-              <td colSpan="2">No facility availability data found</td>
+              <th>Facility Name</th>
+              <th>Unavailable Dates</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {facilityAvailability.length > 0 ? (
+              facilityAvailability.map((facility) => (
+                <tr key={facility.facility_name}>
+                  <td>{facility.facility_name}</td>
+                  <td>
+                    {facility.unavailable_dates.length > 0 ? (
+                      facility.unavailable_dates.map((date, index) => (
+                        <div key={index}>
+                          {new Date(date).toLocaleString()}
+                        </div>
+                      ))
+                    ) : (
+                      <span>Available</span>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="2">No facility availability data found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

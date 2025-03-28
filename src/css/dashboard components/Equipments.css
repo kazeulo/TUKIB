@@ -19,23 +19,23 @@
 }
 
 /* Table styling */
-.equipment-table {
+/* .equipment-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
+} */
 
-.equipment-table th, .equipment-table td {
+/* .equipment-table th, .equipment-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-}
+} */
 
-.equipment-table th {
+/* .equipment-table th {
     background: #8B1538;
     color: white;
     font-weight: 500;
-}
+} */
 
 .equipment-table tr:hover {
     background: #f1f1f1;

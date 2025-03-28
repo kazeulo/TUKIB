@@ -83,68 +83,72 @@ const Equipments = () => {
     return (
         <div>
             <div className="table-container">
-                <div className='tableTitle'>
-                    <h3>Equipment List</h3>
+                <div className="table-header">
+                    <h2>EQUIPMENT LIST</h2>
                     <button className="add-btn" onClick={handleAddClick}>
                         Add Equipment
                     </button>
                 </div>
 
-                <div className="search-container">
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Search equipment by any field..."
-                        value={searchTerm}
-                        onChange={handleSearch}
-                    />
+                <div className="filtering-container">
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            className="search-input"
+                            placeholder="Search equipment by any field..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                        />
+                    </div>
                 </div>
 
-                <table className="equipment-table">
-                    <thead>
-                        <tr>
-                            <th>Equipment ID</th>
-                            <th>Equipment Name</th>
-                            <th>Quantity</th>
-                            <th>Location</th>
-                            <th>Staff Incharge</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredEquipments.length > 0 ? (
-                            filteredEquipments.map(equipment => (
-                                <tr key={equipment.equipment_id} onClick={() => handleRowClick(equipment)}>
-                                    <td>{equipment.equipment_id}</td>
-                                    <td>{equipment.equipment_name}</td>
-                                    <td>{equipment.quantity}</td>
-                                    <td>{equipment.location}</td>
-                                    <td>{equipment.staff_name}</td>
-                                    <td>
-                                        <button 
-                                            className="edit-btn" 
-                                            onClick={(e) => handleEditClick(equipment, e)}
-                                        >
-                                            <FaEdit />
-                                        </button>
-                                        <button 
-                                            className="delete-btn" 
-                                            onClick={(e) => handleDeleteClick(equipment, e)}
-                                        >
-                                            <FaTrash />
-                                        </button>
+                <div className='table-wrapper table-responsive'>
+                    <table className="equipment-table">
+                        <thead>
+                            <tr>
+                                <th>Equipment ID</th>
+                                <th>Equipment Name</th>
+                                <th>Quantity</th>
+                                <th>Location</th>
+                                <th>Staff Incharge</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredEquipments.length > 0 ? (
+                                filteredEquipments.map(equipment => (
+                                    <tr key={equipment.equipment_id} onClick={() => handleRowClick(equipment)}>
+                                        <td>{equipment.equipment_id}</td>
+                                        <td>{equipment.equipment_name}</td>
+                                        <td>{equipment.quantity}</td>
+                                        <td>{equipment.location}</td>
+                                        <td>{equipment.staff_name}</td>
+                                        <td>
+                                            <button 
+                                                className="edit-btn" 
+                                                onClick={(e) => handleEditClick(equipment, e)}
+                                            >
+                                                <FaEdit />
+                                            </button>
+                                            <button 
+                                                className="delete-btn" 
+                                                onClick={(e) => handleDeleteClick(equipment, e)}
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
+                                        {searchTerm ? 'No matching equipment found' : 'No equipment available'}
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
-                                    {searchTerm ? 'No matching equipment found' : 'No equipment available'}
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {(selectedEquipment && !isEditing && !isAdding) && (
