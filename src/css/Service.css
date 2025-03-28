@@ -4,118 +4,117 @@
 	margin: 0 auto;
   }
   
-  .service-title {
+.service-title {
 	font-size: 32px;
 	margin-bottom: 10px;
 	color: #333;
-  }
+}
   
-  .service-subtitle {
+.service-subtitle {
 	color: #666;
 	margin-bottom: 30px;
-  }
+}
   
   /* Tabs */
-  .service-tabs {
-    display: flex;
-    gap: 0;
-    margin: 20px 0 30px 0;
-    width: 100%;
-    max-width: 600px; /* Adjust this value based on your design preferences */
-}
-
 .service-tabs {
-    all: unset;
-    display: inline-block;
-    padding: 12px 24px;
-    text-align: center;
-    font-weight: 500;
-    min-width: 150px;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  margin: 20px 0 30px 0;
+  width: 100%;
+  gap: 20;
+  max-width: 700px;
 }
 
+.service-tabs button{
+  all: unset;
+  display: inline-block;
+  padding: 8px 15px;
+  text-align: center;
+  font-weight: 500;
+  min-width: 150px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 10px;
+}
 
 .service-tabs.active {
-    background-color: #6e1214 !important;
-    color: #ffffff !important;
+  background-color: #6e1214 !important;
+  color: #ffffff !important;
 }
 
 
 /* Remove default button styles */
 .service-tabs:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Ensure first and last buttons have proper border radius */
 .service-tabs:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .service-tabs:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 /* Ensure connected borders */
 .service-tabs:not(:last-child) {
-    border-right: none;
+  border-right: none;
 }
   
-  /* Content */
-  .content {
+/* Content */
+.content {
 	margin-bottom: 30px;
-  }
+}
   
-  .overview p {
+.overview p {
 	margin-bottom: 15px;
 	line-height: 1.6;
 	color: #444;
-  }
+}
   
-  .pricing .price-item {
+.pricing .price-item {
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 0;
 	border-bottom: 1px solid #eee;
-  }
+}
   
-  .price-item .service-name {
+.price-item .service-name {
 	color: #333;
-  }
+}
   
-  .price-item .price-value {
+.price-item .price-value {
 	color: #8B1538;
 	font-weight: bold;
-  }
+}
   
-  .steps p {
+.steps p {
 	margin-bottom: 15px;
 	line-height: 1.6;
 	color: #444;
-  }
+}
   
-  /* Contact Information */
-  .contact-info {
+/* Contact Information */
+.contact-info {
 	background: #f5f5f5;
 	padding: 20px;
 	margin-bottom: 20px;
-  }
+}
   
-  .contact-info h2 {
+.contact-info h2 {
 	color: #8B1538;
 	margin-bottom: 15px;
 	font-size: 20px;
-  }
+}
   
-  .contact-info p {
+.contact-info p {
 	margin-bottom: 10px;
 	color: #444;
-  }
+}
   
-  .request-btn {
+.request-btn {
 	background: #8B1538;
 	color: white;
 	padding: 10px 20px;
@@ -123,45 +122,46 @@
 	cursor: pointer;
 	margin-top: 10px;
 	width: 100%;
-  }
+  border-radius: 20px;
+}
   
-  .request-btn:hover {
+.request-btn:hover {
 	background: #a01941;
-  }
+}
   
-  /* Important Notice */
-  .important-notice {
+/* Important Notice */
+.important-notice {
 	background: #f5f5f5;
 	padding: 20px;
-  }
+}
   
-  .important-notice h2 {
+.important-notice h2 {
 	color: #8B1538;
 	margin-bottom: 15px;
 	font-size: 20px;
-  }
+}
   
-  .important-notice ul {
+.important-notice ul {
 	list-style: none;
 	padding: 0;
-  }
+}
   
-  .important-notice li {
+.important-notice li {
 	margin-bottom: 10px;
 	color: #444;
 	position: relative;
 	padding-left: 15px;
-  }
+}
   
-  .important-notice li:before {
+.important-notice li:before {
 	content: "•";
 	color: #8B1538;
 	position: absolute;
 	left: 0;
-  }
+}
   
-  /* Responsive Design */
-  @media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 768px) {
 	.service-container {
 	  padding: 10px;
 	}
@@ -169,8 +169,7 @@
 	.service-tab-btn {
 	  padding: 8px 15px;
 	}
-  }
-
+}
 
 .service-tab-btn {
     width: 150px;
