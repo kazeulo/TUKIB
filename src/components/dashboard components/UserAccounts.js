@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaTrash, FaSearch } from 'react-icons/fa';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
@@ -132,10 +133,12 @@ const Users = () => {
     institution: '',
     contact_number: '',
   });
+
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
+  const [roleFilter, setRoleFilter] = useState('');
 
   useEffect(() => {
     fetchUsers(setUsers);
@@ -164,9 +167,30 @@ const Users = () => {
   };
 
   const handleRowClick = (userId) => {
-    // Navigate to the userTransactionHistory page, passing the userId in the URL
-    navigate(`/userTransactionHistory/${userId}`);
+    // Navigate to the userDetails page (shows user details and transaction), passing the userId in the URL
+    navigate(`/userDetails/${userId}`);
   };
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredUsers = users.filter((user) =>
+    Object.values(user).some((value) =>
+      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
+  const handleRoleFilterChange = (e) => {
+    setRoleFilter(e.target.value);
+  };
+
+  const filteredByRoleUsers = roleFilter
+    ? filteredUsers.filter((user) => user.role === roleFilter)
+    : filteredUsers;
+
 
   const formFooter = (
     <>
@@ -193,11 +217,37 @@ const Users = () => {
   return (
     <div>
       <div className="table-container">
-        <div className="tableTitle">
-          <h3>User Accounts</h3>
+        <div className="table-header">
+          <h2>USER ACCOUNTS</h2>
           <button onClick={() => setIsAddUserModalOpen(true)} className="add-btn">
             Add Account
           </button>
+        </div>
+
+        <div className="filtering-container">
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search user by any field..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
+
+          <div className="filter-dropdown">
+            <select
+              value={roleFilter}
+              onChange={handleRoleFilterChange}
+              className="role-filter"
+            >
+              <option value="">All Roles</option>
+              <option value="Client">Client</option>
+              <option value="TECD Staff">TECD Staff</option>
+              <option value="University">University Researcher</option>
+              <option value="Director">Director</option>
+            </select>
+          </div>
         </div>
 
         {/* Modal for adding user */}
@@ -221,53 +271,55 @@ const Users = () => {
         />
 
         {/* User table */}
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Institution</th>
-              <th>Contact Number</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <tr
-                  key={user.user_id}
-                  onClick={() => handleRowClick(user.user_id)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <td>{user.user_id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>{user.institution}</td>
-                  <td>{user.contact_number}</td>
-                  <td>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setUserToDelete(user);
-                        setIsDeleteUserModalOpen(true);
-                      }}
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
+        <div className='table-wrapper table-responsive'>
+          <table className="user-table">
+            <thead>
               <tr>
-                <td colSpan="7">No users found</td>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Institution</th>
+                <th>Contact Number</th>
+                <th>Action</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredByRoleUsers.length > 0 ? (
+                filteredByRoleUsers.map((user) => (
+                  <tr
+                    key={user.user_id}
+                    onClick={() => handleRowClick(user.user_id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td>{user.user_id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.role}</td>
+                    <td>{user.institution}</td>
+                    <td>{user.contact_number}</td>
+                    <td>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setUserToDelete(user);
+                          setIsDeleteUserModalOpen(true);
+                        }}
+                        className="delete-btn"
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7">No users found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

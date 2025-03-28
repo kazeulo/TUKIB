@@ -53,7 +53,7 @@ import SampleProcessingRequestDetails from './components/dashboard components/de
 import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
 
 // Transaction history
-import UserTransactionHistory from './components/dashboard components/UserTransactionHistory';
+import UserDetails from './components/dashboard components/details pages/UserDetails';
 
 // Partial pages
 import ScrollTop from './components/partials/ScrollTop';
@@ -136,6 +136,8 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/useOfFacilityRequestDetails',
 		'/sampleProcessingRequestDetails',
 		'/trainingRequestDetails',
+		'/messageDetails',
+		'/userDetails',
 	];
 
 	// check if the current path is in the noChatbotRoutes list
@@ -276,8 +278,8 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 
 				{/* transaction history */}
 				<Route
-					path='/userTransactionHistory/:userId'
-					element={<UserTransactionHistory />}
+					path='/userDetails/:userId'
+					element={<UserDetails />}
 				/>
 			</Routes>
 		</>

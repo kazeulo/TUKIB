@@ -101,8 +101,8 @@ const ServiceRequest = () => {
   return (
     <div>
       <div className="table-container">
-        <div className='tableTitle'>
-          <h3>Service Requests</h3>
+        <div className='table-header'>
+          <h2>SERVICE REQUESTS</h2>
         </div>
 
         {/* Modal for confirmation */}
@@ -115,55 +115,57 @@ const ServiceRequest = () => {
           footer={modalFooter}
         />
 
-        <table className="serviceRequest-table">
-          <thead>
-            <tr>
-              <th>Request ID</th>
-              <th>Service Name</th>
-              <th>Requested By</th>
-              <th>Date Requested</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {serviceRequests.length > 0 ? (
-              serviceRequests.map((request) => (
-                <tr
-                  key={request.request_id}
-                  onClick={() => handleRowClick(request.request_id, request.service_name)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <td>{request.request_id}</td>
-                  <td>{request.service_name}</td>
-                  <td>{request.user_name}</td>
-                  <td>{new Date(request.start).toLocaleString()}</td>
-                  <td>{request.status}</td>
-                  <td>
-                    {/* Cancel button */}
-                    {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
-                      <button
-                        className="cancel-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCancelRequest(request.request_id);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    ) : (
-                      <span>{request.status}</span>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
+        <div className="table-wrapper table-responsive">
+          <table>
+            <thead>
               <tr>
-                <td colSpan="6">No requests found</td>
+                <th>Request ID</th>
+                <th>Service Name</th>
+                <th>Requested By</th>
+                <th>Date Requested</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {serviceRequests.length > 0 ? (
+                serviceRequests.map((request) => (
+                  <tr
+                    key={request.request_id}
+                    onClick={() => handleRowClick(request.request_id, request.service_name)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td>{request.request_id}</td>
+                    <td>{request.service_name}</td>
+                    <td>{request.user_name}</td>
+                    <td>{new Date(request.start).toLocaleString()}</td>
+                    <td>{request.status}</td>
+                    <td>
+                      {/* Cancel button */}
+                      {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
+                        <button
+                          className="cancel-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCancelRequest(request.request_id);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <span>{request.status}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No requests found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,17 +1,83 @@
 /* Table.css */
 
 .table-container {
-    padding: 40px 25px;
+    width: 100%;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    /* margin: 30px 0;  */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background-color: #8b1e41;
+    border-bottom: 1px solid #e9ecef;
+    margin: 0;
+}
+
+.table-header h2{
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color:white;
+}
+
+.table-header .add-btn{
+    background: white;
+    color: #8b1e41;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.table-wrapper{
+    padding: 0 20px;
+}
+
+.filtering-container{
+    margin: 0 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.search-container{
+    display: flex;
+    align-items: center;
+}
+
+.filter-dropdown select{
+    background-color: #8b1e41;
+    /* padding: 10px 15px; */
+    border-radius: 20px;
+    font-size: 15px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    display: flex;
+}
+
+.filter-dropdown option{
     background-color: white;
-    /* border-radius: 15px; */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin: auto;
+    color: #8b1e41;
 }
 
 table {
-    width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
-    margin-top: 20px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
 }
 
 thead,
@@ -27,10 +93,12 @@ td, th {
     padding: 10px;
     word-break: break-word;
 }
+
 thead{
-    background: #8B1538;
+    background-color: #8b1e41;
     color: white;
 }
+
 tr:nth-child(even) {
     background-color: #f8f9fa;
   }
@@ -45,14 +113,6 @@ tbody tr:hover{
     background-color: #eeeeee
 }
 
-button{
-    margin: 0 5px;
-    font-size: 14px;
-    padding: 5px 20px;
-    border: 1px solid transparent;
-    border-radius: 15px;
-}
-
 .delete-btn{
     z-index: 2;
     background-color: #8B1538;
@@ -61,26 +121,5 @@ button{
 }
 
 .delete-btn:hover{
-    background-color: #a41a43;
-}
-
-/* User accounts table */
-.tableTitle{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.add-btn{
-    margin-right: 50px;
-    border: 1px solid transparent;
-    background-color: #8B1538;
-    color: white;
-    transition: all ease 0.4s; 
-}
-
-.add-btn:hover{
-    /* color: #292929; */
     background-color: #a41a43;
 }
