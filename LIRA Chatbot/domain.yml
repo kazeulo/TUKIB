@@ -26,6 +26,13 @@ intents:
   - select_start_date
   - select_end_date
 
+  # FAQs
+  - ask_location
+  - ask_services
+  - ask_operating_hours
+  - ask_contact_info
+  - ask_about_rrc
+
 entities:
   # General
   - first_name
@@ -256,10 +263,42 @@ responses:
           payload: '/select_facility{"facility": "Collaboration Room"}'
 
   utter_ask_start_date:
-    - text: 'When you will start using this service?'
+    - text: 'When will you start using this service?'
 
   utter_ask_end_date:
-    - text: 'When you will stop using this service?'
+    - text: 'When will you stop using this service?'
+
+  # Fallback
+  utter_fallback:
+    - text: "I'm sorry, I didn't quite catch that. Can you please rephrase?"
+
+  utter_resume_form:
+    - text: 'Let’s continue from where we left off.'
+
+  # FAQs
+  utter_location:
+    - text: 'We are located at UPV Miagao Iloilo'
+
+  utter_services:
+    - text: 'We offer services like sample processing, use of equipment, training services, and use of facility. Would you like to avail a service?'
+      buttons:
+        - title: 'Sample Processing'
+          payload: '/select_service{"service": "Sample Processing"}'
+        - title: 'Use of Equipment'
+          payload: '/select_service{"service": "Use of Equipment"}'
+        - title: 'Training'
+          payload: '/select_service{"service": "Training"}'
+        - title: 'Use of Facility'
+          payload: '/select_service{"service": "Use of Facility"}'
+
+  utter_operating_hours:
+    - text: 'We are open every weekdays from 8am to 5pm.'
+
+  utter_contact_info:
+    - text: 'You can contact us through our email: rrc@up.edu.ph or contact us through our phone number: 09123456789'
+
+  utter_about_rrc:
+    - text: 'The University of the Philippines Visayas – Regional Research Center (RRC) is a newly established unit in 2018 that aims to strengthen the research and innovation capabilities of UP Visayas by providing researchers access to and training on advanced analytical equipment and method development.'
 
 actions:
   - action_save_service_request_to_csv

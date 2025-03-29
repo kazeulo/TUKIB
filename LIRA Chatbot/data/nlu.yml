@@ -121,3 +121,44 @@ nlu:
   - regex: end_date
     examples: |
       - \d{2}-\d{2}-\d{4}
+
+  # FAQs
+  - intent: ask_location
+    examples: |
+      - Where is the RRC located?
+      - Where can I find the RRC?
+      - Where is your office?
+      - What is the address of RRC?
+      - Where are you located?
+
+  - intent: ask_services
+    examples: |
+      - What services do you offer?
+      - Can you tell me about your services?
+      - What services are available?
+      - What can I avail from the RRC?
+      - What types of services do you provide?
+
+  - intent: ask_operating_hours
+    examples: |
+      - What are your operating hours?
+      - When are you open?
+      - What time do you close?
+      - What are your office hours?
+      - When can I visit the RRC?
+
+  - intent: ask_contact_info
+    examples: |
+      - How can I contact you?
+      - What's the contact number for RRC?
+      - How can I reach you?
+      - What is your phone number?
+      - Can you give me your email?
+
+  - intent: ask_about_rrc
+    examples: |
+      - What is RRC?
+      - What does RRC stand for?
+      - Can you tell me about the RRC?
+      - What is the purpose of RRC?
+      - What is the RRC about?

@@ -78,11 +78,11 @@ const Chatbot = () => {
 				]);
 
 				// Handle bot prompts asking for dates
-				if (nextMessage.text === 'When you will start using this service?') {
+				if (nextMessage.text === 'When will you start using this service?') {
 					setIsAskingStartDate(true);
 					setIsAskingEndDate(false);
 				} else if (
-					nextMessage.text === 'When you will stop using this service?'
+					nextMessage.text === 'When will you stop using this service?'
 				) {
 					setIsAskingEndDate(true);
 					setIsAskingStartDate(false);

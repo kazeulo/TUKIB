@@ -11,7 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/lab": "^7.0.0-beta.9",
     "@mui/material": "^7.0.0",
-    "@mui/x-date-pickers": "^7.28.0",
+    "@mui/x-date-pickers": "^7.28.2",
     "@react-oauth/google": "^0.12.1",
     "@restart/ui": "^1.9.1",
     "@syncfusion/ej2-react-schedule": "^27.1.58",

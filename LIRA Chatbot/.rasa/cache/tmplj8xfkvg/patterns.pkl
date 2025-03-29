@@ -1,0 +1,14 @@
+[
+  {
+    "name": "end_date",
+    "pattern": "\\d{2}-\\d{2}-\\d{4}"
+  },
+  {
+    "name": "number_of_participants",
+    "pattern": "\\d{1,2}"
+  },
+  {
+    "name": "start_date",
+    "pattern": "\\d{2}-\\d{2}-\\d{4}"
+  }
+]
