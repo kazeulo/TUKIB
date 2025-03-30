@@ -1,0 +1,11 @@
+{
+  "rule_only_slots": [
+    "service"
+  ],
+  "rule_only_loops": [
+    "avail_equipment_form",
+    "avail_facility_form",
+    "avail_sample_processing_form",
+    "avail_training_from"
+  ]
+}

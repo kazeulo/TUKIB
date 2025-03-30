@@ -8,6 +8,8 @@ intents:
   - last_name
   - affiliation
   - email
+  - affirm
+  - deny
 
   # Sample Processing
   - select_lab_partner
