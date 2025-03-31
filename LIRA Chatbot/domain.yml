@@ -303,7 +303,7 @@ responses:
     - text: 'The University of the Philippines Visayas – Regional Research Center (RRC) is a newly established unit in 2018 that aims to strengthen the research and innovation capabilities of UP Visayas by providing researchers access to and training on advanced analytical equipment and method development.'
 
 actions:
-  - action_save_service_request_to_csv
+  - action_save_service_request
 
 session_config:
   session_expiration_time: 1

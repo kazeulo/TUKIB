@@ -244,6 +244,20 @@ CREATE TABLE equipmentsTable (
     sticker_paper_printed BOOLEAN NOT NULL
 );
 
+-- Service Requests Table
+CREATE TABLE  (
+    id SERIAL PRIMARY KEY,
+    service TEXT,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    affiliation TEXT,
+    lab_partner TEXT,
+    facility TEXT,
+    start_date DATE,
+    end_date DATE
+);
+
 -- ======== PRIVILEGES ========
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO tukib;

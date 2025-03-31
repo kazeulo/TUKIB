@@ -25,7 +25,7 @@ rules:
     steps:
       - action: avail_sample_processing_form
       - active_loop: null
-      - action: action_save_service_request_to_csv
+      - action: action_save_service_request
       - action: utter_thanks
 
   # Use of Equipment
@@ -43,7 +43,7 @@ rules:
     steps:
       - action: avail_equipment_form
       - active_loop: null
-      - action: action_save_service_request_to_csv
+      - action: action_save_service_request
       - action: utter_thanks
 
   # Training
@@ -61,7 +61,7 @@ rules:
     steps:
       - action: avail_training_from
       - active_loop: null
-      - action: action_save_service_request_to_csv
+      - action: action_save_service_request
       - action: utter_thanks
 
   # Use of Facility
@@ -79,7 +79,7 @@ rules:
     steps:
       - action: avail_facility_form
       - active_loop: null
-      - action: action_save_service_request_to_csv
+      - action: action_save_service_request
       - action: utter_thanks
 
   # Fallback for unhandled intents
