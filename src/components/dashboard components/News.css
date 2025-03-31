@@ -1,36 +1,233 @@
-.news-container {
-	padding: 20px;
-}
-
-.tabs {
-	margin-bottom: 20px;
-}
-
-.tabs button {
-	padding: 10px 15px;
-	margin-right: 10px;
-	cursor: pointer;
-}
-
-.tabs button.active {
-	background-color: #007bff;
-	color: white;
-}
-
-.tab-content {
-	margin-top: 20px;
-}
-
-.news-list {
+.news-wrapper {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.news-item {
-	border-bottom: 1px solid #ddd;
-	padding: 15px 0;
+.news-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.25rem 1.5rem;
+	background-color: #8b1e41;
+	border-bottom: 1px solid #e9ecef;
 }
 
-.news-item h4 {
+.news-header h2 {
+	font-size: 1.5rem;
+  	font-weight: 600;
 	margin: 0;
+	color:white;
 }
+
+.news-tabs {
+	width: 95%;
+	margin: 30px auto;
+	display: flex;
+	margin-bottom: 20px;
+	background-color: #8b1e41 !important;
+	align-items: center;
+	justify-content: center;
+  }
+  
+.news-tabs button {
+	width: 300px;
+	padding: 10px 15px;
+	border: none;
+	background-color: #8b1e41 !important;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	margin-right: 5px;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+  }
+  
+.news-tabs button:hover {
+	background-color: #d9d9d9; /* Slightly darker on hover */
+  }
+
+.news-tabs button:active, .news-tabs button:focus {
+	background-color: #F7F3F9 !important;
+	color:#232323 !important;
+	outline: none;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	font-weight: bold !important;
+  }
+
+.news-tabs button svg {
+	margin-right: 10px;
+	font-size: 16px;
+  }
+
+/* News Form Styling */
+.news-form {
+	background-color: #fff;
+	padding: 25px;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	width: 95%;
+	/* max-width: 900px; */
+	margin: 0 auto;
+  }
+  
+.news-form__row {
+	display: flex;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+	gap: 20px;
+  }
+  
+.news-form__field {
+	flex: 1;
+	min-width: 250px;
+  }
+  
+.news-form__field--full {
+	flex-basis: 100%;
+  }
+  
+.news-form__label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #333;
+	font-size: 14px;
+  }
+  
+.news-form__input,
+.news-form__select {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: border-color 0.3s;
+  }
+  
+.news-form__input:focus,
+.news-form__select:focus {
+	border-color: #a01942;
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(160, 25, 66, 0.2);
+  }
+  
+.news-form__editor {
+	margin-bottom: 30px;
+  }
+  
+.news-form__editor .ql-container {
+	min-height: 200px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+  }
+  
+.news-form__editor .ql-toolbar {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	background-color: #f8f8f8;
+  }
+  
+.news-form__actions {
+	display: flex;
+	justify-content: flex-end;
+  }
+  
+.news-form__submit {
+	background-color: #a01942;
+	color: white;
+	border: none;
+	padding: 12px 24px;
+	border-radius: 4px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+.news-form__submit:hover {
+	background-color: #8a1539;
+  }
+  
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+	.news-form__field {
+	  flex-basis: 100%;
+	}
+	
+	.news-form__row {
+	  gap: 15px;
+	}
+  }
+
+/* Modal overlay */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+  }
+  
+  /* Success modal */
+  .success-modal {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 30px;
+	max-width: 500px;
+	width: 100%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	animation: fadeIn 0.3s;
+  }
+  
+  .success-modal h2 {
+	color: #a01942;
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 24px;
+  }
+  
+  .success-modal p {
+	margin-bottom: 30px;
+	font-size: 16px;
+	color: #333;
+  }
+  
+  .success-modal__actions {
+	display: flex;
+	justify-content: flex-end;
+  }
+  
+  .success-modal__button {
+	background-color: #a01942;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background-color 0.3s;
+  }
+  
+  .success-modal__button:hover {
+	background-color: #8a1539;
+  }
+  
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	  transform: translateY(-20px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }

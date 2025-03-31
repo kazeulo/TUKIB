@@ -58,7 +58,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
                     <li onClick={() => setSelectedSection('Users')}>Users</li>
                     <li onClick={() => setSelectedSection('Service Requests')}>Service Requests</li>
                     <li onClick={() => setSelectedSection('Messages')}>Messages</li>
-                    <li onClick={() => setSelectedSection('News')}>News</li>
+                    <li onClick={() => setSelectedSection('News')}>News and Announcements</li>
                     <li onClick={() => setSelectedSection('Equipments')}>Equipments</li>
                     <li onClick={() => setSelectedSection('Facilities')}>Facilities</li>
                 </>

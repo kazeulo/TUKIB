@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme
+import './News.css';
+import { set } from 'date-fns';
 
 const categories = [
 	'General',
@@ -10,19 +12,40 @@ const categories = [
 	'Material Science',
 	'Nanotechnology',
 ];
+const postType = [
+	'News',
+	'Announcement',
+];
 
 const NewsForm = ({ onAddNews }) => {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
-	const [category, setCategory] = useState('General');
+	const [category, setCategory] = useState(null);
+	const [type, setType] = useState(null); 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newNews = { title, content, category };
-		onAddNews(newNews); // Use the passed-in addNews function from news.js
-		setTitle('');
-		setContent('');
-		setCategory('General');
+		try{
+
+			const newNews = { title, content, category, type };
+			onAddNews(newNews); // Use the passed-in addNews function from news.js
+			setTitle('');
+			setContent('');
+			setCategory('');
+
+			// After successful submission:
+			setPostedType(type); 
+			setShowSuccessModal(true); // Show the success modal
+
+			// Optionally reset form fields
+			setTitle('');
+			setContent('');
+			setCategory('');
+			setType(''); 
+		}
+		catch (error) {
+			console.error('Error posting:', error);
+		}
 	};
 
 	// Custom toolbar with formatting options
@@ -38,47 +61,105 @@ const NewsForm = ({ onAddNews }) => {
 		],
 	};
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<label>Title</label>
-				<input
-					type='text'
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					required
-				/>
-			</div>
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+	const [postedType, setPostedType] = useState('');
 
-			<div>
-				<label>Category</label>
+	return ( <>
+		<form className="news-form" onSubmit={handleSubmit}>
+		  <div className="news-form__row">
+				<div className="news-form__field">
+				<label className="news-form__label">Post Type</label>
 				<select
-					value={category}
-					onChange={(e) => setCategory(e.target.value)}
-					required>
-					{categories.map((cat, index) => (
+					className="news-form__select"
+					value={type || ""}
+  					onChange={(e) => setType(e.target.value === "" ? null : e.target.value)}
+  					required>
+					<option value="" disabled>Select</option>
+					{postType.map((type, index) => (
+					<option
+						key={index}
+						value={type}>
+						{type}
+					</option>
+					))}
+				</select>
+				</div>
+				
+				<div className="news-form__field">
+					<label className="news-form__label">Category</label>
+					<select
+						className="news-form__select"
+						value={category || ""}
+						onChange={(e) => setCategory(e.target.value === "" ? null : e.target.value)}
+						required>
+						<option value="" disabled>Select</option>
+						{categories.map((cat, index) => (
 						<option
 							key={index}
 							value={cat}>
 							{cat}
 						</option>
-					))}
-				</select>
-			</div>
-
-			<div>
-				<label>Content</label>
+						))}
+					</select>
+					</div>
+		  		</div>
+	  
+		  <div className="news-form__row">
+			<div className="news-form__field">
+					<label className="news-form__label">Title</label>
+					<input
+						className="news-form__input"
+						type='text'
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						required
+					/>
+					</div>
+		  </div>
+	  
+		  <div className="news-form__row">
+			<div className="news-form__field news-form__field--full">
+			  <label className="news-form__label">Content</label>
+			  <div className="news-form__editor">
 				<ReactQuill
-					theme='snow'
-					value={content}
-					onChange={setContent}
-					modules={modules} // Applying the custom toolbar
-					placeholder='Write your news content here...'
+				  theme='snow'
+				  value={content}
+				  onChange={setContent}
+				  modules={modules}
+				  placeholder='Write your post content here...'
 				/>
+			  </div>
 			</div>
-
-			<button type='submit'>Add News</button>
+		  </div>
+	  
+		  <div className="news-form__actions">
+			<button className="news-form__submit" type='submit'>Post Now</button>
+		  </div>
 		</form>
+
+		{/* Success Modal */}
+		{showSuccessModal && (
+			<div className="modal-overlay">
+			  <div className="success-modal">
+				<h2>{postedType === 'News' ? 'News Posted' : 'Announcement Posted'}</h2>
+				
+				<p>Your {postedType.toLowerCase()} has been successfully posted.</p>
+				
+				<div className="success-modal__actions">
+				  <button 
+					className="success-modal__button"
+					onClick={() => {
+					  setShowSuccessModal(false);
+					   window.location.reload(); 
+					   // Reload the page to see the new news
+					}}
+				  >
+					Close
+				  </button>
+				</div>
+			  </div>
+			</div>
+		  )}</>
 	);
 };
 
