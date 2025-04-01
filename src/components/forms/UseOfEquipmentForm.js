@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
 import Modal from '../partials/Modal';
+import SuccessModal from './SuccessModal';
 
 const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
   const navigate = useNavigate();
@@ -163,14 +164,6 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
       console.log('Data successfully submitted:', response.data);
 
-      setSuccessMessage('Form submitted successfully!');
-      
-      // Hide success message and redirect after 3 seconds
-      setTimeout(() => {
-        setSuccessMessage('');
-        navigate('/clientProfile');
-      }, 3000);
-
       // Reset form data after successful submission
       setFormData({
         user_id: '',
@@ -198,6 +191,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+    setIsModalOpen(true);
   };
 
   // Modal close handler (redirect to login page)
@@ -231,6 +225,14 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
           </button>
         }
       />
+
+      {/* Success Modal */}
+      <SuccessModal isOpen={isModalOpen} 
+        onClose={() => {
+          setIsModalOpen(false); 
+          navigate('/clientProfile');
+        }
+      }/>
       
       {user && (
         <div className='service-request-form'>
