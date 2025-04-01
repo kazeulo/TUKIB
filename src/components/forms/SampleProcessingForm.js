@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
 import Modal from '../partials/Modal';
+import SuccessModal from './SuccessModal';
+
 
 const SampleProcessingForm = ({ isLoggedIn }) => {
 	const navigate = useNavigate();
@@ -173,15 +175,6 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		});
 	
 		console.log('Data successfully submitted:', response.data);
-	
-		setSuccessMessage('Form submitted successfully!');
-		  
-		// Hide success message after 3 seconds and navigate to client profile
-		setTimeout(() => {
-			setSuccessMessage('');
-			setIsModalOpen(false);
-			navigate('/clientProfile');
-		}, 3000);
 		  
 		  // Reset the form data after successful submission
 		setFormData({
@@ -205,6 +198,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		} catch (error) {
 		  console.error('Error submitting form:', error);
 		}
+		setIsModalOpen(true);
 	  };    
 	
 	  // Modal close handler (redirect to client profile)
@@ -237,6 +231,13 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 				</button>
 				}
 			/>
+			{/* Success Modal */}
+			<SuccessModal isOpen={isModalOpen} 
+				onClose={() => {
+				setIsModalOpen(false); 
+				navigate('/clientProfile');
+				}
+			}/>
 
 			{user&& (
 				<div className='service-request-form'>
