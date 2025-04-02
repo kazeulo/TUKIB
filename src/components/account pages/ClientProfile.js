@@ -228,7 +228,7 @@ const ClientProfile = ({ isLoggedIn }) => {
       <div className="client-profile-content">
         <div className="client-transactions">
           <h2>Transactions</h2>
-          <p className="subtitle">Your Transactions</p>
+          <p className="subtitle">These Are Your Transactions Record</p>
 
           {/* Transactions Table */}
           <table>
