@@ -243,7 +243,7 @@ table th, table td {
 .client-profile-content { 
   display: flex;
   gap: 20px;
-  padding: 25px;
+  padding: 50px 25px 25px 25px;
   background-color: transparent; 
   /* align-items: flex-start; */
 }
