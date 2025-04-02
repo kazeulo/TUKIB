@@ -5,7 +5,7 @@
   border-radius: 10px;
   margin: 0;
   width: 100%;
-  max-height: 400px; /* Set maximum height */
+  max-height: 600px; /* Set maximum height */
   overflow-y: auto; /* Add vertical scrolling when content exceeds max height */
 }
 
