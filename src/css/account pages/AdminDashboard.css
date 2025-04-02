@@ -22,3 +22,14 @@ body{
     font-size: 13px;
     padding: 10px;
 }
+
+li.side-btn:active, li.side-btn:focus, li.side-btn.active {
+    background-color: #8b1e41 !important;
+    color: white;
+
+}
+
+/* Or if you want to add a selected state */
+li.side-btn.selected {
+    background-color: #bababa !important;
+}

@@ -32,6 +32,11 @@ body, html {
   border: none;
   cursor: pointer;
 }
+
+.toggle-btn:active, .toggle-btn:focus {
+  outline: none;
+  background-color: #757575 !important; 
+}
   
 .container-fluid {
   margin: 0;

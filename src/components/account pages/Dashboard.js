@@ -54,13 +54,27 @@ const Dashboard = ({ setIsLoggedIn }) => {
         if (userRole === 'Admin') {
             return (
                 <>
-                    <li onClick={() => setSelectedSection('Overview')}>Overview</li>
-                    <li onClick={() => setSelectedSection('Users')}>Users</li>
-                    <li onClick={() => setSelectedSection('Service Requests')}>Service Requests</li>
-                    <li onClick={() => setSelectedSection('Messages')}>Messages</li>
-                    <li onClick={() => setSelectedSection('News')}>News and Announcements</li>
-                    <li onClick={() => setSelectedSection('Equipments')}>Equipments</li>
-                    <li onClick={() => setSelectedSection('Facilities')}>Facilities</li>
+                    <li className={`side-btn ${selectedSection === 'Overview' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Overview')}>
+                        Overview</li>                    
+                    <li className={`side-btn ${selectedSection === 'Users' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Users')}>
+                        Users</li>
+                    <li className={`side-btn ${selectedSection === 'Service Requests' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Service Requests')}>
+                        Service Requests</li>
+                    <li className={`side-btn ${selectedSection === 'Messages' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Messages')}>
+                        Messages</li>
+                    <li className={`side-btn ${selectedSection === 'News' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('News')}>
+                        News and Messages</li>                    
+                    <li className={`side-btn ${selectedSection === 'Equipments' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Equipments')}>
+                        Equipments</li> 
+                    <li className={`side-btn ${selectedSection === 'Facilities' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Facilities')}>
+                       Facilities</li> 
                 </>
             );
         }
@@ -68,8 +82,12 @@ const Dashboard = ({ setIsLoggedIn }) => {
         if (userRole === 'University Researcher') {
             return (
                 <>
-                    <li onClick={() => setSelectedSection('Service Requests')}>Service Requests</li>
-                    <li onClick={() => setSelectedSection('Equipments')}>Equipments</li>
+                    <li className={`side-btn ${selectedSection === 'Service Requests' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Service Requests')}>
+                       Service Requests</li> 
+                    <li className={`side-btn ${selectedSection === 'Equipments' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Equipments')}>
+                        Equipments</li> 
                 </>
             );
         }
@@ -77,7 +95,9 @@ const Dashboard = ({ setIsLoggedIn }) => {
         if (userRole === 'TECD Staff') {
             return (
                 <>
-                    <li onClick={() => setSelectedSection('Facilities')}>Facilities</li>
+                    <li className={`side-btn ${selectedSection === 'Facilities' ? 'active' : ''}`} 
+                    onClick={() => setSelectedSection('Facilities')}>
+                       Facilities</li> 
                 </>
             );
         }
