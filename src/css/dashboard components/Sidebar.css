@@ -14,6 +14,7 @@ body, html {
   align-items: center; 
   width: 100%;
   padding: 17px 0 5px 20px;
+  margin: 0;
 }
 
 .sidebarTitle {
@@ -26,7 +27,8 @@ body, html {
 }
 
 .toggle-btn {
-  background-color: transparent;
+  display: flex;
+  justify-content: end;
   color: #969696;
   font-size: 20px;
   border: none;
@@ -61,7 +63,6 @@ body, html {
   width: 70px; 
 }
 
-  
 .menu {
   list-style-type: none;
   padding: 5px 0;
@@ -92,10 +93,43 @@ body, html {
   margin-right: 20px;
   color: #a8a8a8;
 }
+
+.log-out-btn{
+  display: flex;
+  justify-self: end;
+  margin: 20px;
+}
+
+.log-out-btn button{
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  padding: 8px 20px;
+  border: none;
+  background-color: #a91010;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+}
+
+.log-out-btn button:hover{
+  background-color: #e37070;
+  color: white;
+}
+
+.log-out-btn i{
+  font-size: 1rem;
+  margin-left: 10px;
+  color: white;
+}
   
 /* When the sidebar is collapsed, hide text but keep the icons */
 .menu-text {
   transition: opacity 0.3s ease;
+  display: flex;
+  margin: 0;
+  align-items: center;
 }
   
 .sidebar.collapsed .menu-text {
@@ -103,7 +137,7 @@ body, html {
   display: none;
 }
   
-.sidebar.collapsed .menu li i {
+.sidebar.collapsed li i {
   padding: 5px 0;
   display: flex;
   margin: 0 auto;

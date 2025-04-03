@@ -38,22 +38,24 @@ const Sidebar = ({ renderSidebarContent, handleLogout }) => {
         <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
             <div className="sidebarTitle-container">
                 <h2 className='sidebarTitle'>Dashboard</h2>
-                <button className="toggle-btn" onClick={toggleSidebar}>
-                    <i className="fas fa-bars"></i> {/* Hamburger Icon */}
-                </button>
             </div>
 
             <ul className={`menu ${isCollapsed ? 'collapsed' : ''}`}>
+                <button className="toggle-btn" onClick={toggleSidebar}>
+                    <i className="fas fa-bars"></i> {/* Hamburger Icon */}
+                </button>
                 {/* Render the sidebar based on the user's role */}
                 {renderSidebarContent()}
 
                 {/* Log out button */}
-                <li onClick={openLogoutModal}>
-                    <a>
-                        <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Log out</span>
-                    </a>
-                    <i className="fas fa-sign-out"></i>
-                </li>
+                <div className='log-out-btn'>
+                    <button onClick={openLogoutModal}>
+                        <a>
+                            <span className={`menu-text ${isCollapsed ? 'collapsed' : ''}`}>Log out</span>
+                        </a>
+                        <i className="fas fa-sign-out"></i>
+                    </button>
+                </div>
             </ul>
 
             <Modal
