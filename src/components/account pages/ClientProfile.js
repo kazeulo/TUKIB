@@ -8,7 +8,7 @@ import profilepic from '../../assets/profilepic.png';
 import MuiCalendar from './MuiCalendar';
 
 const ClientProfile = ({ isLoggedIn }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [requestToCancel, setRequestToCancel] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -65,14 +65,16 @@ const ClientProfile = ({ isLoggedIn }) => {
       });
 
       if (!response.ok) {
+        console.error(await response.text()); // show error message
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log("Cancel response:", data);
 
       if (data.status === 'success') {
         setServiceRequests(serviceRequests.map((request) =>
-          request.request_id === requestId ? { ...request, status: 'Cancelled' } : request
+          request.request_id == requestId ? { ...request, status: 'Cancelled' } : request
         ));
       } else {
         console.error('Error cancelling service request:', data);
@@ -83,15 +85,17 @@ const ClientProfile = ({ isLoggedIn }) => {
   };
 
   const handleCancelRequest = (requestId) => {
+    console.log("Cancel request clicked for ID:", requestId);
     setRequestToCancel(serviceRequests.find((request) => request.request_id === requestId));
-    setIsModalOpen(true);
+    setIsCancelModalOpen(true);
   };
 
   const handleConfirmCancel = () => {
     if (requestToCancel) {
+      console.log("Cancelling request:", requestToCancel);
       cancelServiceRequest(requestToCancel.request_id);
     }
-    setIsModalOpen(false);
+    setIsCancelModalOpen(false);
   };
 
   const handleRowClick = (requestId, serviceName) => {
@@ -110,7 +114,7 @@ const ClientProfile = ({ isLoggedIn }) => {
 
   const modalFooter = (
     <>
-      <button className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>
+      <button className="btn btn-secondary" onClick={() => setIsCancelModalOpen(false)}>
         Cancel
       </button>
       <button className="btn btn-danger" onClick={handleConfirmCancel}>
@@ -389,6 +393,25 @@ const ClientProfile = ({ isLoggedIn }) => {
         </div>
       )}
 
+      {isCancelModalOpen && (
+        <div className="cancel-modal-overlay">
+          <div className="cancel-modal-content">
+            <h2>Cancel Service Request</h2>
+            <p>Are you sure you want to cancel the service request?</p>
+            <p><strong>Request ID:</strong> {requestToCancel?.request_id}</p>
+            <p><strong>Service Type:</strong> {requestToCancel?.service_name}</p>
+            <p><strong>Date Requested:</strong> {new Date(requestToCancel?.start).toLocaleString()}</p>
+            <p><strong>Status:</strong> {requestToCancel?.status}</p>
+
+            <div className="cancel-modal-buttons">
+            <button onClick={handleConfirmCancel}>Yes, cancel</button>
+            <button onClick={() => setIsCancelModalOpen(false)}>No, go back</button>
+            {/* {modalFooter} */}
+            </div>
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 };
