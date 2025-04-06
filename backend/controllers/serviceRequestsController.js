@@ -272,6 +272,7 @@ const getFacilityRentalRequestById = async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching service request by ID:', error);
+        console.error('Actual DB error:', error.message);
         return res.status(500).json({ status: 'error', message: 'Server error while fetching service request' });
     }
 };

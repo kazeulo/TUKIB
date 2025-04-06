@@ -1,0 +1,234 @@
+/* Service Request Details Styling */
+.service-request-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin: 20px auto; /* Centered with auto margins */
+    max-width: 90%;
+    width: 100%;
+  }
+  
+  .service-request-title {
+    color: #333;
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 12px;
+  }
+  
+  .service-request-details {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .section-header {
+    color: #555;
+    font-size: 18px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 8px;
+  }
+
+  /* Header with back button */
+.request-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 12px;
+    position: relative;
+  }
+  
+  .back-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: #1976d2;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    transition: background-color 0.2s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .back-btn svg {
+    margin-right: 6px;
+  }
+  
+  .service-request-title {
+    color: #333;
+    font-size: 22px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .service-request-details {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .section-header {
+    color: #555;
+    font-size: 18px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 8px;
+  }
+  
+  /* Section styling */
+  .request-section {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Row and column layout */
+  .summary-row, .details-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -8px; /* Negative margin to offset padding in columns */
+  }
+  
+  .summary-col, .details-col {
+    flex: 1;
+    min-width: 280px;
+    padding: 8px;
+  }
+  
+  /* Detail items */
+  .detail-item {
+    margin: 0 0 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: #555;
+    display: inline-block;
+    min-width: 160px;
+    margin-right: 8px;
+  }
+  
+  .detail-notes, .detail-documents {
+    display: block;
+  }
+  
+  .detail-notes .detail-label, .detail-documents .detail-label {
+    display: block;
+    margin-bottom: 6px;
+  }
+  
+  /* Status Badge Styling */
+  .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .status-pending {
+    background-color: #fff8e1;
+    color: #f57c00;
+    border: 1px solid #ffca28;
+  }
+  
+  .status-pending-for-approval {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #64b5f6;
+  }
+  
+  .status-approved {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #81c784;
+  }
+  
+  .status-cancelled {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+  
+  .status-completed {
+    background-color: #e0f2f1;
+    color: #00796b;
+    border: 1px solid #80cbc4;
+  }
+  
+  /* Button Styling */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  
+  .cancel-btn {
+    background-color: #fff;
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    border-radius: 4px;
+    padding: 8px 24px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #d32f2f;
+    color: white;
+  }
+  
+  .cancel-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.25);
+  }
+  
+  .loading-message {
+    color: #757575;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .summary-col, .details-col {
+      flex: 100%;
+    }
+    
+    .service-request-container {
+      padding: 16px;
+      max-width: 100%;
+    }
+
+    .request-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .back-btn {
+        position: relative;
+        margin-bottom: 16px;
+      }
+      
+      .service-request-title {
+        text-align: left;
+      }
+  }
