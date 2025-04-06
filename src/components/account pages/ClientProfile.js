@@ -112,16 +112,16 @@ const ClientProfile = ({ isLoggedIn }) => {
     }
   };
 
-  const modalFooter = (
-    <>
-      <button className="btn btn-secondary" onClick={() => setIsCancelModalOpen(false)}>
-        Cancel
-      </button>
-      <button className="btn btn-danger" onClick={handleConfirmCancel}>
-        Confirm Cancel
-      </button>
-    </>
-  );
+  // const modalFooter = (
+  //   <>
+  //     <button className="btn btn-secondary" onClick={() => setIsCancelModalOpen(false)}>
+  //       Cancel
+  //     </button>
+  //     <button className="btn btn-danger" onClick={handleConfirmCancel}>
+  //       Confirm Cancel
+  //     </button>
+  //   </>
+  // );
 
   // Handle tab switch
   const handleTabChange = (tab) => {

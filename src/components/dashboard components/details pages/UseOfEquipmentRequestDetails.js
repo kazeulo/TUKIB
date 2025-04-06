@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UseOfEquipmentRequestDetails = () => {
   const { id } = useParams(); 
+  const navigate = useNavigate();
   const [requestDetails, setServiceRequest] = useState(null);
 
   useEffect(() => {
     const fetchServiceRequest = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/useOfEquipmentRequestDetails/${id}`);
+
+        if (response.status === 404) {
+          navigate('/error404');
+          return;
+        }
+
         if (response.ok) {
           const data = await response.json();
           if (data.status === 'success') {
@@ -17,10 +24,13 @@ const UseOfEquipmentRequestDetails = () => {
             console.error('Service request not found');
           }
         } else {
+          navigate('/error500'); // Redirect to error page
           console.error('Failed to fetch service request');
         }
       } catch (error) {
         console.error('Error fetching service request details:', error);
+        console.log('Full response:', error.response);
+        navigate('/error500'); 
       }
     };
 

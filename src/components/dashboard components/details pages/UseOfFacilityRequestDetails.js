@@ -1,35 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UseOfFacilityRequestDetails = () => {
 
   const { id } = useParams(); 
+  const navigate = useNavigate();
   const [requestDetails, setServiceRequest] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
   
   useEffect(() => {
     const fetchServiceRequest = async () => {
+      console.log("Fetching service request with ID:", id); // Debugging log
       try {
         const response = await fetch(`http://localhost:5000/api/useOfFacilityRequestDetails/${id}`);
+        
+        if (response.status === 404) {
+          navigate('/error404');
+          return;
+        }
+
         if (response.ok) {
           const data = await response.json();
+          console.log("API Response:", data); // Debugging log
           if (data.status === 'success') {
             setServiceRequest(data.serviceRequest);
           } else {
             console.error('Service request not found');
+            setError('Service request not found');
           }
         } else {
+          navigate('/error500'); // Redirect to error page
           console.error('Failed to fetch service request');
         }
       } catch (error) {
         console.error('Error fetching service request details:', error);
+        console.log('Full response:', error.response);
+        navigate('/error500'); 
+      } finally {
+        setIsLoading(false); // Set loading to false when fetch is done
       }
     };
   
     fetchServiceRequest();
-  }, [id]);
+  }, [id, navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Display error message if there's an issue
+  }
   
   if (!requestDetails) {
-    return <div>Loading...</div>;
+    return <div>Request details not available</div>; // Fallback message if no data
   }
   
   return (

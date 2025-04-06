@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 const TrainingRequestDetails = () => {
 
   const { id } = useParams(); 
+  const navigate = useNavigate();
   const [requestDetails, setServiceRequest] = useState(null);
   
   useEffect(() => {
     const fetchServiceRequest = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/trainingRequestDetails/${id}`);
+
+        if (response.status === 404) {
+          navigate('/error404');
+          return;
+        }
+
         if (response.ok) {
           const data = await response.json();
           if (data.status === 'success') {
@@ -20,9 +26,11 @@ const TrainingRequestDetails = () => {
           }
         } else {
           console.error('Failed to fetch service request');
+          navigate('/error500'); 
         }
       } catch (error) {
         console.error('Error fetching service request details:', error);
+        navigate('/error500');
       }
     };
   
