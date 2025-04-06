@@ -161,6 +161,26 @@ table th, table td {
   text-align: left;
 }
 
+.cancel-btn {
+  background-color: #fff;
+  /* border: 1px solid #d32f2f !important; */
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f !important;
+  color: white;
+}
+
+.cancel-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.25);
+}
+
 .pagination {
   margin-top: 20px;
   display: flex;
@@ -349,7 +369,7 @@ table th, table td {
 }
 
 /* edit modal styling */
-.edit-user-modal-overlay {
+.edit-user-modal-overlay, .cancel-modal-overlay{
   position: fixed;
   top: 0;
   left: 0;
@@ -363,7 +383,7 @@ table th, table td {
   padding: 20px;
 }
 
-.edit-user-modal-content {
+.edit-user-modal-content, .cancel-modal-content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -387,7 +407,7 @@ table th, table td {
   box-sizing: border-box;
 }
 
-.edit-user-modal-buttons {
+.edit-user-modal-buttons, .cancel-modal-buttons {
   display: flex;
   flex-wrap: wrap; 
   justify-content: space-between;
@@ -395,7 +415,7 @@ table th, table td {
   margin-top: 20px;
 }
 
-.edit-user-modal-buttons button {
+.edit-user-modal-buttons button , .cancel-modal-buttons button{
   flex-grow: 1;
   padding: 12px 15px;
   border: none;
@@ -405,16 +425,16 @@ table th, table td {
   min-width: 100px;
 }
 
-.edit-user-modal-buttons button:first-child {
+.edit-user-modal-buttons button:first-child , .cancel-modal-buttons button:first-child {
   background: #ccc;
   color: #333;
 }
 
-.edit-user-modal-buttons button:last-child {
+.edit-user-modal-buttons button:last-child, .cancel-modal-buttons button:last-child {
   background: #8b1e41;
   color: white;
 }
 
-.edit-user-modal-buttons button:hover {
+.edit-user-modal-buttons button:hover, .cancel-modal-buttons button:hover {
   opacity: 0.8;
 }
