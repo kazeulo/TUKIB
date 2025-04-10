@@ -62,7 +62,7 @@ const UseOfFacilityRequestDetails = () => {
   return (
     <div className="service-request-container">
         <div className="request-header">
-        <button className="back-btn" onClick={() => navigate('/clientprofile')}>
+        <button className="back-btn" onClick={() => navigate(-1)}>
           <IoChevronBack size={16} />
           Back to Profile
         </button>
