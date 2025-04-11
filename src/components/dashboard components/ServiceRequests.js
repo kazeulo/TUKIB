@@ -54,6 +54,8 @@ const ServiceRequest = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestToCancel, setRequestToCancel] = useState(null);
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [serviceTypeFilter, setServiceTypeFilter] = useState('all');
 
   useEffect(() => {
     fetchServiceRequests(setServiceRequests);
@@ -70,6 +72,24 @@ const ServiceRequest = () => {
     }
     setIsModalOpen(false);
   };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredRequests = serviceRequests.filter((request) =>
+    Object.values(request).some((value) =>
+      value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
+  const handleFilterChange = (e) => {
+    setServiceTypeFilter(e.target.value);
+  };
+
+  const filteredByServiceType = serviceTypeFilter !== 'all'
+  ? filteredRequests.filter((request) => request.service_name === serviceTypeFilter)
+  : filteredRequests;
 
   const handleRowClick = (requestId, serviceName) => {
     // Navigate to different pages based on the service name
@@ -105,6 +125,33 @@ const ServiceRequest = () => {
           <h2>SERVICE REQUESTS</h2>
         </div>
 
+        <div className="filtering-container">
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search user by any field..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
+
+          <div className="filter-dropdown">
+             <select
+                  id="serviceFilter"
+                  value={serviceTypeFilter}
+                  onChange={(e) => setServiceTypeFilter(e.target.value)}
+                  className="filter-select"
+                >
+                  <option value="all">All Services</option>
+                  <option value="Training">Training</option>
+                  <option value="Sample Processing">Sample Processing</option>
+                  <option value="Use of Equipment">Use of Equipment</option>
+                  <option value="Use of Facility">Use of Facility</option>
+                </select>
+          </div>
+        </div>
+
         {/* Modal for confirmation */}
         <Modal
           isOpen={isModalOpen}
@@ -128,8 +175,8 @@ const ServiceRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {serviceRequests.length > 0 ? (
-                serviceRequests.map((request) => (
+              {filteredByServiceType.length > 0 ? (
+                filteredByServiceType.map((request) => (
                   <tr
                     key={request.request_id}
                     onClick={() => handleRowClick(request.request_id, request.service_name)}
