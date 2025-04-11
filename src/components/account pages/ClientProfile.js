@@ -631,15 +631,6 @@ const ClientProfile = ({ isLoggedIn }) => {
                 onChange={(e) => setEditProfile({ ...editProfile, institution: e.target.value })}
               />
             </div>
-            <div className="form-group">
-              <label>Role</label>
-              <input
-                type="text"
-                placeholder="Role"
-                value={editProfile.role}
-                onChange={(e) => setEditProfile({ ...editProfile, role: e.target.value })}
-              />
-            </div>
             <div className="edit-user-modal-buttons">
               <button className="client-cancel-btn" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
               <button className="save-btn" onClick={handleSaveProfile}>Save Changes</button>
