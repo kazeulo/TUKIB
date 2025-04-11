@@ -25,12 +25,12 @@ export default function MuiCalendar() {
     // MUI file Inline styles
     const styles = {
         container: {
-          backgroundColor: "#ffffff",
+          // backgroundColor: "#ffffff",
           padding: "15px",
-          borderRadius: "12px", // Match reminders widget border radius
-          boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)", // Match reminders widget shadow
+          // borderRadius: "12px",
+          // boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)", 
           margin: "auto",
-          border: "1px solid #f0f0f0", // Add border like reminders widget
+          // border: "1px solid #f0f0f0", 
           maxWidth: "350px", // Constrain width to match reminders widget
         },
         calendar: {
