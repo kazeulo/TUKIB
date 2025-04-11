@@ -130,7 +130,7 @@ const ServiceRequest = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search user by any field..."
+              placeholder="Search requests by any field..."
               value={searchTerm}
               onChange={handleSearch}
             />
