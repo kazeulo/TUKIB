@@ -252,16 +252,22 @@
     border: 1px solid #ddd;
   }
   
-  .search-bar input {
-    border: none;
+  .client-search-input {
     background: none;
     padding: 8px;
     width: 200px;
     outline: none;
+    border: none;
+    box-shadow: none;
   }
-  .search-bar :focus {
-    outline: none !important;
-    border: none !important;
+  
+  .client-search-input:focus,
+  .client-search-input:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
   }
   
   

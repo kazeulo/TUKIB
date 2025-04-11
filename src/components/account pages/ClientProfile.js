@@ -300,7 +300,7 @@ const ClientProfile = ({ isLoggedIn }) => {
             <div className="transaction-filters">
               <div className="search-bar">
                 {/* <FaSearch /> */}
-                <input 
+                <input className='client-search-input'
                   type="text" 
                   placeholder="Search requests..." 
                   value={searchTerm}
