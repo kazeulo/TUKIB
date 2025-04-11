@@ -5,7 +5,7 @@
 
 /* User Profile Section */
 .user-profile-section {
-  background: url('../../assets/Backgrounds/5.png') no-repeat center center;
+  background: url('../../assets/Backgrounds/1.png') no-repeat center center;
   background-size: cover;
   border-radius: 12px;
   padding: 20px;
@@ -53,7 +53,7 @@
 
 .user-info h2 {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 25px;
   margin-bottom: 5px;
   color: #333;
 }
