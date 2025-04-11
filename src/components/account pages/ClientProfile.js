@@ -300,7 +300,7 @@ const ClientProfile = ({ isLoggedIn }) => {
             <div className="transaction-filters">
               <div className="search-bar">
                 {/* <FaSearch /> */}
-                <input 
+                <input className='client-search-input'
                   type="text" 
                   placeholder="Search requests..." 
                   value={searchTerm}
@@ -629,15 +629,6 @@ const ClientProfile = ({ isLoggedIn }) => {
                 placeholder="Institution"
                 value={editProfile.institution}
                 onChange={(e) => setEditProfile({ ...editProfile, institution: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label>Role</label>
-              <input
-                type="text"
-                placeholder="Role"
-                value={editProfile.role}
-                onChange={(e) => setEditProfile({ ...editProfile, role: e.target.value })}
               />
             </div>
             <div className="edit-user-modal-buttons">
