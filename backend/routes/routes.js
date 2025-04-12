@@ -39,8 +39,11 @@ router.get('/messages/:messageId/read', messagesController.updateMessageStatus);
 router.get('/messages/:messageId', messagesController.getMessageDetails);
 
 // Routes for news management
-router.post('/news', newsController.addNews);
-router.get('/news', newsController.getNews);
+router.post('/news', newsController.createNews);
+router.get('/news', newsController.getAllNews);
+router.get('/news/:id', newsController.getNewsById);
+router.put('/news/:id', newsController.updateNews);
+router.delete('/news/:id', newsController.deleteNews);
 
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);

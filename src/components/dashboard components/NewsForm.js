@@ -12,43 +12,56 @@ const categories = [
 	'Material Science',
 	'Nanotechnology',
 ];
+
 const postType = [
 	'News',
 	'Announcement',
 ];
 
-const NewsForm = ({ onAddNews }) => {
+const NewsForm = () => {
+
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [category, setCategory] = useState(null);
-	const [type, setType] = useState(null); 
+	const [type, setType] = useState(null);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		try{
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [postedType, setPostedType] = useState('');
 
-			const newNews = { title, content, category, type };
-			onAddNews(newNews); // Use the passed-in addNews function from news.js
-			setTitle('');
-			setContent('');
-			setCategory('');
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newNews = { title, content, category, type };
 
-			// After successful submission:
-			setPostedType(type); 
-			setShowSuccessModal(true); // Show the success modal
+      // API Call to Backend to Store Data in Database
+      const response = await fetch('http://localhost:5000/api/news', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newNews),
+      });
 
-			// Optionally reset form fields
-			setTitle('');
-			setContent('');
-			setCategory('');
-			setType(''); 
-		}
-		catch (error) {
-			console.error('Error posting:', error);
-		}
-	};
+      if (response.ok) {
+        setTitle('');
+			  setContent('');
+			  setCategory('')
+        setType('');
 
-	// Custom toolbar with formatting options
+        const data = await response.json();
+        console.log('News posted:', data);
+
+        setPostedType(type);
+        setShowSuccessModal(true);
+        console.error('Failed to post news');
+      }
+    } catch (error) {
+      console.error('Error posting:', error);
+    }
+  };
+
+  // Custom toolbar with formatting options
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
@@ -61,10 +74,7 @@ const NewsForm = ({ onAddNews }) => {
 		],
 	};
 
-	const [showSuccessModal, setShowSuccessModal] = useState(false);
-	const [postedType, setPostedType] = useState('');
-
-	return ( <>
+  return ( <>
 		<form className="news-form" onSubmit={handleSubmit}>
 		  <div className="news-form__row">
 				<div className="news-form__field">

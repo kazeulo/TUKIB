@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS user_tokens CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS usersTable CASCADE;
 DROP TABLE IF EXISTS messagesTable CASCADE;
-DROP TABLE IF EXISTS news CASCADE;
+DROP TABLE IF EXISTS news_table CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TYPE IF EXISTS lab_enum CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
@@ -203,12 +203,13 @@ CREATE TABLE messagesTable (
 );
 
 -- News Table
-CREATE TABLE news (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    category VARCHAR(255) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE news_table (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  category VARCHAR(50),
+  type VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Events Table
@@ -245,18 +246,18 @@ CREATE TABLE equipmentsTable (
 );
 
 -- Service Requests Table
-CREATE TABLE  (
-    id SERIAL PRIMARY KEY,
-    service TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    email TEXT,
-    affiliation TEXT,
-    lab_partner TEXT,
-    facility TEXT,
-    start_date DATE,
-    end_date DATE
-);
+-- CREATE TABLE  (
+--     id SERIAL PRIMARY KEY,
+--     service TEXT,
+--     first_name TEXT,
+--     last_name TEXT,
+--     email TEXT,
+--     affiliation TEXT,
+--     lab_partner TEXT,
+--     facility TEXT,
+--     start_date DATE,
+--     end_date DATE
+-- );
 
 -- ======== PRIVILEGES ========
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
@@ -328,6 +329,20 @@ VALUES
      'Testing for bacteria in water', '500 ml', 'Incubation at 37°C for 48 hours', 
      'Handle with care. Potential for contamination', '2025-03-02', 'Water Quality Research', 
      'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
+
+-- inserting dummy data on news table
+-- Insert two news posts
+INSERT INTO news_table (title, content, category, type, created_at)
+VALUES
+  ('Breaking News 1', 'Content for Breaking News 1...', 'General', 'News', NOW()),
+  ('Breaking News 2', 'Content for Breaking News 2...', 'Applied Chemistry', 'News', NOW());
+
+-- Insert two announcements
+INSERT INTO news_table (title, content, category, type, created_at)
+VALUES
+  ('Important Announcement 1', 'Content for Important Announcement 1...', 'Biology', 'Announcement', NOW()),
+  ('Important Announcement 2', 'Content for Important Announcement 2...', 'Food Science', 'Announcement', NOW());
+
 
 -- ======== ALTERS ========
 
