@@ -64,7 +64,7 @@ const UseOfFacilityRequestDetails = () => {
         <div className="request-header">
         <button className="back-btn" onClick={() => navigate(-1)}>
           <IoChevronBack size={16} />
-          Back to Profile
+          Back to Previous Page
         </button>
         <h3 className="service-request-title">Service Request Details</h3>
       </div>

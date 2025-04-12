@@ -144,31 +144,31 @@
   
   .status-pending {
     background-color: #fff8e1;
-    color: #f57c00;
+    color: #f57c00 !important;
     border: 1px solid #ffca28;
   }
   
   .status-pending-for-approval {
-    background-color: #e3f2fd;
-    color: #1976d2;
-    border: 1px solid #64b5f6;
+    background-color: #fff8e1;
+    color: #f57c00 !important;
+    border: 1px solid #ffca28;
   }
   
   .status-approved {
     background-color: #e8f5e9;
-    color: #2e7d32;
+    color: #2e7d32 !important;
     border: 1px solid #81c784;
   }
   
   .status-cancelled {
     background-color: #ffebee;
-    color: #c62828;
+    color: #c62828 !important;
     border: 1px solid #ef9a9a;
   }
   
   .status-completed {
     background-color: #e0f2f1;
-    color: #00796b;
+    color: #00796b !important;
     border: 1px solid #80cbc4;
   }
   
