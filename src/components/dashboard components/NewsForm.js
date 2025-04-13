@@ -12,43 +12,56 @@ const categories = [
 	'Material Science',
 	'Nanotechnology',
 ];
+
 const postType = [
 	'News',
 	'Announcement',
 ];
 
-const NewsForm = ({ onAddNews }) => {
+const NewsForm = () => {
+
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [category, setCategory] = useState(null);
-	const [type, setType] = useState(null); 
+	const [type, setType] = useState(null);
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+	const [postedType, setPostedType] = useState('');
 
-	const handleSubmit = (e) => {
+	const [errorMessage, setErrorMessage] = useState('');
+
+	// Handle form submission
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try{
-
-			const newNews = { title, content, category, type };
-			onAddNews(newNews); // Use the passed-in addNews function from news.js
-			setTitle('');
-			setContent('');
-			setCategory('');
-
-			// After successful submission:
-			setPostedType(type); 
-			setShowSuccessModal(true); // Show the success modal
-
-			// Optionally reset form fields
-			setTitle('');
-			setContent('');
-			setCategory('');
-			setType(''); 
+		try {
+		const newNews = { title, content, category, type };
+		
+		const response = await fetch('http://localhost:5000/api/news', {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(newNews),
+		});
+	
+		if (response.ok) {
+			const data = await response.json();
+			setPostedType(type);
+			setShowSuccessModal(true);
+			console.log('News posted:', data);
+		} else {
+			setErrorMessage('Failed to post. Please try again.');
 		}
-		catch (error) {
-			console.error('Error posting:', error);
+		} catch (error) {
+		console.error('Error posting:', error);
+		setErrorMessage('An error occurred while posting. Please try again.');
 		}
 	};
+  
+  	// In the return statement:
+  	{errorMessage && <p className="error-message">{errorMessage}</p>}
+  
 
-	// Custom toolbar with formatting options
+  	// Custom toolbar with formatting options
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
@@ -61,10 +74,7 @@ const NewsForm = ({ onAddNews }) => {
 		],
 	};
 
-	const [showSuccessModal, setShowSuccessModal] = useState(false);
-	const [postedType, setPostedType] = useState('');
-
-	return ( <>
+  return ( <>
 		<form className="news-form" onSubmit={handleSubmit}>
 		  <div className="news-form__row">
 				<div className="news-form__field">
@@ -159,7 +169,7 @@ const NewsForm = ({ onAddNews }) => {
 				</div>
 			  </div>
 			</div>
-		  )}</>
+		)}</>
 	);
 };
 
