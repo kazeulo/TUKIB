@@ -316,7 +316,7 @@ VALUES
 -- Inserting dummy data into 'facilityRentalRequests'
 INSERT INTO facilityRentalRequests (request_id, project_title, project_budget_code, proofOfFunds, paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, additional_information, acknowledge_terms, necessaryDocuments)
 VALUES
-    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
+    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-05-10 09:00:00', '2025-03-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
 
 -- Inserting dummy data into 'sampleProcessingRequests' table
 INSERT INTO sampleProcessingRequests 

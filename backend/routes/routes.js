@@ -54,6 +54,9 @@ router.get('/useOfFacilityRequestDetails/:id', serviceRequestsController.getFaci
 router.get('/trainingRequestDetails/:id', serviceRequestsController.getTrainingRequestById);
 router.get('/sampleProcessingRequestDetails/:id', serviceRequestsController.getSampleProcessingRequestById);
 
+// facility
+router.get('/facility-bookings', facilityRentalRequestsController.getFacilitySchedule);
+
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
