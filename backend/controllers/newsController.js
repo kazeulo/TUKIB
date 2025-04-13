@@ -26,6 +26,10 @@ const createNews = async (req, res) => {
 const getAllNews = async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM news_table ORDER BY created_at DESC');
+    result.rows.forEach(news => {
+      news.created_at = news.created_at.toISOString(); 
+    });
+
     res.status(200).json({ success: true, news: result.rows });
   } catch (error) {
     console.error('Error fetching news:', error);

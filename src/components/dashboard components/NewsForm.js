@@ -24,44 +24,44 @@ const NewsForm = () => {
 	const [content, setContent] = useState('');
 	const [category, setCategory] = useState(null);
 	const [type, setType] = useState(null);
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+	const [postedType, setPostedType] = useState('');
 
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [postedType, setPostedType] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const newNews = { title, content, category, type };
+	// Handle form submission
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+		const newNews = { title, content, category, type };
+		
+		const response = await fetch('http://localhost:5000/api/news', {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(newNews),
+		});
+	
+		if (response.ok) {
+			const data = await response.json();
+			setPostedType(type);
+			setShowSuccessModal(true);
+			console.log('News posted:', data);
+		} else {
+			setErrorMessage('Failed to post. Please try again.');
+		}
+		} catch (error) {
+		console.error('Error posting:', error);
+		setErrorMessage('An error occurred while posting. Please try again.');
+		}
+	};
+  
+  	// In the return statement:
+  	{errorMessage && <p className="error-message">{errorMessage}</p>}
+  
 
-      // API Call to Backend to Store Data in Database
-      const response = await fetch('http://localhost:5000/api/news', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newNews),
-      });
-
-      if (response.ok) {
-        setTitle('');
-			  setContent('');
-			  setCategory('')
-        setType('');
-
-        const data = await response.json();
-        console.log('News posted:', data);
-
-        setPostedType(type);
-        setShowSuccessModal(true);
-        console.error('Failed to post news');
-      }
-    } catch (error) {
-      console.error('Error posting:', error);
-    }
-  };
-
-  // Custom toolbar with formatting options
+  	// Custom toolbar with formatting options
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
@@ -169,7 +169,7 @@ const NewsForm = () => {
 				</div>
 			  </div>
 			</div>
-		  )}</>
+		)}</>
 	);
 };
 

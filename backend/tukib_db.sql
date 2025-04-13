@@ -334,14 +334,31 @@ VALUES
 -- Insert two news posts
 INSERT INTO news_table (title, content, category, type, created_at)
 VALUES
-  ('Breaking News 1', 'Content for Breaking News 1...', 'General', 'News', NOW()),
+  ('RRC welcomes its new additional researchers', 
+  'The University of the Philippines Visayas - Regional Research Center welcomes its two (2) new additional researchers for the Material Science and Nanotechnology Laboratory. 
+Engr. Leonard King Jao is an alumnus of the B.S. in Chemical Engineering program of the UPV School of Technology, and is also currently taking up his Master of Chemistry under the UPV Graduate School and UPV Department of Chemistry - College of Arts and Sciences. Engr. Jao is the newly appointed University Researcher 1 and laboratory-in-charge of the MSN Laboratory. Ms. Joanna Mae C. Mong, RFP, is an alumna of the B.S. in Fisheries program of the College of Fisheries and Ocean Sciences, UP Visayas. Ms. Mong is the newly appointed Science Research Analyst of the MSN Laboratory.
+Their appointment to the UPV RRC MSN Laboratory also signifies the reopening of the services of the said laboratory. To avail these services or for future collaborative activities, please follow our Facebook page or email us at rrc.upvisayas@up.edu.ph. 
+#RRCUPdates #UPVRRC #SDG17PartnershipsfortheGoals', 
+  'General', 
+  'News', 
+  NOW()),
   ('Breaking News 2', 'Content for Breaking News 2...', 'Applied Chemistry', 'News', NOW());
 
 -- Insert two announcements
 INSERT INTO news_table (title, content, category, type, created_at)
 VALUES
   ('Important Announcement 1', 'Content for Important Announcement 1...', 'Biology', 'Announcement', NOW()),
-  ('Important Announcement 2', 'Content for Important Announcement 2...', 'Food Science', 'Announcement', NOW());
+  ('2025 RRC Open House and Launching of the RRC i2i Makerspace (Idea to Innovation)', 
+  'The UPV Regional Research Center (RRC), together with its building partners SERDAC, TTBDO, NICER and PGC-Visayas, will be hosting the 2025 RRC Open House and the Launching of the RRC i2i Makerspace (Idea to Innovation) and RRC Phase IV Architecture Plan on February 26, 2025.
+    The open house aims to showcase the center’s capabilities, state-of-the-art laboratories, and existing equipment and instruments to the UPV community and external stakeholders.
+    Those who are interested are encouraged to register through the following links, according to the corresponding time schedule. The open house is open to all UPV employees and students, limited to 80 slots per batch only.
+    Batch 1 - https://forms.gle/7PzKqyoGhyB2cRk86
+    Batch 2 - https://forms.gle/oL6ZnF2JDjnMGUBn9
+    Batch 3 - https://forms.gle/Qz7gXbyK56gPrkRMA
+    Batch 4 - https://forms.gle/HHXmcjUS7AWPVr3b9', 
+  'General', 
+  'Announcement', 
+  NOW());
 
 
 -- ======== ALTERS ========
