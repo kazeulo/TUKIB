@@ -16,6 +16,7 @@ import Login from './components/Login';
 import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
+import Laboratory from './components/Laboratory';
 
 // Account pages
 import ClientProfile from './components/account pages/ClientProfile';
@@ -180,6 +181,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/services'
 					element={<Service />}
+				/>
+				<Route
+					path='/laboratory'
+					element={<Laboratory />}
 				/>
 				<Route
 					path='/about'

@@ -101,6 +101,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               </Nav.Item>
 
               <Nav.Item>
+                <Link to="/laboratory" className="nav-link">
+                  Laboratory
+                </Link>
+              </Nav.Item>
+
+              <Nav.Item>
                 <Link to="/news" className="nav-link">
                   News
                 </Link>
