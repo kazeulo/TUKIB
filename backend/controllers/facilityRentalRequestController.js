@@ -74,4 +74,25 @@ const createFacilityRentalRequest = async (req, res) => {
   }
 };
 
-module.exports = { createFacilityRentalRequest };
+const getFacilitySchedule = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT selected_facility, start_of_use, end_of_use
+      FROM facilityRentalRequests
+      ORDER BY start_of_use ASC
+    `);
+
+    const formatted = result.rows.map(row => ({
+      facility_name: row.selected_facility,
+      start: row.start_of_use,
+      end: row.end_of_use,
+    }));
+
+    res.json(formatted);
+  } catch (err) {
+    console.error('Error fetching facility schedule:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+module.exports = { createFacilityRentalRequest, getFacilitySchedule };

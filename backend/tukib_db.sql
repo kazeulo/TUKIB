@@ -300,7 +300,8 @@ VALUES
     (6, 'Training', 'Pending', 'Cash', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
     (2, 'Sample Processing', 'Completed', 'Cash', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
     (2, 'Use of Equipment', 'Approved', 'Cash', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
-    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1);
+    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
+    (6, 'Use of Facility', 'Pending', 'Cash', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
@@ -316,7 +317,8 @@ VALUES
 -- Inserting dummy data into 'facilityRentalRequests'
 INSERT INTO facilityRentalRequests (request_id, project_title, project_budget_code, proofOfFunds, paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, additional_information, acknowledge_terms, necessaryDocuments)
 VALUES
-    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
+    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-05-10 09:00:00', '2025-05-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']),
+    (5, 'Hybrid Seminar', 'NA', 'NA', 'NA', 'Collaboration Room', '2025-04-30 09:00:00', '2025-04-30 18:00:00', 30, 'Seminar presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
 
 -- Inserting dummy data into 'sampleProcessingRequests' table
 INSERT INTO sampleProcessingRequests 
@@ -334,15 +336,19 @@ VALUES
 -- Insert two news posts
 INSERT INTO news_table (title, content, category, type, created_at)
 VALUES
-  ('RRC welcomes its new additional researchers', 
-  'The University of the Philippines Visayas - Regional Research Center welcomes its two (2) new additional researchers for the Material Science and Nanotechnology Laboratory. 
+    ('RRC welcomes its new additional researchers', 
+    'The University of the Philippines Visayas - Regional Research Center welcomes its two (2) new additional researchers for the Material Science and Nanotechnology Laboratory. 
 Engr. Leonard King Jao is an alumnus of the B.S. in Chemical Engineering program of the UPV School of Technology, and is also currently taking up his Master of Chemistry under the UPV Graduate School and UPV Department of Chemistry - College of Arts and Sciences. Engr. Jao is the newly appointed University Researcher 1 and laboratory-in-charge of the MSN Laboratory. Ms. Joanna Mae C. Mong, RFP, is an alumna of the B.S. in Fisheries program of the College of Fisheries and Ocean Sciences, UP Visayas. Ms. Mong is the newly appointed Science Research Analyst of the MSN Laboratory.
 Their appointment to the UPV RRC MSN Laboratory also signifies the reopening of the services of the said laboratory. To avail these services or for future collaborative activities, please follow our Facebook page or email us at rrc.upvisayas@up.edu.ph. 
 #RRCUPdates #UPVRRC #SDG17PartnershipsfortheGoals', 
-  'General', 
-  'News', 
-  NOW()),
-  ('Breaking News 2', 'Content for Breaking News 2...', 'Applied Chemistry', 'News', NOW());
+    'General', 
+    'News', 
+    NOW()),
+    ('RRC Conducts Lab Tour for Aqua Sci 1 Students', 
+    'The UP Visayas Regional Research Center conducted a laboratory and facilities tour last November 4, 2024 for a General Education (GE) course – Aquatic Science 1 (<i>People and the Aquatic World</i>) Section 4 students under the class of Prof. Liah Catedrilla of the College of Fisheries and Ocean Sciences, UP Visayas. The students got to know UPV RRC more, especially its services, and the people through a quick audio-visual presentation. It was then followed with a quick building tour and a short research presentation on some of the completed and ongoing research projects at the UPV RRC, specifically the Farm to Fashion (Natural Textile Fiber yarn value chain), Product optimization of <i>Tegillarca granosa</i> (Blood cockle – Litob), and Dried Microalgae Biomass. The facility tour had also a quick stop at the Philippine Genome Center - Visayas prior to wrapping it up.', 
+    'General', 
+    'News', 
+    NOW());
 
 -- Insert two announcements
 INSERT INTO news_table (title, content, category, type, created_at)

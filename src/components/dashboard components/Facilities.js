@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/dashboard components/Table.css';
 
-// mock data
-const mockFacilityAvailability = [
-  {
-    facility_name: 'Audio/Visual Room',
-    unavailable_dates: [
-      '2025-03-23T10:00:00',
-      '2025-03-24T14:00:00',
-    ],
-  },
-  {
-    facility_name: 'Collaboration Room',
-    unavailable_dates: [
-      '2025-03-25T08:00:00',
-      '2025-03-26T15:30:00',
-    ],
-  },
-  {
-    facility_name: 'Meeting Room 1',
-    unavailable_dates: [],
-  },
-];
-
 const FacilityAvailability = () => {
   const [facilityAvailability, setFacilityAvailability] = useState([]);
 
   useEffect(() => {
-    setFacilityAvailability(mockFacilityAvailability);
+    const fetchAvailability = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/facility-bookings');
+        const data = await res.json();
+
+        // Group schedules by facility
+        const grouped = data.reduce((acc, curr) => {
+          if (!acc[curr.facility_name]) {
+            acc[curr.facility_name] = [];
+          }
+          acc[curr.facility_name].push({
+            start: new Date(curr.start).toLocaleString(),
+            end: new Date(curr.end).toLocaleString(),
+          });
+          return acc;
+        }, {});
+
+        const formatted = Object.entries(grouped).map(([name, schedule]) => ({
+          facility_name: name,
+          unavailable_dates: schedule,
+        }));
+
+        setFacilityAvailability(formatted);
+      } catch (err) {
+        console.error('Error fetching facility availability:', err);
+      }
+    };
+
+    fetchAvailability();
   }, []);
 
   return (
@@ -41,7 +47,7 @@ const FacilityAvailability = () => {
           <thead>
             <tr>
               <th>Facility Name</th>
-              <th>Unavailable Dates</th>
+              <th>Schedules</th>
             </tr>
           </thead>
           <tbody>
@@ -51,9 +57,9 @@ const FacilityAvailability = () => {
                   <td>{facility.facility_name}</td>
                   <td>
                     {facility.unavailable_dates.length > 0 ? (
-                      facility.unavailable_dates.map((date, index) => (
+                      facility.unavailable_dates.map((range, index) => (
                         <div key={index}>
-                          {new Date(date).toLocaleString()}
+                          {range.start} – {range.end}
                         </div>
                       ))
                     ) : (
@@ -64,7 +70,7 @@ const FacilityAvailability = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="2">No facility availability data found</td>
+                <td colSpan="2">Loading availability...</td>
               </tr>
             )}
           </tbody>
