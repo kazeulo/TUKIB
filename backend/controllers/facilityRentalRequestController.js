@@ -1,4 +1,3 @@
-const { request } = require('express');
 const pool = require('../backend');
 
 // Function to create a new training request
@@ -12,6 +11,7 @@ const createFacilityRentalRequest = async (req, res) => {
       project_title = null,
       project_budget_code = null,
       selectedFacility,
+      purpose_of_use,
       service_name,
       status,
       startOfUse,
@@ -44,13 +44,14 @@ const createFacilityRentalRequest = async (req, res) => {
     // Insert into trainingRequests table
     const result = await pool.query(
       `INSERT INTO facilityRentalRequests 
-       (request_id, selected_facility, start_of_use, end_of_use, participant_count, project_title, project_budget_code, 
+       (request_id, selected_facility, purpose_of_use, start_of_use, end_of_use, participant_count, project_title, project_budget_code, 
         proofOfFunds, paymentConforme, additional_information, necessaryDocuments, acknowledge_terms)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
        RETURNING *`,
       [
         request_id,
         selectedFacility,
+        purpose_of_use,
         startOfUse,
         endOfUse,
         participantCount,
@@ -74,25 +75,4 @@ const createFacilityRentalRequest = async (req, res) => {
   }
 };
 
-const getFacilitySchedule = async (req, res) => {
-  try {
-    const result = await pool.query(`
-      SELECT selected_facility, start_of_use, end_of_use
-      FROM facilityRentalRequests
-      ORDER BY start_of_use ASC
-    `);
-
-    const formatted = result.rows.map(row => ({
-      facility_name: row.selected_facility,
-      start: row.start_of_use,
-      end: row.end_of_use,
-    }));
-
-    res.json(formatted);
-  } catch (err) {
-    console.error('Error fetching facility schedule:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-module.exports = { createFacilityRentalRequest, getFacilitySchedule };
+module.exports = { createFacilityRentalRequest };

@@ -228,11 +228,13 @@ const getEquipmentRentalRequestById = async (req, res) => {
 const getFacilityRentalRequestById = async (req, res) => {
     const { id } = req.params;
 
+    // Validate the ID
     if (!id || isNaN(id)) {
         return res.status(400).json({ status: 'error', message: 'Invalid request ID' });
     }
 
     try {
+        // SQL query to fetch service request along with facility details
         const result = await pool.query(
             `SELECT 
                 sr.request_id, 
@@ -244,6 +246,7 @@ const getFacilityRentalRequestById = async (req, res) => {
                 sr."end", 
                 u.name AS user_name,
                 approver.name AS approver_name,
+                frr.purpose_of_use,
                 frr.project_title, 
                 frr.project_budget_code, 
                 frr.proofOfFunds, 
@@ -254,23 +257,29 @@ const getFacilityRentalRequestById = async (req, res) => {
                 frr.participant_count, 
                 frr.additional_information, 
                 frr.acknowledge_terms, 
-                frr.necessaryDocuments
+                frr.necessaryDocuments,
+                fac.facility_name
              FROM serviceRequestTable sr
              JOIN usersTable u ON sr.user_id = u.user_id
              LEFT JOIN usersTable approver ON sr.approved_by = approver.user_id
              LEFT JOIN facilityRentalRequests frr ON sr.request_id = frr.request_id
+             LEFT JOIN facilitiesTable fac ON frr.selected_facility = fac.facility_id 
              WHERE sr.request_id = $1`, [id]
         );
 
+        // If no results, send 404
         if (result.rows.length === 0) {
             return res.status(404).json({ status: 'error', message: 'Service request not found' });
         }
 
+        // Return the result
         return res.status(200).json({
             status: 'success',
             serviceRequest: result.rows[0],
         });
+
     } catch (error) {
+        // Log and return the error
         console.error('Error fetching service request by ID:', error);
         console.error('Actual DB error:', error.message);
         return res.status(500).json({ status: 'error', message: 'Server error while fetching service request' });

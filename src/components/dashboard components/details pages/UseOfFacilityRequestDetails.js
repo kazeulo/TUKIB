@@ -91,7 +91,8 @@ const UseOfFacilityRequestDetails = () => {
           <div className="request-section facility-details">
             <div className="details-row">
               <div className="details-col">
-                <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.selected_facility}</p>
+                <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.facility_name}</p>
+                <p className="detail-item"><span className="detail-label">Event/Activity Name:</span> {requestDetails.purpose_of_use}</p>
                 <p className="detail-item"><span className="detail-label">Start of Use:</span> {new Date(requestDetails.start_of_use).toLocaleString()}</p>
                 <p className="detail-item"><span className="detail-label">End of Use:</span> {new Date(requestDetails.end_of_use).toLocaleString()}</p>
                 <p className="detail-item"><span className="detail-label">Participant Count:</span> {requestDetails.participant_count}</p>
