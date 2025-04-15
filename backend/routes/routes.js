@@ -15,6 +15,7 @@ const trainingRequestsController = require('../controllers/trainingRequestsContr
 const sampleProcessingRequestController = require('../controllers/sampleProcessingRequestController');
 const equipmentRentalRequestController = require('../controllers/equipmentRentalRequestController');
 const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
+const facilityController = require('../controllers/facilityController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -55,7 +56,10 @@ router.get('/trainingRequestDetails/:id', serviceRequestsController.getTrainingR
 router.get('/sampleProcessingRequestDetails/:id', serviceRequestsController.getSampleProcessingRequestById);
 
 // facility
-router.get('/facility-bookings', facilityRentalRequestsController.getFacilitySchedule);
+router.post('/facility', facilityController.createFacility);
+router.get('/facilities', facilityController.getAllFacilities);
+router.get('/facility/schedules', facilityController.getFacilityWithSchedules);
+router.delete('/facility/:id', facilityController.deleteFacility);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {

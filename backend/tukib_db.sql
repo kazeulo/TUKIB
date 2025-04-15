@@ -39,9 +39,9 @@ DROP TABLE IF EXISTS usersTable CASCADE;
 DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news_table CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
+DROP TABLE IF EXISTS facilitiesTable CASCADE;
 DROP TYPE IF EXISTS lab_enum CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
-DROP TYPE IF EXISTS facilities CASCADE;
 DROP TYPE IF EXISTS service_type CASCADE;
 
 -- ======== ENUM TYPES ========
@@ -59,11 +59,6 @@ CREATE TYPE lab_enum AS ENUM (
 CREATE TYPE payment_option AS ENUM (
   'Cash',
   'Charged to Project'
-);
-
-CREATE TYPE facilities AS ENUM (
-  'Audio/Visual Room',
-  'Collaboration Room'
 );
 
 CREATE TYPE service_type AS ENUM(
@@ -95,6 +90,28 @@ CREATE TABLE user_tokens (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
+);
+
+-- Equipments Table
+CREATE TABLE equipmentsTable (
+    equipment_id SERIAL PRIMARY KEY,
+    availability BOOLEAN NOT NULL,
+    equipment_name VARCHAR(255) NOT NULL,
+    brand VARCHAR(255),
+    quantity INT NOT NULL,
+    model VARCHAR(255),
+    serial_number VARCHAR(255),
+    staff_name VARCHAR(255),
+    location VARCHAR(255) NOT NULL,
+    sticker_paper_printed BOOLEAN NOT NULL
+);
+
+-- Facilities table
+CREATE TABLE facilitiesTable (
+    facility_id SERIAL PRIMARY KEY,
+    facility_name VARCHAR(100) NOT NULL, 
+    capacity INT NOT NULL, 
+    resources TEXT[]
 );
 
 -- Service Request Table
@@ -177,18 +194,20 @@ CREATE TABLE equipmentRentalRequests (
 CREATE TABLE facilityRentalRequests (
     facilityRental_request_id SERIAL PRIMARY KEY,
     request_id INT NOT NULL,
+    selected_facility INT NOT NULL,
+    purpose_of_use VARCHAR(255),
     project_title VARCHAR(255),
     project_budget_code VARCHAR(50),
     proofOfFunds TEXT,
     paymentConforme TEXT,
-    selected_facility facilities NOT NULL,
     start_of_use TIMESTAMP NOT NULL,
     end_of_use TIMESTAMP NOT NULL,
     participant_count INT NOT NULL,
     additional_information TEXT,
     acknowledge_terms BOOLEAN NOT NULL DEFAULT FALSE,
     necessaryDocuments TEXT[],
-    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE,
+    FOREIGN KEY (selected_facility) REFERENCES facilitiesTable(facility_id) ON DELETE CASCADE
 );
 
 -- Messages Table
@@ -230,20 +249,6 @@ CREATE TABLE events (
 -- Indexes for performance
 CREATE INDEX idx_events_start_time ON events(start_time);
 CREATE INDEX idx_events_end_time ON events(end_time);
-
--- Equipments Table
-CREATE TABLE equipmentsTable (
-    equipment_id SERIAL PRIMARY KEY,
-    availability BOOLEAN NOT NULL,
-    equipment_name VARCHAR(255) NOT NULL,
-    brand VARCHAR(255),
-    quantity INT NOT NULL,
-    model VARCHAR(255),
-    serial_number VARCHAR(255),
-    staff_name VARCHAR(255),
-    location VARCHAR(255) NOT NULL,
-    sticker_paper_printed BOOLEAN NOT NULL
-);
 
 -- Service Requests Table
 -- CREATE TABLE  (
@@ -294,6 +299,13 @@ VALUES
     (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
     (TRUE, 'Projector', 'BrandB', 3, 'ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE);
 
+-- Insert dummy data into 'facilities' table
+INSERT INTO facilitiesTable (facility_name, capacity, resources)
+VALUES
+    ('Audio/Visual Room', 50, ARRAY['Projector', 'Speakers', 'Microphones']),
+    ('Collaboration Room', 20, ARRAY['Whiteboard', 'Projector', 'Video Conferencing Equipment']),
+    ('Conference Room A', 30, ARRAY['Projector', 'Table', 'Chairs']);
+
 -- Inserting dummy data into 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
 VALUES
@@ -306,19 +318,27 @@ VALUES
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
 VALUES
-    (1, 'Advanced Chemistry Training', '2025-03-01', 15, TRUE, 'Applied Chemistry', 'Chemistry Research', 'AC123', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']),
-    (2, 'Biology Sample Processing Training', '2025-03-02', 10, TRUE, 'Biology', 'Bio Research', 'BR456', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']);
+    (1, 'Advanced Chemistry Training', '2025-03-01 18:00:00', 15, TRUE, 'Applied Chemistry', 'Chemistry Research', 
+        'AC123', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']),
+    (2, 'Biology Sample Processing Training', '2025-04-30 18:00:00', 10, TRUE, 'Biology', 'Bio Research', 'BR456', 
+        'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']);
 
 -- Inserting dummy data into 'equipmentRentalRequests'
 INSERT INTO equipmentRentalRequests (request_id, authorized_representative, laboratory, equipment_name, equipment_settings, sample_type, sample_description, sample_volume, sample_hazard_description, schedule_of_use, estimated_use_duration, project_title, project_budget_code, proofOfFunds, paymentConforme, additional_information, necessaryDocuments)
 VALUES
-    (3, 'John Doe', 'Material Science and Nanotechnology', 'Electron Microscope', 'High magnification', 'Tissue', 'Electron microscopy for tissue sample analysis', '10 ml', 'Handle with care', '2025-03-05', '5 hours', 'Nano Research', 'NR789', 'Proof of funds document', 'Payment conforms', 'Additional equipment details', ARRAY['Document9.pdf', 'Document10.pdf']);
+    (3, 'John Doe', 'Material Science and Nanotechnology', 'Electron Microscope', 'High magnification', 
+    'Tissue', 'Electron microscopy for tissue sample analysis', '10 ml', 'Handle with care', '2025-04-05 18:00:00', 
+    '5 hours', 'Nano Research', 'NR789', 'Proof of funds document', 'Payment conforms', 
+    'Additional equipment details', ARRAY['Document9.pdf', 'Document10.pdf']);
 
 -- Inserting dummy data into 'facilityRentalRequests'
-INSERT INTO facilityRentalRequests (request_id, project_title, project_budget_code, proofOfFunds, paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, additional_information, acknowledge_terms, necessaryDocuments)
+INSERT INTO facilityRentalRequests (
+    request_id, purpose_of_use, project_title, project_budget_code, proofOfFunds, 
+    paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, 
+    additional_information, acknowledge_terms, necessaryDocuments)
 VALUES
-    (4, 'Research Presentation', 'RP123', 'Proof of funds document', 'Payment conforms', 'Audio/Visual Room', '2025-05-10 09:00:00', '2025-05-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']),
-    (5, 'Hybrid Seminar', 'NA', 'NA', 'NA', 'Collaboration Room', '2025-04-30 09:00:00', '2025-04-30 18:00:00', 30, 'Seminar presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
+    (4, 'Research Presentation', 'NA', 'NA', 'NA', 'NA', 1, '2025-05-10 09:00:00', '2025-05-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']),
+    (5, 'Hybrid Seminar', 'NA', 'NA', 'NA', 'NA', 2, '2025-04-30 09:00:00', '2025-04-30 18:00:00', 30, 'Seminar presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
 
 -- Inserting dummy data into 'sampleProcessingRequests' table
 INSERT INTO sampleProcessingRequests 
@@ -329,7 +349,7 @@ VALUES
     -- Sample 1: Linked to 'serviceRequestTable' request_id 2 (Sample Processing)
     ('Microbiology and Bioengineering', 2, 'Bacterial Identification', 'Water Sample', 
      'Testing for bacteria in water', '500 ml', 'Incubation at 37°C for 48 hours', 
-     'Handle with care. Potential for contamination', '2025-03-02', 'Water Quality Research', 
+     'Handle with care. Potential for contamination', '2025-04-30 18:00:00', 'Water Quality Research', 
      'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
 
 -- inserting dummy data on news table

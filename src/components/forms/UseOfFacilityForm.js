@@ -12,11 +12,13 @@ function UseOfFacilityForm({ isLoggedIn }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);  
   const [errors, setErrors] = useState({});
+  const [facilities, setFacilities] = useState([]);
 
   const [formData, setFormData] = useState({
     user_id: '',
     service_name: 'Use of Facility',
     status: 'Pending for approval',
+    purpose_of_use:'',
     payment_option: '', 
     project_title: '',
     project_budget_code: '',
@@ -49,6 +51,20 @@ function UseOfFacilityForm({ isLoggedIn }) {
       setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
     }
   }, [user]);
+
+  // fetch facilities
+  useEffect(() => {
+    const fetchFacilities = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/facilities');
+        setFacilities(response.data); 
+      } catch (error) {
+        console.error('Error fetching facilities:', error);
+      }
+    };
+
+    fetchFacilities();
+  }, []);
 
   // Handle changes for form fields
   const handleChange = (e) => {
@@ -103,6 +119,7 @@ function UseOfFacilityForm({ isLoggedIn }) {
     let newErrors = {};
   
     if (!formData.selectedFacility) newErrors.selectedFacility = "This field is required.";
+    if (!formData.purpose_of_use) newErrors.purpose_of_use = "This field is required.";
     if (!formData.startOfUse) newErrors.startOfUse = "This field is required.";
     if (!formData.endOfUse) newErrors.endOfUse = "This field is required.";
     if (!formData.participantCount) newErrors.participantCount = "This field is required.";
@@ -133,6 +150,7 @@ function UseOfFacilityForm({ isLoggedIn }) {
     formDataToSend.append('user_id', formData.user_id);
     formDataToSend.append('service_name', formData.service_name);
     formDataToSend.append('status', formData.status);
+    formDataToSend.append('purpose_of_use', formData.purpose_of_use);
     formDataToSend.append('payment_option', formData.payment_option);
     formDataToSend.append('project_title', formData.project_title);
     formDataToSend.append('selectedFacility', formData.selectedFacility);
@@ -170,6 +188,7 @@ function UseOfFacilityForm({ isLoggedIn }) {
         user_id: '',
         service_name: 'Use of Facility',
         status: 'Pending for approval',
+        purpose_of_use: '',
         payment_option: '',
         project_title: '',
         project_budget_code: '',
@@ -242,10 +261,25 @@ function UseOfFacilityForm({ isLoggedIn }) {
                 onChange={handleChange}
               >
                 <option value="">Select Facility</option>
-                <option value="Audio/Visual Room">Audio/Visual Room</option>
-                <option value="Collaboration Room">Collaboration Room</option>
+                {facilities.map((facility) => (
+                  <option key={facility.facility_id} value={facility.facility_id}>
+                    {facility.facility_name}
+                  </option>
+                ))}
               </select>
               {errors.selectedFacility && <p className="error">{errors.selectedFacility}</p>}
+            </div>
+
+            <div className="form-group">
+              <label>Event/Activity name</label>
+              <input
+                type="text"
+                name="purpose_of_use"
+                value={formData.purpose_of_use}
+                onChange={handleChange}
+                 placeholder="Pupose of use"
+              />
+              {errors.purpose_of_use && <p className="error">{errors.purpose_of_use}</p>}
             </div>
 
             {/* Date/Time Start */}
