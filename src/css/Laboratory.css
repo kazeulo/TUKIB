@@ -1,0 +1,450 @@
+/* general */
+.rrc-laboratory-container {
+    margin: 0 auto;
+    padding-bottom: 2rem;
+  }
+ /*section 1  */
+  .rrc-laboratory-header {
+    position: relative;
+    width: 100%;
+    height: 87vh;
+    overflow: hidden;
+  }
+  
+  .rrc-laboratory-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/labpic.jpg') no-repeat center center;
+    background-size: cover;
+    filter: blur(3px);
+    z-index: 1;
+  }
+  
+  .rrc-laboratory-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to top right,
+      rgba(142, 21, 55, 0.75) 20%,
+      rgba(90, 39, 119, 0.7) 45%,
+      rgba(218, 129, 60, 0.5) 75%,
+      rgba(255, 204, 53, 0.5) 100%
+    );
+    z-index: 2;
+  }
+  
+  .rrc-general-description {
+    text-align: left;
+    position: relative;
+    padding: 80px;
+    max-width: 750px;
+    color: white;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-left: 15px;
+  }
+  
+  .rrc-general-description h1 {
+    font-family: 'Poppins';
+    font-weight: 500;
+	  margin-bottom: 20px;
+	  font-size: 38px;
+    color: white;
+  }
+  
+  .rrc-general-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    color: white;
+  }
+  /* section2 */
+/* Laboratory cards section styling */
+.rrc-laboratory-names {
+  width: 100%;
+  min-height: 85vh;
+  padding: 4rem 0;
+  position: relative;
+}
+
+.rrc-laboratories-heading {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-bottom: 3rem;
+  padding-left: 10%;
+  color: #2b3b57;
+}
+
+.rrc-laboratory-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.rrc-laboratory-card {
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(240, 244, 253, 0.95) 100%);
+  box-shadow: 0 8px 20px rgba(43, 59, 87, 0.1);
+  width: 100%;
+  height: 160px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.rrc-laboratory-card-content {
+  flex: 1;
+  padding: 1.5rem 1rem 1.5rem 2rem;
+  z-index: 2;
+  position: relative;
+}
+
+.rrc-laboratory-card-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2b3b57;
+  margin: 0;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+/* Add color overlay on hover */
+.rrc-laboratory-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right,
+    rgba(59, 130, 246, 0) 0%,
+    rgba(59, 130, 246, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.rrc-laboratory-card:hover::after {
+  opacity: 1;
+}
+
+.rrc-laboratory-card:hover .rrc-laboratory-card-content h3 {
+  color: #3b82f6;
+}
+
+.rrc-laboratory-card-image {
+  width: 45%;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  transition: transform 0.5s ease;
+}
+
+/* Material Science Card */
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(1) {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(242, 245, 255, 0.95) 100%);
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(1) .rrc-laboratory-card-image {
+  background-image: url('../assets/labpage/nanolabpic.jpg');
+}
+
+/* Applied Chemistry Card */
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(2) {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(240, 252, 245, 0.95) 100%);
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(2) .rrc-laboratory-card-image {
+  background-image: url('../assets/labpage/appchemlabpic.jpg');
+}
+
+/* Food & Nutrition Card */
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(3) {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 247, 237, 0.95) 100%);
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(3) .rrc-laboratory-card-image {
+  background-image: url('../assets/labpage/nutlabpic.png');
+}
+
+/* Biology Card */
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(4) {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(239, 246, 255, 0.95) 100%);
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card:nth-child(4) .rrc-laboratory-card-image {
+  background-image: url('../assets/labpage/biolabpic.jpg');
+}
+
+/* Animation for cards */
+@keyframes rrcSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation class to make animations work */
+.rrc-laboratory-card.rrc-lab-card-visible {
+  animation: rrcSlideUp 0.6s ease-out forwards;
+}
+
+/* Add animation delay for each card */
+.rrc-laboratory-cards-container .rrc-laboratory-card.rrc-lab-card-visible:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card.rrc-lab-card-visible:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card.rrc-lab-card-visible:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.rrc-laboratory-cards-container .rrc-laboratory-card.rrc-lab-card-visible:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.rrc-laboratory-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(43, 59, 87, 0.207);
+}
+/* section 3 */
+.rrc-laboratory-types {
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center; 
+  margin: 0 auto; 
+  /* background-color: rgba(90, 39, 119, 0.1); */
+}
+  
+  .rrc-lab-type {
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 90%;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+  }
+  
+  .rrc-lab-type h2 {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .rrc-lab-type p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rrc-lab-type h3 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Lab-specific styling */
+  #rrc-material-science {
+    background-color:#beebe5;
+  }
+  
+  #rrc-material-science h2 {
+    background-color: #004d40;
+  }
+  
+  #rrc-food-lab {
+    background-color: #fff8e1;
+  }
+  
+  #rrc-food-lab h2 {
+    background-color: #ff9800;
+  }
+  
+  #rrc-applied-chemistry {
+    background-color: #e8f5e9;
+  }
+  
+  #rrc-applied-chemistry h2 {
+    background-color: #2e7d32;
+  }
+  
+  #rrc-biology-microbiology {
+    background-color: #e3f2fd;
+  }
+  
+  #rrc-biology-microbiology h2 {
+    background-color: #0d47a1;
+  }
+  
+  /* Equipment grid layout */
+  .rrc-equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .rrc-equipment-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .rrc-equipment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .rrc-equipment-card h4 {
+    color: #003366;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+  }
+  
+  .rrc-equipment-card p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+  
+  .rrc-equipment-image img{
+    width: 300px;         
+    height: 200px;       
+    object-fit: cover;    
+    display: block;
+  }
+
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .lab-type h2 {
+      font-size: 1.5rem;
+    }
+    
+    .equipment-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .lab-services ul {
+      flex-direction: column;
+    }
+ 
+  .rrc-laboratory-header {
+    height: 80vh; 
+  }
+  
+  .rrc-general-description {
+    padding: 30px; 
+  }
+  
+  .rrc-general-description h1 {
+    font-size: 2rem; 
+  }
+  
+  .rrc-general-description p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 100%; 
+  }
+  .rrc-laboratories-heading {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .rrc-laboratory-card {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .rrc-laboratory-card-content {
+    margin-bottom: 15px;
+    padding-right: 0;
+  }
+  
+  .rrc-laboratory-card-image {
+    width: 100%;
+    height: 120px;
+  }
+  .rrc-laboratories-heading {
+    font-size: 2.2rem;
+    padding-left: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .rrc-laboratories-heading::after {
+    left: 2rem;
+  }
+  
+  .rrc-laboratory-card-content h3 {
+    font-size: 1.2rem;
+  }
+}
+
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+  .rrc-laboratory-header {
+    height: 70vh;
+  }
+  
+  .rrc-general-description {
+    padding: 20px; 
+  }
+  
+  .rrc-general-description h1 {
+    font-size: 1.8rem; 
+    margin-bottom: 1rem;
+  }
+  .rrc-laboratories-heading {
+    font-size: 1.8rem;
+  }
+}

@@ -88,10 +88,10 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                       Sample Processing
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/Equipment_rental">
-                      Equipment Rental
+                      Use of Equipment
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/Facility_rental">
-                      Facility Rental
+                      Use of Facility
                     </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/Training">
                       Training
