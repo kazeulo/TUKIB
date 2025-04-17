@@ -33,6 +33,8 @@ router.delete('/users/:userId', usersController.deleteUser);
 
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
+router.post('/equipments', equipmentsController.addEquipment);
+router.delete('/equipments/:id', equipmentsController.deleteEquipment);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
