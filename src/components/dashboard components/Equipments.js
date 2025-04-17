@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../../css/dashboard components/Table.css';
 import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import '../../css/dashboard components/Equipments.css';
@@ -11,7 +12,7 @@ const fetchEquipments = async (setEquipments) => {
         if (data.status === "success" && Array.isArray(data.equipments)) {
             setEquipments(data.equipments);
         } else {
-            console.error('Fetched data is not an array:', data); 
+            console.error('Fetched data is not an array:', data);
         }
     } catch (error) {
         console.error('Error fetching equipments:', error);
@@ -27,13 +28,40 @@ const Equipments = () => {
     const [equipmentToDelete, setEquipmentToDelete] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredEquipments, setFilteredEquipments] = useState([]);
-    
+    const [labs, setLabs] = useState([]);
+    const [formData, setFormData] = useState({
+        equipment_name: '',
+        brand: '',
+        model: '',
+        serial_number: '',
+        quantity: 0,
+        staff_name: '',
+        laboratory_id: '',
+        sticker_paper_printed: false,
+        remarks: ''
+    });
+
+    // fetching laboratories
+    useEffect(() => {
+        const fetchLabs = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/laboratory');
+                if (response.data.status === 'success') {
+                    setLabs(response.data.laboratories);
+                }
+            } catch (err) {
+                console.error('Failed to fetch laboratories:', err);
+            }
+        };
+        fetchLabs();
+    }, []);
+
     useEffect(() => {
         fetchEquipments(setEquipments);
     }, []);
 
     useEffect(() => {
-        const filtered = equipments.filter(equipment => 
+        const filtered = equipments.filter(equipment =>
             Object.values(equipment)
                 .join(" ")
                 .toLowerCase()
@@ -46,24 +74,61 @@ const Equipments = () => {
         setSearchTerm(event.target.value);
     };
 
-    const handleRowClick = (equipment) => {
-        setSelectedEquipment(equipment);
-    };
+    // const handleRowClick = (equipment) => {
+    //     setSelectedEquipment(equipment);
+    // };
+
+    const handleDelete = async (equipment, e) => {
+        e.stopPropagation();
+    
+        if (window.confirm(`Are you sure you want to delete ${equipment.equipment_name}?`)) {
+            try {
+                const response = await axios.delete(`http://localhost:5000/api/equipments/${equipment.equipment_id}`);
+    
+                if (response.data.status === 'success') {
+                    // Remove the deleted equipment from the UI
+                    setEquipments(prevEquipments => 
+                        prevEquipments.filter(item => item.equipment_id !== equipment.equipment_id)
+                    );
+                    alert('Equipment deleted successfully');
+                }
+            } catch (error) {
+                console.error('Error deleting equipment:', error);
+                alert('Failed to delete equipment');
+            }
+        }
+    };    
 
     const handleEditClick = (equipment, e) => {
         e.stopPropagation();
         setSelectedEquipment(equipment);
+        setFormData({
+            equipment_name: equipment.equipment_name,
+            brand: equipment.brand,
+            model: equipment.model,
+            serial_number: equipment.serial_number,
+            quantity: equipment.quantity,
+            staff_name: equipment.staff_name,
+            laboratory_id: equipment.laboratory_id,
+            sticker_paper_printed: equipment.sticker_paper_printed,
+            remarks: equipment.remarks
+        });
         setIsEditing(true);
-    };
-
-    const handleDeleteClick = (equipment, e) => {
-        e.stopPropagation();
-        setEquipmentToDelete(equipment);
-        setShowDeleteConfirm(true);
     };
 
     const handleAddClick = () => {
         setSelectedEquipment(null);
+        setFormData({
+            equipment_name: '',
+            brand: '',
+            model: '',
+            serial_number: '',
+            quantity: 0,
+            staff_name: '',
+            laboratory_id: '',
+            sticker_paper_printed: false,
+            remarks: ''
+        });
         setIsAdding(true);
     };
 
@@ -74,11 +139,51 @@ const Equipments = () => {
         setShowDeleteConfirm(false);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Add your form submission logic here
-        handleCloseOverlay();
+    const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: type === 'checkbox' ? checked : value
+        }));
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
+    
+        const selectedLab = labs.find(lab => lab.laboratory_name === formData.laboratory_id);
+
+        if (!selectedLab) {
+            alert("Laboratory missing or invalid.");
+            return;
+        }
+    
+        const requestData = {
+            equipment_name: formData.equipment_name,
+            brand: formData.brand,
+            model: formData.model,
+            serial_number: formData.serial_number,
+            quantity: formData.quantity,
+            staff_name: formData.staff_name,
+            laboratory_id: selectedLab.laboratory_id,
+            sticker_paper_printed: formData.sticker_paper_printed,
+            remarks: formData.remarks,
+        };
+    
+        try {
+            const response = await axios.post('http://localhost:5000/api/equipments', requestData);
+    
+            if (response.data.status === 'success') {
+                alert('Equipment added successfully');
+                fetchEquipments(setEquipments); 
+                handleCloseOverlay();
+            } else {
+                alert('Failed to add equipment');
+            }
+        } catch (error) {
+            console.error('Error adding equipment:', error);
+            alert('Failed to add equipment');
+        }
+    };    
 
     return (
         <div>
@@ -109,7 +214,7 @@ const Equipments = () => {
                                 <th>Equipment ID</th>
                                 <th>Equipment Name</th>
                                 <th>Quantity</th>
-                                <th>Location</th>
+                                <th>Laboratory</th>
                                 <th>Staff Incharge</th>
                                 <th>Actions</th>
                             </tr>
@@ -117,11 +222,12 @@ const Equipments = () => {
                         <tbody>
                             {filteredEquipments.length > 0 ? (
                                 filteredEquipments.map(equipment => (
-                                    <tr key={equipment.equipment_id} onClick={() => handleRowClick(equipment)}>
+                                    // <tr key={equipment.equipment_id} onClick={() => handleRowClick(equipment)}>
+                                        <tr key={equipment.equipment_id}>
                                         <td>{equipment.equipment_id}</td>
                                         <td>{equipment.equipment_name}</td>
                                         <td>{equipment.quantity}</td>
-                                        <td>{equipment.location}</td>
+                                        <td>{equipment.laboratory_name}</td>
                                         <td>{equipment.staff_name}</td>
                                         <td>
                                             <button 
@@ -132,7 +238,7 @@ const Equipments = () => {
                                             </button>
                                             <button 
                                                 className="delete-btn" 
-                                                onClick={(e) => handleDeleteClick(equipment, e)}
+                                                onClick={(e) => handleDelete(equipment, e)}
                                             >
                                                 <FaTrash />
                                             </button>
@@ -151,53 +257,91 @@ const Equipments = () => {
                 </div>
             </div>
 
-            {(selectedEquipment && !isEditing && !isAdding) && (
-                <div className="overlay" onClick={handleCloseOverlay}>
-                    <div className="overlay-content" onClick={e => e.stopPropagation()}>
-                        <h3>Equipment Details</h3>
-                        <p><strong>Equipment:</strong> {selectedEquipment.equipment_name}</p>
-                        <p><strong>Brand/Model:</strong> {selectedEquipment.brand}</p>
-                        <p><strong>Serial Number:</strong> {selectedEquipment.serial_number}</p>
-                        <p><strong>Supplier:</strong> {selectedEquipment.supplier}</p>
-                        <p><strong>Acquisition Cost:</strong> {selectedEquipment.acquisition_cost}</p>
-                        <p><strong>Property Number:</strong> {selectedEquipment.property_number}</p>
-                        <p><strong>MR Number:</strong> {selectedEquipment.mr_number}</p>
-                        <p><strong>End-user:</strong> {selectedEquipment.end_user}</p>
-                        <p><strong>Accountable Officer:</strong> {selectedEquipment.accountable_officer}</p>
-                        <p><strong>Location:</strong> {selectedEquipment.location}</p>
-                        <p><strong>Remarks:</strong> {selectedEquipment.remarks}</p>
-                        <button onClick={handleCloseOverlay}>Close</button>
-                    </div>
-                </div>
-            )}
-
             {(isEditing || isAdding) && (
                 <div className="overlay" onClick={handleCloseOverlay}>
                     <div className="overlay-content" onClick={e => e.stopPropagation()}>
                         <h3>{isAdding ? "Add Equipment" : "Edit Equipment"}</h3>
                         <form onSubmit={handleSubmit}>
                             <label>Equipment Name</label>
-                            <input type="text" defaultValue={selectedEquipment?.equipment_name || ""} required />
-                            <label>Brand/Model</label>
-                            <input type="text" defaultValue={selectedEquipment?.brand || ""} required />
+                            <input 
+                                type="text" 
+                                name="equipment_name"
+                                value={formData.equipment_name}
+                                onChange={handleInputChange}
+                                required 
+                            />
+
+                            <label>Brand</label>
+                            <input 
+                                type="text" 
+                                name="brand"
+                                value={formData.brand}
+                                onChange={handleInputChange}
+                            />
+
+                            <label>Model</label>
+                            <input 
+                                type="text" 
+                                name="model"
+                                value={formData.model}
+                                onChange={handleInputChange}
+                            />
+
                             <label>Serial Number</label>
-                            <input type="text" defaultValue={selectedEquipment?.serial_number || ""} required />
-                            <label>Supplier</label>
-                            <input type="text" defaultValue={selectedEquipment?.supplier || ""} required />
-                            <label>Acquisition Cost</label>
-                            <input type="number" defaultValue={selectedEquipment?.acquisition_cost || ""} required />
-                            <label>Property Number</label>
-                            <input type="text" defaultValue={selectedEquipment?.property_number || ""} required />
-                            <label>MR Number</label>
-                            <input type="text" defaultValue={selectedEquipment?.mr_number || ""} required />
-                            <label>End-user</label>
-                            <input type="text" defaultValue={selectedEquipment?.end_user || ""} required />
-                            <label>Accountable Officer</label>
-                            <input type="text" defaultValue={selectedEquipment?.accountable_officer || ""} required />
-                            <label>Location</label>
-                            <input type="text" defaultValue={selectedEquipment?.location || ""} required />
+                            <input 
+                                type="text" 
+                                name="serial_number"
+                                value={formData.serial_number}
+                                onChange={handleInputChange}
+                            />
+
+                            <label>Quantity</label>
+                            <input 
+                                type="number" 
+                                name="quantity"
+                                value={formData.quantity}
+                                onChange={handleInputChange}
+                                required 
+                            />
+
+                            <label>Staff Name</label>
+                            <input 
+                                type="text" 
+                                name="staff_name"
+                                value={formData.staff_name}
+                                onChange={handleInputChange}
+                            />
+
+                            <label>Laboratory</label>
+                            <select
+                                name="laboratory_id"
+                                value={formData.laboratory_id}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select Laboratory</option>
+                                {labs.map((lab) => (
+                                    <option key={lab.laboratory_id} value={lab.laboratory_name}>
+                                        {lab.laboratory_name}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <label>Sticker Paper Printed</label>
+                            <input
+                                type="checkbox"
+                                name="sticker_paper_printed"
+                                checked={formData.sticker_paper_printed}
+                                onChange={handleInputChange}
+                            />
+
                             <label>Remarks</label>
-                            <input type="text" defaultValue={selectedEquipment?.remarks || ""} />
+                            <input 
+                                type="text" 
+                                name="remarks"
+                                value={formData.remarks}
+                                onChange={handleInputChange}
+                            />
+
                             <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
                                 <button type="submit">Save</button>
                                 <button type="button" className="cancel-btn" onClick={handleCloseOverlay}>Cancel</button>

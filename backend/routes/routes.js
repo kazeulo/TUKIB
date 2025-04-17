@@ -16,6 +16,7 @@ const sampleProcessingRequestController = require('../controllers/sampleProcessi
 const equipmentRentalRequestController = require('../controllers/equipmentRentalRequestController');
 const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
 const facilityController = require('../controllers/facilityController');
+const laboratoryController = require('../controllers/laboratoryController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -32,6 +33,8 @@ router.delete('/users/:userId', usersController.deleteUser);
 
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
+router.post('/equipments', equipmentsController.addEquipment);
+router.delete('/equipments/:id', equipmentsController.deleteEquipment);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
@@ -60,6 +63,9 @@ router.post('/facility', facilityController.createFacility);
 router.get('/facilities', facilityController.getAllFacilities);
 router.get('/facility/schedules', facilityController.getFacilityWithSchedules);
 router.delete('/facility/:id', facilityController.deleteFacility);
+
+// laboratories
+router.get('/laboratory', laboratoryController.getLaboratories);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {

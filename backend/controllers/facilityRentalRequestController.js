@@ -1,6 +1,6 @@
 const pool = require('../backend');
 
-// Function to create a new training request
+// Function to create a new facility rental request
 const createFacilityRentalRequest = async (req, res) => {
   try {
     console.log('File Info:', req.files);

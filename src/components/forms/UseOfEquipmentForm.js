@@ -11,6 +11,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
+  const [labs, setLabs] = useState([]);
 
   const [formData, setFormData] = useState({
     user_id: '',
@@ -37,24 +38,40 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
   });
 
   // Fetching user data
-    useEffect(() => {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      if (storedUser) {
-        setUser(storedUser);
-        setFormData((prevData) => ({
-          ...prevData,
-          user_id: storedUser.user_id,
-        }));
-      } else {
-        setIsModalOpen(true);
-      }
-    }, [isLoggedIn]);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+      setFormData((prevData) => ({
+        ...prevData,
+        user_id: storedUser.user_id,
+      }));
+    } else {
+      setIsModalOpen(true);
+    }
+  }, [isLoggedIn]);
   
-    useEffect(() => {
-      if (user) {
-        setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
-      }
-    }, [user]);
+  useEffect(() => {
+    if (user) {
+      setFormData((prevData) => ({ ...prevData, user_id: user.user_id }));
+    }
+  }, [user]);
+
+  // fetching laboratories
+	useEffect(() => {
+		const fetchLabs = async () => {
+			try {
+				const response = await axios.get('http://localhost:5000/api/laboratory');
+				if (response.data.status === 'success') {
+					setLabs(response.data.laboratories);
+				}
+			} catch (err) {
+				console.error('Failed to fetch laboratories:', err);
+			}
+		};
+
+		fetchLabs();
+	}, []);
 
   // Handle input changes for form fields
   const handleChange = (e) => {
@@ -260,14 +277,14 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 name="laboratory"
                 value={formData.laboratory}
                 onChange={handleChange}
-              >
-                <option value="">Select Laboratory</option>
-                <option value="Applied Chemistry">Applied Chemistry</option>
-                <option value="Biology">Biology</option>
-                <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
-                <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
-                <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
-              </select>
+                >
+                <option value="">Select Laboratory Partner</option>
+                {labs.map((lab) => (
+                  <option key={lab.id} value={lab.name}>
+                    {lab.name}
+                  </option>
+                ))}
+							</select>
               {errors.laboratory && <p className="error">{errors.laboratory}</p>}
             </div>
 

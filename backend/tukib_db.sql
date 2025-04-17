@@ -34,27 +34,26 @@ DROP TABLE IF EXISTS equipmentRentalRequests CASCADE;
 DROP TABLE IF EXISTS facilityRentalRequests CASCADE;
 DROP TABLE IF EXISTS serviceRequestTable CASCADE;
 DROP TABLE IF EXISTS user_tokens CASCADE;
-DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TABLE IF EXISTS usersTable CASCADE;
 DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news_table CASCADE;
-DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TABLE IF EXISTS facilitiesTable CASCADE;
-DROP TYPE IF EXISTS lab_enum CASCADE;
+DROP TABLE IF EXISTS laboratories CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
 DROP TYPE IF EXISTS service_type CASCADE;
 
 -- ======== ENUM TYPES ========
 
--- Creating ENUM for laboratories
-CREATE TYPE lab_enum AS ENUM (
-  'Applied Chemistry',
-  'Biology',
-  'Foods, Feeds and Functional Nutrition',
-  'Material Science and Nanotechnology',
-  'Microbiology and Bioengineering'
+CREATE TYPE roles as ENUM (
+    'Admin Staff',
+    'Client',
+    'University Researcher',
+    'TECD Staff',
+    'Director'
 );
-
 -- Creating ENUM for laboratories
 CREATE TYPE payment_option AS ENUM (
   'Cash',
@@ -70,16 +69,25 @@ CREATE TYPE service_type AS ENUM(
 
 -- ======== TABLE CREATION ========
 
+-- Laboratories Table
+CREATE TABLE laboratories (
+    laboratory_id SERIAL PRIMARY KEY,
+    laboratory_name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Users Table
 CREATE TABLE usersTable (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    role VARCHAR(50),
+    role roles NOT NULL,
     password VARCHAR(255) NOT NULL,
+    laboratory_id INTEGER,
     institution VARCHAR(255),
     contact_number VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
 );
 
 -- User Tokens Table
@@ -95,15 +103,16 @@ CREATE TABLE user_tokens (
 -- Equipments Table
 CREATE TABLE equipmentsTable (
     equipment_id SERIAL PRIMARY KEY,
-    availability BOOLEAN NOT NULL,
     equipment_name VARCHAR(255) NOT NULL,
     brand VARCHAR(255),
     quantity INT NOT NULL,
     model VARCHAR(255),
     serial_number VARCHAR(255),
     staff_name VARCHAR(255),
-    location VARCHAR(255) NOT NULL,
-    sticker_paper_printed BOOLEAN NOT NULL
+    laboratory_id INT NOT NULL,
+    sticker_paper_printed BOOLEAN NOT NULL,
+    remarks TEXT,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE SET NULL
 );
 
 -- Facilities table
@@ -136,7 +145,7 @@ CREATE TABLE trainingRequests (
     trainingDate DATE NOT NULL,
     participantCount INT NOT NULL,
     acknowledgeTerms BOOLEAN NOT NULL,
-    partnerLab lab_enum NOT NULL,
+    partnerLab VARCHAR(100) NOT NULL,
     project_title VARCHAR(255),
     project_budget_code VARCHAR(50),
     proofOfFunds TEXT,
@@ -149,7 +158,7 @@ CREATE TABLE trainingRequests (
 -- Sample Processing Requests Table
 CREATE TABLE sampleProcessingRequests (
     sampleprocessing_request_id SERIAL PRIMARY KEY,
-    laboratory lab_enum NOT NULL,
+    laboratory VARCHAR(100) NOT NULL,
     request_id INT NOT NULL,
     type_of_analysis VARCHAR(50) NOT NULL,
     sample_type VARCHAR (50) NOT NULL,
@@ -172,7 +181,7 @@ CREATE TABLE equipmentRentalRequests (
     equipmentRental_request_id SERIAL PRIMARY KEY,
     request_id INT NOT NULL,
     authorized_representative VARCHAR(50) NOT NULl,
-    laboratory lab_enum NOT NULL,
+    laboratory VARCHAR(255) NOT NULL,
     equipment_name VARCHAR(255) NOT NULL,
     equipment_settings TEXT NOT NULL,
     sample_type VARCHAR(255) NOT NULL,
@@ -271,15 +280,29 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
 
 -- ======== INSERTING DUMMY DATA ========
 
--- Inserting dummy data into the 'users' table
-INSERT INTO usersTable (name, email, role, password, institution, contact_number)
+INSERT INTO laboratories (laboratory_name)
 VALUES
-    ('John Doe', 'johndoe@example.com', 'Admin', 'adminpassword', 'University A', '123-456-7890'),
-    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', 'University B', '234-567-8901'),
-    ('Alice Johnson', 'alice.johnson@example.com', 'University Researcher', 'urpassword', 'Institution C', '345-678-9012'),
-    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', 'University A', '456-789-0123'),
-    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234'),
-    ('Marc Hualde', 'client@example.com', 'Client', 'password', 'UPV', '09123456789');
+    ('Applied Chemistry'),
+    ('Biology'),
+    ('Foods, Feeds and Functional Nutrition'),
+    ('Material Science'),
+    ('Microbiology and Bioengineering');
+
+-- Inserting dummy data into the 'users' table
+INSERT INTO usersTable (name, email, role, password, laboratory_id, institution, contact_number)
+VALUES
+    ('John Doe', 'johndoe@example.com', 'Admin Staff', 'adminpassword', NULL, 'University A', '123-456-7890'),
+    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', NULL, 'University B', '234-567-8901'),
+    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', NULL, 'University A', '456-789-0123'),
+    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', NULL, 'Institution D', '567-890-1234'),
+    ('Marc Hualde', 'client@example.com', 'Client', 'password', NULL, 'UPV', '09123456789'),
+
+    -- University Researchers: Each one in a different lab
+    ('Alice Chem', 'alice.chem@example.com', 'University Researcher', 'pass1', '1', 'Inst A', '111-111-1111'),
+    ('Bob Bio', 'bob.bio@example.com', 'University Researcher', 'pass2', '2', 'Inst B', '222-222-2222'),
+    ('Carol Food', 'carol.food@example.com', 'University Researcher', 'pass3', '3', 'Inst C', '333-333-3333'),
+    ('Dave Nano', 'dave.nano@example.com', 'University Researcher', 'pass4', '4', 'Inst D', '444-444-4444'),
+    ('Eve Micro', 'eve.micro@example.com', 'University Researcher', 'pass5', '5', 'Inst E', '555-555-5555');
 
 -- Insert Dummy Messages
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
@@ -293,18 +316,84 @@ VALUES
     ('Project Kickoff', 'Initial meeting to discuss the project scope.', '2025-02-20 10:00:00', '2025-02-21 11:00:00', 'Conference Room A', 1, FALSE, NULL),
     ('Client Presentation', 'Project progress presentation.', '2025-03-05 14:00:00', '2025-03-05 15:30:00', 'Client Office', 1, FALSE, NULL);
 
--- Insert Dummy Equipments
-INSERT INTO equipmentsTable (availability, equipment_name, brand, quantity, model, serial_number, staff_name, location, sticker_paper_printed)
-VALUES
-    (TRUE, 'Microbiological Incubator', 'BrandA', 5, 'Model1', 'SN123456', 'John Doe', 'Microbiology Lab', TRUE),
-    (TRUE, 'Projector', 'BrandB', 3, 'ModelX', 'SN789012', 'Jane Smith', 'AV Hall', TRUE);
-
 -- Insert dummy data into 'facilities' table
 INSERT INTO facilitiesTable (facility_name, capacity, resources)
 VALUES
     ('Audio/Visual Room', 50, ARRAY['Projector', 'Speakers', 'Microphones']),
     ('Collaboration Room', 20, ARRAY['Whiteboard', 'Projector', 'Video Conferencing Equipment']),
     ('Conference Room A', 30, ARRAY['Projector', 'Table', 'Chairs']);
+
+-- Insert Dummy Equipments
+-- Inserting Equipment for Applied Chemistry Lab
+INSERT INTO equipmentsTable (equipment_name, brand, quantity, model, serial_number, staff_name, laboratory_id, sticker_paper_printed)
+VALUES
+    ('Analytical Balance', 'BrandA', 1, 'ModelA', 'SN201', 'Alice Chem', 1, TRUE),
+    ('Homogenizer', 'BrandB', 1, 'ModelB', 'SN202', 'Alice Chem', 1, TRUE),
+    ('HPLC', 'BrandC', 1, 'ModelC', 'SN203', 'Alice Chem', 1, TRUE),
+    ('Microplate Reader', 'BrandD', 1, 'ModelD', 'SN204', 'Alice Chem', 1, TRUE),
+    ('pH Meter', 'BrandE', 1, 'ModelE', 'SN205', 'Alice Chem', 1, TRUE),
+    ('Preparative HPLC', 'BrandF', 1, 'ModelF', 'SN206', 'Alice Chem', 1, TRUE),
+    ('Refrigerated Centrifuge', 'BrandG', 1, 'ModelG', 'SN207', 'Alice Chem', 1, TRUE),
+    ('Shaking Incubator', 'BrandH', 1, 'ModelH', 'SN208', 'Alice Chem', 1, TRUE),
+    ('Ultrasonicator (probe-type)/ Ultrasonic Homogenizer', 'BrandI', 1, 'ModelI', 'SN209', 'Alice Chem', 1, TRUE),
+    ('UPLC-QTof/MS', 'BrandJ', 1, 'ModelJ', 'SN210', 'Alice Chem', 1, TRUE),
+    ('Vacuum Evaporation System', 'BrandK', 1, 'ModelK', 'SN211', 'Alice Chem', 1, TRUE);
+
+-- Inserting Equipment for Biology Lab
+INSERT INTO equipmentsTable (equipment_name, brand, quantity, model, serial_number, staff_name, laboratory_id, sticker_paper_printed)
+VALUES
+    ('Biochemical Incubator', 'BrandA', 1, 'ModelA', 'SN101', 'Bobby Brown', 2, TRUE),
+    ('Diamond Saw', 'BrandB', 1, 'ModelB', 'SN102', 'Bobby Brown', 2, TRUE),
+    ('Drying Oven', 'BrandC', 1, 'ModelC', 'SN103', 'Bobby Brown', 2, TRUE),
+    ('Microanalytical Balance', 'BrandD', 1, 'ModelD', 'SN104', 'Bobby Brown', 2, TRUE),
+    ('Microtome', 'BrandE', 1, 'ModelE', 'SN105', 'Bobby Brown', 2, TRUE),
+    ('Paraffin Dispenser', 'BrandF', 1, 'ModelF', 'SN106', 'Bobby Brown', 2, TRUE),
+    ('Slide Drying Bench', 'BrandG', 1, 'ModelG', 'SN107', 'Bobby Brown', 2, TRUE),
+    ('Stereomicroscopes', 'BrandH', 1, 'ModelH', 'SN108', 'Bobby Brown', 2, TRUE);
+
+-- Inserting Equipment for Foods, Feeds, and Functional Lab
+INSERT INTO equipmentsTable (equipment_name, brand, quantity, model, serial_number, staff_name, laboratory_id, sticker_paper_printed)
+VALUES
+    ('Analytical Balance', 'BrandA', 1, 'ModelA', 'SN001', 'Carol Anderson', 3, TRUE),
+    ('Chamber Vacuum Sealer', 'BrandB', 1, 'ModelB', 'SN002', 'Carol Anderson', 3, TRUE),
+    ('Chemical Fume Hood', 'BrandC', 1, 'ModelC', 'SN003', 'Carol Anderson', 3, TRUE),
+    ('Constant Climate Chamber', 'BrandD', 1, 'ModelD', 'SN004', 'Carol Anderson', 3, TRUE),
+    ('Constant Temperature Drying Oven', 'BrandE', 1, 'ModelE', 'SN005', 'Carol Anderson', 3, TRUE),
+    ('Forced Air Drying Oven', 'BrandF', 1, 'ModelF', 'SN006', 'Carol Anderson', 3, TRUE),
+    ('HPLC', 'BrandG', 1, 'ModelG', 'SN007', 'Carol Anderson', 3, TRUE),
+    ('Ice Cream Maker', 'BrandH', 1, 'ModelH', 'SN008', 'Carol Anderson', 3, TRUE),
+    ('Moisture Analyzer', 'BrandI', 1, 'ModelI', 'SN009', 'Carol Anderson', 3, TRUE),
+    ('pH Meter', 'BrandJ', 1, 'ModelJ', 'SN010', 'Carol Anderson', 3, TRUE),
+    ('Refractometer', 'BrandK', 1, 'ModelK', 'SN011', 'Carol Anderson', 3, TRUE),
+    ('Rheometer', 'BrandL', 1, 'ModelL', 'SN012', 'Carol Anderson', 3, TRUE),
+    ('Rotary Evaporator', 'BrandM', 1, 'ModelM', 'SN013', 'Carol Anderson', 3, TRUE),
+    ('Spray Dryer', 'BrandN', 1, 'ModelN', 'SN014', 'Carol Anderson', 3, TRUE),
+    ('Texture Analyzer', 'BrandO', 1, 'ModelO', 'SN015', 'Carol Anderson', 3, TRUE),
+    ('Ultrasonic Bath', 'BrandP', 1, 'ModelP', 'SN016', 'Carol Anderson', 3, TRUE),
+    ('UV-Vis Spectrophotometer, 6-placer (190-1100nm)', 'BrandQ', 1, 'ModelQ', 'SN017', 'Carol Anderson', 3, TRUE),
+    ('Water Activity Meter', 'BrandR', 1, 'ModelR', 'SN018', 'Carol Anderson', 3, TRUE);
+
+-- Inserting Equipment for Material Science & Nanotechnology Lab
+INSERT INTO equipmentsTable (equipment_name, brand, quantity, model, serial_number, staff_name, laboratory_id, sticker_paper_printed)
+VALUES
+    ('Atomic Force Microscope (AFM)', 'BrandA', 1, 'ModelA', 'SN301', 'Dave Miller', 4, TRUE),
+    ('Microwave Synthesizer', 'BrandB', 1, 'ModelB', 'SN302', 'Dave Miller', 4, TRUE),
+    ('MidIR-NIR-Raman Spectrometer', 'BrandC', 1, 'ModelC', 'SN303', 'Dave Miller', 4, TRUE),
+    ('Muffle Furnace', 'BrandD', 1, 'ModelD', 'SN304', 'Dave Miller', 4, TRUE),
+    ('Scanning Electron Microscope - Energy Dispersive Spectrometer (SEM-EDS)', 'BrandE', 1, 'ModelE', 'SN305', 'Dave Miller', 4, TRUE),
+    ('Spectrofluorometer', 'BrandF', 1, 'ModelF', 'SN306', 'Dave Miller', 4, TRUE),
+    ('STA-DSC', 'BrandG', 1, 'ModelG', 'SN307', 'Dave Miller', 4, TRUE),
+    ('UV-Vis Spectrophotometer, (200-1800nm; UV-Vis, NIR, with DRA)', 'BrandH', 1, 'ModelH', 'SN308', 'Dave Miller', 4, TRUE);
+
+-- Inserting Equipment for Microbiology & Bioengineering Lab
+INSERT INTO equipmentsTable (equipment_name, brand, quantity, model, serial_number, staff_name, laboratory_id, sticker_paper_printed)
+VALUES
+    ('Autoclave', 'BrandA', 1, 'ModelA', 'SN401', 'Eve Odair', 5, TRUE),
+    ('Biosafety Cabinet', 'BrandB', 1, 'ModelB', 'SN402', 'Eve Odair', 5, TRUE),
+    ('Compound Microscope', 'BrandC', 1, 'ModelC', 'SN403', 'Eve Odair', 5, TRUE),
+    ('Incubators (Shaker & Standard)', 'BrandD', 1, 'ModelD', 'SN404', 'Eve Odair', 5, TRUE),
+    ('Laminar Flow Hood', 'BrandE', 1, 'ModelE', 'SN405', 'Eve Odair', 5, TRUE),
+    ('pH Meter', 'BrandF', 1, 'ModelF', 'SN406', 'Eve Odair', 5, TRUE);
 
 -- Inserting dummy data into 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
@@ -353,7 +442,6 @@ VALUES
      'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
 
 -- inserting dummy data on news table
--- Insert two news posts
 INSERT INTO news_table (title, content, category, type, created_at)
 VALUES
     ('RRC welcomes its new additional researchers', 
@@ -385,8 +473,6 @@ VALUES
   'General', 
   'Announcement', 
   NOW());
-
-
 -- ======== ALTERS ========
 
 -- Add a foreign key reference if there’s a related table (optional example)

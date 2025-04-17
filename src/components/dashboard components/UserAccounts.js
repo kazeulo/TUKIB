@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash, FaSearch } from 'react-icons/fa';
+import axios from 'axios';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
@@ -72,7 +73,7 @@ const deleteUser = async (userId, setUsers, users) => {
   }
 };
 
-const modalForm = (newUser, setNewUser) => (
+const modalForm = (newUser, setNewUser, labs) => (
   <form onSubmit={(e) => e.preventDefault()} className="add-account-form">
     <input
       type="text"
@@ -88,6 +89,7 @@ const modalForm = (newUser, setNewUser) => (
       onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
       required
     />
+
     {/* Role Dropdown */}
     <select
       value={newUser.role}
@@ -96,10 +98,27 @@ const modalForm = (newUser, setNewUser) => (
     >
       <option value="">Select Role</option>
       <option value="Client">Client</option>
-      <option value="TECD Staff">TECD</option>
-      <option value="University">University Researcher</option>
+      <option value="TECD Staff">TECD Staff</option>
+      <option value="University Researcher">University Researcher</option>
       <option value="Director">Director</option>
+      <option value="Admin Staff">Admin Staff</option>
     </select>
+
+    {/* Conditional Laboratory Dropdown */}
+    {newUser.role === "University Researcher" && (
+      <select
+        value={newUser.laboratory_id}
+        onChange={(e) => setNewUser({ ...newUser, laboratory_id: e.target.value })}
+        required
+      >
+        <option value="">Select Laboratory</option>
+        {labs.map((lab) => (
+          <option key={lab.laboratory_id} value={lab.laboratory_id}>
+            {lab.laboratory_name}
+          </option>
+        ))}
+      </select>
+    )}
 
     <input
       type="password"
@@ -132,6 +151,7 @@ const Users = () => {
     password: '',
     institution: '',
     contact_number: '',
+    laboratory: '',
   });
 
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
@@ -139,6 +159,22 @@ const Users = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
   const [roleFilter, setRoleFilter] = useState('');
+  const [labs, setLabs] = useState([]);
+
+  useEffect(() => {
+		const fetchLabs = async () => {
+			try {
+				const response = await axios.get('http://localhost:5000/api/laboratory');
+				if (response.data.status === 'success') {
+					setLabs(response.data.laboratories);
+				}
+			} catch (err) {
+				console.error('Failed to fetch laboratories:', err);
+			}
+		};
+
+		fetchLabs();
+	}, []);
 
   useEffect(() => {
     fetchUsers(setUsers);
@@ -146,7 +182,14 @@ const Users = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    addUser(newUser, setUsers);
+  
+    const formattedUser = {
+      ...newUser,
+      laboratory_id: newUser.role === 'University Researcher' ? newUser.laboratory_id : null,
+    };    
+  
+    addUser(formattedUser, setUsers);
+  
     setNewUser({
       name: '',
       email: '',
@@ -154,7 +197,9 @@ const Users = () => {
       password: '',
       institution: '',
       contact_number: '',
+      laboratory_id: '', 
     });
+  
     setIsAddUserModalOpen(false);
   };
 
@@ -190,7 +235,6 @@ const Users = () => {
   const filteredByRoleUsers = roleFilter
     ? filteredUsers.filter((user) => user.role === roleFilter)
     : filteredUsers;
-
 
   const formFooter = (
     <>
@@ -244,7 +288,7 @@ const Users = () => {
               <option value="">All Roles</option>
               <option value="Client">Client</option>
               <option value="TECD Staff">TECD Staff</option>
-              <option value="University">University Researcher</option>
+              <option value="University Researcher">University Researcher</option>
               <option value="Director">Director</option>
             </select>
           </div>
@@ -256,7 +300,8 @@ const Users = () => {
           onClose={() => setIsAddUserModalOpen(false)}
           onConfirm={handleAddUser}
           title="Add Account"
-          content={modalForm(newUser, setNewUser)}
+          // content={modalForm(newUser, setNewUser)}
+          content={modalForm(newUser, setNewUser, labs)}
           footer={formFooter}
         />
 

@@ -12,6 +12,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [errors, setErrors] = useState({});
+	const [labs, setLabs] = useState([]);
    
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
@@ -47,6 +48,22 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		  setIsModalOpen(true);
 		}
 	}, [isLoggedIn]);
+
+	// fetching laboratories
+	useEffect(() => {
+		const fetchLabs = async () => {
+			try {
+				const response = await axios.get('http://localhost:5000/api/laboratory');
+				if (response.data.status === 'success') {
+					setLabs(response.data.laboratories);
+				}
+			} catch (err) {
+				console.error('Failed to fetch laboratories:', err);
+			}
+		};
+
+		fetchLabs();
+	}, []);
 
 	// Handle changes for form fields
 	const handleChange = (e) => {
@@ -180,19 +197,23 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		setFormData({
 			user_id: '',
 			service_name: 'Sample Processing',
-			status: 'Pending for Approval',
+			status: 'Pending for approval',
 			payment_option: '',
-			charged_to_project: false,
 			project_title: '',
 			project_budget_code: '',
-			trainingTitle: '',
-			trainingDate: '',
-			participantCount: '',
+			proofOfFunds: null,
+			paymentConforme: null,
+			sampleType: '',
+			laboratory: '',
+			typeOfAnalysis: '',
+			sampleDescription: '',
+			sampleVolume: '',
+			methodSettings: '',
+			sampleHazardDescription: '',
+			scheduleSampleSubmission: '',
+			additionalInformation: '',
 			necessaryDocuments: [],
 			acknowledgeTerms: false,
-			laboratory: '',
-			start: '',
-			end: ''
 		});
 	  
 		} catch (error) {
@@ -250,16 +271,16 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 						<div className="form-group">
 							<label>Please select laboratory.</label>
 							<select
-								name="laboratory"
-								value={formData.laboratory}
-								onChange={handleChange}
+							name="laboratory"
+							value={formData.laboratory}
+							onChange={handleChange}
 							>
-								<option value="">Select Laboratory Partner</option>
-								<option value="Applied Chemistry">Applied Chemistry</option>
-								<option value="Biology">Biology</option>
-								<option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
-								<option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
-								<option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
+							<option value="">Select Laboratory Partner</option>
+							{labs.map((lab) => (
+								<option key={lab.id} value={lab.name}>
+									{lab.name}
+								</option>
+							))}
 							</select>
 							{errors.laboratory && <p className="error">{errors.laboratory}</p>}
 						</div>

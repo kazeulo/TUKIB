@@ -83,7 +83,7 @@ const Login = ({ setIsLoggedIn }) => {
   // Redirect based on user role after login
   useEffect(() => {
     const roleRedirectMap = {
-      Admin: '/dashboard',
+      "Admin Staff": '/dashboard',
       Client: '/clientProfile',
       'University Researcher': '/dashboard',
       'TECD Staff': '/dashboard',
