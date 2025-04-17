@@ -3,12 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
 
+// get user from local storage
+const user = JSON.parse(localStorage.getItem('user'));
+
 const fetchServiceRequests = async (setServiceRequests) => {
   try {
     const response = await fetch('http://localhost:5000/api/serviceRequests');
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
     const data = await response.json();
     if (data.status === 'success' && Array.isArray(data.serviceRequests)) {
       setServiceRequests(data.serviceRequests);

@@ -52,7 +52,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 
     // Conditionally render the sidebar items and the available content based on the role
     const renderSidebarContent = () => {
-        if (userRole === 'Admin') {
+        if (userRole === 'Admin Staff') {
             return (
                 <>                                     
                     <div className='menu'>

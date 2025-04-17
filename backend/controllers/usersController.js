@@ -30,32 +30,62 @@ const getUserById = async (req, res) => {
   
 	  res.json({ status: 'success', user });
 	} catch (error) {
-	  console.error('Error fetching user:', error);
-	  res.status(500).json({ error: 'Internal server error' });
+		console.error('Error fetching user:', error);
+		res.status(500).json({ error: 'Internal server error' });
 	}
 };
 
 const createUser = async (req, res) => {
 	try {
-		const { name, email, role, password, institution, contact_number } =
-			req.body; 
+		const {
+			name,
+			email,
+			role,
+			password,
+			institution,
+			contact_number,
+			laboratory_id 
+		} = req.body;
 
 		// Validate required fields
-		if (!name || !email || !password) {
+		if (!name || !email || !password || !role) {
 			return res.status(400).json({
 				status: 'error',
-				message: 'Name, email, and password are required',
+				message: 'Name, email, password, and role are required',
 			});
 		}
 
+		// If the user is a University Researcher, lab must be selected
+		if (role === 'University Researcher' && !laboratory_id) {
+			return res.status(400).json({
+				status: 'error',
+				message: 'Laboratory is required for University Researchers',
+			});
+		}
+
+		// Optional: Check if lab exists
+		if (laboratory_id) {
+			const labCheck = await pool.query(
+				'SELECT * FROM laboratories WHERE laboratory_id = $1',
+				[laboratory_id]
+			);
+			if (labCheck.rows.length === 0) {
+				return res.status(400).json({
+					status: 'error',
+					message: 'Invalid laboratory_id provided',
+				});
+			}
+		}
+
 		const result = await pool.query(
-			'INSERT INTO usersTable (name, email, role, password, institution, contact_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-			[name, email, role, password, institution, contact_number] // Include contact_number in the query
+			`INSERT INTO usersTable (
+				name, email, role, password, laboratory_id, institution, contact_number
+			) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+			[name, email, role, password, laboratory_id, institution, contact_number]
 		);
 
-		const newUser = result.rows[0]; // Get the newly created user
+		const newUser = result.rows[0];
 
-		// Return success response with the new user
 		res.json({ status: 'success', user: newUser });
 	} catch (error) {
 		console.error('Error adding user:', error);

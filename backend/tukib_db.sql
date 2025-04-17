@@ -40,21 +40,20 @@ DROP TABLE IF EXISTS messagesTable CASCADE;
 DROP TABLE IF EXISTS news_table CASCADE;
 DROP TABLE IF EXISTS equipmentsTable CASCADE;
 DROP TABLE IF EXISTS facilitiesTable CASCADE;
-DROP TYPE IF EXISTS lab_enum CASCADE;
+DROP TABLE IF EXISTS laboratories CASCADE;
+DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
 DROP TYPE IF EXISTS service_type CASCADE;
 
 -- ======== ENUM TYPES ========
 
--- Creating ENUM for laboratories
-CREATE TYPE lab_enum AS ENUM (
-  'Applied Chemistry',
-  'Biology',
-  'Foods, Feeds and Functional Nutrition',
-  'Material Science and Nanotechnology',
-  'Microbiology and Bioengineering'
+CREATE TYPE roles as ENUM (
+    'Admin Staff',
+    'Client',
+    'University Researcher',
+    'TECD Staff',
+    'Director'
 );
-
 -- Creating ENUM for laboratories
 CREATE TYPE payment_option AS ENUM (
   'Cash',
@@ -70,16 +69,25 @@ CREATE TYPE service_type AS ENUM(
 
 -- ======== TABLE CREATION ========
 
+-- Laboratories Table
+CREATE TABLE laboratories (
+    laboratory_id SERIAL PRIMARY KEY,
+    laboratory_name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Users Table
 CREATE TABLE usersTable (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    role VARCHAR(50),
+    role roles NOT NULL,
     password VARCHAR(255) NOT NULL,
+    laboratory_id INTEGER,
     institution VARCHAR(255),
     contact_number VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
 );
 
 -- User Tokens Table
@@ -136,7 +144,7 @@ CREATE TABLE trainingRequests (
     trainingDate DATE NOT NULL,
     participantCount INT NOT NULL,
     acknowledgeTerms BOOLEAN NOT NULL,
-    partnerLab lab_enum NOT NULL,
+    partnerLab VARCHAR(100) NOT NULL,
     project_title VARCHAR(255),
     project_budget_code VARCHAR(50),
     proofOfFunds TEXT,
@@ -149,7 +157,7 @@ CREATE TABLE trainingRequests (
 -- Sample Processing Requests Table
 CREATE TABLE sampleProcessingRequests (
     sampleprocessing_request_id SERIAL PRIMARY KEY,
-    laboratory lab_enum NOT NULL,
+    laboratory VARCHAR(100) NOT NULL,
     request_id INT NOT NULL,
     type_of_analysis VARCHAR(50) NOT NULL,
     sample_type VARCHAR (50) NOT NULL,
@@ -172,7 +180,7 @@ CREATE TABLE equipmentRentalRequests (
     equipmentRental_request_id SERIAL PRIMARY KEY,
     request_id INT NOT NULL,
     authorized_representative VARCHAR(50) NOT NULl,
-    laboratory lab_enum NOT NULL,
+    laboratory VARCHAR(255) NOT NULL,
     equipment_name VARCHAR(255) NOT NULL,
     equipment_settings TEXT NOT NULL,
     sample_type VARCHAR(255) NOT NULL,
@@ -271,15 +279,29 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
 
 -- ======== INSERTING DUMMY DATA ========
 
--- Inserting dummy data into the 'users' table
-INSERT INTO usersTable (name, email, role, password, institution, contact_number)
+INSERT INTO laboratories (laboratory_name)
 VALUES
-    ('John Doe', 'johndoe@example.com', 'Admin', 'adminpassword', 'University A', '123-456-7890'),
-    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', 'University B', '234-567-8901'),
-    ('Alice Johnson', 'alice.johnson@example.com', 'University Researcher', 'urpassword', 'Institution C', '345-678-9012'),
-    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', 'University A', '456-789-0123'),
-    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', 'Institution D', '567-890-1234'),
-    ('Marc Hualde', 'client@example.com', 'Client', 'password', 'UPV', '09123456789');
+    ('Applied Chemistry'),
+    ('Biology'),
+    ('Foods, Feeds and Functional Nutrition'),
+    ('Material Science'),
+    ('Microbiology and Bioengineering');
+
+-- Inserting dummy data into the 'users' table
+INSERT INTO usersTable (name, email, role, password, laboratory_id, institution, contact_number)
+VALUES
+    ('John Doe', 'johndoe@example.com', 'Admin Staff', 'adminpassword', NULL, 'University A', '123-456-7890'),
+    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', NULL, 'University B', '234-567-8901'),
+    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', NULL, 'University A', '456-789-0123'),
+    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', NULL, 'Institution D', '567-890-1234'),
+    ('Marc Hualde', 'client@example.com', 'Client', 'password', NULL, 'UPV', '09123456789'),
+
+    -- University Researchers: Each one in a different lab
+    ('Alice Chem', 'alice.chem@example.com', 'University Researcher', 'pass1', '1', 'Inst A', '111-111-1111'),
+    ('Bob Bio', 'bob.bio@example.com', 'University Researcher', 'pass2', '2', 'Inst B', '222-222-2222'),
+    ('Carol Food', 'carol.food@example.com', 'University Researcher', 'pass3', '3', 'Inst C', '333-333-3333'),
+    ('Dave Nano', 'dave.nano@example.com', 'University Researcher', 'pass4', '4', 'Inst D', '444-444-4444'),
+    ('Eve Micro', 'eve.micro@example.com', 'University Researcher', 'pass5', '5', 'Inst E', '555-555-5555');
 
 -- Insert Dummy Messages
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)
@@ -353,7 +375,6 @@ VALUES
      'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
 
 -- inserting dummy data on news table
--- Insert two news posts
 INSERT INTO news_table (title, content, category, type, created_at)
 VALUES
     ('RRC welcomes its new additional researchers', 
@@ -385,8 +406,6 @@ VALUES
   'General', 
   'Announcement', 
   NOW());
-
-
 -- ======== ALTERS ========
 
 -- Add a foreign key reference if there’s a related table (optional example)
