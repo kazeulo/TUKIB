@@ -15,7 +15,7 @@ export default function Error404() {
             <div className="error-content">
                 <h2 className='error404-title'>Page Not Found</h2>
                 <p className='error-text'>We can't seem to find the page you're looking for.<br/>Please check the URL for any typos.</p>
-                <button onClick={goHome} className="error404-btn">Go to Homepage</button>
+                <button onClick={navigate(-1)} className="error404-btn">Back to Previous</button>
             </div>
             
             <div className="error-image-container">
