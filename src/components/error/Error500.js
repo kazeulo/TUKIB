@@ -15,7 +15,7 @@ export default function Error500() {
             <div className="error-content">
                 <h2 className='error500-title'>Internal Server Error</h2>
                 <p className='error-text'>Oops! Looks like someone messed with our server.<br/>Try refreshing the page or come back later <br/> while we find who owns this puppy.</p>
-                <button onClick={goHome} className="error500-btn">Go to Homepage</button>
+                <button onClick={goHome} className="error500-btn">Back to Home Page</button>
             </div>
             
             <div className="error-image-container">
