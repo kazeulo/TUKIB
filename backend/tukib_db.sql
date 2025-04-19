@@ -41,9 +41,18 @@ DROP TABLE IF EXISTS news_table CASCADE;
 DROP TABLE IF EXISTS facilitiesTable CASCADE;
 DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS feedback_table CASCADE;
+
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
 DROP TYPE IF EXISTS service_type CASCADE;
+
+DROP TYPE IF EXISTS gender_enum CASCADE;
+DROP TYPE IF EXISTS role_enum CASCADE;
+DROP TYPE IF EXISTS servicetype_enum CASCADE;
+DROP TYPE IF EXISTS satisfaction_enum CASCADE;
+DROP TYPE IF EXISTS yesno_enum CASCADE;
+DROP TYPE IF EXISTS system_enum CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -66,6 +75,14 @@ CREATE TYPE service_type AS ENUM(
     'Use of Equipment',
     'Use of Facility'
 );
+
+-- ENUM for feedback
+CREATE TYPE gender_enum AS ENUM ('Male', 'Female', 'Other');
+CREATE TYPE role_enum AS ENUM ('SR', 'RA', 'Other');
+CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', 'facility-rental', 'training');
+CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
+CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
+CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
 
 -- ======== TABLE CREATION ========
 
@@ -232,12 +249,12 @@ CREATE TABLE messagesTable (
 
 -- News Table
 CREATE TABLE news_table (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  content TEXT NOT NULL,
-  category VARCHAR(50),
-  type VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    category VARCHAR(50),
+    type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Events Table
@@ -253,6 +270,24 @@ CREATE TABLE events (
     recurrence_pattern VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE feedback_table (
+    feedback_id SERIAL PRIMARY KEY,
+    age INT NOT NULL,
+    gender gender_enum NOT NULL,
+    role role_enum NOT NULL,
+    servicetype servicetype_enum NOT NULL,
+    satisfaction satisfaction_enum NOT NULL,
+    staffResponsiveness satisfaction_enum NOT NULL,
+    equipmentCondition satisfaction_enum NOT NULL,
+    facilityCleanliness satisfaction_enum NOT NULL,
+    serviceEfficiency satisfaction_enum NOT NULL,
+    waitingTime satisfaction_enum NOT NULL,
+    systemHelpfulness yesno_enum NOT NULL,
+    systemPreference system_enum NOT NULL,
+    additionalComments TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Indexes for performance
@@ -398,17 +433,18 @@ VALUES
 -- Inserting dummy data into 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
 VALUES
-    (6, 'Training', 'Pending', 'Cash', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
-    (2, 'Sample Processing', 'Completed', 'Cash', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
-    (2, 'Use of Equipment', 'Approved', 'Cash', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
-    (6, 'Use of Facility', 'Pending', 'Cash', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
-    (6, 'Use of Facility', 'Pending', 'Cash', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
+    (6, 'Training', 'Pending', 'Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
+    (2, 'Sample Processing', 'Completed', 'Charged to Project', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
+    (2, 'Use of Equipment', 'Approved', 'Charged to Project', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
+    (6, 'Use of Facility', 'Pending', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
+    (6, 'Use of Facility', 'Pending', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
 VALUES
     (1, 'Advanced Chemistry Training', '2025-03-01 18:00:00', 15, TRUE, 'Applied Chemistry', 'Chemistry Research', 
-        'AC123', 'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']),
+        'AC123', '/uploads/proofOfFunds/Proof_of_funds_sample_file_1744951998395.pdf', '/uploads/paymentConforme/Payment_conforme_sample_file_1744951998395.pdf', 
+        'Additional info for training', ARRAY['/uploads/necessaryDocuments/Necessary_document_sample_file_1744951782626.pdf']),
     (2, 'Biology Sample Processing Training', '2025-04-30 18:00:00', 10, TRUE, 'Biology', 'Bio Research', 'BR456', 
         'NA', 'NA', 'Additional info for training', ARRAY['Document9.pdf', 'Document10.pdf']);
 
@@ -417,8 +453,8 @@ INSERT INTO equipmentRentalRequests (request_id, authorized_representative, labo
 VALUES
     (3, 'John Doe', 'Material Science and Nanotechnology', 'Electron Microscope', 'High magnification', 
     'Tissue', 'Electron microscopy for tissue sample analysis', '10 ml', 'Handle with care', '2025-04-05 18:00:00', 
-    '5 hours', 'Nano Research', 'NR789', 'Proof of funds document', 'Payment conforms', 
-    'Additional equipment details', ARRAY['Document9.pdf', 'Document10.pdf']);
+    '5 hours', 'Nano Research', 'NR789', '/uploads/proofOfFunds/Proof_of_funds_sample_file_1744951998395.pdf', '/uploads/paymentConforme/Payment_conforme_sample_file_1744951998395.pdf', 
+    'Additional equipment details', ARRAY['/uploads/necessaryDocuments/Necessary_document_sample_file_1744951782626.pdf']);
 
 -- Inserting dummy data into 'facilityRentalRequests'
 INSERT INTO facilityRentalRequests (
@@ -426,8 +462,12 @@ INSERT INTO facilityRentalRequests (
     paymentConforme, selected_facility, start_of_use, end_of_use, participant_count, 
     additional_information, acknowledge_terms, necessaryDocuments)
 VALUES
-    (4, 'Research Presentation', 'NA', 'NA', 'NA', 'NA', 1, '2025-05-10 09:00:00', '2025-05-10 18:00:00', 30, 'Conference presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']),
-    (5, 'Hybrid Seminar', 'NA', 'NA', 'NA', 'NA', 2, '2025-04-30 09:00:00', '2025-04-30 18:00:00', 30, 'Seminar presentation details', TRUE, ARRAY['Document9.pdf', 'Document10.pdf']);
+    (4, 'Research Presentation', 'Title', 'Budget code', '/uploads/proofOfFunds/Proof_of_funds_sample_file_1744951998395.pdf', 
+    '/uploads/paymentConforme/Payment_conforme_sample_file_1744951998395.pdf', 1, '2025-05-10 09:00:00', '2025-05-10 18:00:00', 30, 
+    'Conference presentation details', TRUE, ARRAY['/uploads/necessaryDocuments/Necessary_document_sample_file_1744951782626.pdf']),
+    (5, 'Hybrid Seminar', 'Title', 'Budget', '/uploads/proofOfFunds/Proof_of_funds_sample_file_1744951998395.pdf', 
+    '/uploads/paymentConforme/Payment_conforme_sample_file_1744951998395.pdf', 2, '2025-04-30 09:00:00', '2025-04-30 18:00:00', 30, 
+    'Seminar presentation details', TRUE, ARRAY['/uploads/necessaryDocuments/Necessary_document_sample_file_1744951782626.pdf']);
 
 -- Inserting dummy data into 'sampleProcessingRequests' table
 INSERT INTO sampleProcessingRequests 
@@ -435,11 +475,12 @@ INSERT INTO sampleProcessingRequests
      method_settings, sample_hazard_description, schedule_of_sample_submission, project_title, 
      project_budget_code, proofOfFunds, paymentConforme, additional_information, necessaryDocuments)
 VALUES
-    -- Sample 1: Linked to 'serviceRequestTable' request_id 2 (Sample Processing)
     ('Microbiology and Bioengineering', 2, 'Bacterial Identification', 'Water Sample', 
      'Testing for bacteria in water', '500 ml', 'Incubation at 37°C for 48 hours', 
      'Handle with care. Potential for contamination', '2025-04-30 18:00:00', 'Water Quality Research', 
-     'WQ123', 'NA', 'NA', 'Water sample testing for bacteria', ARRAY['Sample1.pdf', 'ConsentForm.pdf']);
+     'WQ123', '/uploads/proofOfFunds/Proof_of_funds_sample_file_1744951998395.pdf', 
+     '/uploads/paymentConforme/Payment_conforme_sample_file_1744951998395.pdf', 'Water sample testing for bacteria', 
+     ARRAY['/uploads/necessaryDocuments/Necessary_document_sample_file_1744951782626.pdf']);
 
 -- inserting dummy data on news table
 INSERT INTO news_table (title, content, category, type, created_at)

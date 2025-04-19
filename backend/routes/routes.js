@@ -17,6 +17,7 @@ const equipmentRentalRequestController = require('../controllers/equipmentRental
 const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
 const facilityController = require('../controllers/facilityController');
 const laboratoryController = require('../controllers/laboratoryController');
+const feedbackController = require ('../controllers/feedbackController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -30,6 +31,7 @@ router.get('/users', usersController.getUsers);
 router.get('/users/:userId', usersController.getUserById);
 router.post('/users', usersController.createUser);
 router.delete('/users/:userId', usersController.deleteUser);
+router.put ('/users/:userId', usersController.editUser);
 
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
@@ -67,6 +69,9 @@ router.delete('/facility/:id', facilityController.deleteFacility);
 // laboratories
 router.get('/laboratory', laboratoryController.getLaboratories);
 
+// feedback
+router.post('/feedback', feedbackController.insertFeedback);
+
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
@@ -82,10 +87,19 @@ router.post('/training-requests', upload, async (req, res) => {
 router.post('/sample-processing-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
     console.log('Body received:', req.body);
+
+    if (!req.files) {
+        return res.status(400).json({ message: 'No files uploaded' });
+    }
+    if (!req.body.user_id || !req.body.payment_option || !req.body.laboratory) {
+        return res.status(400).json({ message: 'Missing required fields in the request body' });
+    }
+
     try {
         await sampleProcessingRequestController.createSampleProcessingRequest(req, res);
     } catch (error) {
-        res.status(500).json({ message: 'Error processing the request' });
+        console.error('Error in processing request:', error.message || error); 
+        return res.status(500).json({ message: 'Error processing the request', error: error.message || error });
     }
 });
 

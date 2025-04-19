@@ -1,4 +1,5 @@
 const pool = require("../backend");
+const path = require("path");
 
 // Function to create a new Sample Processing Request
 const createSampleProcessingRequest = async (req, res) => {
@@ -23,17 +24,17 @@ const createSampleProcessingRequest = async (req, res) => {
       additionalInformation = null,
     } = req.body;
 
-    // Handle file uploads
+    // Handle file uploads and generate public URLs
     const necessaryDocuments = req.files?.necessaryDocuments
-      ? req.files.necessaryDocuments.map((file) => file.path)
+      ? req.files.necessaryDocuments.map((file) => `/uploads/necessaryDocuments/${file.filename}`)
       : [];
 
     const proofOfFunds = req.files?.proofOfFunds
-      ? req.files.proofOfFunds[0].path
+      ? `/uploads/proofOfFunds/${req.files.proofOfFunds[0].filename}`
       : null;
 
     const paymentConforme = req.files?.paymentConforme
-      ? req.files.paymentConforme[0].path
+      ? `/uploads/paymentConforme/${req.files.paymentConforme[0].filename}`
       : null;
 
     // Insert into serviceRequestTable

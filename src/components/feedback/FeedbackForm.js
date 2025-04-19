@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom'; 
 import "./FeedbackStyles.css";
 
 const FeedbackForm = () => {
@@ -15,6 +14,8 @@ const FeedbackForm = () => {
         systemHelpfulness: "",
         systemPreference: "",
         additionalComments: "",
+        role: "",
+        servicetype: "",
     });
 
     const handleChange = (e) => {
@@ -75,7 +76,7 @@ const FeedbackForm = () => {
                 <label>Role:</label>
                 <select name="role" value={feedback.role} onChange={handleChange} required>
                     <option value="">Select</option>
-                    <option value="SR">Student Reasearcher</option>
+                    <option value="SR">Student Researcher</option>
                     <option value="RA">University Research Assistant</option>
                     <option value="Other">Other</option>
                 </select>
@@ -94,14 +95,19 @@ const FeedbackForm = () => {
                 <div className="radio-group">
                     {["Very satisfied", "Satisfied", "Neutral", "Unsatisfied", "Very unsatisfied"].map((option) => (
                         <label key={option}>
-                            <input type="radio" name="satisfaction" value={option} onChange={handleChange} required />
+                            <input type="radio" 
+                                name="satisfaction" 
+                                value={option} 
+                                checked={feedback.satisfaction === option}
+                                onChange={handleChange} 
+                                required />
                             {option}
                         </label>
                     ))}
                 </div>
 
                 {/* Specific Service Ratings */}
-                {[
+                {[ 
                     { name: "staffResponsiveness", label: "Staff Responsiveness" },
                     { name: "equipmentCondition", label: "Equipment Condition" },
                     { name: "facilityCleanliness", label: "Facility Cleanliness" },
@@ -113,7 +119,14 @@ const FeedbackForm = () => {
                         <div className="radio-group">
                             {["Very satisfied", "Satisfied", "Neutral", "Unsatisfied", "Very unsatisfied"].map((option) => (
                                 <label key={option}>
-                                    <input type="radio" name={field.name} value={option} onChange={handleChange} required />
+                                    <input
+                                        type="radio"
+                                        name={field.name}
+                                        value={option}
+                                        checked={feedback[field.name] === option}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                     {option}
                                 </label>
                             ))}
@@ -126,7 +139,13 @@ const FeedbackForm = () => {
                 <div className="radio-group">
                     {["Yes", "No"].map((option) => (
                         <label key={option}>
-                            <input type="radio" name="systemHelpfulness" value={option} onChange={handleChange} required />
+                            <input type="radio" 
+                                name="systemHelpfulness" 
+                                value={option} 
+                                checked={feedback.systemHelpfulness === option}
+                                onChange={handleChange} 
+                                required 
+                            />
                             {option}
                         </label>
                     ))}
@@ -137,7 +156,13 @@ const FeedbackForm = () => {
                 <div className="radio-group">
                     {["Manual System", "Online System"].map((option) => (
                         <label key={option}>
-                            <input type="radio" name="systemPreference" value={option} onChange={handleChange} required />
+                            <input type="radio" 
+                                name="systemPreference" 
+                                value={option} 
+                                checked={feedback.systemPreference === option}
+                                onChange={handleChange} 
+                                required 
+                            />
                             {option}
                         </label>
                     ))}

@@ -277,8 +277,8 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 							>
 							<option value="">Select Laboratory Partner</option>
 							{labs.map((lab) => (
-								<option key={lab.id} value={lab.name}>
-									{lab.name}
+								<option key={lab.laboratory_id} value={lab.laboratory_name}>
+									{lab.laboratory_name}
 								</option>
 							))}
 							</select>
@@ -417,8 +417,11 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 									name='proofOfFunds'
 									onChange={handleFileChange}
 								/>
+								{formData.proofOfFunds && (
+									<p>Selected file: {formData.proofOfFunds.name}</p>
+								)}
 								{errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
-								</div>
+							</div>
 
 								{/* Payment Conforme */}
 								<div className='form-group'>

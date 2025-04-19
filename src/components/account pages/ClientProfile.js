@@ -38,6 +38,7 @@ const ClientProfile = ({ isLoggedIn }) => {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
+    console.log(storedUser)
     if (storedUser) {
       setUser(storedUser);
       setEditProfile({ 
@@ -187,8 +188,6 @@ const ClientProfile = ({ isLoggedIn }) => {
     setDropdownOpen(false);
   };
 
-
-
   // Calculate stats
   const getStats = () => {
     const total = serviceRequests.length;
@@ -227,16 +226,44 @@ const ClientProfile = ({ isLoggedIn }) => {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveProfile = () => {
-    setUser(editProfile);
-    setIsEditModalOpen(false);
-    localStorage.setItem('user', JSON.stringify(editProfile));
+  // const handleSaveProfile = () => {
+  //   setUser(editProfile);
+  //   setIsEditModalOpen(false);
+  //   localStorage.setItem('user', JSON.stringify(editProfile));
     
-    // Show confirmation message
-    setConfirmationMessage("Profile updated successfully!");
-    setShowConfirmation(true);
-    setTimeout(() => setShowConfirmation(false), 3000);
-  };
+  //   // Show confirmation message
+  //   setConfirmationMessage("Profile updated successfully!");
+  //   setShowConfirmation(true);
+  //   setTimeout(() => setShowConfirmation(false), 3000);
+  // };
+
+  const handleSaveProfile = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/${editProfile.user_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editProfile),
+      });
+  
+      const data = await response.json();
+  
+      if (data.status === 'success') {
+        setUser(data.user);
+        setIsEditModalOpen(false);
+        localStorage.setItem('user', JSON.stringify(data.user));
+  
+        setConfirmationMessage("Profile updated successfully!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
+      } else {
+        console.error('Error updating profile:', data.message);
+      }
+    } catch (error) {
+      console.error('Error saving profile:', error);
+    }
+  };  
 
   const stats = getStats();
 
@@ -272,7 +299,7 @@ const ClientProfile = ({ isLoggedIn }) => {
             </div>
             <div className="user-detail-item">
               <span className="detail-label">Phone:</span>
-              <span className="detail-value">{user.contact_number || 'Not provided'}</span>
+              <span className="detail-value">{user.contact_number || user.contact}</span>
             </div>
           </div>
           <div className="user-stats">
@@ -600,7 +627,7 @@ const ClientProfile = ({ isLoggedIn }) => {
               <input
                 type="text"
                 placeholder="Name"
-                value={editProfile.name}
+                value={editProfile.name || ''}
                 onChange={(e) => setEditProfile({ ...editProfile, name: e.target.value })}
               />
             </div>
@@ -609,7 +636,7 @@ const ClientProfile = ({ isLoggedIn }) => {
               <input
                 type="email"
                 placeholder="Email"
-                value={editProfile.email}
+                value={editProfile.email || ''}
                 onChange={(e) => setEditProfile({ ...editProfile, email: e.target.value })}
               />
             </div>
@@ -618,7 +645,7 @@ const ClientProfile = ({ isLoggedIn }) => {
               <input
                 type="text"
                 placeholder="Phone"
-                value={editProfile.contact_number}
+                value={editProfile.contact_number || ''}
                 onChange={(e) => setEditProfile({ ...editProfile, contact_number: e.target.value })}
               />
             </div>
@@ -627,7 +654,7 @@ const ClientProfile = ({ isLoggedIn }) => {
               <input
                 type="text"
                 placeholder="Institution"
-                value={editProfile.institution}
+                value={editProfile.institution || ''}
                 onChange={(e) => setEditProfile({ ...editProfile, institution: e.target.value })}
               />
             </div>
@@ -665,6 +692,7 @@ const ClientProfile = ({ isLoggedIn }) => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };

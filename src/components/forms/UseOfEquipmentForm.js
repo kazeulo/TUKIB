@@ -280,8 +280,8 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 >
                 <option value="">Select Laboratory Partner</option>
                 {labs.map((lab) => (
-                  <option key={lab.id} value={lab.name}>
-                    {lab.name}
+                  <option key={lab.laboratory_id} value={lab.laboratory_name}>
+                    {lab.laboratory_name}
                   </option>
                 ))}
 							</select>
