@@ -292,11 +292,11 @@
   
   /* Lab-specific styling */
   #rrc-material-science {
-    background-color:#beebe5;
+    background-color:rgba(116, 58, 150, 0.219);
   }
   
   #rrc-material-science h2 {
-    background-color: #004d40;
+    background-color: rgba(90, 39, 119);
   }
   
   #rrc-food-lab {
