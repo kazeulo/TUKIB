@@ -30,6 +30,7 @@ router.get('/users', usersController.getUsers);
 router.get('/users/:userId', usersController.getUserById);
 router.post('/users', usersController.createUser);
 router.delete('/users/:userId', usersController.deleteUser);
+router.put ('/users/:userId', usersController.editUser);
 
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);

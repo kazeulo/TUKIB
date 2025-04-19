@@ -63,7 +63,6 @@ const createUser = async (req, res) => {
 			});
 		}
 
-		// Optional: Check if lab exists
 		if (laboratory_id) {
 			const labCheck = await pool.query(
 				'SELECT * FROM laboratories WHERE laboratory_id = $1',
@@ -118,4 +117,47 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-module.exports = { getUsers, getUserById, createUser, deleteUser };
+// Update a user's profile
+const editUser = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const { name, email, contact_number, institution } = req.body;
+
+		// Basic validation
+		if (!name || !email) {
+			return res.status(400).json({
+				status: 'error',
+				message: 'Name and email are required.',
+			});
+		}
+
+		// Check if the user exists
+		const userCheck = await pool.query('SELECT * FROM usersTable WHERE user_id = $1', [userId]);
+		if (userCheck.rows.length === 0) {
+			return res.status(404).json({
+				status: 'error',
+				message: 'User not found.',
+			});
+		}
+
+		// Update user info
+		const result = await pool.query(
+			`UPDATE usersTable 
+			SET name = $1, email = $2, contact_number = $3, institution = $4
+			WHERE user_id = $5
+			RETURNING user_id, name, email, contact_number, institution, role`,
+			[name, email, contact_number, institution, userId]
+		);
+
+		res.json({
+			status: 'success',
+			message: 'User profile updated successfully.',
+			user: result.rows[0],
+		});
+	} catch (error) {
+		console.error('Error updating user:', error);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+};
+
+module.exports = { getUsers, getUserById, createUser, deleteUser, editUser };
