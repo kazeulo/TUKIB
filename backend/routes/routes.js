@@ -17,6 +17,7 @@ const equipmentRentalRequestController = require('../controllers/equipmentRental
 const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
 const facilityController = require('../controllers/facilityController');
 const laboratoryController = require('../controllers/laboratoryController');
+const feedbackController = require ('../controllers/feedbackController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -67,6 +68,9 @@ router.delete('/facility/:id', facilityController.deleteFacility);
 
 // laboratories
 router.get('/laboratory', laboratoryController.getLaboratories);
+
+// feedback
+router.post('/feedback', feedbackController.insertFeedback);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {

@@ -41,9 +41,18 @@ DROP TABLE IF EXISTS news_table CASCADE;
 DROP TABLE IF EXISTS facilitiesTable CASCADE;
 DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS feedback_table CASCADE;
+
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
 DROP TYPE IF EXISTS service_type CASCADE;
+
+DROP TYPE IF EXISTS gender_enum CASCADE;
+DROP TYPE IF EXISTS role_enum CASCADE;
+DROP TYPE IF EXISTS servicetype_enum CASCADE;
+DROP TYPE IF EXISTS satisfaction_enum CASCADE;
+DROP TYPE IF EXISTS yesno_enum CASCADE;
+DROP TYPE IF EXISTS system_enum CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -66,6 +75,14 @@ CREATE TYPE service_type AS ENUM(
     'Use of Equipment',
     'Use of Facility'
 );
+
+-- ENUM for feedback
+CREATE TYPE gender_enum AS ENUM ('Male', 'Female', 'Other');
+CREATE TYPE role_enum AS ENUM ('SR', 'RA', 'Other');
+CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', 'facility-rental', 'training');
+CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
+CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
+CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
 
 -- ======== TABLE CREATION ========
 
@@ -232,12 +249,12 @@ CREATE TABLE messagesTable (
 
 -- News Table
 CREATE TABLE news_table (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  content TEXT NOT NULL,
-  category VARCHAR(50),
-  type VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    category VARCHAR(50),
+    type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Events Table
@@ -253,6 +270,24 @@ CREATE TABLE events (
     recurrence_pattern VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE feedback_table (
+    feedback_id SERIAL PRIMARY KEY,
+    age INT NOT NULL,
+    gender gender_enum NOT NULL,
+    role role_enum NOT NULL,
+    servicetype servicetype_enum NOT NULL,
+    satisfaction satisfaction_enum NOT NULL,
+    staffResponsiveness satisfaction_enum NOT NULL,
+    equipmentCondition satisfaction_enum NOT NULL,
+    facilityCleanliness satisfaction_enum NOT NULL,
+    serviceEfficiency satisfaction_enum NOT NULL,
+    waitingTime satisfaction_enum NOT NULL,
+    systemHelpfulness yesno_enum NOT NULL,
+    systemPreference system_enum NOT NULL,
+    additionalComments TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Indexes for performance
