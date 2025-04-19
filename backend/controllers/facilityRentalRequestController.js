@@ -21,13 +21,18 @@ const createFacilityRentalRequest = async (req, res) => {
       additionalInformation = null
     } = req.body;
 
-    // Handle file uploads
-    const necessaryDocuments = req.files?.['necessaryDocuments']
-      ? req.files['necessaryDocuments'].map(file => file.path)
+    // Handle file uploads and generate public URLs
+    const necessaryDocuments = req.files?.necessaryDocuments
+      ? req.files.necessaryDocuments.map((file) => `/uploads/necessaryDocuments/${file.filename}`)
       : [];
 
-    const proofOfFunds = req.files?.['proofOfFunds']?.[0]?.path || null;
-    const paymentConforme = req.files?.['paymentConforme']?.[0]?.path || null;
+    const proofOfFunds = req.files?.proofOfFunds
+      ? `/uploads/proofOfFunds/${req.files.proofOfFunds[0].filename}`
+      : null;
+
+    const paymentConforme = req.files?.paymentConforme
+      ? `/uploads/paymentConforme/${req.files.paymentConforme[0].filename}`
+      : null;
 
     // Insert into serviceRequestTable
     const serviceResult = await pool.query(

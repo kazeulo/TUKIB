@@ -82,10 +82,19 @@ router.post('/training-requests', upload, async (req, res) => {
 router.post('/sample-processing-requests', upload, async (req, res) => {
     console.log('Files received:', req.files);
     console.log('Body received:', req.body);
+
+    if (!req.files) {
+        return res.status(400).json({ message: 'No files uploaded' });
+    }
+    if (!req.body.user_id || !req.body.payment_option || !req.body.laboratory) {
+        return res.status(400).json({ message: 'Missing required fields in the request body' });
+    }
+
     try {
         await sampleProcessingRequestController.createSampleProcessingRequest(req, res);
     } catch (error) {
-        res.status(500).json({ message: 'Error processing the request' });
+        console.error('Error in processing request:', error.message || error); 
+        return res.status(500).json({ message: 'Error processing the request', error: error.message || error });
     }
 });
 

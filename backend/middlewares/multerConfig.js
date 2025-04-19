@@ -1,10 +1,10 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
-// Define the uploads folder path
-const uploadPath = path.join(__dirname, '..', '../uploads');
+const uploadPath = path.join(__dirname, '..', 'uploads');
 
-// Allowed file types for images
+
 const imageFileFilter = (req, file, cb) => {
     const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
     if (!allowedTypes.includes(file.mimetype)) {
@@ -22,16 +22,22 @@ const documentsFileFilter = (req, file, cb) => {
 };
 
 // Multer storage configuration
-const fs = require('fs');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let folder = path.join(__dirname, '../../uploads/', file.fieldname);
-        if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
+        // Create a directory based on the field name 
+        const folder = path.join(uploadPath, file.fieldname);
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder, { recursive: true }); 
+        }
         cb(null, folder);
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
+        const timestamp = Date.now();
+        const originalName = path.parse(file.originalname).name.replace(/\s+/g, '_'); // remove spaces
+        const ext = path.extname(file.originalname);
+        const newFileName = `${originalName}_${timestamp}${ext}`;
+        cb(null, newFileName);
+    }    
 });
 
 // Multer configuration for multiple fields
@@ -39,13 +45,12 @@ const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
         const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
-
         if (!allowedTypes.includes(file.mimetype)) {
             return cb(new Error('Only PNG, JPG, JPEG, and PDF files are allowed'), false);
         }
         cb(null, true);
     },
-    limits: { fileSize: 10 * 1024 * 1024 } // 10MB per file limit
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB per file limit
 }).fields([
     { name: 'proofOfFunds', maxCount: 1 },
     { name: 'paymentConforme', maxCount: 1 },

@@ -665,6 +665,7 @@ const ClientProfile = ({ isLoggedIn }) => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };

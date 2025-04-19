@@ -43,6 +43,42 @@ const UseOfEquipmentRequestDetails = () => {
     return <div>Loading...</div>;
   }
 
+  // Helper function to render file links or previews
+  const renderFilePreview = (fileUrl, label) => {
+    if (!fileUrl) {
+      return <span>No file provided</span>;  // Show a message if no file URL
+    }
+
+    const fullFileUrl = fileUrl.startsWith('/uploads')
+      ? `http://localhost:5000${fileUrl}`
+      : fileUrl;
+
+    console.log("Full file URL:", fullFileUrl);  // Log to check the URL
+
+    const isImage = fileUrl.match(/\.(jpeg|jpg|gif|png)$/);
+    const isPdf = fileUrl.endsWith('.pdf');
+    const fileName = fileUrl.split('/').pop();
+
+    if (isImage) {
+      return <img src={fullFileUrl} alt={label} style={{ width: '100px', height: 'auto' }} />;
+    }
+
+    if (isPdf) {
+      return (
+        <a href={fullFileUrl} target="_blank" rel="noopener noreferrer">
+          {fileName}
+        </a>
+      );
+    }
+
+     // Default for other files
+     return (
+      <a href={fullFileUrl} target="_blank" rel="noopener noreferrer">
+        {fileName}
+      </a>
+    );
+  };
+
   return (
     <div className="service-request-container">
         <div className="request-header">
@@ -93,8 +129,14 @@ const UseOfEquipmentRequestDetails = () => {
                 <p className="detail-item"><span className="detail-label">Project Budget Code:</span> {requestDetails.project_budget_code || 'N/A'}</p>
               </div>
               <div className="details-col">
-                <p className="detail-item"><span className="detail-label">Proof of Funds:</span> {requestDetails.proofOfFunds || 'N/A'}</p>
-                <p className="detail-item"><span className="detail-label">Payment Conformance:</span> {requestDetails.paymentConforme || 'N/A'}</p>
+                <p className="detail-item">
+                  <span className="detail-label">Proof of Funds:</span>
+                  {requestDetails.proofoffunds ? renderFilePreview(requestDetails.proofoffunds, 'Proof of Funds') : <span>No file provided</span>}
+                </p>
+                <p className="detail-item">
+                  <span className="detail-label">Payment Conformance:</span>
+                  {requestDetails.paymentconforme ? renderFilePreview(requestDetails.paymentconforme, 'Payment conformance') : <span>No file provided</span>}
+                </p>
               </div>
             </div>
           </div>
@@ -103,7 +145,15 @@ const UseOfEquipmentRequestDetails = () => {
           <h4 className="section-header">Additional Information</h4>
           <div className="request-section additional-info">
             <p className="detail-item detail-notes"><span className="detail-label">Notes:</span> {requestDetails.additional_information || 'N/A'}</p>
-            <p className="detail-item detail-documents"><span className="detail-label">Necessary Documents:</span> {requestDetails.necessaryDocuments ? requestDetails.necessaryDocuments.join(', ') : 'None added.'}</p>
+            <p className="detail-item detail-documents"><span className="detail-label">Necessary Documents:</span> 
+              {requestDetails.necessarydocuments && requestDetails.necessarydocuments.length > 0 ? 
+                requestDetails.necessarydocuments.map((doc, index) => (
+                  <div key={index}>
+                    {renderFilePreview(doc, `Document ${index + 1}`)}
+                  </div>
+                )) 
+                : 'None added.'}
+            </p>
           </div>
           
           {/* <div className="action-buttons">

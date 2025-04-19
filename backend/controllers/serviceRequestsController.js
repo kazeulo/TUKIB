@@ -156,7 +156,16 @@ const getTrainingRequestById = async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ status: 'error', message: 'Service request not found' });
         }
-		
+        
+        const trainingRequest = result.rows[0]
+
+        if (typeof trainingRequest.necessarydocuments === 'string') {
+            trainingRequest.necessarydocuments = trainingRequest.necessarydocuments
+            .replace(/[{}"]/g, '')
+            .split(',')
+            .map(doc => doc.trim());
+        }
+
 		// console.log('Result', result)
 
         return res.status(200).json({
@@ -213,6 +222,15 @@ const getEquipmentRentalRequestById = async (req, res) => {
 
         if (result.rows.length === 0) {
             return res.status(404).json({ status: 'error', message: 'Service request not found' });
+        }
+
+        const sampleProcessingRequest = result.rows[0];
+
+        if (typeof sampleProcessingRequest.necessarydocuments === 'string') {
+        sampleProcessingRequest.necessarydocuments = sampleProcessingRequest.necessarydocuments
+            .replace(/[{}"]/g, '')
+            .split(',')
+            .map(doc => doc.trim());
         }
 
         return res.status(200).json({
