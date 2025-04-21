@@ -1,5 +1,7 @@
 import React from 'react';
 import ServicePage from '../Service.js';
+import ServiceRates from './ServiceRates'; 
+
 
 const EquipmentRental = () => {
   const pageData = {
@@ -10,20 +12,7 @@ const EquipmentRental = () => {
       "Please coordinate with RRC personnel for further details on available equipment, training schedules, and usage guidelines. Our staff will be happy to assist you in scheduling training and provide instructions on how to use the equipment effectively."
     ],
     additionalInfo: "Please note that all equipment usage requires prior training and supervision by our staff.",
-    prices: [
-      {
-        service: "Basic Equipment Use (e.g., general laboratory instruments)",
-        range: "₱2000 - ₱5000 per session"
-      },
-      {
-        service: "Advanced Equipment Use (e.g., specialized instruments)",
-        range: "₱5000 - ₱10000 per session"
-      },
-      {
-        service: "Custom Equipment Packages (e.g., group use or long-term access)",
-        range: "Prices vary based on requirements"
-      }
-    ],
+    
     steps: [
       "Use the chatbot for inquiries and to have an initial consultation regarding the specifics of the service you wish to avail.",
       "Alternatively, you can send a message to rrc.upvisayas@up.edu.ph for further information. An RRC representative will provide details on available equipment and the necessary training for usage.",
@@ -34,7 +23,11 @@ const EquipmentRental = () => {
     ]
   };
 
-  return <ServicePage {...pageData} />;
+  return (
+    <>
+      <ServicePage {...pageData} customPricingComponent={<ServiceRates serviceType="equipment-usage" />} />
+    </>
+  );
 };
 
 export default EquipmentRental;

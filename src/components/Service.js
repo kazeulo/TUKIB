@@ -8,7 +8,8 @@ const ServicePage = ({
   subtitle,
   description = [],
   prices = [],
-  steps = []
+  steps = [],
+  customPricingComponent,
 }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -56,20 +57,28 @@ const ServicePage = ({
             </div>
           )}
 
-          {activeTab === 'pricing' && (
-            <div className="pricing">
-              {prices.length > 0 ? (
-                prices.map((price, idx) => (
-                  <div key={idx} className="price-item">
-                    <span className="service-name">{price.service}</span>
-                    <span className="price-value">{price.range}</span>
-                  </div>
-                ))
-              ) : (
-                <p>No pricing information available.</p>
-              )}
-            </div>
-          )}
+        {activeTab === 'pricing' && (
+          <div className="pricing">
+            {customPricingComponent ? (
+              // Use custom pricing component if provided
+              customPricingComponent
+            ) : (
+              // Fall back to the original pricing display if no custom component is provided
+              <>
+                {prices && prices.length > 0 ? (
+                  prices.map((price, idx) => (
+                    <div key={idx} className="price-item">
+                      <span className="service-name">{price.service}</span>
+                      <span className="price-value">{price.range}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p>No pricing information available.</p>
+                )}
+              </>
+            )}
+          </div>
+        )}
 
           {activeTab === 'how-to-avail' && (
             <div className="steps">
