@@ -76,13 +76,6 @@ const FeedbackForm = () => {
 
     return (
         <div className="feedback-form-container">
-            {/* Confirmation toast */}
-                {showConfirmation && (
-                    <div className="confirmation-toast">
-                      <FaCheckCircle />
-                      <span>{confirmationMessage}</span>
-                    </div>
-                  )}
             <h2 className='feedback-form-text'>RRC Service Feedback Form</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-section">
@@ -261,6 +254,13 @@ const FeedbackForm = () => {
     
                 <button type="submit" className="feedback-submit-btn">Submit Feedback</button>
             </form>
+            {/* Confirmation toast */}
+            {showConfirmation && (
+            <div className={`confirmation-toast ${isSuccess ? 'success' : 'error'}`}>
+                {isSuccess ? <FaCheckCircle /> : <FaExclamationCircle/>} 
+                <span>{confirmationMessage}</span>
+            </div>
+            )}
         </div>
     );
 };
