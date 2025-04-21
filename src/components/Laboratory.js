@@ -24,7 +24,16 @@ import equipment19 from '../assets/labpage/19.png';
 import equipment20 from '../assets/labpage/20.png';
 import equipment21 from '../assets/labpage/21.png';
 import equipment22 from '../assets/labpage/22.png';
-
+import equipment23 from '../assets/labpage/23.png';
+import equipment24 from '../assets/labpage/24.png';
+import equipment25 from '../assets/labpage/25.png';
+import equipment26 from '../assets/labpage/26.png';
+import equipment27 from '../assets/labpage/27.png';
+import equipment28 from '../assets/labpage/28.png';
+import equipment29 from '../assets/labpage/29.png';
+import equipment30 from '../assets/labpage/30.png';
+import equipment31 from '../assets/labpage/31.png';
+import equipment32 from '../assets/labpage/32.png';
 
 const Laboratory = () => {
   useEffect(() => {
@@ -280,7 +289,7 @@ const Laboratory = () => {
           <div className="rrc-equipment-grid">
           <div className="rrc-equipment-card">
             <div className="rrc-equipment-image">
-              <img src={equipment10} alt="Shaking Incubator" />
+              <img src={equipment23} alt="Shaking Incubator" />
             </div>
             <h4>Shaking Incubator</h4>
             <p>Used to simultaneously incubate, agitate, and shake samples in a temperature-controlled system.</p>
@@ -389,56 +398,63 @@ const Laboratory = () => {
           <div className="rrc-equipment-grid">
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/stereomicroscope.jpg" alt="Stereomicroscope" />
+                <img src={equipment24} alt="Stereomicroscope" />
               </div>
-              <h4>Stereomicroscope</h4>
-              <p>Bright field and dark field microscopy with high resolution for dissecting 3-dimensional objects, biological specimen, and mineral microscope slides.</p>
+              <h4>Stereomicroscope (Nikon SMZ18)</h4>
+              <p>Bright field and dark field microscopy with high resolution for dissecting 3-dimensional objects, biological specimen (whole organisms, tissues, cells), prepared microscope slides and image analysis.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/microtome.jpg" alt="Microtome" />
+                <img src={equipment27} alt="Microtome" />
               </div>
               <h4>Microtome</h4>
               <p>Cutting thin sections of tissues (1-50 microns) embedded in paraffin.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/slide-drying-bench.jpg" alt="Slide Drying Bench" />
+                <img src={equipment25} alt="Slide Drying Bench" />
               </div>
               <h4>Slide Drying Bench</h4>
-              <p>Drying the mounted slides as the specimen dries.</p>
+              <p>Drying themicroscope slides at the specimen mounting stage.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/paraffin-dispenser.jpg" alt="Paraffin Dispenser" />
+                <img src={equipment26} alt="Paraffin Dispenser" />
               </div>
               <h4>Paraffin Dispenser</h4>
-              <p>Melting and dispensing of paraffin for histology slide embedding.</p>
+              <p>Melting and dispensing of paraffin for histology tissue embedding.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/bod-incubator.jpg" alt="Low Temp/BOD Incubator" />
+                <img src={equipment28} alt="Paraffin Section Flotation Bath" />
+              </div>
+              <h4>Paraffin Section Flotation Bath</h4>
+              <p>Elimination of wrinkles and distortion in the cut tissue.</p>
+            </div>
+            <div className="rrc-equipment-card">
+              <div className="rrc-equipment-image">
+                <img src={equipment32} alt="Low Temp/BOD Incubator" />
               </div>
               <h4>Low Temp/BOD Incubator</h4>
               <p>Provides the required temperature for growth of microorganisms for BOD (biological oxygen demand) testing.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/microanalytical-balance.jpg" alt="Microanalytical Balance" />
+                <img src={equipment31} alt="Drying Oven" />
+              </div>
+              <h4>Drying Oven</h4>
+              <p>Drying and incubating temperature sensitive samples.</p>
+            </div>
+            <div className="rrc-equipment-card">
+              <div className="rrc-equipment-image">
+                <img src={equipment29} alt="Microanalytical Balance" />
               </div>
               <h4>Microanalytical Balance</h4>
               <p>Measures the weight of minute and delicate objects/samples.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/diamond-saw.jpg" alt="Low Speed Diamond Saw" />
+                <img src={equipment30} alt="Low Speed Diamond Saw" />
               </div>
               <h4>Low Speed Diamond Saw</h4>
               <p>Precision cutting of a wide variety of materials (bones, metals, shells, etc.)</p>
