@@ -1,5 +1,7 @@
 import React from 'react';
 import ServicePage from '../Service';
+import ServiceRates from './ServiceRates'; 
+
 
 const SampleProcessing = () => {
   const pageData = {
@@ -39,7 +41,11 @@ const SampleProcessing = () => {
     ]
   };
 
-  return <ServicePage {...pageData} />;
+  return (
+    <>
+      <ServicePage {...pageData} customPricingComponent={<ServiceRates serviceType="sample-processing" />} />
+    </>
+  );
 };
 
 export default SampleProcessing;

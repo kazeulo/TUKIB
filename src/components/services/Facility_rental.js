@@ -12,7 +12,7 @@ const FacilityRental = () => {
     additionalInfo: "All facilities come equipped with basic amenities. Additional equipment can be arranged upon request.",
     prices: [
       {
-        service: "AVR Rental (e.g., for meetings, seminars, training sessions)",
+        service: "AVR (Audio Visual Room) Rental (e.g., for meetings, seminars, training sessions)",
         range: "₱8000 - ₱15000 per session"
       },
       {
