@@ -172,16 +172,19 @@
 }
 
 .service-tab-btn {
+	font-weight: 600!important;
     width: 150px;
-    background-color: #E7B82B !important;
+    background-color: #e7b82b !important;
     color: white !important;
     border-radius: 5px;
     padding: auto;
 }
 
 .service-tab-btn:hover {
-    background-color:  #ffd559!important;
     color: #951f21 !important;
+	transform: translateY(-2px);
+    /* box-shadow: 0 4px 10px #ffd559;
+	transition: all 0.3s ease; */
 }
 
 .service-tab-btn.active {

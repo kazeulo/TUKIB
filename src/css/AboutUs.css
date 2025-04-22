@@ -54,7 +54,7 @@
 .about-header h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #a01842;
+    color: #951f21;
     margin-bottom: 10px;
 }
 
@@ -98,7 +98,7 @@
     position: absolute;
     bottom: -15px;
     right: 15px;
-    background-color: #a01842;
+    background-color: #951f21;
     color: white;
     font-size: 14px;
     font-weight: 600;
@@ -151,7 +151,7 @@
 
 .expertise-list li:before {
     content: "•";
-    color: #a01842;
+    color: #951f21;
     font-size: 20px;
     position: absolute;
     left: 5px;
@@ -168,7 +168,7 @@
 
 /* Mission block */
 .mission-block {
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .mission-block p {
@@ -293,7 +293,7 @@
 .about-card h2 {
 	font-size: 24px;
 	font-weight: bold;
-	color: #a01842;
+	color: #951f21;
 	margin-bottom: 10px;
 	transition: color 0.3s ease; 
 }
@@ -338,14 +338,14 @@
 
 .org-chart-section h2 {
     font-size: 28px;
-    color: #A01842;
+    color: #951f21;
     margin-bottom: 30px;
 }
 
 .division-title {
     font-size: 22px;
     font-weight: bold;
-    color: #A01842;
+    color: #951f21;
     margin: 40px 0 20px;
     text-align: center;
 }
