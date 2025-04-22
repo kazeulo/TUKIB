@@ -38,32 +38,176 @@
 /* Section 1 */
 .about-section {
     background-color: #fff;
-    margin-top: 30px;
-    padding: 40px 140px 80px;
+    padding: 50px 30px 70px;
+}
+
+.about-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.about-header {
     text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #a01842;
+    margin-bottom: 10px;
+}
+
+.header-divider {
+    width: 80px;
+    height: 3px;
+    /* background-color: #a01842; */
+    margin: 0 auto;
+}
+
+.about-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Intro block with logo */
+.about-intro-block {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 5px;
+}
+
+.logo-container {
+    position: relative;
+    flex-shrink: 0;
+    padding: 15px;
+    border: 1px solid #eaeaea;
+    /* background-color: #fff; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .about-logo {
-    max-width: 300px;
-    height: 150px;
+    width: 280px;
+    height: auto;
+    display: block;
+}
+
+.est-badge {
+    position: absolute;
+    bottom: -15px;
+    right: 15px;
+    background-color: #a01842;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 15px;
+    border-radius: 2px;
+}
+
+.intro-text p {
+    font-size: 17px;
+	font-weight: 500;
+    line-height: 1.5;
+    color: #444;
+    margin: 0;
+    text-align: justify;
+}
+
+/* Expertise block */
+.expertise-block {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-left: 4px solid #a01842;
+    /* margin: 20px 0; */
+}
+
+.expertise-block h2 {
+    color: #6c3383;
+    font-size: 22px;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
-.about-content h1 {
-	font-size: 25px;
-	font-weight: bold;
-	color: #a01842;
-	margin-bottom: 20px;
+.expertise-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-.about-content p {
+.expertise-list {
+    flex: 1;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expertise-list li {
+    position: relative;
+    padding: 8px 0 8px 25px;
     font-size: 16px;
-    line-height: 1.6;
-    text-align:justify;
-    margin-bottom: 10px;
-    /* margin-left: 20px;
-    margin-right: 20px; */
 }
+
+.expertise-list li:before {
+    content: "•";
+    color: #a01842;
+    font-size: 20px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.expansion-note {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+    font-size: 15px;
+    color: #555;
+}
+
+/* Mission block */
+.mission-block {
+    margin-top: 5px;
+}
+
+.mission-block p {
+    font-size: 16px;
+	font-weight: 500;
+    line-height: 1.5;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 25px;
+}
+
+.action-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+.action-container a {
+    text-decoration: none;
+}
+
+.explore-button {
+    display: inline-block;
+    background-color: #951f21;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+	border: none;
+    transition: all 0.3s ease;
+	border-radius: 25px;
+}
+
+.explore-button:hover {
+    background-color: #E7B82B;
+	color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(160, 24, 66, 0.2);
+}
+
 
 /* Section 2 */
 .mission-vision-section {
@@ -268,10 +412,7 @@
 		font-size: 14px;
 		line-height: 1.5;
 	}
-}
 
-/* Responsive Design for Cards */
-@media (max-width: 768px) {
 	.cards-container {
 		flex-direction: column;
 		padding: 0 10px; /* Add padding for better mobile spacing */
@@ -280,4 +421,42 @@
 		width: 100%; /* Ensure cards take full width on mobile */
 		margin: 20px auto; /* Add spacing between cards */
 	}
+}
+
+@media (max-width: 900px) {
+    .about-intro-block {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo-container {
+        margin: 0 auto 30px;
+    }
+    
+    .intro-text p {
+        text-align: center;
+    }
+    
+    .expertise-columns {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .action-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-section {
+        padding: 40px 20px 60px;
+    }
+    
+    .about-header h1 {
+        font-size: 26px;
+    }
+    
+    .expertise-block {
+        padding: 20px;
+    }
 }
