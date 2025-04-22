@@ -5,7 +5,7 @@ const getServiceRequests = async (req, res) => {
 		// Join serviceRequestTable with usersTable to get the user name
 		const result = await pool.query(
 			`SELECT sr.request_id, sr.user_id, sr.service_name, sr.status, sr.payment_option, 
-			        sr.start, sr."end", u.name AS user_name
+			        sr.start, sr."end", sr.rejection_reason, u.name AS user_name
 			 FROM serviceRequestTable sr
 			 JOIN usersTable u ON sr.user_id = u.user_id`
 		);
@@ -39,6 +39,7 @@ const getServiceRequestsById = async (req, res) => {
             sr.payment_option, 
             sr.start, 
             sr."end", 
+            sr.rejection_reason,
             u.name AS user_name
          FROM serviceRequestTable sr
          JOIN usersTable u ON sr.user_id = u.user_id
@@ -133,6 +134,8 @@ const getTrainingRequestById = async (req, res) => {
                 sr.payment_option, 
                 sr.start, 
                 sr."end", 
+                sr.rejection_reason,
+                sr.rejection_reason,
                 u.name AS user_name,
                 approver.name AS approver_name,
                 tr.trainingTitle, 
@@ -195,6 +198,7 @@ const getEquipmentRentalRequestById = async (req, res) => {
                 sr.payment_option, 
                 sr.start, 
                 sr."end", 
+                sr.rejection_reason,
                 u.name AS user_name,
                 approver.name AS approver_name,
                 err.authorized_representative, 
@@ -262,6 +266,7 @@ const getFacilityRentalRequestById = async (req, res) => {
                 sr.payment_option, 
                 sr.start, 
                 sr."end", 
+                sr.rejection_reason,
                 u.name AS user_name,
                 approver.name AS approver_name,
                 frr.purpose_of_use,
@@ -321,6 +326,7 @@ const getSampleProcessingRequestById = async (req, res) => {
                 sr.payment_option, 
                 sr.start, 
                 sr."end", 
+                sr.rejection_reason,
                 u.name AS user_name,
                 approver.name AS approver_name,
                 spr.laboratory, 
@@ -358,6 +364,82 @@ const getSampleProcessingRequestById = async (req, res) => {
     }
 };
 
+const rejectServiceRequest = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { rejectionReason } = req.body;
+  
+      // Check if the request exists in serviceRequestTable
+      const result = await pool.query(
+        `SELECT * FROM serviceRequestTable WHERE request_id = $1`,
+        [id]
+      );
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+  
+      // Update the status and rejection reason in the serviceRequestTable
+      const updateResult = await pool.query(
+        `UPDATE serviceRequestTable
+         SET status = $1, rejection_reason = $2
+         WHERE request_id = $3
+         RETURNING *`,
+        ['Rejected', rejectionReason, id]
+      );
+  
+      // Return the updated request details
+      return res.status(200).json({
+        message: "Request rejected successfully",
+        data: updateResult.rows[0],
+      });
+    } catch (error) {
+      console.error("Error rejecting request:", error);
+      return res.status(500).json({ message: "Error rejecting request" });
+    }
+};
+
+const approveServiceRequest = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { approverId } = req.body;
+
+        // Check if the request exists in serviceRequestTable
+        const result = await pool.query(
+            `SELECT * FROM serviceRequestTable WHERE request_id = $1`,
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Request not found" });
+        }
+
+        // Check if the request is already approved or rejected
+        const serviceRequest = result.rows[0];
+        if (serviceRequest.status === "Approved" || serviceRequest.status === "Rejected") {
+            return res.status(400).json({ message: "Request has already been processed" });
+        }
+
+        // Update the status to 'Approved' and set the approver's ID in the serviceRequestTable
+        const updateResult = await pool.query(
+            `UPDATE serviceRequestTable
+             SET status = $1, approved_by = $2
+             WHERE request_id = $3
+             RETURNING *`,
+            ['Approved', approverId, id]
+        );
+
+        // Return the updated request details
+        return res.status(200).json({
+            message: "Request approved successfully",
+            data: updateResult.rows[0],
+        });
+    } catch (error) {
+        console.error("Error approving request:", error);
+        return res.status(500).json({ message: "Error approving request" });
+    }
+};
+
 module.exports = {
 	getServiceRequests,
     getServiceRequestsById,
@@ -365,5 +447,7 @@ module.exports = {
 	getTrainingRequestById,
 	getEquipmentRentalRequestById,
 	getFacilityRentalRequestById,
-	getSampleProcessingRequestById
+	getSampleProcessingRequestById,
+    rejectServiceRequest,
+    approveServiceRequest
 };

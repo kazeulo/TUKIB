@@ -33,7 +33,9 @@ const ClientProfile = ({ isLoggedIn }) => {
     'Completed': '#28a745',
     'Cancelled': '#dc3545',
     'Pending for approval': '#ffc107',
-    'Ongoing': '#17a2b8'
+    'In Process': '#17a2b8',
+    'Rejected': '#dc3545',
+    'Approved': '#32ce56'
   };
 
   useEffect(() => {
