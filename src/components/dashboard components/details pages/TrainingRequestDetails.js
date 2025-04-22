@@ -107,15 +107,15 @@ const TrainingRequestDetails = () => {
                 </div>
               </div>
               
-              {/* Facility Usage Details */}
-              <h4 className="section-header">Facility Usage</h4>
+              {/* Training Details */}
+              <h4 className="section-header">Training</h4>
               <div className="request-section facility-details">
                 <div className="details-row">
                   <div className="details-col">
-                    <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.selected_facility}</p>
-                    <p className="detail-item"><span className="detail-label">Start of Use:</span> {new Date(requestDetails.start_of_use).toLocaleString()}</p>
-                    <p className="detail-item"><span className="detail-label">End of Use:</span> {new Date(requestDetails.end_of_use).toLocaleString()}</p>
-                    <p className="detail-item"><span className="detail-label">Participant Count:</span> {requestDetails.participant_count}</p>
+                    <p className="detail-item"><span className="detail-label">Training title:</span> {requestDetails.trainingtitle}</p>
+                    <p className="detail-item"><span className="detail-label">Partner laboratory:</span> {requestDetails.partnerlab}</p>
+                    <p className="detail-item"><span className="detail-label">Training date:</span> {new Date(requestDetails.trainingdate).toLocaleDateString()}</p>
+                    <p className="detail-item"><span className="detail-label">Participant Count:</span> {requestDetails.participantcount}</p>
                   </div>
                 </div>
               </div>

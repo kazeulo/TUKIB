@@ -106,15 +106,21 @@ const UseOfEquipmentRequestDetails = () => {
             </div>
           </div>
           
-          {/* Facility Usage Details */}
-          <h4 className="section-header">Facility Usage</h4>
+          {/* Equipment Usage Details */}
+          <h4 className="section-header">Equipment Usage</h4>
           <div className="request-section facility-details">
             <div className="details-row">
               <div className="details-col">
-                <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.selected_facility}</p>
-                <p className="detail-item"><span className="detail-label">Start of Use:</span> {new Date(requestDetails.start_of_use).toLocaleString()}</p>
-                <p className="detail-item"><span className="detail-label">End of Use:</span> {new Date(requestDetails.end_of_use).toLocaleString()}</p>
-                <p className="detail-item"><span className="detail-label">Participant Count:</span> {requestDetails.participant_count}</p>
+                <p className="detail-item"><span className="detail-label">Authorized Representative:</span> {requestDetails.authorized_representative}</p>
+                <p className="detail-item"><span className="detail-label">Laboratory:</span> {requestDetails.laboratory}</p>
+                <p className="detail-item"><span className="detail-label">Equipment Name:</span> {requestDetails.equipment_name}</p>
+                <p className="detail-item"><span className="detail-label">Equipment Settings:</span> {requestDetails.equipment_settings}</p>
+                <p className="detail-item"><span className="detail-label">Sample Type:</span> {requestDetails.sample_type}</p>
+                <p className="detail-item"><span className="detail-label">Sample Description:</span> {requestDetails.sample_description}</p>
+                <p className="detail-item"><span className="detail-label">Sample Volume:</span> {requestDetails.sample_volume}</p>
+                <p className="detail-item"><span className="detail-label">Sample Hazard Description:</span> {requestDetails.sample_hazard_description}</p>
+                <p className="detail-item"><span className="detail-label">Schedule of Use:</span> {new Date(requestDetails.schedule_of_use).toLocaleDateString()}</p>
+                <p className="detail-item"><span className="detail-label">Estimated Use Duration:</span> {requestDetails.estimated_use_duration}</p>
               </div>
             </div>
           </div>

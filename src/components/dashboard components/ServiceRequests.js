@@ -176,7 +176,7 @@ const ServiceRequest = () => {
                 <th>Requested By</th>
                 <th>Date Requested</th>
                 <th>Status</th>
-                <th>Actions</th>
+                {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody>
@@ -192,8 +192,7 @@ const ServiceRequest = () => {
                     <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
                     <td>{request.status}</td>
-                    <td>
-                      {/* Cancel button */}
+                    {/* <td>
                       {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
                         <button
                           className="cancel-btn"
@@ -207,7 +206,7 @@ const ServiceRequest = () => {
                       ) : (
                         <span>{request.status}</span>
                       )}
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               ) : (

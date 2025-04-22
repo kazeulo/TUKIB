@@ -3,11 +3,45 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../../css/dashboard components/detail pages/ServiceRequestDetails.css'; 
 import { IoChevronBack } from 'react-icons/io5';
 
-const SampleProcessingRequestDetails = () => {
+// Modal component for rejection reason
+const RejectModal = ({ isOpen, onClose, onSubmit }) => {
+  const [reason, setReason] = useState('');
 
+  const handleChange = (e) => setReason(e.target.value);
+
+  const handleSubmit = () => {
+    onSubmit(reason);
+    onClose();
+  };
+
+  return (
+    isOpen && (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h4>Reason for Rejection</h4>
+          <textarea
+            value={reason}
+            onChange={handleChange}
+            placeholder="Please provide a reason for rejection..."
+            rows="4"
+            style={{ width: '100%' }}
+          />
+          <div className="modal-actions">
+            <button onClick={onClose} className="btn cancel-btn">Cancel</button>
+            <button onClick={handleSubmit} className="btn submit-btn">Submit</button>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};
+
+const SampleProcessingRequestDetails = () => {
   const { id } = useParams(); 
   const navigate = useNavigate();
   const [requestDetails, setServiceRequest] = useState(null);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);  // State for modal visibility
+  const [rejectionReason, setRejectionReason] = useState(''); // State for rejection reason
   
   useEffect(() => {
     const fetchServiceRequest = async () => {
@@ -23,7 +57,7 @@ const SampleProcessingRequestDetails = () => {
           const data = await response.json();
           if (data.status === 'success') {
             setServiceRequest(data.serviceRequest);
-            console.log(data)
+            console.log(data);
           } else {
             console.error('Service request not found');
           }
@@ -35,16 +69,11 @@ const SampleProcessingRequestDetails = () => {
         console.error('Error fetching service request details:', error);
         navigate('/error500');
       }
-  };
-  
+    };
+
     fetchServiceRequest();
   }, [id]);
-  
-  if (!requestDetails) {
-    return <div>Loading...</div>;
-  }
 
-  // Helper function to render file links or previews
   const renderFilePreview = (fileUrl, label) => {
     if (!fileUrl) {
       return <span>No file provided</span>;  // Show a message if no file URL
@@ -79,7 +108,58 @@ const SampleProcessingRequestDetails = () => {
       </a>
     );
   };
-  
+
+  // Approve request
+  const handleApprove = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/sampleProcessingRequestDetails/${id}/approve`, {
+        method: 'PUT',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === 'success') {
+          alert('Request Approved');
+          setServiceRequest({ ...requestDetails, status: 'Approved' });
+        } else {
+          alert('Failed to approve the request');
+        }
+      }
+    } catch (error) {
+      console.error('Error approving request:', error);
+    }
+  };
+
+  // Reject request (opens modal)
+  const handleReject = () => {
+    setIsRejectModalOpen(true);
+  };
+
+  // Submit the rejection reason
+  const submitRejection = async (reason) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/sampleProcessingRequestDetails/${id}/reject`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reason }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === 'success') {
+          alert('Request Rejected');
+          setServiceRequest({ ...requestDetails, status: 'Rejected' });
+        } else {
+          alert('Failed to reject the request');
+        }
+      }
+    } catch (error) {
+      console.error('Error rejecting request:', error);
+    }
+  };
+
   return (
     <div className="service-request-container">
       <div className="request-header">
@@ -108,15 +188,18 @@ const SampleProcessingRequestDetails = () => {
             </div>
           </div>
           
-          {/* Facility Usage Details */}
-          <h4 className="section-header">Facility Usage</h4>
+          {/* Sample Processing Details */}
+          <h4 className="section-header">Sample Processing</h4>
           <div className="request-section facility-details">
             <div className="details-row">
               <div className="details-col">
-                <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.selected_facility}</p>
-                <p className="detail-item"><span className="detail-label">Start of Use:</span> {new Date(requestDetails.start_of_use).toLocaleString()}</p>
-                <p className="detail-item"><span className="detail-label">End of Use:</span> {new Date(requestDetails.end_of_use).toLocaleString()}</p>
-                <p className="detail-item"><span className="detail-label">Participant Count:</span> {requestDetails.participant_count}</p>
+                <p className="detail-item"><span className="detail-label">Type of Analysis:</span> {requestDetails.type_of_analysis}</p>
+                <p className="detail-item"><span className="detail-label">Sample Type:</span> {requestDetails.sample_type}</p>
+                <p className="detail-item"><span className="detail-label">Sample Description</span> {requestDetails.sample_description}</p>
+                <p className="detail-item"><span className="detail-label">Sample Volume</span> {requestDetails.sample_volume}</p>
+                <p className="detail-item"><span className="detail-label">Method/Settings</span> {requestDetails.method_settings}</p>
+                <p className="detail-item"><span className="detail-label">Sample Hazard Description</span> {requestDetails.sample_hazard_description}</p>
+                <p className="detail-item"><span className="detail-label">Schedule of Sample Submission</span> {new Date(requestDetails.schedule_of_sample_submission).toLocaleDateString()}</p>
               </div>
             </div>
           </div>
@@ -157,8 +240,23 @@ const SampleProcessingRequestDetails = () => {
                 : 'None added.'}
             </p>
           </div>
+
+          {/* Approve and Reject Buttons - Only if status is "Pending for Approval" */}
+          {requestDetails.status === 'Pending for Approval' && (
+            <div className="approve-reject-buttons">
+              <button onClick={handleApprove} className="btn btn-approve">Approve</button>
+              <button onClick={handleReject} className="btn btn-reject">Reject</button>
+            </div>
+          )}
         </div>
       )}
+
+      {/* Reject Modal */}
+      <RejectModal
+        isOpen={isRejectModalOpen}
+        onClose={() => setIsRejectModalOpen(false)}
+        onSubmit={submitRejection}
+      />
     </div>
   );
 };

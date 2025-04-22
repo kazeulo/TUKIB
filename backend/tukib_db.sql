@@ -140,7 +140,6 @@ CREATE TABLE facilitiesTable (
     resources TEXT[]
 );
 
--- Service Request Table
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
@@ -150,9 +149,11 @@ CREATE TABLE serviceRequestTable (
     start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP,
     approved_by INT,
+    rejection_reason TEXT,
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
+
 
 -- Training Requests Table
 CREATE TABLE trainingRequests (
@@ -433,11 +434,11 @@ VALUES
 -- Inserting dummy data into 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
 VALUES
-    (6, 'Training', 'Pending', 'Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
+    (6, 'Training', 'Pending for Approval', 'Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
     (2, 'Sample Processing', 'Completed', 'Charged to Project', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
     (2, 'Use of Equipment', 'Approved', 'Charged to Project', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
-    (6, 'Use of Facility', 'Pending', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
-    (6, 'Use of Facility', 'Pending', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
+    (6, 'Use of Facility', 'Pending for Approval', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
+    (6, 'Use of Facility', 'Pending for Approval', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)
