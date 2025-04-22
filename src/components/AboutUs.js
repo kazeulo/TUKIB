@@ -11,6 +11,7 @@ import logo from '../assets/new_logo.png';
 import missionPic from '../assets/missionpic.png';
 import visionPic from '../assets/visionpic.png';
 import profilepic from '../assets/profile.png';
+import vidbg1 from '../assets/vidbg1.mp4';
 
 const AboutUs = () => {
 	return (
@@ -59,6 +60,12 @@ const AboutUs = () => {
 
 				{/* Section 2: Mission and Vision */}
 				<section className='mission-vision-section'>
+					<div className='video-background'>
+						<video autoPlay muted loop id="background-video">
+						<source src={vidbg1} type="video/mp4" />
+						Your browser does not support the video tag.
+						</video>
+					</div>
 					<div className='cards-container'>
 						<div className='about-card vision-card'>
 							<img

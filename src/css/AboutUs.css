@@ -6,6 +6,34 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+.about-banner {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(to right, 
+        rgba(110, 18, 20, 0.844) 15%,   
+        rgba(108, 51, 141, 0.75) 45%, 
+        rgba(218, 129, 60, 0.7) 75%,  
+        rgba(255, 204, 53, 0.6) 100% 
+    ), url('../assets/pagebanner.png');
+    background-size: cover;
+    text-align: center;
+}
+.banner-text h1 {
+    font-size: 36px;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+}
+
+.banner-text p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
 
 /* Section 1 */
 .about-section {
@@ -39,51 +67,44 @@
 
 /* Section 2 */
 .mission-vision-section {
-	background-image: linear-gradient(
-			to top right,
-			rgba(142, 21, 55, 0.75) 20%,
-			rgba(90, 39, 119, 0.7) 45%,
-			rgba(218, 129, 60, 0.5) 75%,
-			rgba(255, 204, 53, 0.5) 100%
-		),
-		url('../assets/about-sectionbg.png');
-	/* background: url('../assets/about-sectionbg.png') no-repeat center center/cover; */
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center top;
+	position: relative;
 	padding: 60px 20px;
 	display: flex;
 	justify-content: center;
-}
-
-.about-banner {
-    position: relative;
-    width: 100%;
-    height: 15vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: linear-gradient(to right, 
-        rgba(110, 18, 20, 0.844) 15%,   
-        rgba(108, 51, 141, 0.75) 45%, 
-        rgba(218, 129, 60, 0.7) 75%,  
-        rgba(255, 204, 53, 0.6) 100% 
-    ), url('../assets/pagebanner.png');
-    background-size: cover;
-    text-align: center;
-}
-
-.banner-text h1 {
-    font-size: 36px;
-    font-family: 'Poppins', sans-serif;
-    color: #ffffff;
-}
-
-.banner-text p {
-    font-size: 16px;
-    color: #ffffff;
-}
+	overflow: hidden; /* Ensure video doesn't overflow */
+  }
+  
+  .video-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+  }
+  
+  .video-background::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+	  to top right,
+	  rgba(142, 21, 55, 0.75) 20%,
+	  rgba(90, 39, 119, 0.7) 45%,
+	  rgba(218, 129, 60, 0.5) 75%,
+	  rgba(255, 204, 53, 0.5) 100%
+	);
+  }
+  
+  #background-video {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover; 
+  }
 
 .cards-container {
 	display: flex;
@@ -91,38 +112,60 @@
 	max-width: 1200px;
 	flex-wrap: wrap;
 	justify-content: center;
-}
+	position: relative; /* Ensures content stays above the video */
+	z-index: 1;
+  }
 
-.about-card {
+  .about-card {
 	background-color: rgba(255, 255, 255, 0.9);
 	border-radius: 0px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	/* padding: 20px; */
 	text-align: center;
 	width: 100%;
 	max-width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	transition: all 0.3s ease;
+	overflow: hidden; 
+  }
+
+.about-card:hover {
+  transform: scale(1.05);
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);  */
+  cursor: pointer;
 }
 
 .about-card img {
 	width: 100%;
 	border-radius: 0px;
 	margin-bottom: 20px;
+	transition: transform 0.5s ease;
 }
+.about-card:hover img {
+	transform: scale(1.1); /* Zoom in the image slightly */
+  }
 
 .about-card h2 {
 	font-size: 24px;
 	font-weight: bold;
 	color: #a01842;
 	margin-bottom: 10px;
+	transition: color 0.3s ease; 
 }
+.about-card:hover h2 {
+	color: #6c3383; 
+	font-size: 27px; 
+	transition: color 0.3s ease; 
+  }
 
 .about-card p {
 	font-size: 16px;
 	line-height: 1.6;
+	padding: 0 15px 15px;
 }
+.about-card:active {
+	transform: scale(0.98); }
 
 /* Section 3 */
 .org-chart-section {
