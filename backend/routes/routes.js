@@ -53,6 +53,8 @@ router.delete('/news/:id', newsController.deleteNews);
 
 // Routes for service requests
 router.get('/serviceRequests', serviceRequestsController.getServiceRequests);
+router.put('/serviceRequest/:id/reject', serviceRequestsController.rejectServiceRequest);
+router.put('/serviceRequest/:id/approve', serviceRequestsController.approveServiceRequest);
 router.get('/serviceRequests/:userId', serviceRequestsController.getServiceRequestsById);
 router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
 router.get('/useOfEquipmentRequestDetails/:id', serviceRequestsController.getEquipmentRentalRequestById);

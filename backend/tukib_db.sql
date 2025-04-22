@@ -154,7 +154,6 @@ CREATE TABLE serviceRequestTable (
     CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
 
-
 -- Training Requests Table
 CREATE TABLE trainingRequests (
     trainingrequest_id SERIAL PRIMARY KEY,
