@@ -130,129 +130,125 @@ const AboutUs = () => {
 
 				{/* Section 3: Organizational Chart */}
 				<section className='org-chart-section'>
-					<h2>Organizational Chart</h2>
-					<div className='org-chart'>
-						{/* Director */}
-						<div className='org-group director'>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Mary Grace Sedanza'
-								/>
-								<h3>Asst. Prof. Mary Grace Sedanza, PhD</h3>
-								<p>Director</p>
-							</div>
-						</div>
-
-						{/* Research Innovation Division */}
-						<h3 className='division-title'>Research Innovation Division</h3>
-						<div className='org-group'>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Jade G. Pahila'
-								/>
-								<h4>Jade G. Pahila, PhD</h4>
-								<p>
-									University Researcher I<br />
-									Food, Feeds, and Functional Nutrition Laboratory
-								</p>
-							</div>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='David James M. Lopez'
-								/>
-								<h4>David James M. Lopez</h4>
-								<p>
-									Laboratory Technician II
-									<br />
-									Food, Feeds, and Functional Nutrition Laboratory
-								</p>
-							</div>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Luke Drandel D. Atencio'
-								/>
-								<h4>Luke Drandel D. Atencio</h4>
-								<p>
-									University Researcher I<br />
-									Microbiology Laboratory and Biology Laboratory
-								</p>
-							</div>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Ma. Jamaica Trexy E. Magdayao'
-								/>
-								<h4>Ma. Jamaica Trexy E. Magdayao, R.Ch.</h4>
-								<p>
-									University Researcher I<br />
-									Applied Chemistry Laboratory and Material Science Laboratory
-								</p>
-							</div>
-						</div>
-
-						{/* TECD & Admin Section */}
-						<h3 className='division-title'>TECD & Admin Section</h3>
-						<div className='org-group'>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Jose Marie A. Eslopor'
-								/>
-								<h4>Jose Marie A. Eslopor</h4>
-								<p>
-									University Extension Specialist I<br />
-									Training, Extension, and Communication Division
-								</p>
-							</div>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Susci Ann J. Sobrevega'
-								/>
-								<h4>Susci Ann J. Sobrevega</h4>
-								<p>
-									Administrative Assistant IV
-									<br />
-									Administrative Section
-								</p>
-							</div>
-						</div>
-
-						{/* Engineering Section */}
-						<h3 className='division-title'>Engineering Section</h3>
-						<div className='org-group'>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Vincent John D. Fuentes'
-								/>
-								<h4>Engr. Vincent John D. Fuentes</h4>
-								<p>
-									Engineer IV
-									<br />
-									Engineering Section
-								</p>
-							</div>
-							<div className='org-card'>
-								<img
-									src={profilepic}
-									alt='Arnie G. Moquera'
-								/>
-								<h4>Engr. Arnie G. Moquera</h4>
-								<p>
-									Engineer III
-									<br />
-									Engineering Section
-								</p>
-							</div>
-						</div>
+				<h2>Organizational Chart</h2>
+				
+				{/* Director */}
+				<div className='director'>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Director'
+					/>
+					<h3>Asst. Prof. Mary Grace Sedanza, PhD</h3>
+					<p>Director</p>
 					</div>
+				</div>
+
+				{/* Research Innovation Division */}
+				<h3 className='division-title'>Research Innovation Division</h3>
+				<div className='org-group'>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Researcher'
+					/>
+					<h4>Jade G. Pahila, PhD</h4>
+					<p>
+						University Researcher I<br />
+						Food, Feeds, and Functional Nutrition Laboratory
+					</p>
+					</div>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Lab Technician'
+					/>
+					<h4>David James M. Lopez</h4>
+					<p>
+						Laboratory Technician II<br />
+						Food, Feeds, and Functional Nutrition Laboratory
+					</p>
+					</div>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Researcher'
+					/>
+					<h4>Luke Drandel D. Atencio</h4>
+					<p>
+						University Researcher I<br />
+						Microbiology Laboratory and Biology Laboratory
+					</p>
+					</div>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Researcher'
+					/>
+					<h4>Ma. Jamaica Trexy E. Magdayao, R.Ch.</h4>
+					<p>
+						University Researcher I<br />
+						Applied Chemistry Laboratory and Material Science Laboratory
+					</p>
+					</div>
+				</div>
+
+				{/* TECD & Admin Section */}
+				<h3 className='division-title'>TECD & Admin Section</h3>
+				<div className='org-group'>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Extension Specialist'
+					/>
+					<h4>Jose Marie A. Eslopor</h4>
+					<p>
+						University Extension Specialist I<br />
+						Training, Extension, and Communication Division
+					</p>
+					</div>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Administrative Assistant'
+					/>
+					<h4>Susci Ann J. Sobrevega</h4>
+					<p>
+						Administrative Assistant IV<br />
+						Administrative Section
+					</p>
+					</div>
+				</div>
+
+				{/* Engineering Section */}
+				<h3 className='division-title'>Engineering Section</h3>
+				<div className='org-group'>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Engineer'
+					/>
+					<h4>Engr. Vincent John D. Fuentes</h4>
+					<p>
+						Engineer IV<br />
+						Engineering Section
+					</p>
+					</div>
+					<div className='org-card'>
+					<img
+						src={profilepic}
+						alt='Engineer'
+					/>
+					<h4>Engr. Arnie G. Moquera</h4>
+					<p>
+						Engineer III<br />
+						Engineering Section
+					</p>
+					</div>
+				</div>
 				</section>
-			</div>
+
+				</div>
 			<Footer />
 		</div>
 	);
