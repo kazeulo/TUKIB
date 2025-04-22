@@ -43,6 +43,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     '/sampleProcessingRequestDetails',
     '/trainingRequestDetails',
     '/userDetails',
+    '/newsDetails',
   ];
 
   const shouldHideHeader =

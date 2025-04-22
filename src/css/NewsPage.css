@@ -47,20 +47,22 @@
 	gap: 40px;
 	background-color: #ffff;
 	border-radius: 0px;
-}
-
-.featured-news-image img {
+	align-items: flex-start; 
+  }
+  
+  .featured-news-image {
+	flex-shrink: 0;
 	width: 100%;
-	max-width: 400px;
-	border-radius: 0px;
-}
-
-.featured-news-content {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
+	max-width: 500px;
+	height: auto; 
+	overflow: hidden;
+  }
+  
+  .featured-news-image img {
+	width: 100%; 
+	height: auto;
+	object-fit: cover; 
+  }
 
 .news-tag {
 	font-size: 14px;

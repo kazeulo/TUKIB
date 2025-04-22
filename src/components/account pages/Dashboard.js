@@ -7,7 +7,7 @@ import ServiceRequests from '../dashboard components/ServiceRequests';
 import MessagesTable from '../dashboard components/MessagesTable';
 import EquipmentsTable from '../dashboard components/Equipments';
 import Facilities from '../dashboard components/Facilities';
-import News from '../dashboard components/News';
+import News from '../dashboard components/news/News';
 import { FaHome, FaUsers, FaClipboardList, FaEnvelope, FaCogs, FaNewspaper, FaTools, FaWarehouse } from 'react-icons/fa'; // Import icons
 import '../../css/account pages/AdminDashboard.css';
 

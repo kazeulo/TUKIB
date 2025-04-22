@@ -56,6 +56,9 @@ import TrainingRequestDetails from './components/dashboard components/details pa
 // Transaction history
 import UserDetails from './components/dashboard components/details pages/UserDetails';
 
+// news details
+import NewsDetailPage from './components/dashboard components/news/NewsDetailsPage';
+
 // Partial pages
 import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
@@ -139,6 +142,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/trainingRequestDetails',
 		'/messageDetails',
 		'/userDetails',
+		'/NewsDetailPage'
 	];
 
 	// check if the current path is in the noChatbotRoutes list
@@ -285,6 +289,12 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/userDetails/:userId'
 					element={<UserDetails />}
+				/>
+
+				{/* news details page */}
+				<Route 
+					path='/newsDetails/:id'
+					Component={NewsDetailPage}
 				/>
 			</Routes>
 		</>
