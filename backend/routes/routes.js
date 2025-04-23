@@ -18,6 +18,7 @@ const facilityRentalRequestsController = require('../controllers/facilityRentalR
 const facilityController = require('../controllers/facilityController');
 const laboratoryController = require('../controllers/laboratoryController');
 const feedbackController = require ('../controllers/feedbackController');
+const statisticsController = require ('../controllers/statisticsController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -74,6 +75,10 @@ router.get('/laboratory', laboratoryController.getLaboratories);
 
 // feedback
 router.post('/feedback', feedbackController.insertFeedback);
+
+// statistics for dashboard overview
+router.get('/statistics', statisticsController.getDashboardStats)
+
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {
