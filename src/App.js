@@ -52,6 +52,7 @@ import UseOfEquipmentRequestDetails from './components/dashboard components/deta
 import UseOfFacilityRequestDetails from './components/dashboard components/details pages/UseOfFacilityRequestDetails';
 import SampleProcessingRequestDetails from './components/dashboard components/details pages/SampleProcessingRequestDetails';
 import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
+import FacilityDetails from './components/dashboard components/details pages/FacilityDetails';
 
 // Transaction history
 import UserDetails from './components/dashboard components/details pages/UserDetails';
@@ -295,6 +296,12 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route 
 					path='/newsDetails/:id'
 					Component={NewsDetailPage}
+				/>
+
+				{/* facility details */}
+				<Route 
+					path='/facility/:id'
+					Component={FacilityDetails}
 				/>
 			</Routes>
 		</>
