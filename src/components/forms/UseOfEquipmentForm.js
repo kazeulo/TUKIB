@@ -12,6 +12,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [labs, setLabs] = useState([]);
+  const [equipments, setEquipments] = useState([]);
 
   const [formData, setFormData] = useState({
     user_id: '',
@@ -72,6 +73,28 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
 		fetchLabs();
 	}, []);
+
+  useEffect(() => {
+    const fetchEquipmentForLab = async () => {
+      if (formData.laboratory) {
+        console.log('Selected Laboratory:', formData.laboratory);
+        try {
+          const response = await axios.get(`http://localhost:5000/api/equipments/lab/${formData.laboratory}`);
+          console.log('Equipment Response:', response.data);
+  
+          if (response.data.status === 'success') {
+            setEquipments(response.data.equipments);
+          } else {
+            setEquipments([]);
+          }
+        } catch (err) {
+          console.error('Failed to fetch equipment for laboratory:', err);
+        }
+      }
+    };
+  
+    fetchEquipmentForLab();
+  }, [formData.laboratory]);  
 
   // Handle input changes for form fields
   const handleChange = (e) => {
@@ -277,31 +300,45 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 name="laboratory"
                 value={formData.laboratory}
                 onChange={handleChange}
-                >
+              >
                 <option value="">Select Laboratory Partner</option>
-                {labs.map((lab) => (
-                  <option key={lab.laboratory_id} value={lab.laboratory_name}>
-                    {lab.laboratory_name}
-                  </option>
-                ))}
-							</select>
+                {labs && labs.length > 0 ? (
+                  labs.map((lab) => (
+                    <option key={lab.laboratory_id} value={lab.laboratory_name}>
+                      {lab.laboratory_name}
+                    </option>
+                  ))
+                ) : (
+                  <option>No laboratories available</option>
+                )}
+              </select>
               {errors.laboratory && <p className="error">{errors.laboratory}</p>}
             </div>
 
             {/* Equipment Name */}
             <div className="form-group">
-              <label>Equipment Name</label>
-              <input
-                type="text"
-                name="equipmentName"
-                value={formData.equipmentName}
-                onChange={handleChange}
-                />
-                {errors.equipmentName && <p className="error">{errors.equipmentName}</p>}
+              <label>Select Equipment</label>
+                <select
+                  name="equipmentName"
+                  value={formData.equipmentName}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Equipment</option>
+                  {equipments && equipments.length > 0 ? (
+                    equipments.map((equipment) => (
+                      <option key={equipment.equipment_id} value={equipment.equipment_name}>
+                        {equipment.equipment_name}
+                      </option>
+                    ))
+                  ) : (
+                    <option>No equipment available</option> // Fallback option
+                  )}
+                </select>
+              {errors.equipmentName && <p className="error">{errors.equipmentName}</p>}
             </div>
 
             {/* Equipment Settings */}
-          <div className="form-group">
+            <div className="form-group">
               <label>Equipment Settings</label>
               <textarea
                 name="equipmentSettings"

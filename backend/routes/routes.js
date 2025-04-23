@@ -37,6 +37,7 @@ router.put ('/users/:userId', usersController.editUser);
 router.get('/equipments', equipmentsController.getEquipments);
 router.post('/equipments', equipmentsController.addEquipment);
 router.delete('/equipments/:id', equipmentsController.deleteEquipment);
+router.get('/equipments/lab/:labName', equipmentsController.getEquipmentByLab);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
