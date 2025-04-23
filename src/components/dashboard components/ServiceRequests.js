@@ -93,12 +93,22 @@ const ServiceRequest = () => {
   };
 
   const filteredByServiceType = serviceTypeFilter !== 'all'
-  ? filteredRequests.filter((request) => request.service_name === serviceTypeFilter)
-  : filteredRequests;
+    ? filteredRequests.filter((request) => request.service_name === serviceTypeFilter)
+    : filteredRequests;
+
+  // Sorting logic for service requests
+  const sortRequests = (requests) => {
+    return requests.sort((a, b) => {
+      if (a.status === 'Pending for Approval' && b.status !== 'Pending for Approval') return -1;
+      if (a.status !== 'Pending for Approval' && b.status === 'Pending for Approval') return 1;
+
+      return new Date(b.start) - new Date(a.start);
+    });
+  };
+
+  const sortedRequests = sortRequests(filteredByServiceType);
 
   const handleRowClick = (requestId, serviceName) => {
-    // Navigate to different pages based on the service name
-
     const service = serviceName.toLowerCase();
 
     if (service === 'training') {
@@ -109,7 +119,7 @@ const ServiceRequest = () => {
       navigate(`/useOfEquipmentRequestDetails/${requestId}`);
     } else if (service === 'use of facility') {
       navigate(`/useOfFacilityRequestDetails/${requestId}`);
-    } 
+    }
   };
 
   const modalFooter = (
@@ -142,18 +152,18 @@ const ServiceRequest = () => {
           </div>
 
           <div className="filter-dropdown">
-             <select
-                  id="serviceFilter"
-                  value={serviceTypeFilter}
-                  onChange={(e) => setServiceTypeFilter(e.target.value)}
-                  className="filter-select"
-                >
-                  <option value="all">All Services</option>
-                  <option value="Training">Training</option>
-                  <option value="Sample Processing">Sample Processing</option>
-                  <option value="Use of Equipment">Use of Equipment</option>
-                  <option value="Use of Facility">Use of Facility</option>
-                </select>
+            <select
+              id="serviceFilter"
+              value={serviceTypeFilter}
+              onChange={(e) => setServiceTypeFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="all">All Services</option>
+              <option value="Training">Training</option>
+              <option value="Sample Processing">Sample Processing</option>
+              <option value="Use of Equipment">Use of Equipment</option>
+              <option value="Use of Facility">Use of Facility</option>
+            </select>
           </div>
         </div>
 
@@ -176,12 +186,11 @@ const ServiceRequest = () => {
                 <th>Requested By</th>
                 <th>Date Requested</th>
                 <th>Status</th>
-                {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody>
-              {filteredByServiceType.length > 0 ? (
-                filteredByServiceType.map((request) => (
+              {sortedRequests.length > 0 ? (
+                sortedRequests.map((request) => (
                   <tr
                     key={request.request_id}
                     onClick={() => handleRowClick(request.request_id, request.service_name)}
@@ -192,26 +201,11 @@ const ServiceRequest = () => {
                     <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
                     <td>{request.status}</td>
-                    {/* <td>
-                      {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
-                        <button
-                          className="cancel-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCancelRequest(request.request_id);
-                          }}
-                        >
-                          Cancel
-                        </button>
-                      ) : (
-                        <span>{request.status}</span>
-                      )}
-                    </td> */}
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No requests found</td>
+                  <td colSpan="5">No requests found</td>
                 </tr>
               )}
             </tbody>

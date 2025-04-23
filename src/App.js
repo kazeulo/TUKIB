@@ -52,9 +52,13 @@ import UseOfEquipmentRequestDetails from './components/dashboard components/deta
 import UseOfFacilityRequestDetails from './components/dashboard components/details pages/UseOfFacilityRequestDetails';
 import SampleProcessingRequestDetails from './components/dashboard components/details pages/SampleProcessingRequestDetails';
 import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
+import FacilityDetails from './components/dashboard components/details pages/FacilityDetails';
 
 // Transaction history
 import UserDetails from './components/dashboard components/details pages/UserDetails';
+
+// news details
+import NewsDetailPage from './components/dashboard components/news/NewsDetailsPage';
 
 // Partial pages
 import ScrollTop from './components/partials/ScrollTop';
@@ -139,6 +143,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/trainingRequestDetails',
 		'/messageDetails',
 		'/userDetails',
+		'/NewsDetailPage'
 	];
 
 	// check if the current path is in the noChatbotRoutes list
@@ -285,6 +290,18 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/userDetails/:userId'
 					element={<UserDetails />}
+				/>
+
+				{/* news details page */}
+				<Route 
+					path='/newsDetails/:id'
+					Component={NewsDetailPage}
+				/>
+
+				{/* facility details */}
+				<Route 
+					path='/facility/:id'
+					Component={FacilityDetails}
 				/>
 			</Routes>
 		</>

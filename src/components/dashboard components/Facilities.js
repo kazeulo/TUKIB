@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import '../../css/dashboard components/Table.css';
 
@@ -21,6 +22,8 @@ const Facilities = () => {
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [facilityToDelete, setFacilityToDelete] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFacilities = async () => {
@@ -255,7 +258,7 @@ const Facilities = () => {
       <div className="table-wrapper table-responsive">
         <table className="facility-table">
           <thead>
-            <tr>
+          <tr>
               <th>Facility Name</th>
               <th>Upcoming Schedules</th>
               <th>Actions</th>
@@ -268,7 +271,7 @@ const Facilities = () => {
               </tr>
             ) : filteredFacilities.length > 0 ? (
               filteredFacilities.map((facility) => (
-                <tr key={facility.facility_id}>
+                <tr key={facility.facility_id} onClick={() => navigate(`/facility/${facility.facility_id}`)} style={{ cursor: 'pointer' }}>
                   <td>{facility.facility_name}</td>
                   <td>
                     {facility.upcomingSchedules.length > 0 ? (

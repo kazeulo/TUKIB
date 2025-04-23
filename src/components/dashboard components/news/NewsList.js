@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
-import './NewsList.css';
-import Modal from '../partials/Modal';
+import './NewsList.css'
+import Modal from '../../partials/Modal';
 
 const NewsList = ({ newsList, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +37,13 @@ const NewsList = ({ newsList, onDelete }) => {
     </>
   );
 
+  // Helper function
+  const getExcerpt = (html, wordLimit = 50) => {
+    const text = html.replace(/<[^>]*>?/gm, ''); // Strip HTML tags
+    const words = text.split(/\s+/).slice(0, wordLimit);
+    return words.join(' ') + (words.length === wordLimit ? '...' : '');
+  };
+
   return (
     <div className="news-container">
       {/* Modal for confirming delete */}
@@ -51,15 +59,18 @@ const NewsList = ({ newsList, onDelete }) => {
       {newsList.length > 0 ? (
         newsList.map((news) => (
           <div key={news.id} className="news-item">
-            <h3 className="news-title">{news.title}</h3>
-            <div
-              className="news-content"
-              dangerouslySetInnerHTML={{ __html: news.content }}
-            ></div>
-            <p className="news-category">Category: {news.category}</p>
+            <Link to={`/newsDetails/${news.id}`}>
+              <h3 className="news-title">{news.title}</h3>
+            </Link>
             <small className="news-date">
               {new Date(news.created_at).toLocaleString()}
             </small>
+            <p className="news-category">Category: {news.category}</p>
+            <div
+              className="news-content"
+            >
+              <p className="news-content">{getExcerpt(news.content)}</p>
+            </div>
             <button
               className="delete-button"
               onClick={() => openModal(news.id)}

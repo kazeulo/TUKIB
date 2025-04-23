@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import DOMPurify from 'dompurify';
 import '../css/NewsPage.css';
 import Footer from './partials/Footer';
 
-// image imports
+// fallback image
 import fallback_image from '../assets/fallback_img.png';
 
 const NewsPage = () => {
@@ -36,11 +37,11 @@ const NewsPage = () => {
           error: null,
         });
       } catch (error) {
-        setNewsData({
-          ...newsData,
+        setNewsData((prev) => ({
+          ...prev,
           loading: false,
           error: error.message,
-        });
+        }));
       }
     };
 
@@ -60,20 +61,21 @@ const NewsPage = () => {
   };
 
   const formatTimestamp = (timestamp) => {
-    // Check if the date is valid before formatting
-    if (isValidDate(timestamp)) {
-      return format(new Date(timestamp), 'MMMM dd, yyyy');
-    } else {
-      return 'Invalid date';
-    }
+    return isValidDate(timestamp)
+      ? format(new Date(timestamp), 'MMMM dd, yyyy')
+      : 'Invalid date';
   };
 
   const limitContent = (content) => {
     const words = content.split(/\s+/);
-    if (words.length > 100) {
-      return words.slice(0, 70).join(' ') + '...'; // Limit to 70 words and add ellipsis
-    }
-    return content;
+    return words.length > 100
+      ? words.slice(0, 50).join(' ') + '...'
+      : content;
+  };
+
+  const extractFirstImage = (html) => {
+    const match = html.match(/<img.*?src=["'](.*?)["']/);
+    return match ? match[1] : null;
   };
 
   return (
@@ -88,19 +90,25 @@ const NewsPage = () => {
       {newsData.featuredNews && (
         <div className="featured-news">
           <div className="featured-news-image">
-            {/* Render image only if it exists, otherwise use a fallback */}
             <img
-              src={newsData.featuredNews.image || fallback_image}
+              src={
+                extractFirstImage(newsData.featuredNews.content) ||
+                fallback_image
+              }
               alt={newsData.featuredNews.title}
             />
           </div>
           <div className="featured-news-content">
             <p className="news-tag">Latest</p>
-            <h2>{newsData.featuredNews.title}</h2>
+            <Link to={`/newsDetails/${newsData.featuredNews.id}`}>
+              <h2>{newsData.featuredNews.title}</h2>
+            </Link>
             <div
               className="news-content"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(limitContent(newsData.featuredNews.content)),
+                __html: DOMPurify.sanitize(
+                  limitContent(newsData.featuredNews.content)
+                ),
               }}
             />
             <span className="news-timestamp">
@@ -115,13 +123,14 @@ const NewsPage = () => {
         <div className="news-cards">
           {newsData.newsCards.map((news, index) => (
             <div key={index} className="news-card">
-              {/* Render image only if it exists */}
               <img
-                src={news.image && news.image[0] ? news.image[0] : fallback_image}
+                src={extractFirstImage(news.content) || fallback_image}
                 alt={news.title}
               />
               <div className="news-card-content">
-                <h3>{news.title}</h3>
+                <Link to={`/newsDetails/${news.id}`}>
+                  <h3>{news.title}</h3>
+                </Link>
                 <div
                   className="news-content"
                   dangerouslySetInnerHTML={{
