@@ -1,10 +1,33 @@
 // Footer.js
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import upvLogo from '../../assets/upv_logo.png';
 import rrcLogo from '../../assets/new_rrc_logo_circle.png';
 import '../../css/partials/Footer.css';
 
 const Footer = () => {
+	const location = useLocation();
+	const user = JSON.parse(localStorage.getItem('user'));
+	const userRole = user ? user.role : '';
+
+	const noFooterRoutes = [
+		'/dashboard',
+		'/messageDetails',
+		'/useOfEquipmentRequestDetails',
+		'/useOfFacilityRequestDetails',
+		'/sampleProcessingRequestDetails',
+		'/trainingRequestDetails',
+		'/userDetails',
+		'/newsDetails',
+	];
+	
+	const shouldHideFooter =
+		noFooterRoutes.some(route => location.pathname.startsWith(route)) && userRole === 'Admin Staff';
+	
+		if (shouldHideFooter) {
+			return null;
+	}
+
 	return (
 		<footer className='footer'>
 			<div className='footer-logos'>

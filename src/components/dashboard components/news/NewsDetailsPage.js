@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { IoChevronBack } from 'react-icons/io5';
 import DOMPurify from 'dompurify';
+import Footer from '../../../components/partials/Footer';
 
 const NewsDetailPage = () => {
   const { id } = useParams();
@@ -74,6 +75,7 @@ const NewsDetailPage = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
