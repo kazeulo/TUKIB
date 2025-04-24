@@ -1,5 +1,6 @@
 const pool = require("../backend");
 const path = require("path");
+const generateRequestCode = require('./utils/codeGenerator');
 
 // Function to create a new Sample Processing Request
 const createSampleProcessingRequest = async (req, res) => {
@@ -8,8 +9,6 @@ const createSampleProcessingRequest = async (req, res) => {
 
     const {
       user_id,
-      service_name = "Sample processing",
-      status = "Pending for approval",
       payment_option,
       project_title = null,
       project_budget_code = null,
@@ -19,10 +18,17 @@ const createSampleProcessingRequest = async (req, res) => {
       sampleDescription,
       sampleVolume = null,
       methodSettings,
+      request_code,
       sampleHazardDescription,
       scheduleSampleSubmission,
       additionalInformation = null,
     } = req.body;
+
+    const service_name = "Sample Processing";
+    const status = "Pending for approval";
+
+    // Generate the request code based on service type
+    const requestCode = await generateRequestCode(service_name);
 
     // Handle file uploads and generate public URLs
     const necessaryDocuments = req.files?.necessaryDocuments
@@ -37,16 +43,15 @@ const createSampleProcessingRequest = async (req, res) => {
       ? `/uploads/paymentConforme/${req.files.paymentConforme[0].filename}`
       : null;
 
-    // Insert into serviceRequestTable
+    // Insert into serviceRequestTable with generated requestCode
     const serviceResult = await pool.query(
       `INSERT INTO serviceRequestTable 
-       (user_id, service_name, status, payment_option, start, "end")
-       VALUES ($1, $2, $3, $4, NOW(), NULL) 
+       (user_id, service_name, request_code, status, payment_option, start, "end")
+       VALUES ($1, $2, $3, $4, $5, NOW(), NULL) 
        RETURNING request_id`,
-      [user_id, service_name, status, payment_option]
+      [user_id, service_name, request_code, status, payment_option]
     );
 
-    // Retrieve the generated request_id
     const request_id = serviceResult.rows[0].request_id;
 
     // Insert into sampleProcessingRequests table
@@ -79,10 +84,11 @@ const createSampleProcessingRequest = async (req, res) => {
       data: result.rows[0],
     });
   } catch (error) {
-    console.error("Error inserting data:", error);
-    return res
-      .status(500)
-      .json({ message: "Error creating Sample Processing Request" });
+    console.error("Error creating Sample Processing Request:", error);
+    return res.status(500).json({
+      message: "Internal server error while creating Sample Processing Request",
+      error: error.message,
+    });
   }
 };
 

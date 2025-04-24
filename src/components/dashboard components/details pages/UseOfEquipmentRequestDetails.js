@@ -139,6 +139,10 @@ const UseOfEquipmentRequestDetails = () => {
     }
   };
 
+  const handleChargeslipGeneration = () => {
+    navigate("/chargeslipForm", { state: { requestDetails } });
+  };
+
   return (
     <div className="service-request-container">
       {showConfirmation && (
@@ -174,7 +178,7 @@ const UseOfEquipmentRequestDetails = () => {
           </div>
 
           {/* Show rejection reason to client */}
-          {requestDetails.status === "Rejected" && user?.role === "Client" && (
+          {requestDetails.status === "Rejected" && (
             <div>
               <h4 className="section-header rejection-reason-header">Reason for Rejection</h4>
               <div className="request-section rejection-reason">
@@ -246,6 +250,13 @@ const UseOfEquipmentRequestDetails = () => {
             <div className="approve-reject-buttons">
               <button onClick={handleApprove} className="btn btn-approve">Approve</button>
               <button onClick={handleReject} className="btn btn-reject">Reject</button>
+            </div>
+          )}
+
+          {/* generate chargeslip */}
+          {requestDetails.status === "Approved" && user?.role !== "Client" && (
+            <div className="approve-reject-buttons">
+              <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
             </div>
           )}
         </div>

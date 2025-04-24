@@ -143,6 +143,7 @@ CREATE TABLE facilitiesTable (
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
+    request_code VARCHAR(20),
     service_name service_type NOT NULL,
     status VARCHAR(50) NOT NULL,
     payment_option payment_option NOT NULL,
@@ -431,13 +432,13 @@ VALUES
     ('pH Meter', 'BrandF', 1, 'ModelF', 'SN406', 'Eve Odair', 5, TRUE);
 
 -- Inserting dummy data into 'serviceRequestTable'
-INSERT INTO serviceRequestTable (user_id, service_name, status, payment_option, start, "end", approved_by)
+INSERT INTO serviceRequestTable (user_id, service_name, request_code, status, payment_option, start, "end", approved_by)
 VALUES
-    (6, 'Training', 'Pending for Approval', 'Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
-    (2, 'Sample Processing', 'Completed', 'Charged to Project', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
-    (2, 'Use of Equipment', 'Approved', 'Charged to Project', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
-    (6, 'Use of Facility', 'Pending for Approval', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
-    (6, 'Use of Facility', 'Pending for Approval', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
+    (6, 'Training', 'RRC-25-TR001', 'Pending for Approval','Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
+    (2, 'Sample Processing', 'RRC-25-SP001', 'Completed', 'Charged to Project', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
+    (2, 'Use of Equipment', 'RRC-25-EQ001', 'Approved', 'Charged to Project', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
+    (6, 'Use of Facility', 'RRC-25-FAC001', 'Pending for Approval', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
+    (6, 'Use of Facility', 'RRC-25-FAC002', 'Pending for Approval', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)

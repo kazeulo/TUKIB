@@ -99,6 +99,10 @@ const TrainingRequestDetails = () => {
     setIsRejectModalOpen(true);
   };
 
+  const handleChargeslipGeneration = () => {
+    navigate("/chargeslipForm", { state: { requestDetails } });
+  };  
+
   const submitRejection = async (reason) => {
     try {
       const response = await fetch(`http://localhost:5000/api/serviceRequest/${id}/reject`, {
@@ -176,7 +180,7 @@ const TrainingRequestDetails = () => {
               </div>
 
               {/* Show rejection reason to client */}
-              {requestDetails.status === "Rejected" && user?.role === "Client" && (
+              {requestDetails.status === "Rejected" && (
                 <div>
                   <h4 className="section-header rejection-reason-header">Reason for Rejection</h4>
                   <div className="request-section rejection-reason">
@@ -244,6 +248,14 @@ const TrainingRequestDetails = () => {
                   <button onClick={handleReject} className="btn btn-reject">Reject</button>
                 </div>
               )}
+
+              {/* generate chargeslip */}
+              {requestDetails.status === "Approved" && user?.role !== "Client" && (
+                <div className="approve-reject-buttons">
+                  <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
+                </div>
+              )}
+
             </div>
           ) : (
             <p className="loading-message">Loading request details...</p>

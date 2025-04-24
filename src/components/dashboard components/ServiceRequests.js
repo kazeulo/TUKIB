@@ -98,11 +98,14 @@ const ServiceRequest = () => {
 
   // Sorting logic for service requests
   const sortRequests = (requests) => {
-    return requests.sort((a, b) => {
+    return [...requests].sort((a, b) => {
+      const aDate = new Date(a.start);
+      const bDate = new Date(b.start);
+  
       if (a.status === 'Pending for Approval' && b.status !== 'Pending for Approval') return -1;
       if (a.status !== 'Pending for Approval' && b.status === 'Pending for Approval') return 1;
-
-      return new Date(b.start) - new Date(a.start);
+  
+      return bDate - aDate;
     });
   };
 
@@ -181,7 +184,7 @@ const ServiceRequest = () => {
           <table>
             <thead>
               <tr>
-                <th>Request ID</th>
+                <th>Request Code</th>
                 <th>Service Name</th>
                 <th>Requested By</th>
                 <th>Date Requested</th>
@@ -196,7 +199,7 @@ const ServiceRequest = () => {
                     onClick={() => handleRowClick(request.request_id, request.service_name)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td>{request.request_id}</td>
+                    <td>{request.request_code}</td>
                     <td>{request.service_name}</td>
                     <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
