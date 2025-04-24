@@ -324,7 +324,7 @@
     z-index: 1;
     position: relative;
 }
-.org-chart-section::before {
+/* .org-chart-section::before {
     content: "";
     position: absolute;
     top: 0;
@@ -335,7 +335,7 @@
     background-size: cover;
     filter: blur(2px);
     z-index: -1;
-}
+} */
 
 .org-chart-section h2 {
     font-size: 32px;
