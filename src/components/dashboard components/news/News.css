@@ -13,7 +13,7 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 1.25rem 1.5rem;
-	background-color: #8b1e41;
+	background-color: #951f21;
 	border-bottom: 1px solid #e9ecef;
 }
 
@@ -29,7 +29,7 @@
 	margin: 30px auto;
 	display: flex;
 	margin-bottom: 20px;
-	background-color: #8b1e41 !important;
+	background-color: #951f21 !important;
 	align-items: center;
 	justify-content: center;
   }
@@ -38,7 +38,7 @@
 	width: 300px;
 	padding: 10px 15px;
 	border: none;
-	background-color: #8b1e41 !important;
+	background-color: #951f21 !important;
 	color: white;
 	font-size: 14px;
 	cursor: pointer;
@@ -48,7 +48,7 @@
   }
   
 .news-tabs button:hover {
-	background-color: #d9d9d9; /* Slightly darker on hover */
+	background-color: #bb4143aa !important; 
   }
 
 .news-tabs button:active, .news-tabs button:focus {

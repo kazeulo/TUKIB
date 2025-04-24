@@ -109,7 +109,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
               <Nav.Item>
                 <Link to="/news" className="nav-link">
-                  News
+                  News & Announcements
                 </Link>
               </Nav.Item>
 
