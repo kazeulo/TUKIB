@@ -1,0 +1,63 @@
+version: '3.1'
+
+nlu:
+  # Use of Equipment
+  - intent: auth_representative
+    examples: |
+      - [Rainer Mayagma](auth_representative)
+      - [Szophia Ceniza](auth_representative)
+      - [Kurt Amodia](auth_representative)
+      - [Luis Magtoto](auth_representative)
+      - [James Smith](auth_representative)
+      - [Sophia Johnson](auth_representative)
+      - [Michael Brown](auth_representative)
+      - [Emily Davis](auth_representative)
+      - [Christopher Garcia](auth_representative)
+      - [Isabella Martinez](auth_representative)
+      - [Alexander Lee](auth_representative)
+      - [Olivia Wilson](auth_representative)
+      - [Ethan Kim](auth_representative)
+      - [Mia Patel](auth_representative)
+      - [David Clark](auth_representative)
+      - [Emma Rodriguez](auth_representative)
+      - [Aiden Gonzalez](auth_representative)
+      - [Lily Nguyen](auth_representative)
+      - [Benjamin Walker](auth_representative)
+      - [Charlotte Wright](auth_representative)
+      - The authorized representative is [James Smith](auth_representative)
+      - I'd like [Sophia Johnson](auth_representative) as the representative
+      - [Michael Brown](auth_representative) will represent us
+      - [Emily Davis](auth_representative) is our authorized representative
+      - Our representative is [Christopher Garcia](auth_representative)
+      - Can I assign [Isabella Martinez](auth_representative) as the representative?
+      - [Alexander Lee](auth_representative) will be the authorized person
+      - I'll appoint [Olivia Wilson](auth_representative)
+
+  - intent: equipment_name
+    examples: |
+      - [Spectrophotometer](equipment_name)
+      - [Microscope](equipment_name)
+      - [PCR Machine](equipment_name)
+      - [Thermal Cycler](equipment_name)
+      - [Centrifuge](equipment_name)
+      - [Autoclave](equipment_name)
+      - [Gas Chromatograph](equipment_name)
+      - [Mass Spectrometer](equipment_name)
+      - [HPLC](equipment_name) # High-Performance Liquid Chromatography
+      - [Fume Hood](equipment_name)
+      - [Incubator](equipment_name)
+      - [Microplate Reader](equipment_name)
+      - [Electrophoresis System](equipment_name)
+      - [Liquid Nitrogen Dewar](equipment_name)
+      - [Ultracentrifuge](equipment_name)
+      - [Sonicator](equipment_name)
+      - [UV Transilluminator](equipment_name)
+      - [Biosafety Cabinet](equipment_name)
+      - [Fluorescence Microscope](equipment_name)
+      - [Real-Time PCR Machine](equipment_name)
+      - [Gel Documentation System](equipment_name)
+      - [Lyophilizer](equipment_name) # Freeze Dryer
+      - [Nanodrop Spectrophotometer](equipment_name)
+      - [Laminar Flow Hood](equipment_name)
+      - [Shaking Incubator](equipment_name)
+      - [Confocal Microscope](equipment_name)

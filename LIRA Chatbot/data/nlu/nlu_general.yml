@@ -1,0 +1,201 @@
+version: '3.1'
+
+nlu:
+  # General
+  - intent: avail_service
+    examples: |
+      - I want to avail a service
+      - I want to choose a service
+      - I would like to avail one of your services
+      - I need to avail a service
+      - Can I avail a service?
+      - I want to use a service
+      - Can I choose a service?
+      - I am interested in your services
+      - I would like to use one of your services
+      - How can I avail a service?
+      - I need to choose a service
+      - I want to select a service
+      - I’d like to avail a service
+      - I am looking to avail a service
+      - How can I select a service?
+      - I’d like to use a service
+      - Can I avail a service from your center?
+      - Please help me avail a service
+      - I am here to avail a service
+      - How do I choose one of your services?
+      - I want to avail a service from you
+      - I would like to know more about availing services
+      - Let me avail one of your services
+      - Can you help me avail a service?
+      - Is it possible to avail a service here?
+
+  - intent: select_service
+    examples: |
+      - [Sample processing](service)
+      - [Use of facility](service)
+      - [Use of equipment](service)
+      - [Training](service)
+      - I want to avail [sample processing](service)
+      - I want to [use a facility](service)
+      - I would like to avail [training](service)
+      - Can I avail [use of equipment](service)?
+      - I’m interested in [sample processing](service)
+      - I want to choose [use of facility](service)
+      - Let me avail [use of equipment](service)
+      - I would like to book [training](service)
+      - I need [use of facility](service)
+      - How can I avail [sample processing](service)?
+      - Please help me avail [training](service)
+      - I would like to select [use of equipment](service)
+      - Is [use of facility](service) available?
+      - Can I choose [use of equipment](service)?
+      - I would like to select [sample processing](service)
+      - I need to avail [training](service)
+      - I am here for [use of equipment](service)
+      - I want to avail [use of equipment](service)
+      - I would like to avail the [use of facility](service)
+      - I want to choose the [sample processing](service)
+      - I’m interested in availing [training](service)
+      - Can I use your [sample processing](service)?
+      - I want to avail [use of equipment](service)
+      - Let me choose the [use of facility](service)
+
+  - intent: first_name
+    examples: |
+      - [Rainer](first_name)
+      - [Szophia](first_name)
+      - My first name is [Kurt](first_name)
+      - It's [Luis](first_name)
+      - I am [James](first_name)
+      - You can call me [Emily](first_name)
+      - My name is [Sarah](first_name)
+      - The name's [David](first_name)
+      - It's [Mia](first_name)
+      - I'm called [John](first_name)
+      - You can address me as [Hannah](first_name)
+      - My first name is [Leo](first_name)
+      - I go by [Jake](first_name)
+      - My name is [Sophia](first_name)
+      - I'm [Michael](first_name)
+      - Call me [Emma](first_name)
+      - Hi, I'm [Lucas](first_name)
+      - I'm [Olivia](first_name)
+      - My first name is [Ethan](first_name)
+      - It's [Isabella](first_name)
+      - The name's [Henry](first_name)
+      - I’m [Ava](first_name)
+
+  - intent: last_name
+    examples: |
+      - [Mayagma](last_name)
+      - [Ceniza](last_name)
+      - My last name is [Amodia](last_name)
+      - It's [Magtoto](last_name)
+      - The surname is [Garcia](last_name)
+      - My family name is [Reyes](last_name)
+      - You can write [Santos](last_name) as my last name
+      - I go by [Dela Cruz](last_name)
+      - My surname is [Perez](last_name)
+      - It's [Lopez](last_name)
+      - My last name is [Rodriguez](last_name)
+      - You can put [Hernandez](last_name) as my surname
+      - The last name is [Torres](last_name)
+      - I'm [Rivera](last_name)
+      - My family name is [Vargas](last_name)
+      - [Gonzales](last_name) is my last name
+      - It's [Fernandez](last_name)
+      - Write down [Mendoza](last_name) as my surname
+      - I'm called [Silva](last_name)
+      - The surname is [Castillo](last_name)
+
+  - intent: affiliation
+    examples: |
+      - [Student](affiliation)
+      - [Researcher](affiliation)
+      - I am a [Faculty](affiliation)
+      - I'm a [Staff](affiliation)
+      - I'm currently a [Student](affiliation)
+      - My affiliation is [Researcher](affiliation)
+      - I'm part of the [Faculty](affiliation)
+      - I work as a [Staff](affiliation)
+      - I'm a [Visiting Researcher](affiliation)
+      - My role is [Student](affiliation)
+      - I'm affiliated as a [Postdoctoral Fellow](affiliation)
+      - I belong to the [Staff](affiliation)
+      - I'm a [Graduate Student](affiliation)
+      - I work here as a [Faculty](affiliation)
+      - I'm with the [Administrative Staff](affiliation)
+      - My position is [Research Assistant](affiliation)
+      - I am a [Teaching Assistant](affiliation)
+      - My role is [Principal Investigator](affiliation)
+      - I'm a [Lecturer](affiliation)
+      - I'm affiliated as a [Technician](affiliation)
+
+  - intent: email
+    examples: |
+      - [rtmayagma@up.edu.ph](email)
+      - [szceniza@up.edu.ph](email)
+      - My email is [kurtamodia@gmail.com](email)
+      - It's [luismagtoto@email.com](email)
+      - You can contact me at [john.doe@domain.com](email)
+      - My email address is [jane.smith@example.com](email)
+      - Reach me at [user123@company.org](email)
+      - Here’s my email: [researcher@university.edu](email)
+      - It's [staffmember@institution.org](email)
+      - Send the details to [project.lead@researchlab.com](email)
+      - Contact me at [faculty@up.edu.ph](email)
+      - My email is [gradstudent123@uni.edu](email)
+      - [scientist@lab.co](email) is my email address
+      - You can send me a message at [assistant@office.net](email)
+      - Please email me at [teaching.assistant@school.edu](email)
+
+  - regex: email
+    examples: |
+      - [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}
+
+  - intent: phone_number
+    examples: |
+      - [09686955367](phone_number)
+      - [6395672610247](phone_number)
+      - [+6395672610247](phone_number)
+      - [09123456789](phone_number)
+      - [(02) 1234 5678](phone_number)
+      - [123-456-7890](phone_number)
+      - [(123) 456-7890](phone_number)
+      - [09876543210](phone_number)
+      - [0917-123-4567](phone_number)
+
+  - regex: phone_number
+    examples: |
+      - \+?\(?\d{1,4}\)?[\s\-]?\(?\d{1,3}\)?[\s\-]?\d{3}[\s\-]?\d{4}
+      - \d{3}[\s\-]?\d{3}[\s\-]?\d{4}
+      - \d{10}
+
+  - intent: affirm
+    examples: |
+      - yes
+      - correct
+      - that's right
+      - everything is fine
+      - all good
+      - yup
+      - sure
+      - okay
+      - sounds good
+      - yes, that's correct
+      - yes, it's correct
+      - I confirm
+
+  - intent: deny
+    examples: |
+      - no
+      - that's not right
+      - incorrect
+      - I need to change something
+      - I want to update some details
+      - no, that's wrong
+      - no, please change something
+      - I need to update it
+      - no, it's not correct
+      - something's wrong

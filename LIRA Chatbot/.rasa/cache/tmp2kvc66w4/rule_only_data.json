@@ -1,9 +1,0 @@
-{
-  "rule_only_slots": [
-    "service"
-  ],
-  "rule_only_loops": [
-    "use_facility_form",
-    "avail_sample_processing_form"
-  ]
-}

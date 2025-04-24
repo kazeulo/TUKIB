@@ -1,0 +1,56 @@
+version: '3.1'
+
+nlu:
+  # Use of Facility
+  - intent: select_facility
+    examples: |
+      - [Audio/Visual Room](facility)
+      - [Collaboration Room](facility)
+      - [Conference Hall](facility)
+      - [Meeting Room](facility)
+      - [Computer Lab](facility)
+      - [Seminar Room](facility)
+      - [Lecture Hall](facility)
+      - [Training Room](facility)
+      - [Study Lounge](facility)
+      - [Workshop Space](facility)
+      - [Laboratory](facility)
+      - [Exhibition Hall](facility)
+
+  - intent: select_start_date
+    examples: |
+      - Start date: [12-03-2023](start_date)
+      - Start date: [25-12-2025](start_date)
+      - Start date: [30-09-2025](start_date)
+      - Start date: [01-05-2026](start_date)
+      - Start date: [05-11-2037](start_date)
+      - Start date: [16-01-2034](start_date)
+      - The event starts on [10-10-2030](start_date)
+      - Begin on [07-07-2027](start_date)
+      - Date of start: [15-08-2029](start_date)
+      - I would like to schedule the start date for [23-06-2028](start_date)
+      - We plan to begin on [03-03-2033](start_date)
+      - Start the session on [29-02-2036](start_date)
+
+  - regex: start_date
+    examples: |
+      - \d{2}-\d{2}-\d{4}
+
+  - intent: select_end_date
+    examples: |
+      - End date: [20-05-2024](end_date)
+      - End date: [30-11-2025](end_date)
+      - End date: [31-02-2026](end_date)
+      - End date: [12-06-2025](end_date)
+      - End date: [04-12-2034](end_date)
+      - End date: [08-10-2032](end_date)
+      - The event ends on [15-09-2030](end_date)
+      - It finishes on [22-07-2029](end_date)
+      - Date of end: [19-03-2033](end_date)
+      - The last day will be [25-01-2028](end_date)
+      - Plan to conclude on [17-11-2035](end_date)
+      - End session on [09-08-2037](end_date)
+
+  - regex: end_date
+    examples: |
+      - \d{2}-\d{2}-\d{4}

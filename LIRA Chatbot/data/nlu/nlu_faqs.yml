@@ -1,0 +1,94 @@
+version: '3.1'
+
+nlu:
+  # FAQs
+  - intent: ask_location
+    examples: |
+      - Where is the RRC located?
+      - Where can I find the RRC?
+      - Where is your office?
+      - What is the address of RRC?
+      - Where are you located?
+      - Can you tell me the location of RRC?
+      - Where can I visit your office?
+      - What is your office address?
+      - Where is the RRC based?
+      - Where can I go to reach RRC?
+      - What's the location of your facility?
+      - How do I get to the RRC?
+      - What's your location?
+      - Could you provide the RRC address?
+      - Can I know where RRC is?
+      - In what area is RRC situated?
+
+  - intent: ask_services
+    examples: |
+      - What services do you offer?
+      - Can you tell me about your services?
+      - What services are available?
+      - What can I avail from the RRC?
+      - What types of services do you provide?
+      - Can you tell me the services provided by RRC?
+      - What are the available services at RRC?
+      - What can I get from your facility?
+      - Could you list your services?
+      - What services are offered by RRC?
+      - What do you provide at the RRC?
+      - Can I know what services are provided?
+      - Which services can I avail?
+      - What kinds of services are available at RRC?
+      - What facilities or services can I use?
+
+  - intent: ask_operating_hours
+    examples: |
+      - What are your operating hours?
+      - When are you open?
+      - What time do you close?
+      - What are your office hours?
+      - When can I visit the RRC?
+      - What time do you open?
+      - What are the working hours of RRC?
+      - Can you tell me your business hours?
+      - Until what time are you open?
+      - Are you open on weekdays?
+      - What are the hours of operation for the RRC?
+      - When does the office open and close?
+      - Are you open from 8 to 5?
+      - What time does the office close?
+      - What is your schedule?
+
+  - intent: ask_contact_info
+    examples: |
+      - How can I contact you?
+      - What's the contact number for RRC?
+      - How can I reach you?
+      - What is your phone number?
+      - Can you give me your email?
+      - How do I get in touch with RRC?
+      - What is the email address of RRC?
+      - Can I have your contact information?
+      - How do I call RRC?
+      - What’s your office phone number?
+      - How can I send an email to RRC?
+      - What is the best way to reach you?
+      - Can you share your contact details?
+      - Could you tell me your contact info?
+      - What's your email address?
+
+  - intent: ask_about_rrc
+    examples: |
+      - What is RRC?
+      - What does RRC stand for?
+      - Can you tell me about the RRC?
+      - What is the purpose of RRC?
+      - What is the RRC about?
+      - Can you explain what the RRC is?
+      - What does the RRC do?
+      - What’s the mission of the RRC?
+      - What is the role of the RRC?
+      - What services does the RRC provide?
+      - What kind of organization is RRC?
+      - Could you tell me more about RRC?
+      - What is the goal of the RRC?
+      - Why was the RRC created?
+      - What are the objectives of the RRC?

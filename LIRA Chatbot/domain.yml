@@ -1,5 +1,12 @@
 version: '3.1'
 
+config:
+  store_entities_as_slots: true
+
+session_config:
+  session_expiration_time: 10
+  carry_over_slots_to_new_session: true
+
 intents:
   # General
   - avail_service
@@ -8,6 +15,7 @@ intents:
   - last_name
   - affiliation
   - email
+  - phone_number
   - affirm
   - deny
 
@@ -71,6 +79,15 @@ slots:
     mappings:
       - type: from_entity
         entity: last_name
+  name_spelled_correctly:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+      - type: from_intent
+        intent: deny
+        value: false
   affiliation:
     type: text
     mappings:
@@ -81,6 +98,11 @@ slots:
     mappings:
       - type: from_entity
         entity: email
+  phone_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: phone_number
   service:
     type: categorical
     influence_conversation: true
@@ -153,15 +175,20 @@ slots:
         entity: end_date
 
 forms:
+  # Get credentials
+  get_credentials_form:
+    required_slots:
+      - first_name
+      - last_name
+      - affiliation
+      - email
+      # - phone_number
+
   # Sample Processing
   avail_sample_processing_form:
     required_slots:
       - lab_partner
       - start_date
-      - first_name
-      - last_name
-      - affiliation
-      - email
 
   # Use of Equipment
   avail_equipment_form:
@@ -175,7 +202,7 @@ forms:
       - email
 
   # Training
-  avail_training_from:
+  avail_training_form:
     required_slots:
       - training_topic
       - lab_partner
@@ -217,11 +244,30 @@ responses:
   utter_ask_last_name:
     - text: 'What is your last name?'
 
+  utter_ask_confirm_first_name:
+    - text: 'Is {first_name} spelled correctly?'
+      buttons:
+        - title: 'Yes'
+          payload: '/affirm"}'
+        - title: 'No'
+          payload: '/deny"}'
+
+  utter_ask_confirm_last_name:
+    - text: 'Is {last_name} spelled correctly?'
+      buttons:
+        - title: 'Yes'
+          payload: '/affirm"}'
+        - title: 'No'
+          payload: '/deny"}'
+
   utter_ask_affiliation:
     - text: 'What is your affiliation?'
 
   utter_ask_email:
     - text: 'What is your email?'
+
+  utter_ask_phone_number:
+    - text: 'What is your phone number?'
 
   utter_thanks:
     - text: 'Thank you!'
@@ -270,10 +316,6 @@ responses:
   utter_ask_end_date:
     - text: 'When will you stop using this service?'
 
-  # Fallback
-  utter_fallback:
-    - text: "I'm sorry, I didn't quite catch that. Can you please rephrase?"
-
   utter_resume_form:
     - text: 'Let’s continue from where we left off.'
 
@@ -304,7 +346,5 @@ responses:
 
 actions:
   - action_save_service_request
-
-session_config:
-  session_expiration_time: 1
-  carry_over_slots_to_new_session: true
+  - action_default_fallback
+  # - validate_get_credentials_form

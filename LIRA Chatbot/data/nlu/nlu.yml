@@ -1,0 +1,9 @@
+version: '3.1'
+
+nlu:
+  # - data/nlu_general.yml
+  # - data/nlu_sample_processing.yml
+  # - data/nlu_use_of_equipment.yml
+  # - data/nlu_training.yml
+  # - data/nlu_use_of_facility.yml
+  # - data/nlu_faqs.yml

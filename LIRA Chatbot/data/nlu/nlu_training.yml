@@ -1,0 +1,31 @@
+version: '3.1'
+
+nlu:
+  # Training
+  - intent: training_topic
+    examples: |
+      - [Data Analysis](training_topic)
+      - [Lab Safety](training_topic)
+      - [Lab Equipment Operation](training_topic)
+      - [Research Ethics](training_topic)
+
+  - intent: select_number_of_participants
+    examples: |
+      - There will be [5](number_of_participants) participants.
+      - A total of [10](number_of_participants) people will attend.
+      - Expecting [14](number_of_participants) attendees.
+      - We will have [27](number_of_participants).
+      - I expect [68](number_of_participants) to join.
+      - Number of participants: [8](number_of_participants)
+      - [99](number_of_participants) participants.
+      - [43](number_of_participants)
+      - [85](number_of_participants)
+      - We are expecting [50](number_of_participants) attendees.
+      - Around [32](number_of_participants) people will be there.
+      - [20](number_of_participants) people have signed up.
+      - A total of [15](number_of_participants) members will come.
+      - We plan to have [60](number_of_participants) participants.
+
+  - regex: number_of_participants
+    examples: |
+      - \d{1,2}

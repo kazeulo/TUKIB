@@ -1,0 +1,28 @@
+version: '3.1'
+
+rules:
+  # FAQs
+  - rule: Respond to location question
+    steps:
+      - intent: ask_location
+      - action: utter_location
+
+  - rule: Respond to services question
+    steps:
+      - intent: ask_services
+      - action: utter_services
+
+  - rule: Respond to operating hours question
+    steps:
+      - intent: ask_operating_hours
+      - action: utter_operating_hours
+
+  - rule: Respond to contact info question
+    steps:
+      - intent: ask_contact_info
+      - action: utter_contact_info
+
+  - rule: Respond to about RRC question
+    steps:
+      - intent: ask_about_rrc
+      - action: utter_about_rrc

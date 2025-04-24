@@ -1,0 +1,21 @@
+version: '3.1'
+
+nlu:
+  # Sample Processing
+  - intent: select_lab_partner
+    examples: |
+      - [Applied Chemistry](lab_partner)
+      - [Biology](lab_partner)
+      - [Foods, Feeds, and Functional Nutrition](lab_partner)
+      - [Material Science and Nanotechnology](lab_partner)
+      - [Microbiology and Bioengineering](lab_partner)
+      - I want to work with [Applied Chemistry](lab_partner)
+      - I am selecting [Biology](lab_partner)
+      - I'd like to collaborate with [Foods, Feeds, and Functional Nutrition](lab_partner)
+      - Let's go with [Material Science and Nanotechnology](lab_partner)
+      - I'm choosing [Microbiology and Bioengineering](lab_partner)
+      - My lab partner is [Biology](lab_partner)
+      - Can I pick [Material Science and Nanotechnology](lab_partner)?
+      - I'll take [Applied Chemistry](lab_partner)
+      - I need [Foods, Feeds, and Functional Nutrition](lab_partner)
+      - [Microbiology and Bioengineering](lab_partner) is my choice

@@ -1,0 +1,31 @@
+version: '3.1'
+
+rules:
+  # Sample Processing
+  - rule: User selects sample processing service
+    steps:
+      - intent: select_service
+      - slot_was_set:
+          - service: Sample Processing
+      - action: avail_sample_processing_form
+      - active_loop: avail_sample_processing_form
+
+  - rule: Submit sample processing form
+    condition:
+      - active_loop: avail_sample_processing_form
+    steps:
+      - action: avail_sample_processing_form
+      - active_loop: null
+      - action: get_credentials_form
+      - active_loop: get_credentials_form
+      # - action: action_save_service_request
+      # - action: utter_thanks
+
+  - rule: Submit credentials form and save service request
+    condition:
+      - active_loop: get_credentials_form
+    steps:
+      - action: get_credentials_form
+      - active_loop: null
+      - action: action_save_service_request # Save the service request after credentials are collected
+      - action: utter_thanks # Thank the user

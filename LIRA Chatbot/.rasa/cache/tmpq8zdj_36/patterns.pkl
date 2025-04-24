@@ -1,6 +1,0 @@
-[
-  {
-    "name": "date_dd_mm_yyyy",
-    "pattern": "\\d{2}-\\d{2}-\\d{4}"
-  }
-]

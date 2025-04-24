@@ -1,0 +1,15 @@
+{
+  "rule_only_slots": [
+    "name_spelled_correctly",
+    "service"
+  ],
+  "rule_only_loops": [
+    "avail_training_form",
+    "get_first_name_form",
+    "get_last_name_form",
+    "avail_equipment_form",
+    "avail_sample_processing_form",
+    "get_credentials_form",
+    "avail_facility_form"
+  ]
+}

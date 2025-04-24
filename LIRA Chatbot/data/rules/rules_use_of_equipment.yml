@@ -1,0 +1,20 @@
+version: '3.1'
+
+rules:
+  # Use of Equipment
+  - rule: User selects use of equipment service
+    steps:
+      - intent: select_service
+      - slot_was_set:
+          - service: Use of Equipment
+      - action: avail_equipment_form
+      - active_loop: avail_equipment_form
+
+  - rule: Submit use of equipment form
+    condition:
+      - active_loop: avail_equipment_form
+    steps:
+      - action: avail_equipment_form
+      - active_loop: null
+      - action: get_credentials_form
+      - active_loop: get_credentials_form
