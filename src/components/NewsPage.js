@@ -158,7 +158,7 @@ const NewsPage = () => {
                 ),
               }}
             />
-            <span className="news-timestamp">
+            <span className="newspage-timestamp">
               {formatTimestamp(newsData.featuredNews.created_at)}
             </span>
           </div>
@@ -184,7 +184,7 @@ const NewsPage = () => {
                     __html: DOMPurify.sanitize(limitContent(news.content)),
                   }}
                 />
-                <span className="news-timestamp">
+                <span className="newspage-timestamp">
                   {formatTimestamp(news.created_at)}
                 </span>
               </div>

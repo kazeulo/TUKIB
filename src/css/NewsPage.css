@@ -106,7 +106,7 @@
 	text-align: justify;
 }
 
-.news-timestamp {
+.newspage-timestamp {
 	font-size: 14px;
 	color: #E7B82B;
 }
@@ -175,7 +175,7 @@
 }
 
 
-.news-card-content .news-timestamp {
+.news-card-content .newspage-timestamp {
 	font-size: 12px;
 	color: #E7B82B
 }
