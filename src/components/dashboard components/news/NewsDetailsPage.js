@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { IoChevronBack } from 'react-icons/io5';
 import DOMPurify from 'dompurify';
 import Footer from '../../../components/partials/Footer';
+import './NewsDetailsPage.css';
 
 const NewsDetailPage = () => {
   const { id } = useParams();
@@ -53,14 +54,14 @@ const NewsDetailPage = () => {
 
   return (
     <div className="news-detail-page">
-
+      <div className="news-details">
       <div>
         <button onClick={() => navigate(-1)}>
           <IoChevronBack size={16} />
           Back to Previous Page
         </button>
         <h2>{news.title}</h2>
-        <p>{formatTimestamp(news.created_at)}</p>
+        <p className='news-timestamp'>{formatTimestamp(news.created_at)}</p>
       </div>
 
       <div className="news-detail">
@@ -75,6 +76,8 @@ const NewsDetailPage = () => {
           />
         </div>
       </div>
+      </div>
+
       <Footer />
     </div>
   );
