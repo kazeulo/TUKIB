@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import "../../../css/dashboard components/detail pages/FacilityDetails.css";
+import { IoChevronBack } from 'react-icons/io5';
+import { IoCalendarOutline} from 'react-icons/io5';
+import { IoAddSharp } from 'react-icons/io5';
+
 
 const FacilityDetails = () => {
   const { id } = useParams();
@@ -35,21 +39,35 @@ const FacilityDetails = () => {
 
   return (
     <div className="facility-details">
-      <button
-        onClick={() => navigate(-1)}
-        style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', marginBottom: '1rem' }}
-      >
-        ← Back to Facilities
+      <button className='back-button' onClick={() => navigate(-1)}>
+      <IoChevronBack size={16} />
+        Back to Facilities
       </button>
 
-      <h3>{facility.facility_name}</h3>
-      <p><span>Capacity:</span> {facility.capacity}</p>
-      <p><span>Resources:</span> {facility.resources?.join(', ') || 'None'}</p>
+      <h3 className='facility-title'>{facility.facility_name}</h3>
 
-      <h3>Schedules</h3>
+      <div className="facility-info-card">
+          <p className="facility-info-item">
+            <span className="facility-info-label">Capacity:</span> 
+            <span className="facility-info-value">{facility.capacity}</span>
+          </p>
+          <p className="facility-info-item">
+            <span className="facility-info-label">Resources:</span> 
+            <span className="facility-info-value">{facility.resources?.join(', ') || 'None'}</span>
+          </p>
+      </div>
+
+      <h3 className="schedules-title">
+        <IoCalendarOutline className="schedule-icon" />
+        Schedules
+      </h3>
       {facility.schedules.length === 0 ? (
-        <p>No schedules yet.</p>
-      ) : (
+        <div className="empty-schedules">
+          <IoAddSharp size={20} className="empty-icon" />
+          <p>No schedules available yet.</p>
+        </div>      
+        ) : (
+          
         <div>
           <table className="facility-schedule-table">
             <thead>
@@ -71,9 +89,13 @@ const FacilityDetails = () => {
                         <td>{sched.request_id}</td>
                         <td>{new Date(sched.start).toLocaleString()}</td>
                         <td>{new Date(sched.end).toLocaleString()}</td>
-                        <td>{sched.purpose_of_use}</td>
-                        <td>{sched.status}</td>
-                    </tr>  
+                        <td className='facility-rent-purpose'>{sched.purpose_of_use}</td>
+                        <td>
+                          <span className={`status-badge status-${sched.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                            {sched.status}
+                          </span>
+                        </td>                    
+                        </tr>  
                 ))}
                 </tbody>
           </table>

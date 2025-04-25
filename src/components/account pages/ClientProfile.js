@@ -29,14 +29,14 @@ const ClientProfile = ({ isLoggedIn }) => {
   const [serviceTypeFilter, setServiceTypeFilter] = useState('all');
 
   // Status colors for visual representation
-  const statusColors = {
-    'Completed': '#28a745',
-    'Cancelled': '#dc3545',
-    'Pending for approval': '#ffc107',
-    'In Process': '#17a2b8',
-    'Rejected': '#dc3545',
-    'Approved': '#32ce56'
-  };
+  // const statusColors = {
+  //   'Completed': '#28a745',
+  //   'Cancelled': '#dc3545',
+  //   'Pending for approval': '#ffc107',
+  //   'In Process': '#17a2b8',
+  //   'Rejected': '#dc3545',
+  //   'Approved': '#32ce56'
+  // };
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -491,11 +491,9 @@ const ClientProfile = ({ isLoggedIn }) => {
                       </td>
                       <td>{new Date(request.start).toLocaleString()}</td>
                       <td>
-                        <span className="status-badge" style={{
-                          backgroundColor: statusColors[request.status] || '#6c757d'
-                        }}>
-                          {request.status}
-                        </span>
+                      <span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {request.status}
+                      </span>                      
                       </td>
                       <td>
                         {request.status !== 'Cancelled' && request.status !== 'Completed' ? (

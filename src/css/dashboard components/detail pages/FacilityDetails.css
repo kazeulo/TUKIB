@@ -1,19 +1,131 @@
-.facility-details{
+.facility-details {
     padding: 30px 50px;
     font-family: var(--primary-font);
-}
-
-.facility-details h3{
+  }
+  
+  .facility-details h3 {
     margin: 20px 0;
     font-weight: bold;
-}
-
-.facility-schedule-table{
- background-color: white;   
- border-radius: 20px;
-}
-
-.facility-details span{
+  }
+  
+  .facility-schedule-table {
+    background-color: white;   
+    border-radius: 20px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .facility-schedule-table thead{
+    background-color: #951f21;
+    color: whitesmoke;
+  }
+  
+  .facility-details span {
     font-weight: bold;
     color: rgb(101, 101, 101);
-}
+  }
+  
+  /* New styles */
+  .back-button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+    padding: 6px 6px;
+  }
+  
+  .back-button:hover {
+    /* color: #0056b3; */
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .back-button svg {
+    margin-right: 6px;
+  }
+  
+  .facility-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #2d2d2d;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+  
+  .facility-info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .facility-info-item {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .facility-info-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .facility-info-label {
+    font-weight: bold;
+    color: #353535 !important;
+    margin-right: 8px;
+  }
+  
+  .facility-info-value {
+    margin-left: 10px;
+    font-weight: 600;
+    color: #a32123 !important;
+  }
+  
+  .schedules-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #2d2d2d;
+    display: flex;
+    align-items: center;
+  }
+  
+  .schedule-icon {
+    margin-right: 10px;
+  }
+  
+  .empty-schedules {
+    padding: 2rem;
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    color: #697077;
+  }
+  
+  .empty-icon {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  
+  .empty-schedules p {
+    font-size: 1.1rem;
+  }
+    
+  .status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    display: inline-block;
+  }
+  
+  .facility-rent-purpose{
+    color: #007bff !important;
+    font-weight: 500;
+  }
