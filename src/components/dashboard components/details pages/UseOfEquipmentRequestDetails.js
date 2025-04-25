@@ -5,6 +5,8 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal';
 
+import chargeSlip from '../../../assets/chargeslip.pdf';
+
 const UseOfEquipmentRequestDetails = () => {
   const { id } = useParams(); 
   const navigate = useNavigate();
@@ -187,6 +189,26 @@ const UseOfEquipmentRequestDetails = () => {
                 </p>
               </div>
             </div>
+          )}
+
+          {/* show charge slip and upload payment receipt */}
+          {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
+            <div>
+              <h4 className="section-header">Charge Slip</h4>
+               {/* Link to the charge slip document */}
+                <a href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                  View Charge Slip
+                </a>
+                        
+                <div>
+                  <h4 className="section-header">Upload Payment Receipt</h4>
+                    <input
+                      type="file"
+                      accept="application/pdf"
+                      // onChange={handlePaymentReceiptUpload}
+                    />
+                </div>
+              </div>
           )}
           
           {/* Equipment Usage Details */}

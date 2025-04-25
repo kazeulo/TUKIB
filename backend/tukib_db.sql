@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS facilitiesTable CASCADE;
 DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS feedback_table CASCADE;
+DROP TABLE IF EXISTS chargeslips CASCADE;
 
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
@@ -151,6 +152,8 @@ CREATE TABLE serviceRequestTable (
     "end" TIMESTAMP,
     approved_by INT,
     rejection_reason TEXT,
+    payment_receipt TEXT,
+    charge_slip BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
@@ -289,6 +292,32 @@ CREATE TABLE feedback_table (
     systemPreference system_enum NOT NULL,
     additionalComments TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE chargeslips (
+    chargeslip_id SERIAL PRIMARY KEY,
+    user_name TEXT,
+    request_id INT,
+    request_code VARCHAR(20),
+    payment_option TEXT,
+    project_title TEXT,
+    project_budget_code TEXT,
+    service_name TEXT,
+    trainingtitle TEXT,
+    trainingdate DATE,
+    participantcount INTEGER,
+    equipment_name TEXT,
+    facility_name TEXT,
+    resources TEXT,
+    type_of_analysis TEXT,
+    volume TEXT,
+    rate NUMERIC,
+    total_hours NUMERIC,
+    institution TEXT DEFAULT 'UP Visayas',
+    clientCategory TEXT DEFAULT 'UPV',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id)
 );
 
 -- Indexes for performance

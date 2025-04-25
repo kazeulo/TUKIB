@@ -49,7 +49,7 @@ const createSampleProcessingRequest = async (req, res) => {
        (user_id, service_name, request_code, status, payment_option, start, "end")
        VALUES ($1, $2, $3, $4, $5, NOW(), NULL) 
        RETURNING request_id`,
-      [user_id, service_name, request_code, status, payment_option]
+      [user_id, service_name, requestCode , status, payment_option]
     );
 
     const request_id = serviceResult.rows[0].request_id;
