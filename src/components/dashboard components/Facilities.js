@@ -271,7 +271,10 @@ const Facilities = () => {
               </tr>
             ) : filteredFacilities.length > 0 ? (
               filteredFacilities.map((facility) => (
-                <tr key={facility.facility_id} onClick={() => navigate(`/facility/${facility.facility_id}`)} style={{ cursor: 'pointer' }}>
+                <tr 
+                  key={facility.facility_id} onClick={() => navigate(`/facility/${facility.facility_id}`)} 
+                  style={{ cursor: 'pointer' }}
+                >
                   <td>{facility.facility_name}</td>
                   <td>
                     {facility.upcomingSchedules.length > 0 ? (

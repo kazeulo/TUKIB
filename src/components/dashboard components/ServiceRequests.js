@@ -103,7 +103,7 @@ const ServiceRequest = () => {
       const bDate = new Date(b.start);
   
       if (a.status === 'Pending for Approval' && b.status !== 'Pending for Approval') return -1;
-      if (a.status !== 'Pending for Approval' && b.status === 'Pending for Approval') return 1;
+      // if (a.status !== 'Pending for Approval' && b.status === 'Pending for Approval') return 1;
   
       return bDate - aDate;
     });
