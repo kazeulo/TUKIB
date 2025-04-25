@@ -162,10 +162,10 @@
     border: 1px solid #ffca28;
   }
   
-  .status-approved {
-    background-color: #e8f5e9;
+  .status-completed {
+    background-color: #e8f5e9 !important;
     color: #2e7d32 !important;
-    border: 1px solid #81c784;
+    border: 1px solid #81c784 !important;
   }
   
   .status-cancelled {
@@ -174,7 +174,7 @@
     border: 1px solid #ef9a9a;
   }
   
-  .status-completed {
+  .status-approved {
     background-color: #e0f2f1;
     color: #00796b !important;
     border: 1px solid #80cbc4;
