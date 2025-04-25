@@ -31,8 +31,8 @@ const ChargeSlip = () => {
     }
   
     // Sample Processing Calculation (direct access to formData fields)
-    if (formData.service_name === "Sample Processing" && formData.rate && formData.sample_volume) {
-      total += parseFloat(formData.rate) * parseFloat(formData.sample_volume);
+    if (formData.service_name === "Sample Processing" && formData.rate && formData.volume) {
+      total += parseFloat(formData.rate) * parseFloat(formData.volume);
     }
   
     // Facility Usage Calculation (direct access to formData fields, assuming these are simple fields in formData)
@@ -162,11 +162,11 @@ const ChargeSlip = () => {
   const chargeSlipNumber = `CS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
   
   // Format date
-  const formattedDate = new Date(formData.dateRequested).toLocaleDateString('en-PH', {
+  const formattedDate = new Date().toLocaleDateString('en-PH', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  });
+  });  
 
     // Download PDF function
     const downloadPDF = () => {

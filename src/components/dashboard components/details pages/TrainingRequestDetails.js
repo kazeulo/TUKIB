@@ -4,8 +4,8 @@ import '../../../css/dashboard components/detail pages/ServiceRequestDetails.css
 import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
+import { Download } from 'lucide-react';
 
-// import chargeSlip from '../../assets/charge-slip.pdf';
 import chargeSlip from '../../../assets/chargeslip.pdf';
 
 const TrainingRequestDetails = () => {
@@ -146,6 +146,10 @@ const TrainingRequestDetails = () => {
       alert("Something went wrong while rejecting.");
     }
   };
+
+  const goToFeedback = () => {
+    navigate('/feedback-form');
+  };
   
   return (
     <div className="service-request-container">
@@ -194,25 +198,35 @@ const TrainingRequestDetails = () => {
                 </div>
               )}
 
-              {/* show charge slip and upload payment receipt */}
-              {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
-                <div>
-                  <h4 className="section-header">Charge Slip</h4>
-                    {/* Link to the charge slip document */}
-                    <a href={chargeSlip} target="_blank" rel="noopener noreferrer">
-                      View Charge Slip
-                    </a>
-              
-                    <div>
-                      <h4 className="section-header">Upload Payment Receipt</h4>
-                        <input
-                          type="file"
-                          accept="application/pdf"
-                          // onChange={handlePaymentReceiptUpload}
-                        />
-                    </div>
-                  </div>
-                )}
+            {/* Show charge slip and upload payment receipt */}
+            {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
+              <div className="csp">
+                <h4 className="section-header">Charge Slip & Payment Receipt</h4>
+                <div className="request-section charge-slip-payment">
+                  {/* Link to the charge slip document */}
+                  <h6 className="section-header">Chargeslip</h6>
+                  <p className='instruction'>You may download your charge slip by clicking the button below:</p>
+                  <a className='charge-slip-link' href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                    <Download size={18} style={{ marginRight: '8px' }} />
+                    Charge Slip
+                  </a>
+
+                  <h6 className="section-header">Upload Payment Receipt</h6>
+                  <p className='instruction'>Once payment is completed, kindly upload your official receipt (PDF or JPG/PNG formats only):</p>
+                  <input
+                    type="file"
+                    accept="application/pdf, image/jpeg, image/png"
+                    className="receipt-upload-input"
+                  />
+
+                  <h6 className="section-header">Feedback</h6>
+                  <p className='instruction'>We value your input! Click the button below to leave feedback.</p>
+                  <button className="feedback-button" onClick={goToFeedback}>
+                    Go to Feedback Form
+                  </button>
+                </div>
+              </div>
+              )}
               
               {/* Training Details */}
               <h4 className="section-header">Training</h4>
@@ -274,7 +288,7 @@ const TrainingRequestDetails = () => {
 
               {/* generate chargeslip */}
               {requestDetails.status === "Approved" && user?.role !== "Client" && (
-                <div className="approve-reject-buttons">
+                <div className="generate-button">
                   <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
                 </div>
               )}
