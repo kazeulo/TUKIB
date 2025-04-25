@@ -102,6 +102,7 @@ const getFacilityWithSchedules = async (req, res) => {
         fr.start_of_use,
         fr.end_of_use,
         sr.request_id,
+        sr.request_code,
         sr.status
       FROM facilitiesTable f
       LEFT JOIN facilityRentalRequests fr ON f.facility_id = fr.selected_facility
@@ -112,7 +113,7 @@ const getFacilityWithSchedules = async (req, res) => {
     const grouped = {};
 
     result.rows.forEach(row => {
-      const { facility_id, facility_name, capacity, resources, request_id } = row;
+      const { facility_id, facility_name, capacity, resources, request_id, request_code } = row;
 
       if (!grouped[facility_id]) {
         grouped[facility_id] = {
@@ -121,6 +122,7 @@ const getFacilityWithSchedules = async (req, res) => {
           facility_name,
           capacity,
           resources,
+          request_code,
           schedules: [],
         };
       }

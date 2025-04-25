@@ -1,0 +1,19 @@
+.facility-details{
+    padding: 30px 50px;
+    font-family: var(--primary-font);
+}
+
+.facility-details h3{
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.facility-schedule-table{
+ background-color: white;   
+ border-radius: 20px;
+}
+
+.facility-details span{
+    font-weight: bold;
+    color: rgb(101, 101, 101);
+}

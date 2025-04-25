@@ -141,6 +141,7 @@ CREATE TABLE facilitiesTable (
     resources TEXT[]
 );
 
+
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
@@ -156,6 +157,32 @@ CREATE TABLE serviceRequestTable (
     charge_slip BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE chargeslips (
+    chargeslip_id SERIAL PRIMARY KEY,
+    user_name TEXT,
+    request_id INT,
+    request_code VARCHAR(20),
+    payment_option TEXT,
+    project_title TEXT,
+    project_budget_code TEXT,
+    service_name TEXT,
+    trainingtitle TEXT,
+    trainingdate DATE,
+    participantcount INTEGER,
+    equipment_name TEXT,
+    facility_name TEXT,
+    resources TEXT,
+    type_of_analysis TEXT,
+    volume TEXT,
+    rate NUMERIC,
+    total_hours NUMERIC,
+    institution TEXT DEFAULT 'UP Visayas',
+    clientCategory TEXT DEFAULT 'UPV',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 );
 
 -- Training Requests Table
@@ -292,32 +319,6 @@ CREATE TABLE feedback_table (
     systemPreference system_enum NOT NULL,
     additionalComments TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE chargeslips (
-    chargeslip_id SERIAL PRIMARY KEY,
-    user_name TEXT,
-    request_id INT,
-    request_code VARCHAR(20),
-    payment_option TEXT,
-    project_title TEXT,
-    project_budget_code TEXT,
-    service_name TEXT,
-    trainingtitle TEXT,
-    trainingdate DATE,
-    participantcount INTEGER,
-    equipment_name TEXT,
-    facility_name TEXT,
-    resources TEXT,
-    type_of_analysis TEXT,
-    volume TEXT,
-    rate NUMERIC,
-    total_hours NUMERIC,
-    institution TEXT DEFAULT 'UP Visayas',
-    clientCategory TEXT DEFAULT 'UPV',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id)
 );
 
 -- Indexes for performance
@@ -463,11 +464,11 @@ VALUES
 -- Inserting dummy data into 'serviceRequestTable'
 INSERT INTO serviceRequestTable (user_id, service_name, request_code, status, payment_option, start, "end", approved_by)
 VALUES
-    (6, 'Training', 'RRC-25-TR001', 'Pending for Approval','Charged to Project', '2025-03-01 09:00:00', '2025-03-01 12:00:00', 4),
-    (2, 'Sample Processing', 'RRC-25-SP001', 'Completed', 'Charged to Project', '2025-03-02 10:00:00', '2025-03-02 15:00:00', 3),
-    (2, 'Use of Equipment', 'RRC-25-EQ001', 'Approved', 'Charged to Project', '2025-03-05 08:00:00', '2025-03-05 17:00:00', 3),
+    (6, 'Training', 'RRC-25-TR001', 'Pending for Approval','Charged to Project', '2025-02-01 09:00:00', '2025-03-01 12:00:00', 4),
+    (2, 'Sample Processing', 'RRC-25-SP001', 'Completed', 'Charged to Project', '2025-01-02 10:00:00', '2025-03-02 15:00:00', 3),
+    (2, 'Use of Equipment', 'RRC-25-EQ001', 'Approved', 'Charged to Project', '2025-01-05 08:00:00', '2025-03-05 17:00:00', 3),
     (6, 'Use of Facility', 'RRC-25-FAC001', 'Pending for Approval', 'Charged to Project', '2025-03-10 09:00:00', '2025-03-10 18:00:00', 1),
-    (6, 'Use of Facility', 'RRC-25-FAC002', 'Pending for Approval', 'Charged to Project', '2025-04-10 09:00:00', '2025-04-10 18:00:00', 1);
+    (6, 'Use of Facility', 'RRC-25-FAC002', 'Pending for Approval', 'Charged to Project', '2025-03-10 09:00:00', '2025-04-10 18:00:00', 1);
 
 -- Inserting dummy data into 'trainingRequests'
 INSERT INTO trainingRequests (request_id, trainingTitle, trainingDate, participantCount, acknowledgeTerms, partnerLab, project_title, project_budget_code, proofOfFunds, paymentConforme, additionalInformation, necessaryDocuments)

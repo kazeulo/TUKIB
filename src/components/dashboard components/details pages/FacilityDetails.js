@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import "../../../css/dashboard components/detail pages/FacilityDetails.css";
 
 const FacilityDetails = () => {
   const { id } = useParams();
@@ -41,16 +42,16 @@ const FacilityDetails = () => {
         ← Back to Facilities
       </button>
 
-      <h2>{facility.facility_name}</h2>
-      <p><strong>Capacity:</strong> {facility.capacity}</p>
-      <p><strong>Resources:</strong> {facility.resources?.join(', ') || 'None'}</p>
+      <h3>{facility.facility_name}</h3>
+      <p><span>Capacity:</span> {facility.capacity}</p>
+      <p><span>Resources:</span> {facility.resources?.join(', ') || 'None'}</p>
 
       <h3>Schedules</h3>
       {facility.schedules.length === 0 ? (
         <p>No schedules yet.</p>
       ) : (
-        <div className="facility-schedule-table">
-          <table className="transaction-history-table">
+        <div>
+          <table className="facility-schedule-table">
             <thead>
               <tr>
                 <th>Request ID</th>
