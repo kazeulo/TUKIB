@@ -222,8 +222,8 @@
   }
 
   .approve-reject-buttons{
-    display: flex;
-    justify-content: flex-end;
+    /* display: flex;
+    justify-content: flex-end; */
     margin-bottom: 20px;
   }
 
@@ -238,6 +238,18 @@
     background-color: #d32f2f;
     padding: 8px 20px;
     color:white;
+  }
+
+  .generate-button .btn-generate-chargeslip{
+    background-color: #E7B82B;
+    padding: 8px 20px;
+    margin-right:20px;
+    color:white;
+    transition: all 1s ease;
+  }
+
+  .generate-button .btn-generate-chargeslip:hover{
+    background-color: #82640c;
   }
 
   /* Confirmation Toast */
@@ -256,7 +268,80 @@
     animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
     z-index: 1000;
   }
+
+  /* charge-slip-payment */
+  .charge-slip-payment{
+    background-color: #fff4f5;
+  }
+
+  .charge-slip-payment .instruction{
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .charge-slip-link {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #4caf50; 
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
   
+  .charge-slip-link:hover {
+    background-color: #349637; 
+    color: white;
+    text-decoration: none;
+  }
+  
+  .file-types {
+    color: #6b7280; /* gray-500 */
+    font-style: italic;
+  }
+  
+  .receipt-upload-input {
+    display: block;
+    padding: 8px;
+    border: 2px solid #d1d5db; /* gray-300 */
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #f9fafb;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .receipt-upload-input:hover {
+    border-color: #349637;
+  }
+  
+  .receipt-upload-input:focus {
+    outline: none;
+    border-color: #349637; 
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+  
+  .feedback-button, .feedback-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #4caf50;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .feedback-button:hover,
+  .feedback-link:hover {
+    background-color: #349637;
+  }
+
   @keyframes slideIn {
     from {
       transform: translateX(100%);
