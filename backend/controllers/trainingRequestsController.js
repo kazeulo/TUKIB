@@ -42,6 +42,9 @@ const createTrainingRequest = async (req, res) => {
       [user_id, service_name, status, payment_option]
     );
 
+    const requestId = serviceResult.rows[0].request_id;
+    const formattedRequestId = `RRC-${requestId}`;
+
     // Retrieve the generated request_id
     const request_id = serviceResult.rows[0].request_id;
 

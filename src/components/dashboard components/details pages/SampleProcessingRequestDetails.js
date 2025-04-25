@@ -5,6 +5,8 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
 
+import chargeSlip from '../../../assets/chargeslip.pdf';
+
 const SampleProcessingRequestDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const SampleProcessingRequestDetails = () => {
 
         const data = await response.json();
         if (response.ok && data.status === 'success') {
+          console.log(data)
           setServiceRequest(data.serviceRequest);
         } else {
           console.error('Service request not found');
@@ -98,7 +101,7 @@ const SampleProcessingRequestDetails = () => {
       });
 
       const data = await response.json();
-      console.log("Rejection response:", data);
+      // console.log("Rejection response:", data);
 
       if (response.ok) {
         const serverReason = data?.data?.rejection_reason || reason;
@@ -125,6 +128,10 @@ const SampleProcessingRequestDetails = () => {
     }
   };
 
+  const handleChargeslipGeneration = () => {
+    navigate("/chargeslipForm", { state: { requestDetails } });
+  };
+
   return (
     <div className="service-request-container">
 
@@ -149,7 +156,7 @@ const SampleProcessingRequestDetails = () => {
           <div className="request-section request-summary">
             <div className="summary-row">
               <div className="summary-col">
-                <p className="detail-item"><span className="detail-label">Request ID:</span> {requestDetails.request_id}</p>
+                <p className="detail-item"><span className="detail-label">Request Code:</span> {requestDetails.request_code}</p>
                 <p className="detail-item"><span className="detail-label">Service Name:</span> {requestDetails.service_name}</p>
                 <p className="detail-item"><span className="detail-label">Status:</span>
                   <span className={`status-badge status-${requestDetails.status.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -166,13 +173,32 @@ const SampleProcessingRequestDetails = () => {
           </div>
 
           {/* Show rejection reason to client */}
-          {requestDetails.status === "Rejected" && user?.role === "Client" && (
+          {requestDetails.status === "Rejected" && (
             <div>
               <h4 className="section-header rejection-reason-header">Reason for Rejection</h4>
               <div className="request-section rejection-reason">
                 <p className="detail-item rejection">
                   {requestDetails.rejection_reason || "No reason provided."}
                 </p>
+              </div>
+            </div>
+          )}
+          
+          {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
+            <div>
+              <h4 className="section-header">Charge Slip</h4>
+              {/* Link to the charge slip document */}
+              <a href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                View Charge Slip
+              </a>
+
+              <div>
+                <h4 className="section-header">Upload Payment Receipt</h4>
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  // onChange={handlePaymentReceiptUpload}
+                />
               </div>
             </div>
           )}
@@ -235,6 +261,13 @@ const SampleProcessingRequestDetails = () => {
             <div className="approve-reject-buttons">
               <button onClick={handleApprove} className="btn btn-approve">Approve</button>
               <button onClick={handleReject} className="btn btn-reject">Reject</button>
+            </div>
+          )}
+          
+          {/* generate chargeslip */}
+          {requestDetails.status === "Approved" && user?.role !== "Client" && (
+            <div className="generate-chargeslip">
+              <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
             </div>
           )}
         </div>

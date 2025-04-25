@@ -1,114 +1,43 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../../css/ChargeSlip.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../../css/ChargeSlip.css"
 
 const ChargeSlipForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { requestDetails } = location.state || {};
+
   const [formData, setFormData] = useState({
-    requestCode: "", 
-    preparedBy: "Susci Ann J. Sobrevega",
-    position: "Administrative Assistant IV",
-    serviceType: [],
-    clientName: "",
-    clientCompany: "UP Visayas",
-    clientCategory: "UPV",
-    // affiliation: "UP Visayas",  
-    // category: "UPV",  
-    paymentMethod: "Select",
-    projectCode: "N/A", 
-    projectTitle: "N/A", 
-    dateRequested: new Date().toISOString().split("T")[0],
-    partnerLab: "",
-    equipment: [],
-    sampleProcessing: [],
-    facilities: [],
-    training: { name: "", rate: "" },
+    user_name: requestDetails?.user_name || "",
+    request_code: requestDetails?.request_code || "",
+    payment_option: requestDetails?.payment_option || "",
+    project_title: requestDetails?.project_title || "",
+    project_budget_code: requestDetails?.project_budget_code || "",
+    service_name: requestDetails?.service_name || "",
+    trainingtitle: requestDetails?.trainingtitle || "",
+    partnerlab: requestDetails?.partnerlab || "",
+    trainingdate: requestDetails?.trainingdate?.split("T")[0] || "",
+    participantcount: requestDetails?.participantcount || "",
+    laboratory: requestDetails?.laboratory || "",
+    equipment_name: requestDetails?.equipment_name || "",
+    facility_name: requestDetails?.facility_name || "",
+    resources: requestDetails?.resources || "",
+    type_of_analysis: requestDetails?.type_of_analysis || "",
+    sample_volume: requestDetails?.sample_volume || "",
+    rate: "",
+    total_hours: "",
+    volume: "",
+    institution: 'UP Visayas',
+    clientCategory: 'UPV',
+    request_id: requestDetails?.request_id,
   });
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    
-    if (name === "serviceType") {
-      const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-      setFormData({ ...formData, [name]: selectedOptions });
-    } else if (name === "paymentMethod") {
-      // Handle Payment Method Change
-      if (value === "Charge to Project") {
-        setFormData({ ...formData, paymentMethod: value, projectCode: "", projectTitle: "" });
-      } else {
-        setFormData({ ...formData, paymentMethod: value, projectCode: "N/A", projectTitle: "N/A" });
-      }
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  }
-
-  // Equipment rental handlers
-  const handleEquipmentChange = (index, field, value) => {
-    const updatedEquipment = [...formData.equipment];
-    updatedEquipment[index][field] = value;
-    setFormData({ ...formData, equipment: updatedEquipment });
-  };
-
-  const addEquipment = () => {
-    setFormData({
-      ...formData,
-      equipment: [...formData.equipment, { name: "", ratePerHour: "", hours: "" }],
-    });
-  };
-
-  const removeEquipment = (index) => {
-    const updatedEquipment = formData.equipment.filter((_, i) => i !== index);
-    setFormData({ ...formData, equipment: updatedEquipment });
-  };
-
-  // Sample processing handlers
-  const handleSampleProcessingChange = (index, field, value) => {
-    const updatedProcesses = [...formData.sampleProcessing];
-    updatedProcesses[index][field] = value;
-    setFormData({ ...formData, sampleProcessing: updatedProcesses });
-  };
-
-  const addSampleProcess = () => {
-    setFormData({
-      ...formData,
-      sampleProcessing: [...formData.sampleProcessing, { name: "", rate: "", amount: "" }],
-    });
-  };
-
-  const removeSampleProcess = (index) => {
-    const updatedProcesses = formData.sampleProcessing.filter((_, i) => i !== index);
-    setFormData({ ...formData, sampleProcessing: updatedProcesses });
-  };
-
-  // Facility rental handlers
-  const handleFacilityChange = (index, field, value) => {
-    const updatedFacilities = [...formData.facilities];
-    updatedFacilities[index] = {
-      ...updatedFacilities[index],
-      [field]: value
-    };
-    setFormData({ ...formData, facilities: updatedFacilities });
-  };
-
-  const addFacility = () => {
-    setFormData({
-      ...formData,
-      facilities: [...formData.facilities, { name: "", rate: "", days: "" }],
-    });
-  };
-
-  const removeFacility = (index) => {
-    const updatedFacilities = formData.facilities.filter((_, i) => i !== index);
-    setFormData({ ...formData, facilities: updatedFacilities });
-  };
-
-  // Training handlers
-  const handleTrainingChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      training: { ...formData.training, [e.target.name]: e.target.value } 
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -116,168 +45,89 @@ const ChargeSlipForm = () => {
     navigate("/chargeslip", { state: formData });
   };
 
-  // Helper function to determine if equipment section should be shown
-  const shouldShowEquipment = () => {
-    return formData.serviceType.includes("Use of Equipment") || 
-           formData.serviceType.includes("Use of Equipment and Sample Processing");
-  };
-
-  // Helper function to determine if sample processing section should be shown
-  const shouldShowSampleProcessing = () => {
-    return formData.serviceType.includes("Sample Processing") || 
-           formData.serviceType.includes("Use of Equipment and Sample Processing");
-  };
+  if (!requestDetails) return <div className="csf-container">No request data found.</div>;
 
   return (
     <div className="csf-container">
-      <h2 className="csf-title">Generate Charge Slip</h2>
-      <p>Please fill the necessary information for the charge slip.</p>
-      {/* <h6>Prepared by Susci Ann J. Sobrevega</h6> */}
+      <h2 className="csf-title">Charge Slip Form</h2>
+      <p>Ensure all the details are accurate before submitting the charge slip form.</p>
+
       <form onSubmit={handleSubmit} className="csf-form">
-        {/* Request Code */}
-        <div className="csf-section">
-          <h3 className="csf-section-title">Request Code</h3>
-          <input 
-            type="text" 
-            name="requestCode" 
-            placeholder="Enter Request Code" 
-            value={formData.requestCode} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
+
         {/* Client Information */}
-        <div className="csf-section">
+        <fieldset className="csf-section">
           <h3 className="csf-section-title">Client Information</h3>
           <div className="csf-grid">
-            <input type="text" name="clientName" placeholder="Client Name" value={formData.clientName} onChange={handleChange} required />
-            <input type="text" name="clientCompany" placeholder="Affiliation/Company" value={formData.clientCompany} onChange={handleChange} required />
-            <input type="text" name="clientCategory" placeholder="Category" value={formData.clientCategory} onChange={handleChange} required />
+            <label>Name: <input type="text" name="user_name" value={formData.user_name} onChange={handleChange} /></label>
+            <label>Request Code: <input type="text" name="request_code" value={formData.request_code} onChange={handleChange} /></label>
           </div>
-        </div>
+        </fieldset>
 
-         {/* Payment Method */}
-         <div className="csf-section">
+        {/* Payment Method */}
+        <fieldset className="csf-section">
           <h3 className="csf-section-title">Payment Method</h3>
-          <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required>
-            <option value="Select">Select Payment Method</option>
-            <option value="Charge to Project">Charge to Project</option>
-            <option value="Pay at University Registrar">Pay at University Registrar</option>
-          </select>
+          <label>
+            Option: 
+            <select name="payment_option" value={formData.payment_option} onChange={handleChange}>
+              <option value="">Select Payment Method</option>
+              <option value="Cash">Cash</option>
+              <option value="Charged to Project">Charged to Project</option>
+            </select>
+          </label>
 
-          {/* Project Code & Title (Only Show if Charge to Project is Selected) */}
-          {formData.paymentMethod === "Charge to Project" && (
-            <div className="csf-grid">
-              <input type="text" name="projectCode" placeholder="Project Code" value={formData.projectCode} onChange={handleChange} required />
-              <input type="text" name="projectTitle" placeholder="Project Title" value={formData.projectTitle} onChange={handleChange} required />
-            </div>
+          {formData.payment_option !== "Cash" && (
+            <>
+              <div className="csf-grid">
+                <label>Project Title: <input type="text" name="project_title" value={formData.project_title} onChange={handleChange} /></label>
+                <label>Budget Code: <input type="text" name="project_budget_code" value={formData.project_budget_code} onChange={handleChange} /></label>
+              </div>
+            </>
           )}
-        </div>
-        
-        {/* Service Information */}
-        <div className="csf-section">
-          <h3 className="csf-section-title">Service Information</h3>
-          <div className="csf-grid">
-            {/* <input type="text" value={`Prepared by: ${formData.preparedBy}`} disabled /> */}
-            <input type="date" name="dateRequested" value={formData.dateRequested} onChange={handleChange} required />
+        </fieldset>
 
-            <select name="partnerLab" value={formData.partnerLab} onChange={handleChange}>
-              <option value="">Select Laboratory Partner</option>
-              <option value="Applied Chemistry">Applied Chemistry</option>
-              <option value="Biology">Biology</option>
-              <option value="Foods Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition</option>
-              <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
-              <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
-            </select>
+        {/* Service Request Details */}
+        <fieldset className="csf-section">
+        <h3 className="csf-section-title">Service Information</h3>
+          <label>Service Name: <input type="text" name="service_name" value={formData.service_name} onChange={handleChange} /></label>
 
-            <select name="serviceType" multiple value={formData.serviceType} onChange={handleChange} required>
-              <option value="Use of Equipment">Use of Equipment</option>
-              <option value="Sample Processing">Sample Processing</option>
-              <option value="Use of Equipment and Sample Processing">Use of Equipment and Sample Processing</option>
-              <option value="Use of Facility">Use of Facility</option>
-              <option value="Training">Training</option>
-            </select>
-          </div>
-        </div>
+          {formData.service_name === "Training" && (
+            <>
+              <label>Training Title: <input type="text" name="trainingtitle" value={formData.trainingtitle} onChange={handleChange} /></label>
+              <label>Participant Count: <input type="number" name="participantcount" value={formData.participantcount} onChange={handleChange} /></label>
+              <label>Rate: <input type="number" name="rate" value={formData.rate} onChange={handleChange} placeholder="Enter rate per participant" /></label>
+            </>
+          )}
 
-        {/* Use of Equipment */}
-        {shouldShowEquipment() && (
-          <div className="csf-section">
-            <h3>Use of Equipment</h3>
-            {formData.equipment.map((eq, index) => (
-              <div key={index} className="csf-grid">
-                <input type="text" placeholder="Equipment Name" value={eq.name} onChange={(e) => handleEquipmentChange(index, "name", e.target.value)} />
-                <input type="number" placeholder="Rate per hour" value={eq.ratePerHour} onChange={(e) => handleEquipmentChange(index, "ratePerHour", e.target.value)} />
-                <input type="number" placeholder="Hours Used" value={eq.hours} onChange={(e) => handleEquipmentChange(index, "hours", e.target.value)} />
-                <button type="button" onClick={() => removeEquipment(index)}>Remove</button>
+          {formData.service_name === "Sample Processing" && (
+            <>
+              <div className="csf-grid">
+                <label>Type of Analysis: <input type="text" name="type_of_analysis" value={formData.type_of_analysis} onChange={handleChange} /></label>
+                <label>Sample Volume (Quantity): <input type="text" name="volume" value={formData.volume} onChange={handleChange} placeholder="Enter sample volume" /></label>
+                <label>Rate: <input type="number" name="rate" value={formData.rate} onChange={handleChange} placeholder="Enter rate per volume" /></label>
               </div>
-            ))}
-            <button type="button" onClick={addEquipment}>Add Equipment</button>
-          </div>
-        )}
+            </>
+          )}
 
-        {/* Sample Processing */}
-        {shouldShowSampleProcessing() && (
-          <div className="csf-section">
-            <h3>Sample Processing</h3>
-            {formData.sampleProcessing.map((sp, index) => (
-              <div key={index} className="csf-grid">
-                <input type="text" placeholder="Process Name" value={sp.name} onChange={(e) => handleSampleProcessingChange(index, "name", e.target.value)} />
-                <input type="number" placeholder="Rate per process" value={sp.rate} onChange={(e) => handleSampleProcessingChange(index, "rate", e.target.value)} />
-                <input type="number" placeholder="Amount of samples processed" value={sp.amount} onChange={(e) => handleSampleProcessingChange(index, "amount", e.target.value)} />
-                <button type="button" onClick={() => removeSampleProcess(index)}>Remove</button>
+          {formData.service_name === "Use of Equipment" && (
+            <>
+              <div className="csf-grid">
+                <label>Equipment Name: <input type="text" name="equipment_name" value={formData.equipment_name} onChange={handleChange} /></label>
+                <label>Total Qty/Hours/Volume: <input type="number" name="total_hours" value={formData.total_hours} onChange={handleChange} placeholder="Enter total hours" /></label>
+                <label>Rate: <input type="number" name="rate" value={formData.rate} onChange={handleChange} placeholder="Enter rate per hour" /></label>
               </div>
-            ))}
-            <button type="button" onClick={addSampleProcess}>Add Process</button>
-          </div>
-        )}
+            </>
+          )}
 
-        {/* Training */}
-        {formData.serviceType.includes("Training") && (
-          <div className="csf-section">
-            <h3>Training</h3>
-            <div className="csf-grid">
-              <input type="text" name="name" placeholder="Training Name" value={formData.training.name} onChange={handleTrainingChange} />
-              <input type="number" name="rate" placeholder="Training Rate" value={formData.training.rate} onChange={handleTrainingChange} />
-            </div>
-          </div>
-        )}
-
-        {/* Use of Facility */}
-        {formData.serviceType.includes("Use of Facility") && (
-          <div className="csf-section">
-            <h3>Use of Facility</h3>
-            {formData.facilities.length === 0 && (
-              <button type="button" onClick={addFacility}>Add Facility</button>
-            )}
-            {formData.facilities.map((facility, index) => (
-              <div key={index} className="csf-grid">
-                <input 
-                  type="text" 
-                  placeholder="Facility Name" 
-                  value={facility.name || ""} 
-                  onChange={(e) => handleFacilityChange(index, "name", e.target.value)} 
-                />
-                <input 
-                  type="number" 
-                  placeholder="Facility Rate" 
-                  value={facility.rate || ""} 
-                  onChange={(e) => handleFacilityChange(index, "rate", e.target.value)} 
-                />
-                <input 
-                  type="number" 
-                  placeholder="Days of Usage" 
-                  value={facility.days || ""} 
-                  onChange={(e) => handleFacilityChange(index, "days", e.target.value)} 
-                />
-                <button type="button" onClick={() => removeFacility(index)}>Remove</button>
+          {formData.service_name === "Use of Facility" && (
+            <>
+              <div className="csf-grid">
+                <label>Facility: <input type="text" name="facility_name" value={formData.facility_name} onChange={handleChange} /></label>
+                <label>Resources: <input type="text" name="resources" value={formData.resources} onChange={handleChange} /></label>
+                <label>Rate: <input type="number" name="rate" value={formData.rate} onChange={handleChange} placeholder="Enter total rate" /></label>
               </div>
-            ))}
-            {formData.facilities.length > 0 && (
-              <button type="button" onClick={addFacility}>Add Another Facility</button>
-            )}
-          </div>
-        )}
+            </>
+          )}
+        </fieldset>
 
         <button type="submit" className="csf-submit">Generate Charge Slip</button>
       </form>

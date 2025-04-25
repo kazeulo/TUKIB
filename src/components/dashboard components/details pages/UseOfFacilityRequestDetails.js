@@ -5,6 +5,8 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
 
+import chargeSlip from '../../../assets/chargeslip.pdf';
+
 const UseOfFacilityRequestDetails = () => {
 
   const { id } = useParams(); 
@@ -155,6 +157,10 @@ const UseOfFacilityRequestDetails = () => {
       alert("Something went wrong while rejecting.");
     }
   };
+
+  const handleChargeslipGeneration = () => {
+    navigate("/chargeslipForm", { state: { requestDetails } });
+  };  
   
   return (
     <div className="service-request-container">
@@ -191,7 +197,7 @@ const UseOfFacilityRequestDetails = () => {
           </div>
 
           {/* Show rejection reason to client */}
-          {requestDetails.status === "Rejected" && user?.role === "Client" && (
+          {requestDetails.status === "Rejected" && (
             <div>
               <h4 className="section-header rejection-reason-header">Reason for Rejection</h4>
               <div className="request-section rejection-reason">
@@ -201,6 +207,26 @@ const UseOfFacilityRequestDetails = () => {
               </div>
             </div>
           )}
+          
+          {/* show charge slip and upload payment receipt */}
+          {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
+            <div>
+              <h4 className="section-header">Charge Slip</h4>
+                {/* Link to the charge slip document */}
+                <a href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                  View Charge Slip
+                </a>
+              
+                <div>
+                  <h4 className="section-header">Upload Payment Receipt</h4>
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    // onChange={handlePaymentReceiptUpload}
+                  />
+                </div>
+              </div>
+            )}
           
           {/* Facility Usage Details */}
           <h4 className="section-header">Facility Usage</h4>
@@ -258,6 +284,13 @@ const UseOfFacilityRequestDetails = () => {
             <div className="approve-reject-buttons">
               <button onClick={handleApprove} className="btn btn-approve">Approve</button>
               <button onClick={handleReject} className="btn btn-reject">Reject</button>
+            </div>
+          )}
+
+          {/* generate chargeslip */}
+          {requestDetails.status === "Approved" && user?.role !== "Client" && (
+            <div className="approve-reject-buttons">
+              <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
             </div>
           )}
         </div>

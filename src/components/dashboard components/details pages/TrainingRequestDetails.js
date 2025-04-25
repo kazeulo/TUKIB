@@ -5,6 +5,9 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
 
+// import chargeSlip from '../../assets/charge-slip.pdf';
+import chargeSlip from '../../../assets/chargeslip.pdf';
+
 const TrainingRequestDetails = () => {
 
   const { id } = useParams(); 
@@ -99,6 +102,10 @@ const TrainingRequestDetails = () => {
     setIsRejectModalOpen(true);
   };
 
+  const handleChargeslipGeneration = () => {
+    navigate("/chargeslipForm", { state: { requestDetails } });
+  };  
+
   const submitRejection = async (reason) => {
     try {
       const response = await fetch(`http://localhost:5000/api/serviceRequest/${id}/reject`, {
@@ -176,7 +183,7 @@ const TrainingRequestDetails = () => {
               </div>
 
               {/* Show rejection reason to client */}
-              {requestDetails.status === "Rejected" && user?.role === "Client" && (
+              {requestDetails.status === "Rejected" && (
                 <div>
                   <h4 className="section-header rejection-reason-header">Reason for Rejection</h4>
                   <div className="request-section rejection-reason">
@@ -186,6 +193,26 @@ const TrainingRequestDetails = () => {
                   </div>
                 </div>
               )}
+
+              {/* show charge slip and upload payment receipt */}
+              {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
+                <div>
+                  <h4 className="section-header">Charge Slip</h4>
+                    {/* Link to the charge slip document */}
+                    <a href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                      View Charge Slip
+                    </a>
+              
+                    <div>
+                      <h4 className="section-header">Upload Payment Receipt</h4>
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          // onChange={handlePaymentReceiptUpload}
+                        />
+                    </div>
+                  </div>
+                )}
               
               {/* Training Details */}
               <h4 className="section-header">Training</h4>
@@ -244,6 +271,14 @@ const TrainingRequestDetails = () => {
                   <button onClick={handleReject} className="btn btn-reject">Reject</button>
                 </div>
               )}
+
+              {/* generate chargeslip */}
+              {requestDetails.status === "Approved" && user?.role !== "Client" && (
+                <div className="approve-reject-buttons">
+                  <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
+                </div>
+              )}
+
             </div>
           ) : (
             <p className="loading-message">Loading request details...</p>

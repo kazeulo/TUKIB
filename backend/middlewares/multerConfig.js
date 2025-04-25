@@ -54,7 +54,9 @@ const upload = multer({
 }).fields([
     { name: 'proofOfFunds', maxCount: 1 },
     { name: 'paymentConforme', maxCount: 1 },
-    { name: 'necessaryDocuments', maxCount: 5 }
+    { name: 'necessaryDocuments', maxCount: 5 },
+    { name: 'payment_receipt', maxCount: 1 },
+    { name: 'charge_slip', maxCount: 1 },
 ]);
 
 module.exports = upload;

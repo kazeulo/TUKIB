@@ -16,49 +16,38 @@ const ChargeSlip = () => {
   
   // Get form data from location state
   const formData = location.state || {};
+  // console.log(formData)
 
   // Prepare by information
   const preparedBy = "Susci Ann J. Sobrevega";
   const position = "Administrative Assistant IV";
 
-  // Calculate total cost
   const calculateTotalCost = () => {
     let total = 0;
-
-    // Calculate equipment costs
-    if (formData.equipment && formData.equipment.length > 0) {
-      formData.equipment.forEach(eq => {
-        if (eq.ratePerHour && eq.hours) {
-          total += parseFloat(eq.ratePerHour) * parseFloat(eq.hours);
-        }
-      });
+  
+    // Equipment Calculation (direct access to formData fields)
+    if (formData.service_name === "Use of Equipment" && formData.rate && formData.total_hours) {
+      total += parseFloat(formData.rate) * parseFloat(formData.total_hours);
     }
-
-    // Calculate sample processing costs
-    if (formData.sampleProcessing && formData.sampleProcessing.length > 0) {
-      formData.sampleProcessing.forEach(sp => {
-        if (sp.rate && sp.amount) {
-          total += parseFloat(sp.rate) * parseFloat(sp.amount);
-        }
-      });
+  
+    // Sample Processing Calculation (direct access to formData fields)
+    if (formData.service_name === "Sample Processing" && formData.rate && formData.sample_volume) {
+      total += parseFloat(formData.rate) * parseFloat(formData.sample_volume);
     }
-
-    // Calculate facility costs
-    if (formData.facilities && formData.facilities.length > 0) {
-      formData.facilities.forEach(facility => {
-        if (facility.rate && facility.days) {
-          total += parseFloat(facility.rate) * parseFloat(facility.days);
-        }
-      });
+  
+    // Facility Usage Calculation (direct access to formData fields, assuming these are simple fields in formData)
+    if (formData.service_name === "Use of Facility" && formData.rate && formData.total_hours) {
+      total += parseFloat(formData.rate) * parseFloat(formData.total_hours);
     }
-
-    // Calculate training costs
-    if (formData.serviceType.includes("Training") && formData.training.rate) {
-      total += parseFloat(formData.training.rate);
+  
+    // Training Calculation (direct access to formData fields)
+    if (formData.service_name === "Training" && formData.rate) {
+      total += parseFloat(formData.rate);
     }
-
+  
     return total;
   };
+  
 
   // Convert number to words
   const numberToWords = (num) => {
@@ -122,13 +111,52 @@ const ChargeSlip = () => {
   //   documentTitle: "UPV RRC Charge Slip",
   // });
 
-  const handleApprove = () => {
+  const handleApprove = async () => {
     const head = prompt("Please enter your name for approval:");
     if (head) {
       setApprovedBy(head);
       setIsApproved(true);
+
+      console.log(formData.request_id)
+  
+      // Construct payload
+      const payload = {
+        charge_slip_number: chargeSlipNumber,
+        request_code: formData.request_code,
+        request_id: formData.request_id,
+        user_name: formData.user_name,
+        institution: formData.institution,
+        clientCategory: formData.clientCategory,
+        service_name: formData.service_name,
+        project_title: formData.project_title || '',
+        project_budget_code: formData.project_budget_code || '',
+        rate: formData.rate || 0,
+        qty: formData.total_hours || formData.sample_volume || formData.rate || 1,
+        amount: totalAmount.toFixed(2),
+        approved_by: head,
+        prepared_by: preparedBy,
+        date_created: new Date().toISOString(),
+      };
+  
+      try {
+        const response = await fetch("http://localhost:5000/api/chargeslip", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        if (response.ok) {
+          alert("Charge slip approved and saved to database.");
+        } else {
+          alert("Failed to save charge slip.");
+        }
+      } catch (error) {
+        console.error("Error saving charge slip:", error);
+      }
     }
-  };
+  };  
 
   // Generate a unique charge slip number
   const chargeSlipNumber = `CS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -185,7 +213,6 @@ const ChargeSlip = () => {
         doc.save(`charge-slip-${chargeSlipNumber}.pdf`);
       });
     };
-    
 
   return (
     <div className="cs-container">
@@ -202,17 +229,23 @@ const ChargeSlip = () => {
           <div className="cs-slip-info">
             <p className="cs-slip-number">Charge Slip #{chargeSlipNumber}</p>
             <p className="cs-slip-date">{formattedDate}</p>
-            <p className="cs-request-code">Request Code: {formData.requestCode}</p>
+            <p className="cs-request-code">Request Code: {formData.request_code}</p>
           </div>
         </div>
 
         <div className="cs-client-info">
           <h3 className="cs-section-title">Client Information</h3>
           <div className="cs-client-details">
-            <p><span className="cs-label">Name:</span> {formData.clientName}</p>
-            <p><span className="cs-label">Company:</span> {formData.clientCompany}</p>
+            <p><span className="cs-label">Name:</span> {formData.user_name}</p>
+            <p><span className="cs-label">Institution/Organization:</span> {formData.institution}</p>
             <p><span className="cs-label">Category:</span> {formData.clientCategory}</p>
-            <p><span className="cs-label">Lab Partner:</span> {formData.partnerLab}</p>
+          </div>
+        </div>
+        
+        <div className="cs-client-info">
+          <h3 className="cs-section-title">Payment For</h3>
+          <div className="cs-client-details">
+            <p><span className="cs-label">RRC Laboratory Services: </span>{formData.service_name}</p>
           </div>
         </div>
 
@@ -220,13 +253,8 @@ const ChargeSlip = () => {
         <div className="cs-payment-info">
           <h3 className="cs-section-title">Payment Information</h3>
           <div className="cs-payment-details">
-            <p><span className="cs-label">Payment Method:</span> {formData.paymentMethod}</p>
-            {formData.paymentMethod === "Charge to Project" && (
-              <>
-                <p><span className="cs-label">Project Code:</span> {formData.projectCode}</p>
-                <p><span className="cs-label">Project Title:</span> {formData.projectTitle}</p>
-              </>
-            )}
+            <p><span className="cs-label">Project Code:</span> {formData.project_budget_code?.trim() ? formData.project_budget_code : 'N/A'}</p>
+            <p><span className="cs-label">Project Title:</span> {formData.project_title?.trim() ? formData.project_title : 'N/A'}</p>
           </div>
         </div>
 
@@ -236,61 +264,56 @@ const ChargeSlip = () => {
           <table className="cs-table">
             <thead>
               <tr>
-                <th className="cs-table-header">Service</th>
+                <th className="cs-table-header">Item</th>
                 <th className="cs-table-header">Details</th>
                 <th className="cs-table-header">Rate</th>
-                <th className="cs-table-header">Qty</th>
+                <th className="cs-table-header">Qty/Hours/Volume</th>
                 <th className="cs-table-header cs-amount">Amount</th>
               </tr>
             </thead>
             <tbody>
+
               {/* Equipment Usage */}
-              {formData.equipment && formData.equipment.map((eq, index) => (
-                <tr key={`eq-${index}`}>
-                  <td className="cs-table-cell">Use of Equipment</td>
-                  <td className="cs-table-cell">{eq.name}</td>
-                  <td className="cs-table-cell">₱{parseFloat(eq.ratePerHour).toFixed(2)}/hr</td>
-                  <td className="cs-table-cell">{eq.hours}hr</td>
-                  <td className="cs-table-cell cs-amount">
-                    ₱{(parseFloat(eq.ratePerHour) * parseFloat(eq.hours)).toFixed(2)}
-                  </td>
+              {formData.service_name === "Use of Equipment" && (
+                <tr>
+                  <td className="cs-table-cell">{formData.equipment_name}</td>
+                  <td className="cs-table-cell">-</td>
+                  <td className="cs-table-cell">{formData.rate}</td>
+                  <td className="cs-table-cell">{formData.total_hours}</td>
+                  <td className="cs-table-cell cs-amount">₱{totalAmount.toFixed(2)}</td>
                 </tr>
-              ))}
+              )}
 
               {/* Sample Processing */}
-              {formData.sampleProcessing && formData.sampleProcessing.map((sp, index) => (
-                <tr key={`sp-${index}`}>
-                  <td className="cs-table-cell">Sample Processing</td>
-                  <td className="cs-table-cell">{sp.name}</td>
-                  <td className="cs-table-cell">₱{parseFloat(sp.rate).toFixed(2)}</td>
-                  <td className="cs-table-cell">{sp.amount}</td>
-                  <td className="cs-table-cell cs-amount">
-                    ₱{(parseFloat(sp.rate) * parseFloat(sp.amount)).toFixed(2)}
-                  </td>
+              {formData.service_name === "Sample Processing" && (
+                <tr>
+                  <td className="cs-table-cell">{formData.type_of_analysis}</td>
+                  <td className="cs-table-cell">-</td>
+                  <td className="cs-table-cell">{formData.rate}</td>
+                  <td className="cs-table-cell">{formData.volume}</td>
+                  <td className="cs-table-cell cs-amount">₱{totalAmount.toFixed(2)}</td>
                 </tr>
-              ))}
+              )}
 
               {/* Facility Usage */}
-              {formData.facilities && formData.facilities.map((facility, index) => (
-                <tr key={`facility-${index}`}>
-                  <td className="cs-table-cell">use of Facility</td>
-                  <td className="cs-table-cell">{facility.name}</td>
-                  <td className="cs-table-cell">₱{parseFloat(facility.rate).toFixed(2)}/day</td>
-                  <td className="cs-table-cell">{facility.days}d</td>
-                  <td className="cs-table-cell cs-amount">
-                    ₱{(parseFloat(facility.rate) * parseFloat(facility.days)).toFixed(2)}
-                  </td>
+              {formData.service_name === "Use of Facility" && formData.facilityDetails && (
+                <tr>
+                  <td className="cs-table-cell">{formData.facility_name}</td>
+                  <td className="cs-table-cell">{formData.resources}</td>
+                  <td className="cs-table-cell">{formData.rate}</td>
+                  <td className="cs-table-cell">{formData.total_hours}</td>
+                  <td className="cs-table-cell cs-amount">₱{totalAmount.toFixed(2)}</td>
                 </tr>
-              ))}
+              )}
 
               {/* Training */}
-              {formData.serviceType.includes("Training") && formData.training.name && (
+              {formData.service_name === "Training" && formData.trainingDetails && (
                 <tr>
-                  <td className="cs-table-cell">Training</td>
-                  <td className="cs-table-cell">{formData.training.name}</td>
-                  <td className="cs-table-cell">₱{parseFloat(formData.training.rate).toFixed(2)}</td>
-                  <td className="cs-table-cell">1</td>
-                  <td className="cs-table-cell cs-amount">₱{parseFloat(formData.training.rate).toFixed(2)}</td>
+                  <td className="cs-table-cell">{formData.trainingtitle}</td>
+                  <td className="cs-table-cell">-</td>
+                  <td className="cs-table-cell">-</td>
+                  <td className="cs-table-cell">{formData.rate}</td>
+                  <td className="cs-table-cell cs-amount">₱{totalAmount.toFixed(2)}</td>
                 </tr>
               )}
             </tbody>

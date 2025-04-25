@@ -193,7 +193,7 @@ const ClientProfile = ({ isLoggedIn }) => {
   // Calculate stats
   const getStats = () => {
     const total = serviceRequests.length;
-    const pending = serviceRequests.filter(r => r.status === 'Pending for approval').length;
+    const pending = serviceRequests.filter(r => r.status === 'Pending for Approval').length;
     const completed = serviceRequests.filter(r => r.status === 'Completed').length;
     const cancelled = serviceRequests.filter(r => r.status === 'Cancelled').length;
     
@@ -461,7 +461,7 @@ const ClientProfile = ({ isLoggedIn }) => {
             <table className="client-transaction-table">
               <thead className='client-transaction-table-header'>
                 <tr>
-                  <th>Request ID</th>
+                  <th>Request Code</th>
                   <th>Service Type</th>
                   <th>Date Requested</th>
                   <th>Status</th>
@@ -477,7 +477,7 @@ const ClientProfile = ({ isLoggedIn }) => {
                       onClick={() => handleRowClick(request.request_id, request.service_name)}
                       className={request.status.toLowerCase().replace(/\s/g, '-')}
                     >
-                      <td><span className="id-badge">#{request.request_id}</span></td>
+                      <td><span className="id-badge">{request.request_code}</span></td>
                       <td>
                         <div className="service-type">
                           <span className="service-icon">

@@ -4,7 +4,7 @@ const getServiceRequests = async (req, res) => {
 	try {
 		// Join serviceRequestTable with usersTable to get the user name
 		const result = await pool.query(
-			`SELECT sr.request_id, sr.user_id, sr.service_name, sr.status, sr.payment_option, 
+			`SELECT sr.request_id, sr.user_id, sr.service_name, sr.status, sr.payment_option, sr.request_code,
 			        sr.start, sr."end", sr.rejection_reason, u.name AS user_name
 			 FROM serviceRequestTable sr
 			 JOIN usersTable u ON sr.user_id = u.user_id`
@@ -36,6 +36,7 @@ const getServiceRequestsById = async (req, res) => {
             sr.request_id, 
             sr.service_name, 
             sr.status, 
+            sr.request_code,
             sr.payment_option, 
             sr.start, 
             sr."end", 
@@ -135,8 +136,10 @@ const getTrainingRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 sr.rejection_reason,
-                sr.rejection_reason,
+                sr.request_code,
+                sr.charge_slip,
                 u.name AS user_name,
+                u.institution AS user_institution,
                 approver.name AS approver_name,
                 tr.trainingTitle, 
                 tr.trainingDate, 
@@ -199,7 +202,10 @@ const getEquipmentRentalRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 sr.rejection_reason,
+                sr.request_code,
+                sr.charge_slip,
                 u.name AS user_name,
+                u.institution AS user_institution,
                 approver.name AS approver_name,
                 err.authorized_representative, 
                 err.laboratory, 
@@ -267,7 +273,10 @@ const getFacilityRentalRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 sr.rejection_reason,
+                sr.request_code,
+                sr.charge_slip,
                 u.name AS user_name,
+                u.institution AS user_institution,
                 approver.name AS approver_name,
                 frr.purpose_of_use,
                 frr.project_title, 
@@ -327,7 +336,10 @@ const getSampleProcessingRequestById = async (req, res) => {
                 sr.start, 
                 sr."end", 
                 sr.rejection_reason,
+                sr.request_code,
+                sr.charge_slip,
                 u.name AS user_name,
+                u.institution AS user_institution,
                 approver.name AS approver_name,
                 spr.laboratory, 
                 spr.type_of_analysis, 
