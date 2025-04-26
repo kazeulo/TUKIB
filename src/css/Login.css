@@ -12,7 +12,7 @@
 .login-container {
 	width: 100%;
 	max-width: 400px;
-	padding: 30px;
+	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	background-color: #f9f9f994;
@@ -61,7 +61,7 @@
 }
 
 .form-group {
-	margin-bottom: 20px;
+	margin-bottom: 10px!important;
 	text-align: left;
 }
 
@@ -84,7 +84,7 @@
 .login-button {
 	width: 100%;
 	padding: 10px 0;
-	background-color: #6e1214;
+	background-color: #951f21;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -94,39 +94,134 @@
 }
 
 .login-button:hover {
-	background-color: #ffcc35;
-	color: #6e1214;
+	background-color: #ffcc35!important;
+	color: #951f21;
 }
 
 .password-input-container {
 	position: relative;
-  }
-  
-  .password-input {
 	width: 100%;
-	padding-right: 35px; 
+	display: flex;
+	align-items: center;
   }
   
   .password-toggle-btn {
-	opacity: 0.3;
-	position: absolute;
-	top: 50%;
-	right: 0px;
-	transform: translateY(-50%);
-	background: none;
-	border: none;
-	cursor: pointer;
+	position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(-50%) !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 20px !important;
+  width: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  color: #6e1214 !important;
+  }
+  
+  .password-toggle-btn:hover {
+	opacity: 1 !important;
   }
   
   .password-toggle-btn svg {
-	width: 20px;
-	height: 20px;
+	width: 16px !important;
+  height: 16px !important;
+  display: block !important;
   }
-  
+
 .mobile-powered-by,
 .mobile-reminders {
 	display: none;
 }
+
+/* Separator styling */
+.continue-with {
+	display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #6e1214;
+  font-size: 14px;
+  }
+  
+  /* Add horizontal lines on both sides */
+  .continue-with:before,
+  .continue-with:after {
+	content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  }
+  
+  .continue-with:before {
+	margin-right: 10px;
+  }
+  
+  .continue-with:after {
+	margin-left: 10px;
+  }
+  
+  /* Google Login Button Styling */
+  .google-login {
+	width: 100%;
+	margin-top: 10px;
+  }
+  
+  /* Target the Google button container */
+  .google-login > div {
+	width: 100% !important;
+  }
+  
+  /* Override Google's default button styling */
+  .google-login button {
+	width: 100% !important;
+  height: 44px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  background-color: white !important;
+  transition: all 0.3s ease !important;
+  font-family: inherit !important;
+  font-size: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 0 16px !important;
+  }
+  
+  /* Button hover effect */
+  .google-login button:hover {
+	background-color: #f5f5f5 !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Style the Google icon specifically */
+  .google-login button div:first-of-type {
+	margin: 0 !important;
+	padding: 0 !important;
+  }
+  
+  /* Style the text to match image */
+  .google-login button div:last-of-type {
+	font-weight: normal !important;
+	color: #333 !important;
+	margin-left: 0 !important;
+	padding: 0 !important;
+	font-size: 16px !important;
+  }
+  
+  /* Loading state */
+  .google-login p {
+	text-align: center;
+	margin-top: 10px;
+	color: #6e1214;
+	font-size: 14px;
+  }
 
 @media (max-width: 768px) {
 	/* Hide the desktop reminders and powered by in mobile */
