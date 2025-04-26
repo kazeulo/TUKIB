@@ -164,6 +164,8 @@ const Login = ({ setIsLoggedIn }) => {
               </div>
             )}
 
+            <div className='continue-with'> or continue with</div>
+
             {/* Google Login */}
             <GoogleOAuthProvider clientId='99014928817-a55l0uqhc29c2jjn0ka4v025av2cfk9c.apps.googleusercontent.com'>
               <div className='google-login'>
