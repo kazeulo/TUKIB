@@ -536,7 +536,7 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
                 >
                   <option value="">Select Payment Option</option>
                   <option value="Charged to Project">Charged to Project</option>
-                  <option value="Cash">Pay at University Registrar</option>
+                  <option value="Pay at University Registrar">Pay at University Registrar</option>
                 </select>
                 {errors.payment_option && <p className="error">{errors.payment_option}</p>}
               </div>
