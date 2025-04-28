@@ -20,6 +20,7 @@ const laboratoryController = require('../controllers/laboratoryController');
 const feedbackController = require ('../controllers/feedbackController');
 const statisticsController = require ('../controllers/statisticsController');
 const chargeSlipController = require ('../controllers/chargeSlipController');
+const servicesController = require('../controllers/ratesAndServicesController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -135,6 +136,17 @@ router.post('/facility-rental-requests', upload, async (req, res) => {
         res.status(500).json({ message: 'Error processing the request' });
     }
 });
+
+
+// Route for services and rates
+router.get('/services', servicesController.getAllServices);                         // Get all services
+router.get('/services/type/:serviceType', servicesController.getServicesByType);    // Get services by type
+router.get('/services/lab/:laboratory', servicesController.getServicesByLab);       // Get services by laboratory
+router.get('/services/:serviceId', servicesController.getServiceById);              // Get service by ID
+router.get('/laboratories', servicesController.getAllLaboratories);                 // Get all laboratories
+router.post('/services', servicesController.createService);                         // Create a new service
+router.put('/services/:serviceId', servicesController.updateService);               // Update a service 
+router.delete('/services/:serviceId', servicesController.deleteService);            // Delete a service
 
 // Export the router
 module.exports = router;

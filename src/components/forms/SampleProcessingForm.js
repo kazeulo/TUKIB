@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
@@ -13,6 +13,11 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [errors, setErrors] = useState({});
 	const [labs, setLabs] = useState([]);
+	const [services, setServices] = useState([]);
+	const [filteredServices, setFilteredServices] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [showDropdown, setShowDropdown] = useState(false);
+	const dropdownRef = useRef(null);
    
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
@@ -65,6 +70,40 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		fetchLabs();
 	}, []);
 
+	// fetching services for types of analysis
+	useEffect(() => {
+		const fetchServices = async () => {
+		  setLoading(true);
+		  try {
+			const response = await axios.get('http://localhost:5000/api/services/type/Sample Processing');			
+			if (response.data.status === 'success') {
+			  setServices(response.data.services);
+			  setFilteredServices(response.data.services);
+			}
+		  } catch (error) {
+			console.error('Error fetching services:', error);
+		  } finally {
+			setLoading(false);
+		  }
+		};
+	
+		fetchServices();
+	  }, []);
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+		  if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+			setShowDropdown(false);
+		  }
+		};
+	
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+		  document.removeEventListener('mousedown', handleClickOutside);
+		};
+	  }, []);
+	
 	// Handle changes for form fields
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -72,7 +111,33 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		  ...prevData,
 		  [name]: value,
 		}));
+
+	// Filter services based on input for typeOfAnalysis
+	if (name === 'typeOfAnalysis') {
+		const filtered = services.filter(service =>
+			service.service_name.toLowerCase().includes(value.toLowerCase())
+		);
+		setFilteredServices(filtered);
+		setShowDropdown(true);
+	}
+	 // Clear error when field is modified
+	 if (errors[name]) {
+		setErrors({
+		  ...errors,
+		  [name]: null
+		});
+	  }
 	};
+	// Handle service selection from dropdown
+	const handleServiceSelect = (service) => {
+		setFormData({
+		  ...formData,
+		  typeOfAnalysis: service.service_name,
+
+		});
+		setShowDropdown(false);
+	  };
+
 
 	// Handle checkbox changes
 	const handleCheckboxChange = (e) => {
@@ -285,15 +350,46 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 							{errors.laboratory && <p className="error">{errors.laboratory}</p>}
 						</div>
 
-						{/* Type of Analysis */}
-						<div className='form-group'>
+						{/* Type of Analysis*/}
+						<div className='form-group' ref={dropdownRef}>
 							<label>Type of Analysis</label>
-							<input
-								type='text'
-								name='typeOfAnalysis'
+							{loading ? (
+							<p>Loading services...</p>
+							) : (
+							<div className="autocomplete-container">
+								<input
+								type="text"
+								name="typeOfAnalysis"
 								value={formData.typeOfAnalysis}
 								onChange={handleChange}
-							/>
+								onFocus={() => {
+                                    // Show dropdown with all services when focusing on empty field
+                                    if (formData.typeOfAnalysis === '') {
+                                        setFilteredServices(services);
+                                    }
+                                    setShowDropdown(true);
+                                }}
+								placeholder="Type to search services"
+								/>
+								
+								{showDropdown && filteredServices.length > 0 && (
+								<div className="analysis-dropdown-menu">
+									{filteredServices.map(service => (
+									<div 
+										key={service.service_id} 
+										className="analysis-dropdown-item"
+										onClick={() => handleServiceSelect(service)}
+									>
+										{service.service_name}
+									</div>
+									))}
+								</div>
+								)}
+                                {filteredServices.length === 0 && formData.typeOfAnalysis && (
+                                    <p className="no-results">No matching services found</p>
+                                )}
+							</div>
+							)}
 							{errors.typeOfAnalysis && <p className="error">{errors.typeOfAnalysis}</p>}
 						</div>
 
@@ -378,7 +474,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 							>
 								<option value="">Select Payment Option</option>
 								<option value="Charged to Project">Charged to Project</option>
-								<option value="Cash">Pay at University Registrar</option>
+								<option value="Pay at University Registrar">Pay at University Registrar</option>
 							</select>
 							{errors.payment_option && <p className="error">{errors.payment_option}</p>}
 						</div>

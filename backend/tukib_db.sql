@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS feedback_table CASCADE;
 DROP TABLE IF EXISTS chargeslips CASCADE;
+DROP TABLE IF EXISTS rates_and_services CASCADE;
 
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
@@ -321,9 +322,23 @@ CREATE TABLE feedback_table (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create the rates_and_services table (data taken from rates.docx) (to use in types of analysis in forms)
+CREATE TABLE rates_and_services (
+    service_id SERIAL PRIMARY KEY,
+    service_type VARCHAR(50) NOT NULL,  -- 'Sample Processing' or 'Use of Equipment'
+    laboratory VARCHAR(100) NOT NULL,
+    service_name VARCHAR(255) NOT NULL,
+    rate_fee VARCHAR(100) NOT NULL,
+    inclusions TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 -- Indexes for performance
 CREATE INDEX idx_events_start_time ON events(start_time);
 CREATE INDEX idx_events_end_time ON events(end_time);
+CREATE INDEX idx_rates_services_type ON rates_and_services(service_type);
+CREATE INDEX idx_rates_services_lab ON rates_and_services(laboratory);
 
 -- Service Requests Table
 -- CREATE TABLE  (
@@ -343,7 +358,8 @@ CREATE INDEX idx_events_end_time ON events(end_time);
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO tukib;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO tukib;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO tukib;
-
+GRANT ALL PRIVILEGES ON rates_and_services TO tukib;
+GRANT USAGE, SELECT ON SEQUENCE rates_and_services_service_id_seq TO tukib;
 -- ======== INSERTING DUMMY DATA ========
 
 INSERT INTO laboratories (laboratory_name)
@@ -545,6 +561,122 @@ VALUES
   'General', 
   'Announcement', 
   NOW());
+
+
+-- Insert data for SAMPLE PROCESSING SERVICES
+-- FOOD, FEEDS, and FUNCTIONAL LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analysis (Basic Compression)', 'Php130.00/sample', NULL),
+    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analysis (Basic Tensile)', 'Php130.00/sample', NULL),
+    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Freeze Drying', 'Php250.00/hour', NULL),
+    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Spray Drying', 'Php1,410.00/liter of sample', NULL);
+
+-- MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'AFM Imaging', 'Php6,410.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Surface Profilometry', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Surface Roughness', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Topography', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FTIR-ATR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FT-MidIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FT-NIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Raman Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging', 'Php5,040.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Point Analysis', 'Php6,300.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Line Analysis', 'Php7,560.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Mapping Analysis', 'Php8,820.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Sputter Coater', 'Php590.00/sample', NULL),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Spin Coater', 'Php590.00/sample', NULL),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Fluorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Phosphorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Lifetime Measurements', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Thermogravimetric Analysis', 'Php4,140.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Differential Scanning Calorimetry', 'Php4,140.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Absorbance Measurements (UV-Vis)', 'Php430.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Absorbance Measurements (UV-Vis-NIR)', 'Php860.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Reflectance Measurements', 'Php1,710.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Transmission Analysis', 'Php1,710.00/sample', '2 replicates per sample');
+
+-- APPLIED CHEMISTRY LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Sample Processing', 'APPLIED CHEMISTRY LABORATORY', 'Type 1 (Ultrapure) water (per L)', 'Php900.00/3 liter', NULL),
+    ('Sample Processing', 'APPLIED CHEMISTRY LABORATORY', 'Type 2 (Pure) water (per L)', 'Php280.00/liter', NULL);
+
+-- USE OF EQUIPMENT SERVICES
+-- FOOD, FEEDS, and FUNCTIONAL LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Analytical Balance', 'Php120.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Chamber Vacuum Sealer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Chemical Fume Hood', 'Php170.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Constant Climate Chamber', 'Php240.00 – Php330.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Constant Temperature Drying Oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Forced Air Drying Oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Ice Cream Maker', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Moisture Analyzer', 'Php140.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'pH Meter', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Refractometer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Rheometer', 'Php1,040.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Rotary Evaporator', 'Php440.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Spray Dryer', 'Php560.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analyzer', 'Php240.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Ultrasonic Bath', 'Php260.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'UV-Vis Spectrophotometer, 6-placer (190-1100nm)', 'Php550.00/hour', NULL),
+    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Water Activity Meter', 'Php140.00/hour', NULL);
+
+-- BIOLOGY LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Biochemical incubator', 'Php150.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Diamond saw', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Drying oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Microanalytical balance', 'Php350.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Microtome', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Paraffin dispenser', 'Php140.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Slide drying bench', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Stereomicroscopes', 'Php140.00 – Php420.00/hour', NULL);
+
+-- APPLIED CHEMISTRY LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Analytical Balance', 'Php120.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Homogenizer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Microplate Reader', 'Php580.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'pH meter', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Preparative HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Refrigerated Centrifuge', 'Php450.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Shaking Incubator', 'Php200.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Ultrasonicator (probe-type)/ Ultrasonic Homogenizer', 'Php230.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'UPLC-Tof/MS', 'Php6,840.00 – Php6,970.00/hour', NULL),
+    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Vacuum Evaporation System', 'Php190.00/hour', NULL);
+
+-- MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Atomic Force Microscope (AFM)', 'Php2,040.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Microwave Synthesizer', 'Php940.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'MidIR-NIR-Raman Spectrometer', 'Php1,970.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Muffle Furnace', 'Php250.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Scanning Electron Microscope - Energy Dispersive Spectrometer (SEM-EDS)', 'Php2,360.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Spectrofluorometer', 'Php2,100.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'STA-DSC', 'Php1,920.00/hour', NULL),
+    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'UV-Vis Spectrophotometer, (200-1800nm; UV-Vis, NIR, with DRA)', 'Php930.00/hour', NULL);
+
+-- MICROBIOLOGY & BIOENGINEERING LABORATORY
+INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
+VALUES
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Autoclave', 'Php240.00/hour', NULL),
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Biosafety Cabinet', 'Php270.00/hour', NULL),
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Compound Microscope', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Incubators (Shaker & Standard)', 'Php200.00/hour', NULL),
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Laminar Flow Hood', 'Php170.00/hour', NULL),
+    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'pH meter', 'Php100.00/hour', NULL);
+    
 -- ======== ALTERS ========
 
 -- Add a foreign key reference if there’s a related table (optional example)
