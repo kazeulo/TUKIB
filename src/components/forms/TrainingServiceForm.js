@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
 import Modal from '../partials/Modal';
 import SuccessModal from './SuccessModal';
+import { Tooltip } from 'bootstrap';
 
 
 function TrainingServiceForm({ isLoggedIn }) {
@@ -207,6 +208,15 @@ function TrainingServiceForm({ isLoggedIn }) {
     }));
   };
 
+  const Tooltip = ({ text }) => {
+		return (
+		  <span className="tooltip-icon" title={text}>
+			<i className="fas fa-info-circle"></i>
+			<span className="tooltip-text">{text}</span>
+		  </span>
+		);
+	  };
+
   return (
     <>
       <Modal
@@ -238,7 +248,9 @@ function TrainingServiceForm({ isLoggedIn }) {
           </div>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="form-group">
-              <label>Training Topic</label>
+              <label>Training Topic
+                <Tooltip text="Please provide the complete training topic"/>
+              </label>
               <input
                 type="text"
                 name="trainingTitle"
@@ -250,7 +262,9 @@ function TrainingServiceForm({ isLoggedIn }) {
             </div>
 
             <div className="form-group">
-              <label>Training Date</label>
+              <label>Training Date
+                <Tooltip text="Please provide the date of training"/>
+              </label>
               <input
                 type="date"
                 name="trainingDate"
@@ -261,7 +275,9 @@ function TrainingServiceForm({ isLoggedIn }) {
             </div>
 
             <div className="form-group">
-              <label>Number of participants</label>
+              <label>Number of participants
+                <Tooltip text="Please provide the number of participants"/>
+              </label>
               <input
                 type="number"
                 name="participantCount"
@@ -273,7 +289,9 @@ function TrainingServiceForm({ isLoggedIn }) {
             </div>
 
             <div className="form-group">
-              <label>Laboratory Partner</label>
+              <label> Select Laboratory
+                <Tooltip text="Please select the laboratory to partner with for the training"/>
+              </label>
               <select
                 name="partnerLab"
                 value={formData.partnerLab}
@@ -290,7 +308,9 @@ function TrainingServiceForm({ isLoggedIn }) {
             </div>
 
             <div className="form-group">
-              <label>Mode of Payment</label>
+              <label>Mode of Payment
+              <Tooltip text="Select your preferred payment method for this service" />
+              </label>
               <select
                 name="payment_option"
                 value={formData.payment_option}
@@ -306,7 +326,9 @@ function TrainingServiceForm({ isLoggedIn }) {
             {formData.payment_option === "Charged to Project" && (
               <>
                 <div className="form-group">
-                  <label>Project Title</label>
+                  <label>Project Title
+                  <Tooltip text="Enter the full and correct title of the project to be charged, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_title"
@@ -318,7 +340,9 @@ function TrainingServiceForm({ isLoggedIn }) {
                 </div>
 
                 <div className="form-group">
-                  <label>Project Budget Code</label>
+                  <label>Project Budget Code
+                  <Tooltip text="Enter the budget code assigned to your project, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_budget_code"
@@ -331,7 +355,10 @@ function TrainingServiceForm({ isLoggedIn }) {
 
                 {/* Proof of Funds Availability */}
                 <div className='form-group'>
-                  <label>Proof of Funds Availability</label>
+                  <label>Proof of Funds Availability
+                    <Tooltip text="Upload a document confirming available funds for this service" />
+                  </label>
+                  <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='proofOfFunds'
@@ -342,7 +369,10 @@ function TrainingServiceForm({ isLoggedIn }) {
 
                 {/* Payment Conforme */}
                 <div className='form-group'>
-                  <label>Payment Conforme</label>
+                  <label>Payment Conforme
+                  <Tooltip text="Upload a signed payment confirmation document" />
+								</label>
+								<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='paymentConforme'
@@ -354,8 +384,11 @@ function TrainingServiceForm({ isLoggedIn }) {
             )}
 
             <div className='form-group'>
-              <label>Upload other necessary documents</label>
-              <small><i>Max no. of files accepted: 5</i></small>
+              <label>Upload other necessary documents
+              <Tooltip text="Provide any other relevant information or special requests regarding your training" />
+              </label>
+							<small><i>Max no. of files accepted: 5</i></small> &emsp;
+							<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
               <input
                 type="file"
                 name="necessaryDocuments"
@@ -367,7 +400,9 @@ function TrainingServiceForm({ isLoggedIn }) {
 
             {/* Additional Information */}
             <div className='form-group'>
-              <label>Additional Information</label>
+              <label>Additional Information
+                <Tooltip text="Provide any other relevant information or special requests regarding your training" />
+              </label>
               <textarea
                 name='additionalInformation'
                 value={formData.additionalInformation}

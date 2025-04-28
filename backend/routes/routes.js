@@ -142,7 +142,6 @@ router.post('/facility-rental-requests', upload, async (req, res) => {
 router.get('/services', servicesController.getAllServices);                         // Get all services
 router.get('/services/type/:serviceType', servicesController.getServicesByType);    // Get services by type
 router.get('/services/lab/:laboratory', servicesController.getServicesByLab);       // Get services by laboratory
-router.get('/services/type/:serviceType/lab/:laboratory', servicesController.getServicesByTypeAndLab); // Get by type and laboratory
 router.get('/services/:serviceId', servicesController.getServiceById);              // Get service by ID
 router.get('/laboratories', servicesController.getAllLaboratories);                 // Get all laboratories
 router.post('/services', servicesController.createService);                         // Create a new service

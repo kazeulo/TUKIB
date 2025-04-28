@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
 import Modal from '../partials/Modal';
 import SuccessModal from './SuccessModal';
+import { Tooltip } from 'bootstrap';
 
 
 function UseOfFacilityForm({ isLoggedIn }) {
@@ -221,7 +222,14 @@ function UseOfFacilityForm({ isLoggedIn }) {
       project_budget_code: value === 'Cash' ? '' : prevData.project_budget_code,
     }));
   };
-
+  const Tooltip = ({ text }) => {
+		return (
+		  <span className="tooltip-icon" title={text}>
+			<i className="fas fa-info-circle"></i>
+			<span className="tooltip-text">{text}</span>
+		  </span>
+		);
+	  };
   return (
     <>
       <Modal
@@ -254,7 +262,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
             
             {/* Facility Selection */}
             <div className="form-group">
-              <label>Select Facilities to be Used</label>
+              <label>Select Facilities to be Used
+                <Tooltip text="Select the facility you want to use"/>
+              </label>
               <select
                 name="selectedFacility"
                 value={formData.selectedFacility}
@@ -271,7 +281,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
             </div>
 
             <div className="form-group">
-              <label>Event/Activity name</label>
+              <label>Event/Activity name
+                <Tooltip text="Enter the complete name of the event or activity for which you are requesting the facility."/>
+              </label>
               <input
                 type="text"
                 name="purpose_of_use"
@@ -307,7 +319,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
 
             {/* Number of Participants (PAX) */}
             <div className="form-group">
-              <label>Number of Users (Pax)</label>
+              <label>Number of Users (Pax)
+                <Tooltip text="Enter the final number of participants for the event or activity."/>
+              </label>
               <input
                 type="number"
                 name="participantCount"
@@ -320,7 +334,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
 
             {/* Payment Options */}
             <div className="form-group">
-              <label>Mode of Payment</label>
+              <label>Mode of Payment
+              <Tooltip text="Select your preferred payment method for this service" />
+              </label>
               <select
                 name="payment_option"
                 value={formData.payment_option}
@@ -336,7 +352,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
             {formData.payment_option === "Charged to Project" && (
               <>
                 <div className="form-group">
-                  <label>Project Title</label>
+                  <label>Project Title
+                  <Tooltip text="Enter the full and correct title of the project to be charged, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_title"
@@ -348,7 +366,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
                 </div>
 
                 <div className="form-group">
-                  <label>Project Budget Code</label>
+                  <label>Project Budget Code
+                  <Tooltip text="Enter the budget code assigned to your project, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_budget_code"
@@ -361,7 +381,10 @@ function UseOfFacilityForm({ isLoggedIn }) {
 
                 {/* Proof of Funds Availability */}
                 <div className='form-group'>
-                  <label>Proof of Funds Availability</label>
+                  <label>Proof of Funds Availability
+                  <Tooltip text="Upload a document confirming available funds for this service" />
+                  </label>
+                  <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='proofOfFunds'
@@ -372,7 +395,10 @@ function UseOfFacilityForm({ isLoggedIn }) {
 
                 {/* Payment Conforme */}
                 <div className='form-group'>
-                  <label>Payment Conforme</label>
+                  <label>Payment Conforme
+                    <Tooltip text="Upload a signed payment confirmation document" />
+                  </label>
+                  <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='paymentConforme'
@@ -384,7 +410,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
             )}
 
             <div className='form-group'>
-              <label>Upload other necessary documents</label>
+              <label>Upload other necessary documents
+              <Tooltip text="Provide any other relevant information or special requests regarding your use of facility" />
+              </label>
               <small><i>Max no. of files accepted: 5</i></small>
               <input
                 type="file"
@@ -397,7 +425,9 @@ function UseOfFacilityForm({ isLoggedIn }) {
 
             {/* Additional Information */}
             <div className="form-group">
-              <label>Additional Information</label>
+              <label>Additional Information
+              <Tooltip text="Provide any other relevant information or special requests regarding your training" />
+              </label>
               <textarea
                 name="additionalInformation"
                 value={formData.additionalInformation}

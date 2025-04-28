@@ -283,6 +283,14 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
       project_budget_code: value === 'Cash' ? '' : prevData.project_budget_code,
     }));
   };
+  const Tooltip = ({ text }) => {
+		return (
+		  <span className="tooltip-icon" title={text}>
+			<i className="fas fa-info-circle"></i>
+			<span className="tooltip-text">{text}</span>
+		  </span>
+		);
+	  };
 
   return (
     <>
@@ -336,7 +344,7 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
                     checked={selectedServices.includes('Equipment Rental')}
                     onChange={handleServiceSelection}
                   />
-                  Equipment Rental
+                  Use of Equipment
                 </label>
               </div>
               {errors.services && <p className="error">{errors.services}</p>}
@@ -344,7 +352,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
             {/* Laboratory */}
             <div className="form-group">
-              <label>Please select laboratory.</label>
+              <label>Select Laboratory
+                <Tooltip text="Select the laboratory partner for your request." />
+              </label>
               <select
                 name="laboratory"
                 value={formData.laboratory}
@@ -366,7 +376,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
               
               {/* Sample Type */}
               <div className='form-group'>
-                <label>Sample Type</label>
+                <label>Sample Type
+                <Tooltip text="Specify the type of sample (e.g., soil, water, tissue)" />
+                </label>
                 <input
                   type='text'
                   name='sampleType'
@@ -378,7 +390,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
               {/* Sample Description */}
               <div className='form-group'>
-                <label>Sample Description</label>
+                <label>Sample Description
+                <Tooltip text="Provide detailed information about your sample including its source, condition, and any relevant background" />
+                </label>
                 <textarea
                   name='sampleDescription'
                   value={formData.sampleDescription}
@@ -390,7 +404,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
               {/* Sample Volume */}
               <div className='form-group'>
-                <label>Sample Volume</label>
+                <label>Sample Volume
+                <Tooltip text="Indicate the amount or volume of the sample and its unit (e.g., 10mL, 5g)" />
+                </label>
                 <input
                   type='text'
                   name='sampleVolume'
@@ -402,7 +418,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
               {/* Sample Hazard Description */}
               <div className='form-group'>
-                <label>Sample Hazard Description</label>
+                <label>Sample Hazard Description
+                <Tooltip text="Please tick all hazards associated with your sample" />
+                </label>
                 <textarea
                   name='sampleHazardDescription'
                   value={formData.sampleHazardDescription}
@@ -420,7 +438,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
                 
                 {/* Type of Analysis */}
                 <div className='form-group'>
-                  <label>Type of Analysis</label>
+                  <label>Type of Analysis
+                  <Tooltip text="Select the specific analysis service you need for your sample" />
+                  </label>
                   <input
                     type='text'
                     name='typeOfAnalysis'
@@ -432,7 +452,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Methods/Settings */}
                 <div className='form-group'>
-                  <label>Methods/Settings</label>
+                  <label>Methods/Settings
+                  <Tooltip text="Specify any particular methods or equipment settings required for your analysis" />
+                  </label>
                   <textarea
                     name='methodSettings'
                     value={formData.methodSettings}
@@ -444,7 +466,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Schedule of Sample Submission */}
                 <div className='form-group'>
-                  <label>Schedule of Sample Submission</label>
+                  <label>Schedule of Sample Submission
+                  <Tooltip text="Select the date when you plan to submit your sample to the laboratory" />
+                  </label>
                   <input
                     type='date'
                     name='scheduleSampleSubmission'
@@ -459,11 +483,13 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
             {/* Equipment Rental Section */}
             {selectedServices.includes('Equipment Rental') && (
               <div className="form-section">
-                <h4>Equipment Rental Information</h4>
+                <h4>Use of Equipment Information</h4>
                 
                 {/* Authorized Representative */}
                 <div className="form-group">
-                  <label>Authorized Representative</label>
+                  <label>Authorized Representative
+                  <Tooltip text="Enter the name of the authorized representative for this request" />
+                  </label>
                   <input
                     type="text"
                     name="authorizedRepresentative"
@@ -475,7 +501,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Equipment Name */}
                 <div className="form-group">
-                  <label>Equipment Name</label>
+                  <label>Equipment Name
+                  <Tooltip text="Select the equipment you wish to rent" />
+                  </label>
                   <input
                     type="text"
                     name="equipmentName"
@@ -487,7 +515,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Equipment Settings */}
                 <div className="form-group">
-                  <label>Equipment Settings</label>
+                  <label>Equipment Settings
+                  <Tooltip text="Specify the settings or configurations required for the equipment" />
+                  </label>
                   <textarea
                     name="equipmentSettings"
                     value={formData.equipmentSettings}
@@ -499,7 +529,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Schedule of Use */}
                 <div className="form-group">
-                  <label>Schedule of Use</label>
+                  <label>Schedule of Use
+                  <Tooltip text="Select the date you plan to use the equipment" />
+                  </label>
                   <input
                     type="date"
                     name="scheduleOfUse"
@@ -511,7 +543,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                 {/* Estimated Use Duration */}
                 <div className="form-group">
-                  <label>Estimated Use Duration</label>
+                  <label>Estimated Use Duration
+                  <Tooltip text="Enter the estimated duration of equipment use in hours " />
+                  </label>
                   <input
                     type="text"
                     name="estimatedUseDuration"
@@ -528,7 +562,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
               <h4>Payment Information</h4>
               
               <div className="form-group">
-                <label>Mode of Payment</label>
+                <label>Mode of Payment
+                <Tooltip text="Select your preferred payment method for this service" />
+                </label>
                 <select
                   name="payment_option"
                   value={formData.payment_option}
@@ -544,7 +580,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
               {formData.payment_option === "Charged to Project" && (
                 <>
                   <div className="form-group">
-                    <label>Project Title</label>
+                    <label>Project Title
+                    <Tooltip text="Enter the full and correct title of the project to be charged, please recheck for typos" />
+                    </label>
                     <input
                       type="text"
                       name="project_title"
@@ -556,7 +594,9 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
                   </div>
 
                   <div className="form-group">
-                    <label>Project Budget Code</label>
+                    <label>Project Budget Code
+                    <Tooltip text="Enter the budget code assigned to your project, please recheck for typos" />
+                    </label>
                     <input
                       type="text"
                       name="project_budget_code"
@@ -569,7 +609,10 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                   {/* Proof of Funds Availability */}
                   <div className='form-group'>
-                    <label>Proof of Funds Availability</label>
+                    <label>Proof of Funds Availability
+                        <Tooltip text="Upload a document confirming available funds for this service" />
+                    </label>
+                    <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                     <input
                       type='file'
                       name='proofOfFunds'
@@ -580,7 +623,10 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
 
                   {/* Payment Conforme */}
                   <div className='form-group'>
-                    <label>Payment Conforme</label>
+                    <label>Payment Conforme                  
+                      <Tooltip text="Upload a signed payment confirmation document" />
+                    </label>
+                    <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                     <input
                       type='file'
                       name='paymentConforme'
@@ -592,27 +638,32 @@ const CombinedServiceRequestForm = ({ isLoggedIn }) => {
               )}
             </div>
 
-            {/* Additional Information */}
-            <div className='form-group'>
-              <label>Additional Information</label>
-              <textarea
-                name='additionalInformation'
-                value={formData.additionalInformation}
-                onChange={handleChange}
-                rows='4'
-              />
-            </div>
-
             {/* Necessary Documents */}
             <div className='form-group'>
-              <label>Upload other necessary documents</label>
-              <small><i>Max no. of files accepted: 5</i></small>
+            <label>Upload other necessary documents
+              <Tooltip text="Upload any additional files required for your use of equipment" />
+							</label>
+							<small><i>Max no. of files accepted: 5</i></small> &emsp;
+							<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
               <input
                 type="file"
                 name="necessaryDocuments"
                 onChange={handleFileChange}
                 placeholder="Upload Documents"
                 multiple
+              />
+            </div>
+
+            {/* Additional Information */}
+            <div className='form-group'>
+              <label>Additional Information
+              <Tooltip text="Provide any other relevant information or special requests regarding your use of equipment" />
+              </label>
+              <textarea
+                name='additionalInformation'
+                value={formData.additionalInformation}
+                onChange={handleChange}
+                rows='4'
               />
             </div>
 
