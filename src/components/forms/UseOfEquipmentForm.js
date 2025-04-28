@@ -250,6 +250,14 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
       project_budget_code: value === 'Cash' ? '' : prevData.project_budget_code,
     }));
   };
+  const Tooltip = ({ text }) => {
+		return (
+		  <span className="tooltip-icon" title={text}>
+			<i className="fas fa-info-circle"></i>
+			<span className="tooltip-text">{text}</span>
+		  </span>
+		);
+	  };
 
   return (
     <>
@@ -283,7 +291,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Authorized Representative */}
             <div className="form-group">
-              <label>Authorized Representative</label>
+              <label>Authorized Representative
+                <Tooltip text="Enter the name of the authorized representative for this request" />
+              </label>
               <input
                 type="text"
                 name="authorizedRepresentative"
@@ -295,7 +305,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Laboratory */}
             <div className="form-group">
-              <label>Please select laboratory.</label>
+              <label>Select Laboratory
+                <Tooltip text="Select the laboratory to use equipment in" />
+              </label>
               <select
                 name="laboratory"
                 value={formData.laboratory}
@@ -317,7 +329,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Equipment Name */}
             <div className="form-group">
-              <label>Select Equipment</label>
+              <label>Select Equipment
+                <Tooltip text="Select the equipment you wish to rent" />
+              </label>
                 <select
                   name="equipmentName"
                   value={formData.equipmentName}
@@ -339,7 +353,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Equipment Settings */}
             <div className="form-group">
-              <label>Equipment Settings</label>
+              <label>Equipment Settings
+              <Tooltip text="Specify the settings or configurations required for the equipment" />
+              </label>
               <textarea
                 name="equipmentSettings"
                 value={formData.equipmentSettings}
@@ -351,7 +367,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Sample Type */}
             <div className="form-group">
-              <label>Sample Type</label>
+              <label>Sample Type
+              <Tooltip text="Specify the type of sample (e.g., soil, water, tissue)" />
+              </label>
               <input
                 type="text"
                 name="sampleType"
@@ -363,7 +381,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Sample Description */}
             <div className="form-group">
-              <label>Sample Description</label>
+              <label>Sample Description
+              <Tooltip text="Provide detailed information about your sample including its source, condition, and any relevant background" />
+              </label>
               <textarea
               name="sampleDescription"
               value={formData.sampleDescription}
@@ -375,7 +395,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Sample Volume */}
             <div className="form-group">
-              <label>Sample Volume</label>
+              <label>Sample Volume
+              <Tooltip text="Indicate the amount or volume of the sample and its unit (e.g., 10mL, 5g)" />
+              </label>
               <input
               type="text"
               name="sampleVolume"
@@ -387,7 +409,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Sample Hazard Description */}
             <div className="form-group">
-              <label>Sample Hazard Description</label>
+              <label>Sample Hazard Description
+              <Tooltip text="Please tick all hazards associated with your sample" />
+              </label>
               <textarea
                 name="sampleHazardDescription"
                 value={formData.sampleHazardDescription}
@@ -399,7 +423,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Schedule of Use */}
             <div className="form-group">
-              <label>Schedule of Use</label>
+              <label>Schedule of Use
+                <Tooltip text="Select the date you plan to use the equipment" />
+              </label>
               <input
                 type="date"
                 name="scheduleOfUse"
@@ -411,7 +437,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/* Estimated Use Duration */}
             <div className="form-group">
-              <label>Estimated Use Duration</label>
+              <label>Estimated Use Duration
+                <Tooltip text="Enter the estimated duration of equipment use in hours " />
+              </label>
               <input
                 type="text"
                 name="estimatedUseDuration"
@@ -423,7 +451,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
             {/*Mode of Payment */}
             <div className="form-group">
-              <label>Mode of Payment</label>
+              <label>Mode of Payment
+              <Tooltip text="Select your preferred payment method for this service" />
+              </label>
               <select
                   name="payment_option"
                   value={formData.payment_option}
@@ -439,7 +469,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
             {formData.payment_option === "Charged to Project" && (
               <>
                 <div className="form-group">
-                  <label>Project Title</label>
+                  <label>Project Title
+                  <Tooltip text="Enter the full and correct title of the project to be charged, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_title"
@@ -451,7 +483,9 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
                 </div>
 
                 <div className="form-group">
-                  <label>Project Budget Code</label>
+                  <label>Project Budget Code
+                  <Tooltip text="Enter the budget code assigned to your project, please recheck for typos" />
+                  </label>
                   <input
                     type="text"
                     name="project_budget_code"
@@ -464,18 +498,25 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 
                 {/* Proof of Funds Availability */}
                 <div className='form-group'>
-                  <label>Proof of Funds Availability</label>
+                  <label>Proof of Funds Availability
+                  <Tooltip text="Upload a document confirming available funds for this service" />
+								</label>
+								<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='proofOfFunds'
                     onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
                   />
                   {errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
                 </div>
 
                 {/* Payment Conforme */}
                 <div className='form-group'>
-                  <label>Payment Conforme</label>
+                  <label>Payment Conforme
+                  <Tooltip text="Upload a signed payment confirmation document" />
+								</label>
+								<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
                   <input
                     type='file'
                     name='paymentConforme'
@@ -486,25 +527,32 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
               </>
             )}
 
-            {/* Additional Information */}
-            <div className="form-group">
-              <label>Additional Information</label>
-              <textarea
-                name="additionalInformation"
-                value={formData.additionalInformation}
-                onChange={handleChange}
-                rows="4"
-              />
-            </div>
-
             {/* Necessary Documents */}
             <div className="form-group">
-              <label>Necessary Documents</label>
+              <label>Upload other necessary documents
+              <Tooltip text="Upload any additional files required for your use of equipment" />
+							</label>
+							<small><i>Max no. of files accepted: 5</i></small> &emsp;
+							<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
               <input
                 type="file"
                 name="necessaryDocuments"
                 onChange={handleFileChange}
                 multiple
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+              />
+            </div>
+
+            {/* Additional Information */}
+            <div className="form-group">
+              <label>Additional Information
+              <Tooltip text="Provide any other relevant information or special requests regarding your use of equipment" />
+              </label>
+              <textarea
+                name="additionalInformation"
+                value={formData.additionalInformation}
+                onChange={handleChange}
+                rows="4"
               />
             </div>
 

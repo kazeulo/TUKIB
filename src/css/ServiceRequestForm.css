@@ -183,7 +183,56 @@
 	margin-top: 5px;
   }
 
-
+/* Tooltip container */
+.tooltip-icon {
+	position: relative;
+	display: inline-block;
+	margin-left: 8px;
+	color: #666;
+	cursor: pointer;
+  }
+  
+  .tooltip-icon i {
+	font-size: 12px;
+	color: #8b1f4165;
+  }
+  
+  /* Tooltip text */
+  .tooltip-icon .tooltip-text {
+	visibility: hidden;
+	width: 200px;
+	background-color: #333333c2;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 8px;
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	left: 125%;
+	opacity: 0;
+	transition: opacity 0.3s;
+	font-size: 12px;
+	font-weight: normal;
+  }
+  
+  /* Show the tooltip text when hovering over the tooltip container */
+  .tooltip-icon:hover .tooltip-text {
+	visibility: visible;
+	opacity: 1;
+  }
+  
+  /* Add arrow to tooltip */
+  .tooltip-icon .tooltip-text::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent #333 transparent transparent;
+  }
   
   /* Responsive Design */
   @media (max-width: 768px) {
