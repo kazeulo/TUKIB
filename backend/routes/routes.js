@@ -20,7 +20,7 @@ const laboratoryController = require('../controllers/laboratoryController');
 const feedbackController = require ('../controllers/feedbackController');
 const statisticsController = require ('../controllers/statisticsController');
 const chargeSlipController = require ('../controllers/chargeSlipController');
-const servicesController = require('../controllers/servicesAndRatesController');
+const servicesController = require('../controllers/ratesAndServicesController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
