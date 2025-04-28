@@ -16,8 +16,9 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 	const [services, setServices] = useState([]);
 	const [filteredServices, setFilteredServices] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const [showDropdown, setShowDropdown] = useState(false);
 	const dropdownRef = useRef(null);
+	const [selectedLab, setSelectedLab] = useState('');
+	const [showDropdown, setShowDropdown] = useState(false);
    
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
@@ -39,6 +40,34 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		necessaryDocuments: null,
 		acknowledgeTerms: false,
 	});
+
+	const fetchSampleProcessingServicesByLab = async (laboratory) => {
+		if (!laboratory) return;
+		
+		setLoading(true);
+		try {
+		  const response = await axios.get(`http://localhost:5000/api/services/lab/${laboratory}`);
+		  if (response.data.status === 'success') {
+			// Filter services to only include "Sample Processing" type
+			const sampleProcessingServices = response.data.services.filter(
+			  service => service.service_type === 'Sample Processing'
+			);
+			
+			setServices(sampleProcessingServices);
+			setFilteredServices(sampleProcessingServices);
+			
+			// Reset the typeOfAnalysis field when lab changes
+			setFormData(prevData => ({
+			  ...prevData,
+			  typeOfAnalysis: ''
+			}));
+		  }
+		} catch (error) {
+		  console.error('Error fetching services for laboratory:', error);
+		} finally {
+		  setLoading(false);
+		}
+	  };
 
 	// Fetching user data
 	useEffect(() => {
@@ -70,25 +99,12 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		fetchLabs();
 	}, []);
 
-	// fetching services for types of analysis
+	// fetching services by laboratory selected
 	useEffect(() => {
-		const fetchServices = async () => {
-		  setLoading(true);
-		  try {
-			const response = await axios.get('http://localhost:5000/api/services/type/Sample Processing');			
-			if (response.data.status === 'success') {
-			  setServices(response.data.services);
-			  setFilteredServices(response.data.services);
-			}
-		  } catch (error) {
-			console.error('Error fetching services:', error);
-		  } finally {
-			setLoading(false);
-		  }
-		};
-	
-		fetchServices();
-	  }, []);
+		if (formData.laboratory) {
+			fetchSampleProcessingServicesByLab(formData.laboratory);
+		}
+	  }, [formData.laboratory]);
 
 	// Close dropdown when clicking outside
 	useEffect(() => {
@@ -110,16 +126,22 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		setFormData((prevData) => ({
 		  ...prevData,
 		  [name]: value,
-		}));
+		}));	  
 
-	// Filter services based on input for typeOfAnalysis
-	if (name === 'typeOfAnalysis') {
+	  // When laboratory changes, fetch related services
+	  if (name === 'laboratory' && value) {
+		fetchSampleProcessingServicesByLab(value);
+	  }
+	
+	  // Filter services based on input for typeOfAnalysis
+	  if (name === 'typeOfAnalysis') {
 		const filtered = services.filter(service =>
-			service.service_name.toLowerCase().includes(value.toLowerCase())
+		  service.service_name.toLowerCase().includes(value.toLowerCase())
 		);
 		setFilteredServices(filtered);
 		setShowDropdown(true);
-	}
+	  }
+
 	 // Clear error when field is modified
 	 if (errors[name]) {
 		setErrors({
@@ -351,45 +373,28 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 						</div>
 
 						{/* Type of Analysis*/}
-						<div className='form-group' ref={dropdownRef}>
+						<div className='form-group'>
 							<label>Type of Analysis</label>
 							{loading ? (
-							<p>Loading services...</p>
-							) : (
-							<div className="autocomplete-container">
-								<input
-								type="text"
-								name="typeOfAnalysis"
-								value={formData.typeOfAnalysis}
-								onChange={handleChange}
-								onFocus={() => {
-                                    // Show dropdown with all services when focusing on empty field
-                                    if (formData.typeOfAnalysis === '') {
-                                        setFilteredServices(services);
-                                    }
-                                    setShowDropdown(true);
-                                }}
-								placeholder="Type to search services"
-								/>
-								
-								{showDropdown && filteredServices.length > 0 && (
-								<div className="analysis-dropdown-menu">
-									{filteredServices.map(service => (
-									<div 
-										key={service.service_id} 
-										className="analysis-dropdown-item"
-										onClick={() => handleServiceSelect(service)}
-									>
-										{service.service_name}
-									</div>
-									))}
-								</div>
-								)}
-                                {filteredServices.length === 0 && formData.typeOfAnalysis && (
-                                    <p className="no-results">No matching services found</p>
-                                )}
-							</div>
-							)}
+                                <p>Loading services...</p>
+                            ) : (
+                                <select
+                                    name="typeOfAnalysis"
+                                    value={formData.typeOfAnalysis}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Select Type of Analysis</option>
+                                    {services && services.length > 0 ? (
+                                        services.map((service) => (
+                                            <option key={service.service_id} value={service.service_name}>
+                                                {service.service_name}
+                                            </option>
+                                        ))
+                                    ) : (
+                                        <option value="">No analysis types available</option>
+                                    )}
+                                </select>
+                            )}
 							{errors.typeOfAnalysis && <p className="error">{errors.typeOfAnalysis}</p>}
 						</div>
 

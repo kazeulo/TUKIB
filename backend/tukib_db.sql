@@ -322,7 +322,7 @@ CREATE TABLE feedback_table (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the rates_and_services table (data taken from rates.docx) (to use in types of analysis in forms)
+-- Create the rates_and_services table (data taken from rates.docx) (to use in forms)
 CREATE TABLE rates_and_services (
     service_id SERIAL PRIMARY KEY,
     service_type VARCHAR(50) NOT NULL,  -- 'Sample Processing' or 'Use of Equipment'
@@ -564,118 +564,118 @@ VALUES
 
 
 -- Insert data for SAMPLE PROCESSING SERVICES
--- FOOD, FEEDS, and FUNCTIONAL LABORATORY
+-- Foods, Feeds and Functional Nutrition
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analysis (Basic Compression)', 'Php130.00/sample', NULL),
-    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analysis (Basic Tensile)', 'Php130.00/sample', NULL),
-    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Freeze Drying', 'Php250.00/hour', NULL),
-    ('Sample Processing', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Spray Drying', 'Php1,410.00/liter of sample', NULL);
+    ('Sample Processing', 'Foods, Feeds and Functional Nutrition', 'Texture Analysis (Basic Compression)', 'Php130.00/sample', NULL),
+    ('Sample Processing', 'Foods, Feeds and Functional Nutrition', 'Texture Analysis (Basic Tensile)', 'Php130.00/sample', NULL),
+    ('Sample Processing', 'Foods, Feeds and Functional Nutrition', 'Freeze Drying', 'Php250.00/hour', NULL),
+    ('Sample Processing', 'Foods, Feeds and Functional Nutrition', 'Spray Drying', 'Php1,410.00/liter of sample', NULL);
 
--- MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY
+-- Material Science
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'AFM Imaging', 'Php6,410.00/sample', '2 scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Surface Profilometry', 'Php8,010.00/sample', '2 scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Surface Roughness', 'Php8,010.00/sample', '2 scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Topography', 'Php8,010.00/sample', '2 scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FTIR-ATR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FT-MidIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'FT-NIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Raman Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging', 'Php5,040.00/sample', '5 SEM images and 2 EDS scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Point Analysis', 'Php6,300.00/sample', '5 SEM images and 2 EDS scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Line Analysis', 'Php7,560.00/sample', '5 SEM images and 2 EDS scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'SEM Imaging -EDS Mapping Analysis', 'Php8,820.00/sample', '5 SEM images and 2 EDS scans per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Sputter Coater', 'Php590.00/sample', NULL),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Spin Coater', 'Php590.00/sample', NULL),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Fluorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Phosphorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Lifetime Measurements', 'Php3,470.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Thermogravimetric Analysis', 'Php4,140.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Differential Scanning Calorimetry', 'Php4,140.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Absorbance Measurements (UV-Vis)', 'Php430.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Absorbance Measurements (UV-Vis-NIR)', 'Php860.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Reflectance Measurements', 'Php1,710.00/sample', '2 replicates per sample'),
-    ('Sample Processing', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Transmission Analysis', 'Php1,710.00/sample', '2 replicates per sample');
+    ('Sample Processing', 'Material Science', 'AFM Imaging', 'Php6,410.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'Material Science', 'Surface Profilometry', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'Material Science', 'Surface Roughness', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'Material Science', 'Topography', 'Php8,010.00/sample', '2 scans per sample'),
+    ('Sample Processing', 'Material Science', 'FTIR-ATR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'FT-MidIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'FT-NIR Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Raman Analysis (No ID)', 'Php4,260.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'SEM Imaging', 'Php5,040.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'Material Science', 'SEM Imaging -EDS Point Analysis', 'Php6,300.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'Material Science', 'SEM Imaging -EDS Line Analysis', 'Php7,560.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'Material Science', 'SEM Imaging -EDS Mapping Analysis', 'Php8,820.00/sample', '5 SEM images and 2 EDS scans per sample'),
+    ('Sample Processing', 'Material Science', 'Sputter Coater', 'Php590.00/sample', NULL),
+    ('Sample Processing', 'Material Science', 'Spin Coater', 'Php590.00/sample', NULL),
+    ('Sample Processing', 'Material Science', 'Fluorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Phosphorescence Analysis', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Lifetime Measurements', 'Php3,470.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Thermogravimetric Analysis', 'Php4,140.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Differential Scanning Calorimetry', 'Php4,140.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Absorbance Measurements (UV-Vis)', 'Php430.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Absorbance Measurements (UV-Vis-NIR)', 'Php860.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Reflectance Measurements', 'Php1,710.00/sample', '2 replicates per sample'),
+    ('Sample Processing', 'Material Science', 'Transmission Analysis', 'Php1,710.00/sample', '2 replicates per sample');
 
--- APPLIED CHEMISTRY LABORATORY
+-- Applied Chemistry
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Sample Processing', 'APPLIED CHEMISTRY LABORATORY', 'Type 1 (Ultrapure) water (per L)', 'Php900.00/3 liter', NULL),
-    ('Sample Processing', 'APPLIED CHEMISTRY LABORATORY', 'Type 2 (Pure) water (per L)', 'Php280.00/liter', NULL);
+    ('Sample Processing', 'Applied Chemistry', 'Type 1 (Ultrapure) water (per L)', 'Php900.00/3 liter', NULL),
+    ('Sample Processing', 'Applied Chemistry', 'Type 2 (Pure) water (per L)', 'Php280.00/liter', NULL);
 
 -- USE OF EQUIPMENT SERVICES
--- FOOD, FEEDS, and FUNCTIONAL LABORATORY
+-- Foods, Feeds and Functional Nutrition
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Analytical Balance', 'Php120.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Chamber Vacuum Sealer', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Chemical Fume Hood', 'Php170.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Constant Climate Chamber', 'Php240.00 – Php330.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Constant Temperature Drying Oven', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Forced Air Drying Oven', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Ice Cream Maker', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Moisture Analyzer', 'Php140.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'pH Meter', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Refractometer', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Rheometer', 'Php1,040.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Rotary Evaporator', 'Php440.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Spray Dryer', 'Php560.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Texture Analyzer', 'Php240.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Ultrasonic Bath', 'Php260.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'UV-Vis Spectrophotometer, 6-placer (190-1100nm)', 'Php550.00/hour', NULL),
-    ('Use of Equipment', 'FOOD, FEEDS, and FUNCTIONAL LABORATORY', 'Water Activity Meter', 'Php140.00/hour', NULL);
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Analytical Balance', 'Php120.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Chamber Vacuum Sealer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Chemical Fume Hood', 'Php170.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Constant Climate Chamber', 'Php240.00 – Php330.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Constant Temperature Drying Oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Forced Air Drying Oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Ice Cream Maker', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Moisture Analyzer', 'Php140.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'pH Meter', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Refractometer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Rheometer', 'Php1,040.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Rotary Evaporator', 'Php440.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Spray Dryer', 'Php560.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Texture Analyzer', 'Php240.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Ultrasonic Bath', 'Php260.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'UV-Vis Spectrophotometer, 6-placer (190-1100nm)', 'Php550.00/hour', NULL),
+    ('Use of Equipment', 'Foods, Feeds and Functional Nutrition', 'Water Activity Meter', 'Php140.00/hour', NULL);
 
--- BIOLOGY LABORATORY
+-- Biology
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Biochemical incubator', 'Php150.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Diamond saw', 'Php280.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Drying oven', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Microanalytical balance', 'Php350.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Microtome', 'Php280.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Paraffin dispenser', 'Php140.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Slide drying bench', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'BIOLOGY LABORATORY', 'Stereomicroscopes', 'Php140.00 – Php420.00/hour', NULL);
+    ('Use of Equipment', 'Biology', 'Biochemical incubator', 'Php150.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Diamond saw', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Drying oven', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Microanalytical balance', 'Php350.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Microtome', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Paraffin dispenser', 'Php140.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Slide drying bench', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Biology', 'Stereomicroscopes', 'Php140.00 – Php420.00/hour', NULL);
 
--- APPLIED CHEMISTRY LABORATORY
+-- Applied Chemistry
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Analytical Balance', 'Php120.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Homogenizer', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Microplate Reader', 'Php580.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'pH meter', 'Php100.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Preparative HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Refrigerated Centrifuge', 'Php450.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Shaking Incubator', 'Php200.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Ultrasonicator (probe-type)/ Ultrasonic Homogenizer', 'Php230.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'UPLC-Tof/MS', 'Php6,840.00 – Php6,970.00/hour', NULL),
-    ('Use of Equipment', 'APPLIED CHEMISTRY LABORATORY', 'Vacuum Evaporation System', 'Php190.00/hour', NULL);
+    ('Use of Equipment', 'Applied Chemistry', 'Analytical Balance', 'Php120.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Homogenizer', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Microplate Reader', 'Php580.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'pH meter', 'Php100.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Preparative HPLC', 'Php1,300.00 – Php1,600.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Refrigerated Centrifuge', 'Php450.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Shaking Incubator', 'Php200.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Ultrasonicator (probe-type)/ Ultrasonic Homogenizer', 'Php230.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'UPLC-Tof/MS', 'Php6,840.00 – Php6,970.00/hour', NULL),
+    ('Use of Equipment', 'Applied Chemistry', 'Vacuum Evaporation System', 'Php190.00/hour', NULL);
 
--- MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY
+-- Material Science
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Atomic Force Microscope (AFM)', 'Php2,040.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Microwave Synthesizer', 'Php940.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'MidIR-NIR-Raman Spectrometer', 'Php1,970.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Muffle Furnace', 'Php250.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Scanning Electron Microscope - Energy Dispersive Spectrometer (SEM-EDS)', 'Php2,360.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'Spectrofluorometer', 'Php2,100.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'STA-DSC', 'Php1,920.00/hour', NULL),
-    ('Use of Equipment', 'MATERIAL SCIENCE & NANOTECHNOLOGY LABORATORY', 'UV-Vis Spectrophotometer, (200-1800nm; UV-Vis, NIR, with DRA)', 'Php930.00/hour', NULL);
+    ('Use of Equipment', 'Material Science', 'Atomic Force Microscope (AFM)', 'Php2,040.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'Microwave Synthesizer', 'Php940.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'MidIR-NIR-Raman Spectrometer', 'Php1,970.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'Muffle Furnace', 'Php250.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'Scanning Electron Microscope - Energy Dispersive Spectrometer (SEM-EDS)', 'Php2,360.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'Spectrofluorometer', 'Php2,100.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'STA-DSC', 'Php1,920.00/hour', NULL),
+    ('Use of Equipment', 'Material Science', 'UV-Vis Spectrophotometer, (200-1800nm; UV-Vis, NIR, with DRA)', 'Php930.00/hour', NULL);
 
--- MICROBIOLOGY & BIOENGINEERING LABORATORY
+-- Microbiology and Bioengineering
 INSERT INTO rates_and_services (service_type, laboratory, service_name, rate_fee, inclusions)
 VALUES
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Autoclave', 'Php240.00/hour', NULL),
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Biosafety Cabinet', 'Php270.00/hour', NULL),
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Compound Microscope', 'Php280.00/hour', NULL),
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Incubators (Shaker & Standard)', 'Php200.00/hour', NULL),
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'Laminar Flow Hood', 'Php170.00/hour', NULL),
-    ('Use of Equipment', 'MICROBIOLOGY & BIOENGINEERING LABORATORY', 'pH meter', 'Php100.00/hour', NULL);
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'Autoclave', 'Php240.00/hour', NULL),
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'Biosafety Cabinet', 'Php270.00/hour', NULL),
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'Compound Microscope', 'Php280.00/hour', NULL),
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'Incubators (Shaker & Standard)', 'Php200.00/hour', NULL),
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'Laminar Flow Hood', 'Php170.00/hour', NULL),
+    ('Use of Equipment', 'Microbiology and Bioengineering', 'pH meter', 'Php100.00/hour', NULL);
     
 -- ======== ALTERS ========
 
