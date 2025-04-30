@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/partials/ContactForm.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -66,6 +68,8 @@ const ContactForm = () => {
             setMessageType('error');
         }
     };
+    AOS.init();
+    AOS.refresh();
 
     return (
         <div className="contact-us">
@@ -187,7 +191,7 @@ const ContactForm = () => {
                 )}
             </Form>
 
-			<div className='location'>
+			<div className='location' data-aos="fade-up">
 				<h5>Visit us</h5>
 				<iframe
 					title='"Regional Research Center Location"'
