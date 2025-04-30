@@ -107,7 +107,7 @@ const ContactForm = () => {
 							<h4>Opening Hours</h4>
 							<div>
 								<p>
-									<strong>Mon-Sat:</strong> 11AM - 11PM;
+									<strong>Mon-Sat:</strong> 11AM - 11PM &emsp;
 									<strong>Sunday:</strong> Closed
 								</p>
 							</div>
