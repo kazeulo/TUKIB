@@ -73,7 +73,7 @@ const Home = () => {
 						<div className='row'>
 							{/* Service Card 1 */}
 							<div className='col-12 col-sm-6 col-md-3 mb-4'>
-								<div className='service-card d-flex flex-column h-100 text-center'  data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+								<div className='service-card d-flex flex-column h-100 text-center'  data-aos="fade-up" data-aos-duration="1500" data-aos-easing="ease-in-out">
 									<h3>Sample Processing</h3>
 									<div className='icon-container mb-3'>
 										<i className='services-icon fas fa-flask'></i>
@@ -90,7 +90,7 @@ const Home = () => {
 							</div>
 
 							{/* Service Card 2 */}
-							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out">
+							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="200" data-aos-duration="1500" data-aos-easing="ease-in-out">
 								<div className='service-card d-flex flex-column h-100 text-center'>
 									<h3>Use of Equipment</h3>
 									<div className='icon-container mb-3'>
@@ -107,7 +107,7 @@ const Home = () => {
 							</div>
 
 							{/* Service Card 3 */}
-							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-easing="ease-in-out">
+							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="400" data-aos-duration="1500" data-aos-easing="ease-in-out">
 								<div className='service-card d-flex flex-column h-100 text-center'>
 									<h3>Training Service</h3>
 									<div className='icon-container mb-3'>
@@ -126,7 +126,7 @@ const Home = () => {
 							</div>
 
 							{/* Service Card 4 */}
-							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="800" data-aos-duration="1000" data-aos-easing="ease-in-out">
+							<div className='col-12 col-sm-6 col-md-3 mb-4'  data-aos="fade-up" data-aos-delay="800" data-aos-duration="1500" data-aos-easing="ease-in-out">
 								<div className='service-card d-flex flex-column h-100 text-center'>
 									<h3>Use of Facilities</h3>
 									<div className='icon-container mb-3'>

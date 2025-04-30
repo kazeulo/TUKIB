@@ -73,7 +73,7 @@ const ContactForm = () => {
 
     return (
         <div className="contact-us">
-			<div className='contactInfo row'> 
+			<div className="contactInfo row" data-aos="zoom-in" data-aos-duration="500" data-aos-easing="ease-in-out" > 
 				<div className="col-md-6">
 					<div className="info-item d-flex align-items-center">
 						<i className="icon bi bi-map flex-shrink-0"></i>
@@ -120,7 +120,7 @@ const ContactForm = () => {
 				</div>
 			</div>
 
-            <Form onSubmit={handleSubmit} className='contact-form'>
+            <Form onSubmit={handleSubmit} className='contact-form' data-aos="zoom-in" data-aos-duration="500" data-aos-easing="ease-in-out"S>
                 <Row>
                     {/* Name Field */}
                     <Col md={6}>
@@ -191,7 +191,7 @@ const ContactForm = () => {
                 )}
             </Form>
 
-			<div className='location' data-aos="fade-up">
+			<div className='location' data-aos="zoom-in" data-aos-duration="500" data-aos-easing="ease-in-out">
 				<h5>Visit us</h5>
 				<iframe
 					title='"Regional Research Center Location"'
