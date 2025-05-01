@@ -1,27 +1,34 @@
-/* ContactForm.css */
-
-.contact-form {
-  background-color: #fff;
-  padding: 50px 35px !important;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+/* Contact Section */
+.contactSection {
+  padding: 60px 20px;
+  
 }
+
 
 .contact-us {
   width: 100%;
-  max-width: 1250px; 
+  max-width: 1250px;
   margin: 0 auto;
 }
 
-/*contact info*/
-.contactInfo{
-  margin-bottom: 15px;
-  /* background-color: #e7e7e7; */
+/* Contact Info Cards */
+.contactInfo {
+  margin-bottom: 30px;
 }
 
 .contactInfo .info-item {
-  padding: 30px 20px;
+  padding: 25px 20px;
   height: 100%;
-  /* border: 1px solid #ccc; */
+  /* background-color: white; */
+  border-radius: 8px;
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); */
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.contactInfo .info-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .contactInfo .info-item .icon {
@@ -33,15 +40,18 @@
   font-size: 24px;
   line-height: 0;
   color: #fff;
-  background: #eec035;
+  background: linear-gradient(135deg, #eec035 0%, #da813c 100%);
   border-radius: 50%;
   margin-right: 15px;
+  box-shadow: 0 5px 15px rgba(238, 192, 53, 0.2);
 }
 
 .contactInfo .info-item h4 {
-  font-weight: 400;
-  margin: 0 0 5px 0;
+  font-weight: 500;
+  margin: 0 0 8px 0;
   font-family: 'Poppins';
+  font-size: 18px;
+  color: #333;
 }
 
 .contactInfo .info-item p {
@@ -49,68 +59,119 @@
   margin: 0;
   line-height: 24px;
   font-family: 'Quicksand';
-  font-size: 13px;
+  font-size: 14px;
+  color: #666;
 }
 
-/*contact form*/
-.contact-us .contact-form{
-  padding: 25px 0;
+/* Contact Form */
+.contact-form {
+  padding: 40px 35px !important;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  margin-bottom: 10px !important;
+  /* background: linear-gradient(
+		to top right,
+		rgba(142, 21, 55, 0.144) 20%,
+		rgba(90, 39, 119, 0.142) 45%,
+		rgba(218, 128, 60, 0.147) 75%,
+		rgba(255, 205, 53, 0.129) 100%
+	); */
 }
 
 .contact-us .form-control {
-  padding: 25px 15px; 
-  border: 1px solid #ccc; 
-  box-sizing: border-box; 
-  margin-bottom: 2rem; 
-  border-radius: 0;
+  padding: 15px 20px;
+  border: 1px solid #902337c8;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
   transition: all 0.3s ease;
+  font-family: 'Quicksand';
+  font-size: 15px;
 }
 
 .contact-us .form-control:focus {
-  border-color: #ccc; 
-  box-shadow: 0 0 5px rgba(41, 41, 41, 0.3);
-}
-
-/* .contact-us .form-label {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 0.5rem;
-} */
-
-.contact-us .primary-button {
-  margin: 0 auto;
-  display: block;
+  border-color: #902337;
+  box-shadow: 0 0 5px #902337a5;
 }
 
 .contact-us .form-control[as="textarea"] {
-  resize: vertical; 
+  min-height: 150px;
 }
 
-.location{
-  margin-top: 25px; 
+.contact-us .primary-button {
+  margin: 10px auto;
+  display: block;
+  padding: 12px 30px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
-.location iframe{
-  border: 1 solid #6e1214;
+/* Location Map Section */
+.location {
+  margin-top: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  /* box-shadow: 0 0 30px rgba(0, 0, 0, 0.08); */
+  padding: 20px;
+  /* background: linear-gradient(
+		to top right,
+		rgba(142, 21, 55, 0.144) 20%,
+		rgba(90, 39, 119, 0.142) 45%,
+		rgba(218, 128, 60, 0.147) 75%,
+		rgba(255, 205, 53, 0.129) 100%
+	); */
 }
 
-/* message status when try to submit message */
+.location h5 {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.location iframe {
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  height: 400px;
+}
+
+/* Message Status */
 .message-status {
   margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 6px;
   font-size: 14px;
   text-align: center;
+  font-family: 'Quicksand';
+  font-weight: 500;
 }
 
 .message-status.success {
+  background-color: #d1f7dd;
   color: #289842;
+  border: 1px solid #a3e4b7;
 }
 
 .message-status.error {
   background-color: #f8d7da;
   color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
-
-
+/* Media queries for responsiveness */
+@media (max-width: 767px) {
+  .contactSection {
+    padding: 40px 15px;
+  }
+  
+  .contact-form {
+    padding: 30px 20px !important;
+  }
+  
+  .location iframe {
+    height: 300px;
+  }
+}

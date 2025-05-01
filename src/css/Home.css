@@ -96,56 +96,61 @@ section {
 
 /* Services Section */
 .servicesSection {
-	/* border: 1px solid black; */
-	text-align: center;
-	padding: 20px 0 10px;
-}
-
-.services-container {
-	text-align: left;
-	text-align: justify;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 25px;
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
-.service-card {
-	background-color: #c87bee;
-	padding: 35px 25px;
-	font-size: 50px;
-	transition: all ease 0.5s;
-}
-
-.service-card:hover {
-	transform: translateY(-5px);
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.icon-container {
-	text-align: center;
-}
-
-.services-icon {
-	margin: 25px 0;
+	padding: 60px 0 40px;
+	background-color: #f9f9f9;
+  }
+  
+  .service-card {
+	background: linear-gradient(135deg, #c87bee 0%, #a259c4 100%);
+	border-radius: 8px;
+	padding: 30px 22px;
+	height: 100%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.4s ease;
+  }
+  
+  .service-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .icon-container {
+	background-color: rgba(255, 255, 255, 0.2);
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 20px;
+	transition: all 0.3s ease;
+  }
+  
+  .service-card:hover .icon-container {
+	background-color: rgba(255, 255, 255, 0.3);
+	transform: scale(1.1);
+  }
+  
+  .services-icon {
+	font-size: 35px;
 	color: white;
-}
-
-.service-card h3 {
-	text-align: center;
+  }
+  
+  .service-card h3 {
+	margin-bottom: 15px;
 	font-size: 22px;
 	font-weight: 500;
 	font-family: 'Poppins';
 	color: #ffffff;
-}
-
-.service-card p {
+  }
+  
+  .service-card p {
 	font-size: 14px;
-	color: #ffffff;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.9);
 	font-family: 'Quicksand';
-	text-align: justify;
-}
+	font-weight: 500;
+  }
 
 /* News Section */
 .newsSection {

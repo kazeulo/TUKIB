@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/partials/ContactForm.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -66,10 +68,12 @@ const ContactForm = () => {
             setMessageType('error');
         }
     };
+    AOS.init();
+    AOS.refresh();
 
     return (
         <div className="contact-us">
-			<div className='contactInfo row'> 
+			<div className="contactInfo row" data-aos="zoom-in" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="100"> 
 				<div className="col-md-6">
 					<div className="info-item d-flex align-items-center">
 						<i className="icon bi bi-map flex-shrink-0"></i>
@@ -107,7 +111,7 @@ const ContactForm = () => {
 							<h4>Opening Hours</h4>
 							<div>
 								<p>
-									<strong>Mon-Sat:</strong> 11AM - 11PM;
+									<strong>Mon-Sat:</strong> 11AM - 11PM &emsp;
 									<strong>Sunday:</strong> Closed
 								</p>
 							</div>
@@ -116,7 +120,7 @@ const ContactForm = () => {
 				</div>
 			</div>
 
-            <Form onSubmit={handleSubmit} className='contact-form'>
+            <Form onSubmit={handleSubmit} className='contact-form' data-aos="zoom-in" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="100">
                 <Row>
                     {/* Name Field */}
                     <Col md={6}>
@@ -187,11 +191,11 @@ const ContactForm = () => {
                 )}
             </Form>
 
-			<div className='location'>
+			<div className='location' data-aos="zoom-in" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="100">
 				<h5>Visit us</h5>
 				<iframe
 					title='"Regional Research Center Location"'
-					src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2201.961444697611!2d122.22112810096463!3d10.642847900860765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ae5d39c45fc653%3A0x3677cdbbf1b7509d!2sRegional%20Research%20Center!5e0!3m2!1sen!2sph!4v1731212160252!5m2!1sen!2sph'
+					src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2201.961444697611!2d122.22112810096463!3d10.642847900860765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ae5d39c45fc653%3A0x3677cdbbf1b7509d!2sRegional%20Research%20Center!5e1!3m2!1sen!2sph!4v1731212160252!5m2!1sen!2sph&maptype=satellite'
 					width='100%'
 					height='450'
 					style={{ border: 0 }}
