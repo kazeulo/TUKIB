@@ -1,6 +1,9 @@
+/* Contact Section */
 .contactSection {
   padding: 60px 20px;
+  
 }
+
 
 .contact-us {
   width: 100%;
@@ -16,9 +19,9 @@
 .contactInfo .info-item {
   padding: 25px 20px;
   height: 100%;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); */
   transition: all 0.3s ease;
   margin-bottom: 20px;
 }
@@ -66,13 +69,13 @@
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   margin-bottom: 10px !important;
-  background: linear-gradient(
+  /* background: linear-gradient(
 		to top right,
 		rgba(142, 21, 55, 0.144) 20%,
 		rgba(90, 39, 119, 0.142) 45%,
 		rgba(218, 128, 60, 0.147) 75%,
 		rgba(255, 205, 53, 0.129) 100%
-	);
+	); */
 }
 
 .contact-us .form-control {
@@ -109,15 +112,15 @@
   margin-top: 30px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 0 30px rgba(0, 0, 0, 0.08); */
   padding: 20px;
-  background: linear-gradient(
+  /* background: linear-gradient(
 		to top right,
 		rgba(142, 21, 55, 0.144) 20%,
 		rgba(90, 39, 119, 0.142) 45%,
 		rgba(218, 128, 60, 0.147) 75%,
 		rgba(255, 205, 53, 0.129) 100%
-	);
+	); */
 }
 
 .location h5 {
