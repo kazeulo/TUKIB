@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +18,6 @@ const Signup = () => {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [googleLoading, setGoogleLoading] = useState(false);
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,8 +25,10 @@ const Signup = () => {
 
 	const handleSignup = async (e) => {
 		e.preventDefault();
+
 		setError('');
 		setSuccess('');
+		setIsLoading(true);
 
 		const {
 			firstName,
@@ -40,27 +40,55 @@ const Signup = () => {
 			confirmPassword,
 		} = formData;
 
-		if (password !== confirmPassword) {
-			setError('Passwords do not match.');
+		// Validate required fields
+		if (!firstName || !lastName || !email || !password || !confirmPassword) {
+			setError('All fields are required.');
+			setIsLoading(false); // Stop loading if there's a validation error
 			return;
 		}
 
-		setIsLoading(true);
+		// Validate passwords match
+		if (password !== confirmPassword) {
+			setError('Passwords do not match.');
+			setIsLoading(false); // Stop loading if passwords don't match
+			return;
+		}
+
 		try {
-			// Simulate signup request
-			await new Promise((res) => setTimeout(res, 1000));
-			setSuccess('Signup successful!');
-		} catch (err) {
+			const response = await fetch('http://localhost:5000/api/signup', {
+				// Make sure the URL is correct
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					first_name: firstName, // Send first name
+					last_name: lastName, // Send last name
+					email,
+					password,
+					institution,
+					contact_number: contactNumber,
+					name: `${firstName} ${lastName}`, // Send combined name
+				}),
+			});
+
+			const data = await response.json();
+
+			if (response.ok) {
+				// Handle success
+				setSuccess(
+					'Signup successful! Please check your email for confirmation.'
+				);
+			} else {
+				// Handle failure
+				setError(data.message || 'Signup failed. Please try again.');
+			}
+		} catch (error) {
+			console.error('Error signing up', error);
 			setError('Signup failed. Please try again.');
 		} finally {
-			setIsLoading(false);
+			setIsLoading(false); // Stop loading
 		}
-	};
-
-	const handleGoogleSignupSuccess = (credentialResponse) => {
-		setGoogleLoading(true);
-		setSuccess('Signed up with Google successfully!');
-		setGoogleLoading(false);
 	};
 
 	return (
