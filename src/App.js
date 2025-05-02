@@ -17,6 +17,7 @@ import Service from './components/Service';
 import AboutUs from './components/AboutUs';
 import NewsPage from './components/NewsPage';
 import Laboratory from './components/Laboratory';
+import SignUp from './components/SignUp';
 
 // Account pages
 import ClientProfile from './components/account pages/ClientProfile';
@@ -143,11 +144,13 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/trainingRequestDetails',
 		'/messageDetails',
 		'/userDetails',
-		'/NewsDetailPage'
+		'/NewsDetailPage',
 	];
 
 	// check if the current path is in the noChatbotRoutes list
-	const shouldShowChatbot = !noChatbotRoutes.some(route => location.pathname.startsWith(route));
+	const shouldShowChatbot = !noChatbotRoutes.some((route) =>
+		location.pathname.startsWith(route)
+	);
 
 	return (
 		<>
@@ -157,7 +160,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				setIsLoggedIn={setIsLoggedIn}
 				location={location}
 			/>
-			
+
 			{/* only show chatbot on non-dashboard pages */}
 			{shouldShowChatbot && <Chatbot />}
 
@@ -170,6 +173,10 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/login'
 					element={<Login setIsLoggedIn={setIsLoggedIn} />}
+				/>
+				<Route
+					path='/signup'
+					element={<SignUp />}
 				/>
 
 				{/* accounts */}
@@ -293,13 +300,13 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				/>
 
 				{/* news details page */}
-				<Route 
+				<Route
 					path='/newsDetails/:id'
 					Component={NewsDetailPage}
 				/>
 
 				{/* facility details */}
-				<Route 
+				<Route
 					path='/facility/:id'
 					Component={FacilityDetails}
 				/>
