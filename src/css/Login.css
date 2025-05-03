@@ -267,3 +267,98 @@
 		height: auto;
 	}
 }
+
+/* Signup Page Specific Styles */
+.signup-page {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	min-height: 90vh;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: linear-gradient(to right, #8e1537, #28060f);
+	padding: 20px;
+}
+
+.signup-container {
+	width: 100%;
+	max-width: 480px; 
+	padding: 25px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	background-color: #f9f9f994;
+	text-align: center;
+}
+
+.signup-container h2 {
+	margin-bottom: 20px;
+	color: #6e1214;
+}
+
+/* Form layout - two columns for certain fields */
+.form-row {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 10px;
+}
+
+.form-row .form-group {
+	flex: 1;
+}
+
+/* Error and Success Messages */
+.error-message,
+.success-message {
+	margin-top: 15px;
+	padding: 8px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.error-message {
+	background-color: rgba(255, 0, 0, 0.1);
+}
+
+.success-message {
+	background-color: rgba(0, 128, 0, 0.1);
+}
+
+/* Login/Signup Redirect Link Styling */
+.login-redirect,
+.signup-redirect {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 14px;
+	color: #6e1214;
+}
+
+.login-redirect a,
+.signup-redirect a {
+	color: #951f21;
+	text-decoration: none;
+	font-weight: bold;
+	transition: color 0.3s;
+}
+
+.login-redirect a:hover,
+.signup-redirect a:hover {
+	color: #ffcc35;
+	text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.signup-container {
+		padding: 15px;
+		max-width: 100%;
+	}
+	
+	.form-row {
+		flex-direction: column;
+		gap: 0;
+	}
+	
+	.signup-page {
+		padding: 10px;
+	}
+}
