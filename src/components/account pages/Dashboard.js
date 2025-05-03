@@ -41,7 +41,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
                 return <MessagesTable />;
             case 'News':
                 return <News />;
-            case 'Equipments':
+            case 'Equipment':
                 return <EquipmentsTable />;
             case 'Facilities':
                 return <Facilities />;
@@ -76,7 +76,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
                             <p className='menu-text'>News and Announcements</p>
                             <i><FaNewspaper /></i>
                         </li>
-                        <li className={`side-btn ${selectedSection === 'Equipments' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipments')}>
+                        <li className={`side-btn ${selectedSection === 'Equipment' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipment')}>
                             <p className='menu-text'>Equipments</p>
                             <i><FaTools /></i>
                         </li>

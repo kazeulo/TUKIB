@@ -86,7 +86,7 @@ const FacilityDetails = () => {
                         onClick={() => handleRowClick(sched.request_id)}
                         style={{ cursor: 'pointer' }}
                     >
-                        <td>{sched.request_id}</td>
+                        <td>{sched.request_code}</td>
                         <td>{new Date(sched.start).toLocaleString()}</td>
                         <td>{new Date(sched.end).toLocaleString()}</td>
                         <td className='facility-rent-purpose'>{sched.purpose_of_use}</td>

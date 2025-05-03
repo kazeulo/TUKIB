@@ -133,7 +133,8 @@ const getFacilityWithSchedules = async (req, res) => {
           start: row.start_of_use,
           end: row.end_of_use,
           status: row.status,
-          request_id: request_id
+          request_id: request_id,
+          request_code: request_code
         });
       }
     });

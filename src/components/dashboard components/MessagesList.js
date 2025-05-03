@@ -144,12 +144,9 @@ const MessagesList = () => {
               key={convo.id}
               className={`sender-item ${activeConversation?.id === convo.id ? 'active' : ''}`}
               onClick={() => {
+                updateMessageStatus(convo.messages[0].id); // Mark unread messages as read
                 setActiveConversation(convo);
                 setActiveMessage(convo.messages[0]);
-                // Mark unread messages as read
-                if (convo.messages[0].status === 'unread') {
-                  updateMessageStatus(convo.messages[0].id);
-                }
               }}
             >
               {/* <div className="sender-avatar">

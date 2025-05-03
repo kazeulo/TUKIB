@@ -44,6 +44,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     '/trainingRequestDetails',
     '/userDetails',
     '/newsDetails',
+    '/facility',
+    '/chargeslipform',
+    '/chargeslip'
   ];
 
   const shouldHideHeader =
@@ -103,7 +106,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
               <Nav.Item>
                 <Link to="/laboratory" className="nav-link">
-                  Laboratory
+                  Laboratories
                 </Link>
               </Nav.Item>
 

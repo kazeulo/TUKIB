@@ -17,9 +17,8 @@ const equipmentRentalRequestController = require('../controllers/equipmentRental
 const facilityRentalRequestsController = require('../controllers/facilityRentalRequestController');
 const facilityController = require('../controllers/facilityController');
 const laboratoryController = require('../controllers/laboratoryController');
-const feedbackController = require('../controllers/feedbackController');
 const statisticsController = require('../controllers/statisticsController');
-const chargeSlipController = require('../controllers/chargeSlipController');
+const feedbackController = require ('../controllers/feedbackController');
 const servicesController = require('../controllers/ratesAndServicesController');
 
 // Routes for login
@@ -92,6 +91,18 @@ router.get(
 	'/sampleProcessingRequestDetails/:id',
 	serviceRequestsController.getSampleProcessingRequestById
 );
+router.put('/serviceRequest/:id/reject', serviceRequestsController.rejectServiceRequest);
+router.put('/serviceRequest/:id/approve', serviceRequestsController.approveServiceRequest);
+router.get('/serviceRequests/:userId', serviceRequestsController.getServiceRequestsById);
+router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
+router.get('/useOfEquipmentRequestDetails/:id', serviceRequestsController.getEquipmentRentalRequestById);
+router.get('/useOfFacilityRequestDetails/:id', serviceRequestsController.getFacilityRentalRequestById);
+router.get('/trainingRequestDetails/:id', serviceRequestsController.getTrainingRequestById);
+router.get('/sampleProcessingRequestDetails/:id', serviceRequestsController.getSampleProcessingRequestById);
+router.put('/service-requests/:id/in-progress', serviceRequestsController.markAsInProgress);
+router.put('/service-requests/:id/approveChargeSlip', serviceRequestsController.approveChargeSlip);
+router.put('/service-requests/:id/uploadReceipt', serviceRequestsController.uploadReceipt);
+router.put('/service-requests/:id/uploadResult', serviceRequestsController.uploadResult);
 
 // facility
 router.post('/facility', facilityController.createFacility);
@@ -107,10 +118,6 @@ router.post('/feedback', feedbackController.insertFeedback);
 
 // statistics for dashboard overview
 router.get('/statistics', statisticsController.getDashboardStats);
-
-// chargeslip
-router.post('/chargeslip', chargeSlipController.insertChargeSlip);
-router.get('/chargeslip', chargeSlipController.getChargeSlipByRequestId);
 
 // Route for training requests
 router.post('/training-requests', upload, async (req, res) => {

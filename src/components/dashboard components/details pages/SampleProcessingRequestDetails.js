@@ -4,9 +4,7 @@ import '../../../css/dashboard components/detail pages/ServiceRequestDetails.css
 import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
-import { Download } from 'lucide-react';
-
-import chargeSlip from '../../../assets/chargeslip.pdf';
+import { Download, ReceiptPoundSterling } from 'lucide-react';
 
 const SampleProcessingRequestDetails = () => {
   const { id } = useParams();
@@ -15,6 +13,12 @@ const SampleProcessingRequestDetails = () => {
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [chargeSlipUrl, setChargeSlipUrl] = useState(null);
+  const [receiptUrl, setReceiptUrl] = useState(null);
+  const [resultUrl, setResultUrl] = useState(null);
+  const [receiptBase64, setReceiptBase64] = useState(null);
+  const [resultBase64, setResultBase64] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -40,6 +44,51 @@ const SampleProcessingRequestDetails = () => {
 
     fetchServiceRequest();
   }, [id]);
+
+  useEffect(() => {
+    if (requestDetails && requestDetails.charge_slip) {
+      const byteCharacters = atob(requestDetails.charge_slip.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+  
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setChargeSlipUrl(url);
+    }
+  }, [requestDetails]);
+  
+  useEffect(() => {
+    if (requestDetails && requestDetails.payment_receipt) {
+      const byteCharacters = atob(requestDetails.payment_receipt.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+  
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setReceiptUrl(url);
+    }
+  }, [requestDetails]);
+
+  useEffect(() => {
+    if (requestDetails && requestDetails.result) {
+      const byteCharacters = atob(requestDetails.result.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+  
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setResultUrl(url);
+    }
+  }, [requestDetails]);
 
   const renderFilePreview = (fileUrl, label) => {
     if (!fileUrl) return <span>No file provided</span>;
@@ -82,7 +131,7 @@ const SampleProcessingRequestDetails = () => {
     } catch (error) {
       console.error('Error approving request:', error);
     }
-  };
+  }; 
 
   const handleReject = () => {
     setIsRejectModalOpen(true);
@@ -137,6 +186,131 @@ const SampleProcessingRequestDetails = () => {
     navigate("/chargeslipForm", { state: { requestDetails } });
   };
 
+  const handleMarkInProgress = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/service-requests/${id}/in-progress`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setServiceRequest((prevDetails) => ({
+          ...prevDetails,
+          status: 'In Progress',
+        }));
+  
+        alert('Request is now marked as In Progress!');
+      } else {
+        alert(data.message || 'Failed to mark as In Progress');
+      }
+    } catch (error) {
+      console.error('Error marking request as in progress:', error);
+      alert('Something went wrong while updating the status');
+    }
+  };
+  
+  const handleReceiptUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setReceiptBase64(reader.result); 
+    };
+  };
+
+  const handleResultUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setResultBase64(reader.result); 
+    };
+  };
+
+  const handleSubmitReceipt = async () => {
+
+    setIsUploading(true);
+
+    if (!receiptBase64) {
+      alert("No receipt uploaded.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/service-requests/${requestDetails.request_id}/uploadReceipt`, {
+
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          payment_receipt: receiptBase64,
+        })
+      });
+  
+      if (response.ok) {
+        alert("Receipt uploaded successfully.");
+      } else {
+        const err = await response.json();
+        alert("Failed to upload receipt: " + err.message);
+      }
+    } catch (error) {
+      console.error("Error uploading receipt:", error);
+      alert("An error occurred while uploading the receipt.");
+    }
+
+    finally {
+      setIsUploading(false);
+    }
+  };  
+
+  const handleSubmitResult = async () => {
+
+    setIsUploading(true);
+
+    if (!resultBase64) {
+      alert("No receipt uploaded.");
+      return;
+    }
+
+    console.log(resultBase64)
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/service-requests/${requestDetails.request_id}/uploadResult`, {
+
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          result: resultBase64,
+        })
+      });
+  
+      if (response.ok) {
+        alert("Resultt uploaded successfully.");
+      } else {
+        const err = await response.json();
+        alert("Failed to upload receipt: " + err.message);
+      }
+    } catch (error) {
+      console.error("Error uploading receipt:", error);
+      alert("An error occurred while uploading the receipt.");
+    }
+
+    finally {
+      setIsUploading(false);
+    }
+  };  
+
   return (
     <div className="service-request-container">
 
@@ -190,16 +364,16 @@ const SampleProcessingRequestDetails = () => {
           )}
           
           {/* Show charge slip and upload payment receipt */}
-          {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
-            <div className="csp">
+          {requestDetails.charge_slip && requestDetails.status === "Chargeslip Available" && user.role === "Client" && (
+            <div className="chargeslip-available">
               <h4 className="section-header">Charge Slip & Payment Receipt</h4>
               <div className="request-section charge-slip-payment">
-                {/* Link to the charge slip document */}
+                
                 <h6 className="section-header">Chargeslip</h6>
-                <p className='instruction'>You may download your charge slip by clicking the button below:</p>
-                <a className='charge-slip-link' href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                <p className='instruction'>Chargeslip for your request is now available. Click the button below to view and download.</p>
+                <a className='download-link' href={chargeSlipUrl} target="_blank" rel="noopener noreferrer">
                   <Download size={18} style={{ marginRight: '8px' }} />
-                  Charge Slip
+                  View Chargeslip
                 </a>
 
                 <h6 className="section-header">Upload Payment Receipt</h6>
@@ -207,8 +381,61 @@ const SampleProcessingRequestDetails = () => {
                 <input
                   type="file"
                   accept="application/pdf, image/jpeg, image/png"
-                  className="receipt-upload-input"
+                  className="upload-input"
+                  onChange={handleReceiptUpload}
                 />
+                {receiptBase64 && (
+                  <p style={{ color: 'green' }}>Receipt file ready for upload.</p>
+                )}
+                <button onClick={handleSubmitReceipt} disabled={isUploading} className="upload-button">
+                  {isUploading ? "Uploading..." : "Upload Receipt"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* View payment receipt and upload results */}
+          {requestDetails.payment_receipt && user.role === "Admin Staff" && (
+            <div className="csp">
+              <h4 className="section-header">Payment Receipt</h4>
+              <div className="request-section charge-slip-payment">
+
+                <h6 className="section-header">Payment receipt</h6>
+                <p className='instruction'>The client has uploaded a payment receipt. Click the button below to view and download it.</p>
+                <a className='download-link' href={receiptUrl} target="_blank" rel="noopener noreferrer">
+                  <Download size={18} style={{ marginRight: '8px' }} />
+                  Receipt
+                </a>
+
+                <h6 className="section-header">Upload Results</h6>
+                <p className='instruction'>Upload results below.</p>
+                <input
+                  type="file"
+                  accept="application/pdf, image/jpeg, image/png"
+                  className="upload-input"
+                  onChange={handleResultUpload}
+                />
+                {resultBase64 && (
+                  <p style={{ color: 'green' }}>Result/s ready for upload.</p>
+                )}
+
+                <button onClick={handleSubmitResult} disabled={isUploading} className="upload-button">
+                  {isUploading ? "Uploading..." : "Upload Result"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* view result and give feedback */}
+          {requestDetails.result && user.role === "Client" && (
+            <div className="csp">
+              <div className="request-section charge-slip-payment">
+                <h6 className="section-header">Result</h6>
+                <p className='instruction'>Result for your request is now ready. Click the button below to view and download it.</p>
+                <a className='download-link' href={resultUrl} target="_blank" rel="noopener noreferrer">
+                  <Download size={18} style={{ marginRight: '8px' }} />
+                  Receipt
+                </a>
 
                 <h6 className="section-header">Feedback</h6>
                 <p className='instruction'>We value your input! Click the button below to leave feedback.</p>
@@ -280,12 +507,24 @@ const SampleProcessingRequestDetails = () => {
             </div>
           )}
           
-          {/* generate chargeslip */}
           {requestDetails.status === "Approved" && user?.role !== "Client" && (
+            <div className="mark-in-progress">
+              <button 
+                onClick={handleMarkInProgress} 
+                className="btn btn-mark-in-process" 
+                disabled={requestDetails.status === "In Progress"}
+              >
+                {requestDetails.status === "In Progress" ? "In Progress" : "Mark as In Progress"}
+              </button>
+            </div>
+          )}
+
+          {/* generate chargeslip */}
+          {requestDetails.status === "In Progress" && user?.role !== "Client" && (
             <div className="generate-button">
               <button onClick={handleChargeslipGeneration} className="btn btn-generate-chargeslip">Generate Chargeslip</button>
             </div>
-          )}
+          )}  
         </div>
       )}
 

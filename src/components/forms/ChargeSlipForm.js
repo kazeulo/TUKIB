@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IoChevronBack } from 'react-icons/io5';
 import "../../css/ChargeSlip.css"
 
 const ChargeSlipForm = () => {
@@ -32,6 +33,8 @@ const ChargeSlipForm = () => {
     request_id: requestDetails?.request_id,
   });
 
+  // console.log(requestDetails?.payment_option)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -49,6 +52,10 @@ const ChargeSlipForm = () => {
 
   return (
     <div className="csf-container">
+       <button className='btn-back' onClick={() => navigate(-1)}>
+          <IoChevronBack size={16} />
+            Back to Previous Page
+        </button>
       <h2 className="csf-title">Charge Slip Form</h2>
       <p>Ensure all the details are accurate before submitting the charge slip form.</p>
 
@@ -70,18 +77,16 @@ const ChargeSlipForm = () => {
             Option: 
             <select name="payment_option" value={formData.payment_option} onChange={handleChange}>
               <option value="">Select Payment Method</option>
-              <option value="Cash">Cash</option>
+              <option value="Pay at University Registrar">Pay at University Registrar</option>
               <option value="Charged to Project">Charged to Project</option>
             </select>
           </label>
 
-          {formData.payment_option !== "Cash" && (
-            <>
-              <div className="csf-grid">
-                <label>Project Title: <input type="text" name="project_title" value={formData.project_title} onChange={handleChange} /></label>
-                <label>Budget Code: <input type="text" name="project_budget_code" value={formData.project_budget_code} onChange={handleChange} /></label>
-              </div>
-            </>
+          {formData.payment_option === "Charged to Project" && (
+            <div className="csf-grid">
+              <label>Project Title: <input type="text" name="project_title" value={formData.project_title} onChange={handleChange} /></label>
+              <label>Budget Code: <input type="text" name="project_budget_code" value={formData.project_budget_code} onChange={handleChange} /></label>
+            </div>
           )}
         </fieldset>
 

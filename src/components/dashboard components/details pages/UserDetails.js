@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../../../css/dashboard components/detail pages/UserDetails.css';
 import Modal from '../../partials/Modal';
 import profilepic from '../../../assets/profilepic.png'; 
+import { IoChevronBack } from 'react-icons/io5';
 
 const UserDetails = () => {
   const { userId } = useParams();
@@ -144,7 +145,13 @@ const UserDetails = () => {
         <div>{error}</div>
       ) : user ? (
         <div className="user-details-transactions-wrapper">
+            <button className='btn-back' onClick={() => navigate(-1)}>
+              <IoChevronBack size={16} />
+                Back to Previous Page
+            </button>
+
           <div className='user-details-container'>
+
             <div className="user-details-header">
               <h2>User Details</h2>
             </div>
@@ -194,34 +201,46 @@ const UserDetails = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {serviceRequests.map((request) => (
-                        <tr
-                          key={request.request_id}
-                          onClick={(e) => handleRowClick(request.request_id, request.service_name, e)}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          <td>{request.request_id}</td>
-                          <td>{request.service_name}</td>
-                          <td>{new Date(request.start).toLocaleString()}</td>
-                          <td>{request.status}</td>
-                          <td>
-                            {/* Cancel button */}
-                            {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
-                              <button
-                                className="cancel-btn"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleCancelRequest(request.request_id);
-                                }}
-                              >
-                                Cancel
-                              </button>
-                            ) : (
-                              <span>{request.status}</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                      {serviceRequests
+                       .sort((a, b) => {
+                          const statusA = a.status.trim().toLowerCase();
+                          const statusB = b.status.trim().toLowerCase();
+                        
+                          const isPendingA = statusA === 'pending approval';
+                          const isPendingB = statusB === 'pending approval';
+                        
+                          if (isPendingA && !isPendingB) return -1;
+                          if (!isPendingA && isPendingB) return 1;
+
+                          return new Date(b.start) - new Date(a.start);
+                        })
+                        .map((request) => (
+                          <tr
+                            key={request.request_id}
+                            onClick={(e) => handleRowClick(request.request_id, request.service_name, e)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <td>{request.request_code}</td>
+                            <td>{request.service_name}</td>
+                            <td>{new Date(request.start).toLocaleString()}</td>
+                            <td><span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>{request.status}</span></td>
+                            <td>
+                              {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
+                                <button
+                                  className="cancel-btn"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleCancelRequest(request.request_id);
+                                  }}
+                                >
+                                  Cancel
+                                </button>
+                              ) : (
+                                <span>{request.status}</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

@@ -29,6 +29,8 @@
 	width: 350px;
 	max-width: 500px; /* Adjust the logo size */
 	height: auto;
+	/* border: 1px black solid; */
+	margin-bottom: 10px;
 }
 
 .login-container h2 {
@@ -52,7 +54,7 @@
 .login-reminders-list {
 	list-style-type: disc; /* Creates a bulleted list */
 	padding-left: 20px;
-	font-size: 18px;
+	font-size: 14px;
 	margin-top: 15px;
 	max-width: 600px; /* Restrict the width of the text */
 	line-height: 1.5;

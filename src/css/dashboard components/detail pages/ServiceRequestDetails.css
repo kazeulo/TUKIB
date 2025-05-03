@@ -185,6 +185,18 @@
     color: #c62828 !important;
     border: 1px solid #ef9a9a;
   }
+
+  .status-in-progress {
+    background-color: #fff8e1;
+    color: #f57c00 !important;
+    border: 1px solid #ffca28;
+  }
+
+  .status-chargeslip-available{
+    background-color: #fff8e1;
+    color: #f57c00 !important;
+    border: 1px solid #ffca28;
+  }
   
   /* Button Styling */
   .action-buttons {
@@ -252,6 +264,18 @@
     background-color: #82640c;
   }
 
+  .btn-mark-in-process {
+    background-color: #E7B82B;
+    padding: 8px 20px;
+    margin-right:20px;
+    color:white;
+    transition: all 1s ease;
+  }
+
+  .btn-mark-in-process:hover{
+    background-color: #82640c;
+  }
+
   /* Confirmation Toast */
   .confirmation-toast {
     position: fixed;
@@ -279,7 +303,7 @@
     font-style: italic;
   }
 
-  .charge-slip-link {
+  .download-link {
     display: inline-block;
     padding: 10px 16px;
     background-color: #4caf50; 
@@ -290,7 +314,7 @@
     transition: all 0.3s ease;
   }
   
-  .charge-slip-link:hover {
+  .download-link:hover {
     background-color: #349637; 
     color: white;
     text-decoration: none;
@@ -301,7 +325,7 @@
     font-style: italic;
   }
   
-  .receipt-upload-input {
+  .upload-input {
     display: block;
     padding: 8px;
     border: 2px solid #d1d5db; /* gray-300 */
@@ -313,11 +337,11 @@
     max-width: 400px;
   }
   
-  .receipt-upload-input:hover {
+  .upload-input:hover {
     border-color: #349637;
   }
   
-  .receipt-upload-input:focus {
+  .upload-input:focus {
     outline: none;
     border-color: #349637; 
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);

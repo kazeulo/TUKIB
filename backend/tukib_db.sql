@@ -42,7 +42,6 @@ DROP TABLE IF EXISTS facilitiesTable CASCADE;
 DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS feedback_table CASCADE;
-DROP TABLE IF EXISTS chargeslips CASCADE;
 DROP TABLE IF EXISTS rates_and_services CASCADE;
 
 DROP TYPE IF EXISTS roles CASCADE;
@@ -67,7 +66,7 @@ CREATE TYPE roles as ENUM (
 );
 -- Creating ENUM for laboratories
 CREATE TYPE payment_option AS ENUM (
-  'Cash',
+  'Pay at University Registrar',
   'Charged to Project'
 );
 
@@ -106,10 +105,10 @@ CREATE TABLE usersTable (
     institution VARCHAR(255),
     contact_number VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
     first_name VARCHAR(100),
     last_name VARCHAR(100),
-    status VARCHAR(20) DEFAULT 'pending';
+    status VARCHAR(20) DEFAULT 'pending',
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
 );
 
 -- User Tokens Table
@@ -145,7 +144,6 @@ CREATE TABLE facilitiesTable (
     resources TEXT[]
 );
 
-
 CREATE TABLE serviceRequestTable (
     request_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
@@ -158,35 +156,10 @@ CREATE TABLE serviceRequestTable (
     approved_by INT,
     rejection_reason TEXT,
     payment_receipt TEXT,
-    charge_slip BOOLEAN DEFAULT FALSE,
+    charge_slip TEXT,
+    result TEXT,
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (approved_by) REFERENCES usersTable(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE chargeslips (
-    chargeslip_id SERIAL PRIMARY KEY,
-    user_name TEXT,
-    request_id INT,
-    request_code VARCHAR(20),
-    payment_option TEXT,
-    project_title TEXT,
-    project_budget_code TEXT,
-    service_name TEXT,
-    trainingtitle TEXT,
-    trainingdate DATE,
-    participantcount INTEGER,
-    equipment_name TEXT,
-    facility_name TEXT,
-    resources TEXT,
-    type_of_analysis TEXT,
-    volume TEXT,
-    rate NUMERIC,
-    total_hours NUMERIC,
-    institution TEXT DEFAULT 'UP Visayas',
-    clientCategory TEXT DEFAULT 'UPV',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (request_id) REFERENCES serviceRequestTable(request_id) ON DELETE CASCADE
 );
 
 -- Training Requests Table
