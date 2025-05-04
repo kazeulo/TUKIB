@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import "./FeedbackStyles.css";
+import { useNavigate } from 'react-router-dom';
+
 
 const FeedbackForm = () => {
     const [feedback, setFeedback] = useState({
@@ -22,7 +24,7 @@ const FeedbackForm = () => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [confirmationMessage, setConfirmationMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(true);
-
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFeedback({ ...feedback, [e.target.name]: e.target.value });
@@ -252,7 +254,8 @@ const FeedbackForm = () => {
                     />
                 </div>
     
-                <button type="submit" className="feedback-submit-btn">Submit Feedback</button>
+                <button type="submit" className="feedback-submit-btn"  onClick={() => navigate(-1)}
+                >Submit Feedback</button>
             </form>
             {/* Confirmation toast */}
             {showConfirmation && (

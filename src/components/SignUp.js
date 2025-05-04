@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaLock, FaEnvelope, FaPhone, FaBuilding} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
@@ -140,6 +140,7 @@ const Signup = () => {
 	
 						<div className='form-row'>
 						<div className='form-group'>
+							<FaEnvelope className='email-icon' />
 							<label htmlFor='email'>Email</label>
 							<input
 								id='email'
@@ -148,9 +149,11 @@ const Signup = () => {
 								value={formData.email}
 								onChange={handleChange}
 								required
+								className='input-with-icon'
 							/>
 						</div>
 						<div className='form-group'>
+							<FaPhone className='phone-icon' />
 							<label htmlFor='contactNumber'>Contact Number</label>
 							<input
 								id='contactNumber'
@@ -159,11 +162,13 @@ const Signup = () => {
 								value={formData.contactNumber}
 								onChange={handleChange}
 								required
+								className='input-with-icon'
 							/>
 						</div>
 						</div>
 	
 						<div className='form-group'>
+							<FaBuilding className='institution-icon' />
 							<label htmlFor='institution'>Institution</label>
 							<input
 								id='institution'
@@ -172,6 +177,7 @@ const Signup = () => {
 								value={formData.institution}
 								onChange={handleChange}
 								required
+								className='input-with-icon'
 							/>
 						</div>
 	
@@ -179,6 +185,7 @@ const Signup = () => {
 						<div className='form-group'>
 							<label htmlFor='password'>Password</label>
 							<div className='password-input-container'>
+							<FaLock className='password-icon' />
 								<input
 									id='password'
 									name='password'
@@ -186,6 +193,7 @@ const Signup = () => {
 									value={formData.password}
 									onChange={handleChange}
 									required
+									className='input-with-icon'
 								/>
 								<button
 									type='button'
@@ -200,23 +208,23 @@ const Signup = () => {
 						<div className='form-group'>
 							<label htmlFor='confirmPassword'>Confirm Password</label>
 							<div className='password-input-container'>
-								<input
+								<FaLock className='password-icon' />
+								<input 
+								
 									id='confirmPassword'
 									name='confirmPassword'
 									type={showConfirmPassword ? 'text' : 'password'}
 									value={formData.confirmPassword}
 									onChange={handleChange}
 									required
+									className='input-with-icon'
 								/>
+								
 								<button
 									type='button'
 									onClick={() => setShowConfirmPassword(!showConfirmPassword)}
 									className='password-toggle-btn'
-									aria-label={
-										showConfirmPassword
-											? 'Hide confirm password'
-											: 'Show confirm password'
-									}>
+									aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
 									{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
 								</button>
 							</div>
