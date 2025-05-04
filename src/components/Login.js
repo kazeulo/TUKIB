@@ -4,6 +4,8 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Login.css';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+
 
 // import partials
 import Footer from './partials/Footer';
@@ -115,24 +117,26 @@ const Login = ({ setIsLoggedIn }) => {
 						<h2>Login</h2>
 						<form onSubmit={handleLogin}>
 							<div className='form-group'>
+								<FaEnvelope className='email-icon' />
 								<label htmlFor='Email'>Email</label>
 								<input
 									type='text'
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 									required
-									className={error && !email ? 'error' : ''}
+									className={`input-with-icon${error && !email ? 'error' : ''}`}
 								/>
 							</div>
 							<div className='form-group'>
 								<label htmlFor='password'>Password</label>
 								<div className='password-input-container'>
+									<FaLock className='password-icon' />
 									<input
 										type={showPassword ? 'text' : 'password'}
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
 										required
-										className={error && !password ? 'error' : ''}
+										className={`input-with-icon ${error && !password ? 'error' : ''}`}
 									/>
 									<button
 										type='button'
