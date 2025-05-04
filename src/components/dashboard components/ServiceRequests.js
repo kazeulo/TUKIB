@@ -99,16 +99,20 @@ const ServiceRequest = () => {
   // Sorting logic for service requests
   const sortRequests = (requests) => {
     return [...requests].sort((a, b) => {
-      const aDate = new Date(a.start);
-      const bDate = new Date(b.start);
+      const priority = (status) => {
+        if (status.toLowerCase().trim() === 'pending for approval') return 0;
+        if (status.toLowerCase().trim() === 'completed') return 2;
+        return 1;
+      };
   
-      if (a.status === 'Pending for Approval' && b.status !== 'Pending for Approval') return -1;
-      // if (a.status !== 'Pending for Approval' && b.status === 'Pending for Approval') return 1;
+      const statusDiff = priority(a.status) - priority(b.status);
+      if (statusDiff !== 0) return statusDiff;
   
-      return bDate - aDate;
+      // If same priority group, sort by date (oldest first)
+      return new Date(a.start) - new Date(b.start);
     });
-  };
-
+  };  
+  
   const sortedRequests = sortRequests(filteredByServiceType);
 
   const handleRowClick = (requestId, serviceName) => {
@@ -193,18 +197,7 @@ const ServiceRequest = () => {
             </thead>
             <tbody>
               {sortedRequests.length > 0 ? (
-                sortedRequests.sort((a, b) => {
-                  const statusA = a.status.trim().toLowerCase();
-                  const statusB = b.status.trim().toLowerCase();
-                
-                  const isPendingA = statusA === 'pending approval';
-                  const isPendingB = statusB === 'pending approval';
-                
-                  if (isPendingA && !isPendingB) return -1;
-                  if (!isPendingA && isPendingB) return 1;
-
-                  return new Date(b.start) - new Date(a.start);
-                }).map((request) => (
+                sortedRequests.map((request) => (
                   <tr
                     key={request.request_id}
                     onClick={() => handleRowClick(request.request_id, request.service_name)}
@@ -214,7 +207,11 @@ const ServiceRequest = () => {
                     <td>{request.service_name}</td>
                     <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
-                    <td><span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>{request.status}</span></td>
+                    <td>
+                      <span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {request.status}
+                      </span>
+                    </td>
                   </tr>
                 ))
               ) : (

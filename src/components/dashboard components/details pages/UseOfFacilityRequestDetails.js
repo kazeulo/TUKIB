@@ -16,9 +16,12 @@ const UseOfFacilityRequestDetails = () => {
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
-
-  const [isLoading, setIsLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [chargeSlipUrl, setChargeSlipUrl] = useState(null);
+  const [receiptUrl, setReceiptUrl] = useState(null);
+  const [receiptBase64, setReceiptBase64] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('user'));
   
@@ -57,6 +60,36 @@ const UseOfFacilityRequestDetails = () => {
   
     fetchServiceRequest();
   }, [id, navigate]);
+
+  useEffect(() => {
+    if (requestDetails && requestDetails.charge_slip) {
+      const byteCharacters = atob(requestDetails.charge_slip.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+  
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setChargeSlipUrl(url);
+    }
+  }, [requestDetails]);
+
+  useEffect(() => {
+    if (requestDetails && requestDetails.payment_receipt) {
+      const byteCharacters = atob(requestDetails.payment_receipt.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setReceiptUrl(url);
+    }
+  }, [requestDetails]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -163,9 +196,84 @@ const UseOfFacilityRequestDetails = () => {
     navigate("/chargeslipForm", { state: { requestDetails } });
   };  
 
+  const handleMarkCompleted = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/service-requests/${id}/completed`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setServiceRequest((prevDetails) => ({
+          ...prevDetails,
+          status: 'Completed',
+        }));
+  
+        alert('Request is now marked as Completed!');
+      } else {
+        alert(data.message || 'Failed to mark as Completed');
+      }
+    } catch (error) {
+      console.error('Error marking request as completed:', error);
+      alert('Something went wrong while updating the status');
+    }
+  };
+
   const goToFeedback = () => {
     navigate('/feedback-form');
   };
+
+  const handleReceiptUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setReceiptBase64(reader.result); 
+    };
+  };
+
+  const handleSubmitReceipt = async () => {
+
+    setIsUploading(true);
+
+    if (!receiptBase64) {
+      alert("No receipt uploaded.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/service-requests/${requestDetails.request_id}/uploadReceipt`, {
+
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          payment_receipt: receiptBase64,
+        })
+      });
+  
+      if (response.ok) {
+        alert("Receipt uploaded successfully.");
+      } else {
+        const err = await response.json();
+        alert("Failed to upload receipt: " + err.message);
+      }
+    } catch (error) {
+      console.error("Error uploading receipt:", error);
+      alert("An error occurred while uploading the receipt.");
+    }
+
+    finally {
+      setIsUploading(false);
+    }
+  };  
   
   return (
     <div className="service-request-container">
@@ -213,16 +321,17 @@ const UseOfFacilityRequestDetails = () => {
             </div>
           )}
           
-          {requestDetails.charge_slip === true && requestDetails.status === "Approved" && user.role === "Client" && (
-            <div className="csp">
+          {/* Show charge slip and upload payment receipt */}
+          {requestDetails.charge_slip && requestDetails.status === "Chargeslip Available" && user.role === "Client" && (
+            <div className="chargeslip-available">
               <h4 className="section-header">Charge Slip & Payment Receipt</h4>
               <div className="request-section charge-slip-payment">
-                {/* Link to the charge slip document */}
+                    
                 <h6 className="section-header">Chargeslip</h6>
-                <p className='instruction'>You may download your charge slip by clicking the button below:</p>
-                <a className='charge-slip-link' href={chargeSlip} target="_blank" rel="noopener noreferrer">
+                <p className='instruction'>Chargeslip for your request is now available. Click the button below to view and download.</p>
+                <a className='download-link' href={chargeSlipUrl} target="_blank" rel="noopener noreferrer">
                   <Download size={18} style={{ marginRight: '8px' }} />
-                  Charge Slip
+                    View Chargeslip
                 </a>
 
                 <h6 className="section-header">Upload Payment Receipt</h6>
@@ -230,8 +339,15 @@ const UseOfFacilityRequestDetails = () => {
                 <input
                   type="file"
                   accept="application/pdf, image/jpeg, image/png"
-                  className="receipt-upload-input"
+                  className="upload-input"
+                  onChange={handleReceiptUpload}
                 />
+                {receiptBase64 && (
+                  <p style={{ color: 'green' }}>Receipt file ready for upload.</p>
+                )}
+                <button onClick={handleSubmitReceipt} disabled={isUploading} className="upload-button">
+                  {isUploading ? "Uploading..." : "Upload Receipt"}
+                </button>
 
                 <h6 className="section-header">Feedback</h6>
                 <p className='instruction'>We value your input! Click the button below to leave feedback.</p>
@@ -241,6 +357,31 @@ const UseOfFacilityRequestDetails = () => {
               </div>
             </div>
           )}
+
+          {/* View payment receipt and upload results */}
+          {user.role === "Admin Staff" && (
+            requestDetails.status === "Chargeslip Available" || requestDetails.status === "Completed"
+          ) && (
+            <div className="csp">
+              <h4 className="section-header">Payment Receipt</h4>
+              <div className="request-section charge-slip-payment">
+                <h6 className="section-header">Payment receipt</h6>
+                  {requestDetails.payment_receipt ? (
+                    <>
+                      <p className='instruction'>The client has uploaded a payment receipt. Click the button below to view and download it.</p>
+                      <a className='download-link' href={receiptUrl} target="_blank" rel="noopener noreferrer">
+                        <Download size={18} style={{ marginRight: '8px' }} />
+                        Receipt
+                      </a>
+
+                      <button className='mark-completed' onClick={handleMarkCompleted}>Mark as completed.</button>
+                    </>
+                  ) : (
+                    <p className='instruction'>The client has not uploaded a payment receipt yet.</p>
+                  )}
+                </div>
+              </div>
+            )}
           
           {/* Facility Usage Details */}
           <h4 className="section-header">Facility Usage</h4>

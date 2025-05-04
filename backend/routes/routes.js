@@ -103,6 +103,7 @@ router.put('/service-requests/:id/in-progress', serviceRequestsController.markAs
 router.put('/service-requests/:id/approveChargeSlip', serviceRequestsController.approveChargeSlip);
 router.put('/service-requests/:id/uploadReceipt', serviceRequestsController.uploadReceipt);
 router.put('/service-requests/:id/uploadResult', serviceRequestsController.uploadResult);
+router.put('/service-requests/:id/completed', serviceRequestsController.markAsCompleted);
 
 // facility
 router.post('/facility', facilityController.createFacility);

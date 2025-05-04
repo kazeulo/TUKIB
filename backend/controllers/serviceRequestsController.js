@@ -139,6 +139,7 @@ const getTrainingRequestById = async (req, res) => {
                 sr.rejection_reason,
                 sr.request_code,
                 sr.charge_slip,
+                sr.payment_receipt,
                 u.name AS user_name,
                 u.institution AS user_institution,
                 approver.name AS approver_name,
@@ -205,6 +206,7 @@ const getEquipmentRentalRequestById = async (req, res) => {
                 sr.rejection_reason,
                 sr.request_code,
                 sr.charge_slip,
+                sr.payment_receipt,
                 u.name AS user_name,
                 u.institution AS user_institution,
                 approver.name AS approver_name,
@@ -276,6 +278,7 @@ const getFacilityRentalRequestById = async (req, res) => {
                 sr.rejection_reason,
                 sr.request_code,
                 sr.charge_slip,
+                sr.payment_receipt,
                 u.name AS user_name,
                 u.institution AS user_institution,
                 approver.name AS approver_name,
@@ -592,18 +595,59 @@ const uploadResult = async (req, res) => {
     }
 };  
 
+const markAsCompleted = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Validate the request ID
+    if (!id || isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid request ID' });
+    }
+    const result = await pool.query(
+      'SELECT * FROM serviceRequestTable WHERE request_id = $1',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+
+    const serviceRequest = result.rows[0];
+
+    if (serviceRequest.status !== 'Chargeslip Available') {
+      return res.status(400).json({ message: 'Request must be Chargeslip Available before marking as completed' });
+    }
+
+    // Update the status to "In Progress"
+    const updateResult = await pool.query(
+      'UPDATE serviceRequestTable SET status = $1 WHERE request_id = $2 RETURNING *',
+      ['Completed', id]
+    );
+
+    // Return the updated service request
+    return res.status(200).json({
+      message: 'Request marked as completed successfully',
+      data: updateResult.rows[0],
+    });
+  } catch (error) {
+    console.error('Error marking request as In Progress:', error);
+    return res.status(500).json({ message: 'Error marking request as In Progress' });
+  }
+};  
+
 module.exports = {
 	getServiceRequests,
-    getServiceRequestsById,
+  getServiceRequestsById,
 	cancelServiceRequest,
 	getTrainingRequestById,
 	getEquipmentRentalRequestById,
 	getFacilityRentalRequestById,
 	getSampleProcessingRequestById,
-    rejectServiceRequest,
-    approveServiceRequest,
-    markAsInProgress,
-    approveChargeSlip,
-    uploadReceipt,
-    uploadResult
+  rejectServiceRequest,
+  approveServiceRequest,
+  markAsInProgress,
+  approveChargeSlip,
+  uploadReceipt,
+  uploadResult,
+  markAsCompleted
 };

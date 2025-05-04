@@ -54,8 +54,26 @@ const ClientProfile = ({ isLoggedIn }) => {
           const data = await response.json();
 
           if (data.status === 'success') {
-            setServiceRequests(data.serviceRequests);
-            setFilteredRequests(data.serviceRequests);
+
+            const sortedRequests = data.serviceRequests.sort((a, b) => {
+              const getStatusPriority = (status) => {
+                if (status === 'Pending for Approval') return 0;
+                if (status === 'Completed') return 2;
+                return 1; 
+              };
+            
+              const priorityA = getStatusPriority(a.status);
+              const priorityB = getStatusPriority(b.status);
+            
+              if (priorityA !== priorityB) return priorityA - priorityB;
+            
+              const dateA = new Date(a.start);
+              const dateB = new Date(b.start);
+              return dateB - dateA;
+            });            
+
+            setServiceRequests(sortedRequests);
+            setFilteredRequests(sortedRequests);
             setLoading(false);
           } else {
             console.error('No service requests found for this user');
@@ -257,6 +275,7 @@ const ClientProfile = ({ isLoggedIn }) => {
     } catch (error) {
       console.error('Error saving profile:', error);
     }
+    
   };  
 
   const stats = getStats();
