@@ -390,6 +390,12 @@ const SampleProcessingRequestDetails = () => {
                 <button onClick={handleSubmitReceipt} disabled={isUploading} className="upload-button">
                   {isUploading ? "Uploading..." : "Upload Receipt"}
                 </button>
+
+                <h6 className="section-header">Feedback</h6>
+                <p className='instruction'>We value your input! Click the button below to leave feedback.</p>
+                <button className="feedback-button" onClick={goToFeedback}>
+                  Go to Feedback Form
+                </button>
               </div>
             </div>
           )}
@@ -436,12 +442,6 @@ const SampleProcessingRequestDetails = () => {
                   <Download size={18} style={{ marginRight: '8px' }} />
                   Receipt
                 </a>
-
-                <h6 className="section-header">Feedback</h6>
-                <p className='instruction'>We value your input! Click the button below to leave feedback.</p>
-                <button className="feedback-button" onClick={goToFeedback}>
-                  Go to Feedback Form
-                </button>
               </div>
             </div>
           )}
