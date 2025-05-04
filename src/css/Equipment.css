@@ -83,3 +83,8 @@
     margin-top: 5px;
   }
   
+.checkbox{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

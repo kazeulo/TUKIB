@@ -3,11 +3,12 @@
 }
 
 .user-details-container{
+    margin-top: 100px;
     width: 100%;
     background-color: #f8f9fa;
     border-radius: 8px;
     overflow: hidden;
-    margin: 30px 0; 
+    margin: 20px 0 30px; 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -100,3 +101,19 @@
     margin: 0;
 }
 
+.btn-back{
+    color: blue;
+    background-color: transparent;
+    border: none;
+    color: #1976d2;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+  }

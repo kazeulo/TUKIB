@@ -326,13 +326,15 @@ const Equipments = () => {
                                 ))}
                             </select>
 
-                            <label>Sticker Paper Printed</label>
-                            <input
-                                type="checkbox"
-                                name="sticker_paper_printed"
-                                checked={formData.sticker_paper_printed}
-                                onChange={handleInputChange}
-                            />
+                            <label className="checkbox">
+                                <input
+                                    type="checkbox"
+                                    name="sticker_paper_printed"
+                                    checked={formData.sticker_paper_printed}
+                                    onChange={handleInputChange}
+                                />
+                                Sticker Paper Printed
+                            </label>
 
                             <label>Remarks</label>
                             <input 

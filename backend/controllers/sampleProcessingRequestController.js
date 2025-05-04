@@ -18,7 +18,6 @@ const createSampleProcessingRequest = async (req, res) => {
       sampleDescription,
       sampleVolume = null,
       methodSettings,
-      request_code,
       sampleHazardDescription,
       scheduleSampleSubmission,
       additionalInformation = null,

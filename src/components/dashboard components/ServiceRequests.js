@@ -193,7 +193,18 @@ const ServiceRequest = () => {
             </thead>
             <tbody>
               {sortedRequests.length > 0 ? (
-                sortedRequests.map((request) => (
+                sortedRequests.sort((a, b) => {
+                  const statusA = a.status.trim().toLowerCase();
+                  const statusB = b.status.trim().toLowerCase();
+                
+                  const isPendingA = statusA === 'pending approval';
+                  const isPendingB = statusB === 'pending approval';
+                
+                  if (isPendingA && !isPendingB) return -1;
+                  if (!isPendingA && isPendingB) return 1;
+
+                  return new Date(b.start) - new Date(a.start);
+                }).map((request) => (
                   <tr
                     key={request.request_id}
                     onClick={() => handleRowClick(request.request_id, request.service_name)}
@@ -203,7 +214,7 @@ const ServiceRequest = () => {
                     <td>{request.service_name}</td>
                     <td>{request.user_name}</td>
                     <td>{new Date(request.start).toLocaleString()}</td>
-                    <td>{request.status}</td>
+                    <td><span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>{request.status}</span></td>
                   </tr>
                 ))
               ) : (

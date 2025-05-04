@@ -259,9 +259,9 @@ const Facilities = () => {
         <table className="facility-table">
           <thead>
           <tr>
-              <th>Facility Name</th>
+              <th style={{ width: '300px'}}>Facility Name</th>
               <th>Upcoming Schedules</th>
-              <th>Actions</th>
+              <th style={{ width: '120px'}}>Actions</th>
             </tr>
           </thead>
           <tbody>

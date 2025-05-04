@@ -66,7 +66,7 @@ import ScrollTop from './components/partials/ScrollTop';
 import Preloader from './components/partials/Preloader';
 import Header from './components/partials/Header';
 
-const INACTIVITY_LIMIT = 1200000; // 20 minutes of inactivity (in milliseconds)
+// const INACTIVITY_LIMIT = 1200000; // 20 minutes of inactivity (in milliseconds)
 
 const App = () => {
 	const [loading, setLoading] = useState(true);
@@ -77,32 +77,32 @@ const App = () => {
 			setLoading(false);
 		}, 1000);
 
-		// Clear localStorage and logout if the user is inactive for the defined time
-		let inactivityTimer;
+		// // Clear localStorage and logout if the user is inactive for the defined time
+		// let inactivityTimer;
 
-		const resetInactivityTimer = () => {
-			if (inactivityTimer) {
-				clearTimeout(inactivityTimer);
-			}
+		// const resetInactivityTimer = () => {
+		// 	if (inactivityTimer) {
+		// 		clearTimeout(inactivityTimer);
+		// 	}
 
-			inactivityTimer = setTimeout(() => {
-				localStorage.clear();
-				setIsLoggedIn(false);
-			}, INACTIVITY_LIMIT);
-		};
+		// 	inactivityTimer = setTimeout(() => {
+		// 		localStorage.clear();
+		// 		setIsLoggedIn(false);
+		// 	}, INACTIVITY_LIMIT);
+		// };
 
-		const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
-		activityEvents.forEach((event) =>
-			window.addEventListener(event, resetInactivityTimer)
-		);
+		// const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
+		// activityEvents.forEach((event) =>
+		// 	window.addEventListener(event, resetInactivityTimer)
+		// );
 
-		resetInactivityTimer();
+		// resetInactivityTimer();
 
 		return () => {
 			clearTimeout(timer);
-			activityEvents.forEach((event) =>
-				window.removeEventListener(event, resetInactivityTimer)
-			);
+			// activityEvents.forEach((event) =>
+			// 	window.removeEventListener(event, resetInactivityTimer)
+			// );
 		};
 	}, []);
 
@@ -116,9 +116,9 @@ const App = () => {
 
 	return (
 		<Router>
-			{loading ? (
-				<Preloader />
-			) : (
+				{loading ? (
+					<Preloader />
+				) : (
 				<>
 					<LocationWrapper
 						isLoggedIn={isLoggedIn}
@@ -145,6 +145,9 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/messageDetails',
 		'/userDetails',
 		'/NewsDetailPage',
+		'/facility',
+		'/chargeslipform',
+		'/chargeslip'
 	];
 
 	// check if the current path is in the noChatbotRoutes list
@@ -162,7 +165,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 			/>
 
 			{/* only show chatbot on non-dashboard pages */}
-			{shouldShowChatbot && <Chatbot />}
+			{/* {shouldShowChatbot && <Chatbot />} */}
 
 			<Routes>
 				{/* main pages */}

@@ -384,9 +384,11 @@ const ClientProfile = ({ isLoggedIn }) => {
                     <button onClick={() => handleNewServiceRequest("use-of-equipment-form")}>
                       <i className="fas fa-tools"></i> Use of Equipment
                     </button>
+                    {/*
                     <button onClick={() => handleNewServiceRequest("combined-service-request-form")}>
                       <i className="fas fa-layer-group"></i> Combined Service Request
                     </button>
+                    */}
                     <button onClick={() => handleNewServiceRequest("training-form")}>
                       <i className="fas fa-chalkboard-teacher"></i> Training
                     </button>

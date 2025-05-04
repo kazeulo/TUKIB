@@ -1,4 +1,5 @@
 const pool = require('../backend');
+const upload = require('../middlewares/multerConfig');
 
 const getServiceRequests = async (req, res) => {
 	try {
@@ -338,6 +339,8 @@ const getSampleProcessingRequestById = async (req, res) => {
                 sr.rejection_reason,
                 sr.request_code,
                 sr.charge_slip,
+                sr.payment_receipt,
+                sr.result,
                 u.name AS user_name,
                 u.institution AS user_institution,
                 approver.name AS approver_name,
@@ -452,6 +455,143 @@ const approveServiceRequest = async (req, res) => {
     }
 };
 
+const markAsInProgress = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Validate the request ID
+      if (!id || isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid request ID' });
+      }
+  
+      // Check if the request exists and is in the "Approved" state
+      const result = await pool.query(
+        'SELECT * FROM serviceRequestTable WHERE request_id = $1',
+        [id]
+      );
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Request not found' });
+      }
+  
+      const serviceRequest = result.rows[0];
+  
+      // Ensure that the request is "Approved" before marking it as In Progress
+      if (serviceRequest.status !== 'Approved') {
+        return res.status(400).json({ message: 'Request must be approved before marking as In Progress' });
+      }
+  
+      // Update the status to "In Progress"
+      const updateResult = await pool.query(
+        'UPDATE serviceRequestTable SET status = $1 WHERE request_id = $2 RETURNING *',
+        ['In Progress', id]
+      );
+  
+      // Return the updated service request
+      return res.status(200).json({
+        message: 'Request marked as In Progress successfully',
+        data: updateResult.rows[0],
+      });
+    } catch (error) {
+      console.error('Error marking request as In Progress:', error);
+      return res.status(500).json({ message: 'Error marking request as In Progress' });
+    }
+};  
+
+const approveChargeSlip = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { charge_slip_file } = req.body;
+
+        if (!charge_slip_file) {
+            return res.status(400).json({ message: "Charge slip file is required" });
+        }
+
+        // Check if the service request exists
+        const result = await pool.query(
+            `SELECT request_id FROM serviceRequestTable WHERE request_id = $1`,
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Request not found" });
+        }
+
+        // Update the status and attach the charge slip file
+        const updateResult = await pool.query(
+            `UPDATE serviceRequestTable
+             SET status = $1, charge_slip = $2
+             WHERE request_id = $3
+             RETURNING *`,
+            ['Chargeslip Available', charge_slip_file, id]
+        );
+
+        return res.status(200).json({
+            message: "Request approved and charge slip saved successfully",
+            data: updateResult.rows[0],
+        });
+    } catch (error) {
+        console.error("Error approving charge slip:", error);
+        return res.status(500).json({ message: "Error approving charge slip" });
+    }
+};
+
+const uploadReceipt = async (req, res) => {
+    const { id } = req.params;
+    const { payment_receipt } = req.body;
+  
+    if (!payment_receipt) {
+      return res.status(400).json({ message: "Receipt file is required." });
+    }
+  
+    try {
+      const updateQuery = `
+        UPDATE serviceRequestTable
+        SET payment_receipt = $1
+        WHERE request_id = $2
+        RETURNING *;
+      `;
+      const result = await pool.query(updateQuery, [payment_receipt, id]);
+  
+      if (result.rowCount === 0) {
+        return res.status(404).json({ message: "Request not found." });
+      }
+  
+      res.status(200).json({ message: "Receipt uploaded successfully.", data: result.rows[0] });
+    } catch (error) {
+      console.error("Error uploading receipt:", error);
+      res.status(500).json({ message: "Internal server error." });
+    }
+};
+
+const uploadResult = async (req, res) => {
+    const { id } = req.params;
+    const { result } = req.body;
+  
+    if (!result) {
+      return res.status(400).json({ message: "Result file is required." });
+    }
+  
+    try {
+      const updateQuery = `
+        UPDATE serviceRequestTable
+        SET status = $1, result = $2
+        WHERE request_id = $3
+        RETURNING *;
+      `;
+      const dbResult = await pool.query(updateQuery, ['Completed', result, id]);
+  
+      if (dbResult.rowCount === 0) {
+        return res.status(404).json({ message: "Request not found." });
+      }
+  
+      res.status(200).json({ message: "Result uploaded and status updated.", data: dbResult.rows[0] });
+    } catch (error) {
+      console.error("Error uploading result:", error);
+      res.status(500).json({ message: "Internal server error." });
+    }
+};  
+
 module.exports = {
 	getServiceRequests,
     getServiceRequestsById,
@@ -461,5 +601,9 @@ module.exports = {
 	getFacilityRentalRequestById,
 	getSampleProcessingRequestById,
     rejectServiceRequest,
-    approveServiceRequest
+    approveServiceRequest,
+    markAsInProgress,
+    approveChargeSlip,
+    uploadReceipt,
+    uploadResult
 };
