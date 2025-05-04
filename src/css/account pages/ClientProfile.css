@@ -260,6 +260,10 @@
     border: none;
     box-shadow: none;
   }
+
+  .search-bar:hover, .filter-action-btn:hover {
+    background-color: #ededed;
+  }
   
   .client-search-input:focus,
   .client-search-input:active {
@@ -300,6 +304,7 @@
     gap: 15px;
     flex: 1;
     border-left: 4px solid transparent;
+    margin-bottom: 10px;
   }
   
   .summary-card:nth-child(1) {

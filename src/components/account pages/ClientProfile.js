@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../partials/Footer';
-import { FaChevronDown, FaFilter, FaCheckCircle, FaExclamationCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaChevronDown, FaFilter, FaCheckCircle, FaExclamationCircle, FaTimesCircle, FaPlusCircle } from 'react-icons/fa';
 import '../../css/account pages/ClientProfile.css';
 import profilepic from '../../assets/profilepic.png'; 
 import MuiCalendar from './MuiCalendar';
@@ -27,16 +27,8 @@ const ClientProfile = ({ isLoggedIn }) => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [serviceTypeFilter, setServiceTypeFilter] = useState('all');
+  
 
-  // Status colors for visual representation
-  // const statusColors = {
-  //   'Completed': '#28a745',
-  //   'Cancelled': '#dc3545',
-  //   'Pending for approval': '#ffc107',
-  //   'In Process': '#17a2b8',
-  //   'Rejected': '#dc3545',
-  //   'Approved': '#32ce56'
-  // };
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -204,7 +196,7 @@ const ClientProfile = ({ isLoggedIn }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
+        setDropdownOpen(false) || setIsFilterOpen(false);
       }
     };
 
@@ -371,7 +363,7 @@ const ClientProfile = ({ isLoggedIn }) => {
                 <button 
                   className="client-action-btn primary-action"
                   onClick={() => setDropdownOpen(!dropdownOpen)}>
-                  {/* <i className="fas fa-plus-circle"></i>  */}
+                  <FaPlusCircle/>
                   New Service Request
                   <FaChevronDown className={`dropdown-icon ${dropdownOpen ? "open" : ""}`} />
                 </button>
