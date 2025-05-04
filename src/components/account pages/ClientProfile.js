@@ -56,15 +56,21 @@ const ClientProfile = ({ isLoggedIn }) => {
           if (data.status === 'success') {
 
             const sortedRequests = data.serviceRequests.sort((a, b) => {
-              const statusA = a.status === 'Pending for Approval' ? 0 : 1;
-              const statusB = b.status === 'Pending for Approval' ? 0 : 1;
-          
-              if (statusA !== statusB) return statusA - statusB;
-          
+              const getStatusPriority = (status) => {
+                if (status === 'Pending for Approval') return 0;
+                if (status === 'Completed') return 2;
+                return 1; 
+              };
+            
+              const priorityA = getStatusPriority(a.status);
+              const priorityB = getStatusPriority(b.status);
+            
+              if (priorityA !== priorityB) return priorityA - priorityB;
+            
               const dateA = new Date(a.start);
               const dateB = new Date(b.start);
               return dateB - dateA;
-            });
+            });            
 
             setServiceRequests(sortedRequests);
             setFilteredRequests(sortedRequests);
