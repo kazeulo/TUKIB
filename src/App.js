@@ -165,7 +165,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 			/>
 
 			{/* only show chatbot on non-dashboard pages */}
-			{/* {shouldShowChatbot && <Chatbot />} */}
+			{shouldShowChatbot && <Chatbot />}
 
 			<Routes>
 				{/* main pages */}
@@ -312,6 +312,12 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/facility/:id'
 					Component={FacilityDetails}
+				/>
+
+				{/* error 404 for all the unmatched route */}
+				<Route 
+					path="*" 
+					element={<Error404 />} 
 				/>
 			</Routes>
 		</>

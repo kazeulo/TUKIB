@@ -36,14 +36,15 @@ const Sidebar = ({ renderSidebarContent, handleLogout }) => {
 
     return (
         <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
-            <div className="sidebarTitle-container">
-                <h2 className='sidebarTitle'>Dashboard</h2>
-            </div>
-
             <ul className={`menu ${isCollapsed ? 'collapsed' : ''}`}>
-                <button className="toggle-btn" onClick={toggleSidebar}>
-                    <i className="fas fa-bars"></i> {/* Hamburger Icon */}
-                </button>
+
+                <div className="sidebar-title-container">
+                    <h2 className="sidebar-title">Dashboard</h2>
+                    <button className="toggle-btn" onClick={toggleSidebar}>
+                        <i className={`fas ${isCollapsed ? 'fa-bars' : 'fa-times'}`}></i>
+                    </button>
+                </div>
+
                 {/* Render the sidebar based on the user's role */}
                 {renderSidebarContent()}
 
