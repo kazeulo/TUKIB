@@ -301,7 +301,7 @@ CREATE TABLE feedback_table (
 -- Create the rates_and_services table (data taken from rates.docx) (to use in forms)
 CREATE TABLE rates_and_services (
     service_id SERIAL PRIMARY KEY,
-    service_type VARCHAR(50) NOT NULL,  -- 'Sample Processing' or 'Use of Equipment'
+    service_type VARCHAR(50) NOT NULL,
     laboratory VARCHAR(100) NOT NULL,
     service_name VARCHAR(255) NOT NULL,
     rate_fee VARCHAR(100) NOT NULL,

@@ -3,14 +3,14 @@ const pool = require('../backend');
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const verifyToken = async (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
+
+  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
 
   if (!token) {
     return res.status(403).json({ success: false, message: 'Token is required' });
   }
 
   try {
-    // Verify the token
     const decoded = jwt.verify(token, SECRET_KEY);
 
     const { rows } = await pool.query(
@@ -23,9 +23,13 @@ const verifyToken = async (req, res, next) => {
     }
 
     req.user = decoded;
+
     next(); 
   } catch (error) {
-    return res.status(403).json({ success: false, message: 'Invalid token' });
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ success: false, message: 'Token has expired' });
+    }
+    return res.status(403).json({ success: false, message: 'Invalid token', error: error.message });
   }
 };
 
