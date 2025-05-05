@@ -17,6 +17,19 @@ const Dashboard = ({ setIsLoggedIn }) => {
     // Get user role from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
     const userRole = user?.role; 
+
+    const [showNotifications, setShowNotifications] = useState(false);
+
+    // dummy data for notifications
+    const notifications = [
+        { id: 1, message: "Your request for sample processing has been approved." },
+        { id: 2, message: "Chargeslip for Use of Equipment request is now available." },
+        { id: 3, message: "Your request has been rejected." }
+    ];
+
+    const handleBellClick = () => {
+        setShowNotifications(!showNotifications);
+    };
     
     // Load from sessionStorage or default to 'Overview'
     const [selectedSection, setSelectedSection] = useState(
@@ -30,6 +43,8 @@ const Dashboard = ({ setIsLoggedIn }) => {
 
     // Render content based on the selected section
     const renderContent = () => {
+        <h2 className='sidebarTitle'>Dashboard</h2>
+        
         switch (selectedSection) {
             case 'Overview':
                 return <Overview />;
@@ -134,7 +149,28 @@ const Dashboard = ({ setIsLoggedIn }) => {
 
             {/* Main content panel */}
             <div className="main-panel">
-                <div className='dashHeader'></div>
+                <div className="dashHeader">
+                    <h2 className="greeting mb-0">Hello, {user.name}</h2>
+                    
+                    <div className="notification-icon position-relative" onClick={handleBellClick}>
+                        <i className="fas fa-bell fa-lg"></i>
+                        <span className="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle">
+                            {notifications.length}
+                        </span>
+                    </div>
+                </div>
+
+                {/* notification panel */}
+                {showNotifications && (
+                    <div className="notifications-dropdown">
+                        <ul>
+                            {notifications.map((notification) => (
+                                <li key={notification.id}>{notification.message}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                
                 <div className="content-wrapper">
                     {/* Admin content */}
                     {renderContent()}

@@ -9,35 +9,47 @@ body, html {
   width: 100%;
 }
 
-.sidebarTitle-container {
+.sidebar-title-container{
   display: flex;
-  align-items: center; 
-  width: 100%;
-  padding: 17px 0 5px 20px;
-  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  margin: 13px;
 }
 
-.sidebarTitle {
-  margin-top: 10px;
-  margin-right: 25px;
-  font-size: 27px;
+.sidebar-title {
+  align-items: center;
+  font-size: 30px;
   font-family: var(--primary-font);
   color: var(--primary-color);
   font-weight: bold;
 }
 
+.sidebar.collapsed .sidebar-title {
+  display: none; 
+}
+
+.sidebar.collapsed .toggle-btn {
+  margin: auto; 
+}
+
 .toggle-btn {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   color: #969696;
   font-size: 20px;
   border: none;
   cursor: pointer;
+  background-color: none;
+  transition: all ease 0.5s;
 }
 
 .toggle-btn:active, .toggle-btn:focus {
   outline: none;
-  background-color: #757575 !important; 
+  background-color: #ffffff !important; 
+}
+
+.toggle-btn:hover{
+  color: #a91010;
 }
   
 .container-fluid {
@@ -94,10 +106,11 @@ body, html {
   color: #a8a8a8;
 }
 
-.log-out-btn{
-  display: flex;
-  justify-self: end;
+.log-out-btn {
+  margin-top: auto;
   margin: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .log-out-btn button{

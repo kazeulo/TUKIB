@@ -239,6 +239,19 @@
     margin-bottom: 20px;
   }
 
+  .mark-completed{
+    padding: 8px 20px;
+    margin-right:20px;
+    color:white;
+    background-color: #E7B82B;
+    margin-top: 20px;
+    transition: all ease 0.5s
+  }
+
+  .mark-completed:hover{
+    background-color: #82640c;
+  }
+
   .approve-reject-buttons .btn-approve{
     background-color: #017601;
     padding: 8px 20px;
@@ -346,6 +359,30 @@
     border-color: #349637; 
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
   }
+
+  .upload-button {
+    background-color: #349637;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  }
+  
+  .upload-button:hover {
+    background-color: #2c812f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .upload-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 150, 55, 0.4);
+  }
+
   
   .feedback-button, .feedback-link {
     display: inline-block;

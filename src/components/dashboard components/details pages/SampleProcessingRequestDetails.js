@@ -203,7 +203,10 @@ const SampleProcessingRequestDetails = () => {
           status: 'In Progress',
         }));
   
-        alert('Request is now marked as In Progress!');
+        setConfirmationMessage("Request is marked as In Progress!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
+
       } else {
         alert(data.message || 'Failed to mark as In Progress');
       }
@@ -257,7 +260,9 @@ const SampleProcessingRequestDetails = () => {
       });
   
       if (response.ok) {
-        alert("Receipt uploaded successfully.");
+        setConfirmationMessage("Receipt uploaded successfully!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
       } else {
         const err = await response.json();
         alert("Failed to upload receipt: " + err.message);
@@ -296,7 +301,9 @@ const SampleProcessingRequestDetails = () => {
       });
   
       if (response.ok) {
-        alert("Resultt uploaded successfully.");
+        setConfirmationMessage("Result uploaded successfully!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
       } else {
         const err = await response.json();
         alert("Failed to upload receipt: " + err.message);

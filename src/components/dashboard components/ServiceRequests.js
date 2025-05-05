@@ -108,8 +108,7 @@ const ServiceRequest = () => {
       const statusDiff = priority(a.status) - priority(b.status);
       if (statusDiff !== 0) return statusDiff;
   
-      // If same priority group, sort by date (oldest first)
-      return new Date(a.start) - new Date(b.start);
+      return new Date(b.start) - new Date(a.start);
     });
   };  
   
