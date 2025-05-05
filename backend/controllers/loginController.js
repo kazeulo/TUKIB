@@ -1,41 +1,38 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const pool = require('../backend'); 
 const SECRET_KEY = process.env.SECRET_KEY; 
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log("Received login request:", email, password);
+  console.log("Received login request:", email);
 
   try {
-    // Check if user exists in the database
     const result = await pool.query(
       'SELECT * FROM usersTable WHERE email = $1',
       [email]
     );
+
     console.log("Database query result:", result.rows);
 
     if (result.rows.length > 0) {
       const user = result.rows[0];
-      console.log("User found:", user);
+      // console.log("User found:", user);
 
-      // Compare the provided plain password with the stored password in the database
-      if (password === user.password) {
-        // Generate a JWT token
+      // Compare the entered password with the hashed one in the DB
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (isMatch) {
         const token = jwt.sign(
           { userId: user.user_id, email: user.email },
           SECRET_KEY,
-          { expiresIn: '1h' } // Token expiration in 1 hour
+          { expiresIn: '1h' }
         );
 
-        console.log("Generated token:", token);
-        // console.log(token)
-
-        // Store the token in a table to track user sessions
         const insertTokenQuery = 'INSERT INTO user_tokens (user_id, token, created_at) VALUES ($1, $2, $3)';
         await pool.query(insertTokenQuery, [user.user_id, token, new Date()]);
 
-        // Send the response back with the user data and token
         res.status(200).json({
           success: true,
           message: 'Login successful',
@@ -48,9 +45,7 @@ const handleLogin = async (req, res) => {
             contact: user.contact_number,
             role: user.role,
           },
-          // roleSpecificMessage:
-          //   user.role === 'Admin' ? 'Welcome, Admin!' : 'Welcome, Client!',
-          token: token, // Send the JWT token
+          token: token,
         });
       } else {
         console.log("Invalid password");

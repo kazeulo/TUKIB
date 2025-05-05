@@ -107,14 +107,16 @@ const Dashboard = ({ setIsLoggedIn }) => {
         if (userRole === 'University Researcher') {
             return (
                 <>
-                    <li className={`side-btn ${selectedSection === 'Service Requests' ? 'active' : ''}`} 
-                    onClick={() => setSelectedSection('Service Requests')}>
-                       Service Requests</li> 
-                    <li className={`side-btn ${selectedSection === 'Equipments' ? 'active' : ''}`} 
-                    onClick={() => setSelectedSection('Equipments')}>
-                        Equipments</li> 
-                    <li onClick={() => setSelectedSection('Service Requests')}><FaClipboardList /> Service Requests</li>
-                    <li onClick={() => setSelectedSection('Equipments')}><FaTools /> Equipments</li>
+                <div className='menu'>
+                    <li className={`side-btn ${selectedSection === 'Service Requests' ? 'active' : ''}`} onClick={() => setSelectedSection('Service Requests')}>
+                        <p className='menu-text'>Service Requests</p>
+                        <i><FaClipboardList /></i>
+                    </li> 
+                    <li className={`side-btn ${selectedSection === 'Equipment' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipment')}>
+                        <p className='menu-text'>Equipments</p>
+                        <i><FaTools /></i>
+                    </li> 
+                </div>
                 </>
             );
         }
@@ -122,10 +124,10 @@ const Dashboard = ({ setIsLoggedIn }) => {
         if (userRole === 'TECD Staff') {
             return (
                 <>
-                    <li className={`side-btn ${selectedSection === 'Facilities' ? 'active' : ''}`} 
-                    onClick={() => setSelectedSection('Facilities')}>
-                       Facilities</li> 
-                    <li onClick={() => setSelectedSection('Facilities')}><FaWarehouse /> Facilities</li>
+                    <li className={`side-btn ${selectedSection === 'Facilities' ? 'active' : ''}`} onClick={() => setSelectedSection('Facilities')}>
+                        <p className='menu-text'>Facilities</p> 
+                        <i><FaWarehouse /></i>
+                    </li>
                 </>
             );
         }
@@ -150,8 +152,8 @@ const Dashboard = ({ setIsLoggedIn }) => {
             {/* Main content panel */}
             <div className="main-panel">
                 <div className="dashHeader">
-                    <h2 className="greeting mb-0">Hello, {user.name}</h2>
-                    
+                    <h2 className="greeting mb-0">Hello, {user?.name || 'User'}</h2>
+
                     <div className="notification-icon position-relative" onClick={handleBellClick}>
                         <i className="fas fa-bell fa-lg"></i>
                         <span className="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle">

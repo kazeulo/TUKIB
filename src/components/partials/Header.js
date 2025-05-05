@@ -50,7 +50,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   ];
 
   const shouldHideHeader =
-    noHeaderRoutes.some(route => location.pathname.startsWith(route)) && userRole === 'Admin Staff';
+    noHeaderRoutes.some(route => location.pathname.startsWith(route)) && userRole !== 'Client';
 
   if (shouldHideHeader) {
     return null;
