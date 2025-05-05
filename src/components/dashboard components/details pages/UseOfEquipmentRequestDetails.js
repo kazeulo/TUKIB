@@ -217,7 +217,9 @@ const UseOfEquipmentRequestDetails = () => {
       });
   
       if (response.ok) {
-        alert("Receipt uploaded successfully.");
+        setConfirmationMessage("Receipt uploaded successfully!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
       } else {
         const err = await response.json();
         alert("Failed to upload receipt: " + err.message);
@@ -249,7 +251,10 @@ const UseOfEquipmentRequestDetails = () => {
           status: 'Completed',
         }));
   
-        alert('Request is now marked as Completed!');
+        setConfirmationMessage("Receipt is marked as Completed!");
+        setShowConfirmation(true);
+        setTimeout(() => setShowConfirmation(false), 3000);
+
       } else {
         alert(data.message || 'Failed to mark as Completed');
       }
@@ -344,25 +349,39 @@ const UseOfEquipmentRequestDetails = () => {
             </div>
           )}
 
-          {/* View payment receipt and upload results */}
-          {user.role === "Admin Staff" && requestDetails.status === "Chargeslip Available" && (
+          {/* View payment receipt and mark request as completed */}
+          {user.role === "Admin Staff" &&
+          (requestDetails.status === "Chargeslip Available" || requestDetails.status === "Completed") && (
             <div className="csp">
               <h4 className="section-header">Payment Receipt</h4>
               <div className="request-section charge-slip-payment">
                 <h6 className="section-header">Payment receipt</h6>
-                
                 {requestDetails.payment_receipt ? (
                   <>
-                    <p className='instruction'>The client has uploaded a payment receipt. Click the button below to view and download it.</p>
-                    <a className='download-link' href={receiptUrl} target="_blank" rel="noopener noreferrer">
-                      <Download size={18} style={{ marginRight: '8px' }} />
-                        Receipt
+                    <p className="instruction">
+                      The client has uploaded a payment receipt. Click the button below to view and download it.
+                    </p>
+                    <a
+                      className="download-link"
+                      href={receiptUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download size={18} style={{ marginRight: "8px" }} />
+                      Receipt
                     </a>
 
-                    <button className='mark-completed' onClick={handleMarkCompleted}>Mark as completed.</button>
+                    <br />
+
+                    {/* Only show button if status is NOT Completed */}
+                    {requestDetails.status !== "Completed" && (
+                      <button className="mark-completed btn" onClick={handleMarkCompleted}>
+                        Mark as completed
+                      </button>
+                    )}
                   </>
                 ) : (
-                  <p className='instruction'>The client has not uploaded a payment receipt yet.</p>
+                  <p className="instruction">The client has not uploaded a payment receipt yet.</p>
                 )}
               </div>
             </div>
