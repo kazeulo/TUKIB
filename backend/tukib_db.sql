@@ -347,20 +347,29 @@ VALUES
     ('Microbiology and Bioengineering');
 
 -- Inserting dummy data into the 'users' table
+-- refer to commented passwords when loggin in since i implemented hashing na
 INSERT INTO usersTable (name, email, role, password, laboratory_id, institution, contact_number)
 VALUES
-    ('John Doe', 'johndoe@example.com', 'Admin Staff', 'adminpassword', NULL, 'University A', '123-456-7890'),
-    ('Jane Smith', 'janesmith@example.com', 'Client', 'clientpassword', NULL, 'University B', '234-567-8901'),
-    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', 'tecdpassword', NULL, 'University A', '456-789-0123'),
-    ('Charlie Lee', 'charlie.lee@example.com', 'Director', 'directorpassword', NULL, 'Institution D', '567-890-1234'),
-    ('Marc Hualde', 'client@example.com', 'Client', 'password', NULL, 'UPV', '09123456789'),
+    ('John Doe', 'johndoe@example.com', 'Admin Staff', '$2b$10$DkvpcVu.7X9Xb2xOCSY0VeBT7UAB1YGVQ.HOKiLRmPO5FnF3mbcw2', NULL, 'University A', '123-456-7890'), 
+    -- password: adminpassword
+    ('Jane Smith', 'janesmith@example.com', 'Client', '$2b$10$7tGvGvbCzIHkcjogqYy4CeIwI9bNtkFF4/9.Ifu6x5zbCojqtzzei', NULL, 'University B', '234-567-8901'),
+    -- password: clientpassword
+    ('Bob Brown', 'bob.brown@example.com', 'TECD Staff', '$2b$10$uUNkJvyx5wR/ALJg4F66Cu42VXaIHarJ7v31GsIFmXGN7JImlszDe', NULL, 'University A', '456-789-0123'),
+    -- password: tecdpassword
+    ('Charlie Lee', 'charlie.lee@example.com', 'Director', '$2b$10$25eXOjKIZkEmFi5o9cjmY.8WEl2eFZW0GCMdL1Cezwz7GF1.j2i62', NULL, 'Institution D', '567-890-1234'),
+    -- password: directorpassword
 
     -- University Researchers: Each one in a different lab
-    ('Alice Chem', 'alice.chem@example.com', 'University Researcher', 'pass1', '1', 'Inst A', '111-111-1111'),
-    ('Bob Bio', 'bob.bio@example.com', 'University Researcher', 'pass2', '2', 'Inst B', '222-222-2222'),
-    ('Carol Food', 'carol.food@example.com', 'University Researcher', 'pass3', '3', 'Inst C', '333-333-3333'),
-    ('Dave Nano', 'dave.nano@example.com', 'University Researcher', 'pass4', '4', 'Inst D', '444-444-4444'),
-    ('Eve Micro', 'eve.micro@example.com', 'University Researcher', 'pass5', '5', 'Inst E', '555-555-5555');
+    ('Chemistry Lab', 'chem@example.com', 'University Researcher', '$2b$10$98XG8za6HJAMA3uLgaVlz.UrA2nT09TlbfyhtUnlZ13tr61h2Kjty', '1', 'Inst A', '111-111-1111'),
+    -- password: chemistryrrc
+    ('Biology Lab', 'bio@example.com', 'University Researcher', '$2b$10$NR9q5BMMmuy01IOepqvKvefsXpnOJE4WRjK0G6O1CrthKv4TUdaIC', '2', 'Inst B', '222-222-2222'),
+    -- password: biologyrrc
+    ('Food Lab', 'food@example.com', 'University Researcher', '$2b$10$Q83dNjmIJlfUUtOjZ.ubfOCiSuhVC/lcrn.N3tsU59fNWUvEAYFWe', '3', 'Inst C', '333-333-3333'),
+    -- password: foodrrc
+    ('Nano Lab', 'nano@example.com', 'University Researcher', '$2b$10$hunAg90OYnaOQTy5owf4c.6J6GyZZ/QAPej1g04DHtFsYujJGoE6C', '4', 'Inst D', '444-444-4444'),
+    -- password: nanorrc
+    ('Micro Lab', 'micro@example.com', 'University Researcher', '$2b$10$wRtBanxhTk9RGAzVA7CqauYIVQ811cbKuiRWAg9ppChVXbaoDZLsK', '5', 'Inst E', '555-555-5555');
+    -- password: microrrc
 
 -- Insert Dummy Messages
 INSERT INTO messagesTable (subject, sender, sender_email, body, remarks)

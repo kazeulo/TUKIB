@@ -41,7 +41,7 @@ const Login = ({ setIsLoggedIn }) => {
 				body: JSON.stringify({ email, password }),
 			});
 
-			console.log({ email, password });
+			// console.log({ email, password });
 
 			const data = await response.json();
 			if (data.success) {

@@ -1,4 +1,5 @@
-const pool = require('../backend'); // PostgreSQL connection pool
+const pool = require('../backend');
+const bcrypt = require('bcrypt');
 
 // Fetch all users (existing function)
 const getUsers = async (req, res) => {
@@ -103,7 +104,6 @@ const createUser = async (req, res) => {
 			laboratory_id,
 		} = req.body;
 
-		// Validate required fields
 		if (!name || !email || !password || !role) {
 			return res.status(400).json({
 				status: 'error',
@@ -111,7 +111,6 @@ const createUser = async (req, res) => {
 			});
 		}
 
-		// If the user is a University Researcher, lab must be selected
 		if (role === 'University Researcher' && !laboratory_id) {
 			return res.status(400).json({
 				status: 'error',
@@ -132,11 +131,14 @@ const createUser = async (req, res) => {
 			}
 		}
 
+		// Hash the password before saving
+		const hashedPassword = await bcrypt.hash(password, 10);
+
 		const result = await pool.query(
 			`INSERT INTO usersTable (
 				name, email, role, password, laboratory_id, institution, contact_number
 			) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-			[name, email, role, password, laboratory_id, institution, contact_number]
+			[name, email, role, hashedPassword, laboratory_id, institution, contact_number]
 		);
 
 		const newUser = result.rows[0];

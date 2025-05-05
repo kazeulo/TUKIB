@@ -150,8 +150,8 @@ const Dashboard = ({ setIsLoggedIn }) => {
             {/* Main content panel */}
             <div className="main-panel">
                 <div className="dashHeader">
-                    <h2 className="greeting mb-0">Hello, {user.name}</h2>
-                    
+                    <h2 className="greeting mb-0">Hello, {user?.name || 'User'}</h2>
+
                     <div className="notification-icon position-relative" onClick={handleBellClick}>
                         <i className="fas fa-bell fa-lg"></i>
                         <span className="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle">
