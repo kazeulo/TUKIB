@@ -148,7 +148,8 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/NewsDetailPage',
 		'/facility',
 		'/chargeslipform',
-		'/chargeslip'
+		'/chargeslip',
+		'/laboratory'
 	];
 
 	// check if the current path is in the noChatbotRoutes list

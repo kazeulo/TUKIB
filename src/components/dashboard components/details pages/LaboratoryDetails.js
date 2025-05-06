@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { IoChevronBack } from 'react-icons/io5';
+import { IoChevronBack, IoCalendarOutline, IoFlaskOutline } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import '../../../css/dashboard components/Table.css';
+import '../../../css/dashboard components/Laboratories.css';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import EventCalendar from '../../partials/EventCalendar';
 
 const LaboratoryDetails = () => {
     const { id } = useParams();
@@ -83,22 +84,24 @@ const LaboratoryDetails = () => {
                 Back to Laboratories
             </button>
 
-            <h2>{laboratory ? laboratory.laboratory_name : "Laboratory Details"}</h2>
+            <h3>{laboratory ? laboratory.laboratory_name : "Laboratory Details"}</h3>
 
-            <div className="search-container" style={{ marginBottom: '1rem' }}>
-                <input
-                    type="text"
-                    className="search-input"
-                    placeholder="Search equipment by any field..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                />
-            </div>
+            <h3 className="equipments-title">
+                <IoCalendarOutline className="equipment-icon" />
+                Schedules
+            </h3>
+
+            <EventCalendar />
+
+            <h3 className="equipments-title">
+            <IoFlaskOutline className="euipment-icon" />
+                Laboratory Equipments
+            </h3>
 
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='table-wrapper table-responsive'>
+                <div className='laboratory-details'>
                     <table className="equipment-table">
                         <thead>
                             <tr>

@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS laboratories CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS feedback_table CASCADE;
 DROP TABLE IF EXISTS rates_and_services CASCADE;
+DROP TABLE IF EXISTS calendar CASCADE;
 
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
@@ -131,7 +132,7 @@ CREATE TABLE calendar (
     is_restricted BOOLEAN DEFAULT FALSE,
     restrict_equipment BOOLEAN DEFAULT FALSE, -- for lab-level only
     description TEXT
-}
+);
 
 -- Equipments Table
 CREATE TABLE equipmentsTable (
