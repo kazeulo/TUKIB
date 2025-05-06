@@ -121,6 +121,18 @@ CREATE TABLE user_tokens (
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
 
+-- Calendar Table
+CREATE TABLE calendar (
+    calendar_id SERIAL PRIMARY KEY,
+    calendar_type VARCHAR(50) NOT NULL, -- 'system', 'lab', 'equipment'
+    calendar_owner_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    is_restricted BOOLEAN DEFAULT FALSE,
+    restrict_equipment BOOLEAN DEFAULT FALSE, -- for lab-level only
+    description TEXT
+}
+
 -- Equipments Table
 CREATE TABLE equipmentsTable (
     equipment_id SERIAL PRIMARY KEY,

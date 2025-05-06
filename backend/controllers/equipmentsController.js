@@ -114,7 +114,7 @@ const deleteEquipment = async (req, res) => {
 
 // Get equipment by laboratory name
 const getEquipmentByLab = async (req, res) => {
-    const { labName } = req.params; 
+    const { laboratory_id } = req.params; 
 
     try {
         const result = await pool.query(`
@@ -133,10 +133,10 @@ const getEquipmentByLab = async (req, res) => {
             INNER JOIN 
                 laboratories l ON e.laboratory_id = l.laboratory_id
             WHERE 
-                l.laboratory_name = $1
+                l.laboratory_id = $1
             ORDER BY 
                 e.equipment_id
-        `, [labName]);
+        `, [laboratory_id]);
 
         const equipments = result.rows;
 

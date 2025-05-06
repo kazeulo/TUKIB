@@ -8,6 +8,7 @@ import MessagesTable from '../dashboard components/MessagesTable';
 import EquipmentsTable from '../dashboard components/Equipments';
 import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/news/News';
+import Laboratories from '../dashboard components/Laboratories';
 import { FaHome, FaUsers, FaClipboardList, FaEnvelope, FaCogs, FaNewspaper, FaTools, FaWarehouse } from 'react-icons/fa'; // Import icons
 import '../../css/account pages/AdminDashboard.css';
 
@@ -56,10 +57,12 @@ const Dashboard = ({ setIsLoggedIn }) => {
                 return <MessagesTable />;
             case 'News':
                 return <News />;
-            case 'Equipment':
-                return <EquipmentsTable />;
+            // case 'Equipment':
+            //     return <EquipmentsTable />;
             case 'Facilities':
                 return <Facilities />;
+            case 'Laboratories':
+                return <Laboratories />;
             default:
                 return <h1>Welcome to the Dashboard</h1>;
         }
@@ -91,12 +94,16 @@ const Dashboard = ({ setIsLoggedIn }) => {
                             <p className='menu-text'>News and Announcements</p>
                             <i><FaNewspaper /></i>
                         </li>
-                        <li className={`side-btn ${selectedSection === 'Equipment' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipment')}>
+                        {/* <li className={`side-btn ${selectedSection === 'Equipment' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipment')}>
                             <p className='menu-text'>Equipments</p>
                             <i><FaTools /></i>
-                        </li>
+                        </li> */}
                         <li className={`side-btn ${selectedSection === 'Facilities' ? 'active' : ''}`} onClick={() => setSelectedSection('Facilities')}>
                             <p className='menu-text'>Facilities</p> 
+                            <i><FaWarehouse /></i>
+                        </li>
+                        <li className={`side-btn ${selectedSection === 'Laboratories' ? 'active' : ''}`} onClick={() => setSelectedSection('Laboratories')}>
+                            <p className='menu-text'>Laboratories</p> 
                             <i><FaWarehouse /></i>
                         </li>
                     </div>
