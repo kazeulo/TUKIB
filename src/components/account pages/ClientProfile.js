@@ -29,7 +29,6 @@ const ClientProfile = ({ isLoggedIn }) => {
   const [serviceTypeFilter, setServiceTypeFilter] = useState('all');
   
 
-
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     console.log(storedUser)
@@ -38,7 +37,7 @@ const ClientProfile = ({ isLoggedIn }) => {
       setEditProfile({ 
         name: storedUser.name, 
         email: storedUser.email, 
-        contact_number: storedUser.contact_number, 
+        contact_number: storedUser.contact, 
         role: storedUser.role, 
         institution: storedUser.institution, 
         user_id: storedUser.user_id 
@@ -509,7 +508,7 @@ const ClientProfile = ({ isLoggedIn }) => {
                       </span>                      
                       </td>
                       <td>
-                        {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
+                        {request.status !== 'Cancelled' && request.status === 'Pending for Approval' ? (
                           <button
                             className="client-cancel-btn"
                             onClick={(e) => {

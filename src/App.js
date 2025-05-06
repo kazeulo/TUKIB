@@ -54,6 +54,7 @@ import UseOfFacilityRequestDetails from './components/dashboard components/detai
 import SampleProcessingRequestDetails from './components/dashboard components/details pages/SampleProcessingRequestDetails';
 import TrainingRequestDetails from './components/dashboard components/details pages/TrainingRequestDetails';
 import FacilityDetails from './components/dashboard components/details pages/FacilityDetails';
+import LaboratoryDetails from './components/dashboard components/details pages/LaboratoryDetails';
 
 // Transaction history
 import UserDetails from './components/dashboard components/details pages/UserDetails';
@@ -312,6 +313,12 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 				<Route
 					path='/facility/:id'
 					Component={FacilityDetails}
+				/>
+
+				{/* laboratory details */}
+				<Route
+					path='/laboratory/:id'
+					Component={LaboratoryDetails}
 				/>
 
 				{/* error 404 for all the unmatched route */}

@@ -42,7 +42,7 @@ router.put('/users/:userId', usersController.editUser);
 router.get('/equipments', equipmentsController.getEquipments);
 router.post('/equipments', equipmentsController.addEquipment);
 router.delete('/equipments/:id', equipmentsController.deleteEquipment);
-router.get('/equipments/lab/:labName', equipmentsController.getEquipmentByLab);
+router.get('/equipments/lab/:laboratory_id', equipmentsController.getEquipmentByLab);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
@@ -111,8 +111,9 @@ router.get('/facilities', facilityController.getAllFacilities);
 router.get('/facility/schedules', facilityController.getFacilityWithSchedules);
 router.delete('/facility/:id', facilityController.deleteFacility);
 
-// laboratories
+// laboratories and equipments
 router.get('/laboratory', laboratoryController.getLaboratories);
+router.get('/laboratory/:id', laboratoryController.getLaboratoryById);
 
 // feedback
 router.post('/feedback', feedbackController.insertFeedback);
