@@ -131,7 +131,7 @@ CREATE TABLE calendar (
     is_restricted BOOLEAN DEFAULT FALSE,
     restrict_equipment BOOLEAN DEFAULT FALSE, -- for lab-level only
     description TEXT
-}
+);
 
 -- Equipments Table
 CREATE TABLE equipmentsTable (
