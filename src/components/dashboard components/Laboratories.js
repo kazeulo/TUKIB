@@ -27,17 +27,19 @@ const Laboratories = () => {
     }, []);
 
     return (
-        <div className="laboratory-card-container">
-            <h2>Laboratories</h2>
+        <div className="table-container">
+            <div className="table-header">
+                <h2>Laboratories</h2>
+            </div>
+
             <div className="card-grid">
                 {laboratories.map((lab) => (
                     <div
                         key={lab.laboratory_id}
                         className="lab-card"
-                        onClick={() => navigate(`/laboratory/${lab.laboratory_id}`)}
+                        onClick={() => navigate(`/laboratoryDetails/${lab.laboratory_id}`)}
                     >
-                        <h3>{lab.laboratory_name}</h3>
-                        <p>Click to view details</p>
+                        <h4>{lab.laboratory_name}</h4>
                     </div>
                 ))}
             </div>

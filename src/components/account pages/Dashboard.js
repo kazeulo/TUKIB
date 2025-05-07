@@ -9,7 +9,7 @@ import EquipmentsTable from '../dashboard components/Equipments';
 import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/news/News';
 import Laboratories from '../dashboard components/Laboratories';
-import { FaHome, FaUsers, FaClipboardList, FaEnvelope, FaCogs, FaNewspaper, FaTools, FaWarehouse } from 'react-icons/fa'; // Import icons
+import { FaHome, FaUsers, FaClipboardList, FaEnvelope, FaCogs, FaNewspaper, FaTools, FaWarehouse, FaVial } from 'react-icons/fa'; // Import icons
 import '../../css/account pages/AdminDashboard.css';
 
 const Dashboard = ({ setIsLoggedIn }) => {
@@ -104,7 +104,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
                         </li>
                         <li className={`side-btn ${selectedSection === 'Laboratories' ? 'active' : ''}`} onClick={() => setSelectedSection('Laboratories')}>
                             <p className='menu-text'>Laboratories</p> 
-                            <i><FaWarehouse /></i>
+                            <i><FaVial /></i>
                         </li>
                     </div>
                 </>
