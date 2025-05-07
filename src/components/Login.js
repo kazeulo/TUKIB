@@ -6,7 +6,6 @@ import axios from 'axios';
 import '../css/Login.css';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
-
 // import partials
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
@@ -136,7 +135,9 @@ const Login = ({ setIsLoggedIn }) => {
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
 										required
-										className={`input-with-icon ${error && !password ? 'error' : ''}`}
+										className={`input-with-icon ${
+											error && !password ? 'error' : ''
+										}`}
 									/>
 									<button
 										type='button'
