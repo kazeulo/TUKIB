@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash, FaLock, FaEnvelope, FaPhone, FaBuilding} from 'react-icons/fa';
+import {
+	FaEye,
+	FaEyeSlash,
+	FaLock,
+	FaEnvelope,
+	FaPhone,
+	FaBuilding,
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Footer from './partials/Footer';
 import tukibLogo from '../assets/tukib_logo.png';
 import '../css/Login.css';
-
 
 const Signup = () => {
 	const [formData, setFormData] = useState({
@@ -96,194 +102,208 @@ const Signup = () => {
 	};
 
 	return (
-		<div className='signup-page'>
-			<div className='mobile-powered-by d-md-none'>
-				<h1>Powered By</h1>
-				<div className='tukib-logo'>
-					<img
-						src={tukibLogo}
-						alt='TUKIB Logo'
-					/>
-				</div>
-			</div>
-	
-			<div className='signup-container'>
-				<div className='signup-form'>
-					<h2>Sign Up</h2>
-					<form onSubmit={handleSignup}>
-						{/* Two-column layout for name fields */}
-						<div className='form-row'>
-							<div className='form-group'>
-								<label htmlFor='firstName'>First Name</label>
-								<input
-									id='firstName'
-									name='firstName'
-									type='text'
-									value={formData.firstName}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-	
-							<div className='form-group'>
-								<label htmlFor='lastName'>Last Name</label>
-								<input
-									id='lastName'
-									name='lastName'
-									type='text'
-									value={formData.lastName}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-	
-						<div className='form-row'>
-						<div className='form-group'>
-							<FaEnvelope className='email-icon' />
-							<label htmlFor='email'>Email</label>
-							<input
-								id='email'
-								name='email'
-								type='email'
-								value={formData.email}
-								onChange={handleChange}
-								required
-								className='input-with-icon'
+		<div>
+			<main className='signup-content'>
+				<div className='signup-page'>
+					<div className='mobile-powered-by d-md-none'>
+						<h1>Powered By</h1>
+						<div className='tukib-logo'>
+							<img
+								src={tukibLogo}
+								alt='TUKIB Logo'
 							/>
 						</div>
-						<div className='form-group'>
-							<FaPhone className='phone-icon' />
-							<label htmlFor='contactNumber'>Contact Number</label>
-							<input
-								id='contactNumber'
-								name='contactNumber'
-								type='tel'
-								value={formData.contactNumber}
-								onChange={handleChange}
-								required
-								className='input-with-icon'
-							/>
-						</div>
-						</div>
-	
-						<div className='form-group'>
-							<FaBuilding className='institution-icon' />
-							<label htmlFor='institution'>Institution</label>
-							<input
-								id='institution'
-								name='institution'
-								type='text'
-								value={formData.institution}
-								onChange={handleChange}
-								required
-								className='input-with-icon'
-							/>
-						</div>
-	
-						<div className='form-row'>
-						<div className='form-group'>
-							<label htmlFor='password'>Password</label>
-							<div className='password-input-container'>
-							<FaLock className='password-icon' />
-								<input
-									id='password'
-									name='password'
-									type={showPassword ? 'text' : 'password'}
-									value={formData.password}
-									onChange={handleChange}
-									required
-									className='input-with-icon'
-								/>
+					</div>
+
+					<div className='signup-container'>
+						<div className='signup-form'>
+							<h2>Sign Up</h2>
+							<form onSubmit={handleSignup}>
+								{/* Two-column layout for name fields */}
+								<div className='form-row'>
+									<div className='form-group'>
+										<label htmlFor='firstName'>First Name</label>
+										<input
+											id='firstName'
+											name='firstName'
+											type='text'
+											value={formData.firstName}
+											onChange={handleChange}
+											required
+										/>
+									</div>
+
+									<div className='form-group'>
+										<label htmlFor='lastName'>Last Name</label>
+										<input
+											id='lastName'
+											name='lastName'
+											type='text'
+											value={formData.lastName}
+											onChange={handleChange}
+											required
+										/>
+									</div>
+								</div>
+
+								<div className='form-row'>
+									<div className='form-group'>
+										<FaEnvelope className='email-icon' />
+										<label htmlFor='email'>Email</label>
+										<input
+											id='email'
+											name='email'
+											type='email'
+											value={formData.email}
+											onChange={handleChange}
+											required
+											className='input-with-icon'
+										/>
+									</div>
+									<div className='form-group'>
+										<FaPhone className='phone-icon' />
+										<label htmlFor='contactNumber'>Contact Number</label>
+										<input
+											id='contactNumber'
+											name='contactNumber'
+											type='tel'
+											value={formData.contactNumber}
+											onChange={handleChange}
+											required
+											className='input-with-icon'
+										/>
+									</div>
+								</div>
+
+								<div className='form-group'>
+									<FaBuilding className='institution-icon' />
+									<label htmlFor='institution'>Institution</label>
+									<input
+										id='institution'
+										name='institution'
+										type='text'
+										value={formData.institution}
+										onChange={handleChange}
+										required
+										className='input-with-icon'
+									/>
+								</div>
+
+								<div className='form-row'>
+									<div className='form-group'>
+										<label htmlFor='password'>Password</label>
+										<div className='password-input-container'>
+											<FaLock className='password-icon' />
+											<input
+												id='password'
+												name='password'
+												type={showPassword ? 'text' : 'password'}
+												value={formData.password}
+												onChange={handleChange}
+												required
+												className='input-with-icon'
+											/>
+											<button
+												type='button'
+												onClick={() => setShowPassword(!showPassword)}
+												className='password-toggle-btn'
+												aria-label={
+													showPassword ? 'Hide password' : 'Show password'
+												}>
+												{showPassword ? <FaEyeSlash /> : <FaEye />}
+											</button>
+										</div>
+									</div>
+
+									<div className='form-group'>
+										<label htmlFor='confirmPassword'>Confirm Password</label>
+										<div className='password-input-container'>
+											<FaLock className='password-icon' />
+											<input
+												id='confirmPassword'
+												name='confirmPassword'
+												type={showConfirmPassword ? 'text' : 'password'}
+												value={formData.confirmPassword}
+												onChange={handleChange}
+												required
+												className='input-with-icon'
+											/>
+
+											<button
+												type='button'
+												onClick={() =>
+													setShowConfirmPassword(!showConfirmPassword)
+												}
+												className='password-toggle-btn'
+												aria-label={
+													showConfirmPassword
+														? 'Hide confirm password'
+														: 'Show confirm password'
+												}>
+												{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+											</button>
+										</div>
+									</div>
+								</div>
+
 								<button
-									type='button'
-									onClick={() => setShowPassword(!showPassword)}
-									className='password-toggle-btn'
-									aria-label={showPassword ? 'Hide password' : 'Show password'}>
-									{showPassword ? <FaEyeSlash /> : <FaEye />}
+									type='submit'
+									className='login-button'
+									disabled={isLoading}>
+									{isLoading ? 'Signing up...' : 'Sign Up'}
 								</button>
+							</form>
+
+							{error && (
+								<div className='error-message'>
+									<p style={{ color: 'red' }}>{error}</p>
+								</div>
+							)}
+							{success && (
+								<div className='success-message'>
+									<p style={{ color: 'green' }}>{success}</p>
+								</div>
+							)}
+
+							<div className='login-redirect'>
+								<p>
+									Already have an account? <Link to='/login'>Login</Link>
+								</p>
 							</div>
 						</div>
-	
-						<div className='form-group'>
-							<label htmlFor='confirmPassword'>Confirm Password</label>
-							<div className='password-input-container'>
-								<FaLock className='password-icon' />
-								<input 
-								
-									id='confirmPassword'
-									name='confirmPassword'
-									type={showConfirmPassword ? 'text' : 'password'}
-									value={formData.confirmPassword}
-									onChange={handleChange}
-									required
-									className='input-with-icon'
-								/>
-								
-								<button
-									type='button'
-									onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-									className='password-toggle-btn'
-									aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
-									{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-								</button>
-							</div>
+					</div>
+
+					<div className='login-reminders d-none d-md-inline'>
+						<h1>Powered By</h1>
+						<div className='tukib-logo'>
+							<img
+								src={tukibLogo}
+								alt='TUKIB Logo'
+							/>
 						</div>
-						</div>
-	
-						<button
-							type='submit'
-							className='login-button'
-							disabled={isLoading}>
-							{isLoading ? 'Signing up...' : 'Sign Up'}
-						</button>
-					</form>
-	
-					{error && (
-						<div className='error-message'>
-							<p style={{ color: 'red' }}>{error}</p>
-						</div>
-					)}
-					{success && (
-						<div className='success-message'>
-							<p style={{ color: 'green' }}>{success}</p>
-						</div>
-					)}
-	
-					<div className='login-redirect'>
-						<p>
-							Already have an account? <Link to='/login'>Login</Link>
-						</p>
+						<h1>Important</h1>
+						<ul className='login-reminders-list'>
+							<li>DO NOT DISCLOSE YOUR SIGN-UP INFORMATION TO ANYONE.</li>
+							<li>
+								PLEASE USE A STRONG PASSWORD THAT COMBINES LETTERS, NUMBERS, AND
+								SPECIAL CHARACTERS.
+							</li>
+						</ul>
+					</div>
+
+					<div className='mobile-reminders d-md-none'>
+						<h1>Important</h1>
+						<ul className='login-reminders-list'>
+							<li>DO NOT DISCLOSE YOUR SIGN-UP INFORMATION TO ANYONE.</li>
+							<li>
+								PLEASE USE A STRONG PASSWORD THAT COMBINES LETTERS, NUMBERS, AND
+								SPECIAL CHARACTERS.
+							</li>
+						</ul>
 					</div>
 				</div>
-			</div>
-	
-			<div className='login-reminders d-none d-md-inline'>
-				<h1>Powered By</h1>
-				<div className='tukib-logo'>
-					<img
-						src={tukibLogo}
-						alt='TUKIB Logo'
-					/>
-				</div>
-				<h1>Important</h1>
-				<ul className='login-reminders-list'>
-					<li>DO NOT DISCLOSE YOUR SIGN-UP INFORMATION TO ANYONE.</li>
-					<li>
-						PLEASE USE A STRONG PASSWORD THAT COMBINES LETTERS, NUMBERS, AND SPECIAL CHARACTERS.
-					</li>
-				</ul>
-			</div>
-	
-			<div className='mobile-reminders d-md-none'>
-				<h1>Important</h1>
-				<ul className='login-reminders-list'>
-					<li>DO NOT DISCLOSE YOUR SIGN-UP INFORMATION TO ANYONE.</li>
-					<li>
-						PLEASE USE A STRONG PASSWORD THAT COMBINES LETTERS, NUMBERS, AND SPECIAL CHARACTERS.
-					</li>
-				</ul>
-			</div>
+			</main>
+			<Footer />
 		</div>
 	);
 };
