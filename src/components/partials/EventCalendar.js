@@ -201,61 +201,58 @@ const EventCalendar = () => {
 		}, 300);
 	};
 
-	const handleDeleteEvent = async () => {
+	const handleDeleteEvent = async (eventId) => {
 		try {
 			const response = await fetch(
-				`http://localhost:5000/api/events/${selectedEvent.id}`,
+				`http://localhost:5000/api/events/${eventId}`,
 				{
 					method: 'DELETE',
 				}
 			);
 
 			if (response.ok) {
-				setCalendarEvents(
-					calendarEvents.filter((event) => event.id !== selectedEvent.id)
+				setCalendarEvents((prev) =>
+					prev.filter((event) => event.id !== eventId)
 				);
-				setShowEventModal(false);
 			} else {
-				console.error('Failed to delete event');
+				const error = await response.json();
+				console.error('Delete failed:', error.message);
 			}
 		} catch (error) {
 			console.error('Error deleting event:', error);
 		}
 	};
 
-	const handleSaveEdit = async () => {
+	const handleSaveEdit = async (updatedEvent) => {
 		try {
 			const response = await fetch(
-				`http://localhost:5000/api/events/${selectedEvent.id}`,
+				`http://localhost:5000/api/events/${updatedEvent.id}`,
 				{
 					method: 'PUT',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						title: selectedEvent.title,
-						description: selectedEvent.description,
-						location: selectedEvent.location,
-						officer: selectedEvent.officer,
-						start_time: selectedEvent.start,
-						end_time: selectedEvent.end,
-						recurrence: selectedEvent.recurrence,
-					}),
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(updatedEvent),
 				}
 			);
 
 			if (response.ok) {
-				setCalendarEvents(
-					calendarEvents.map((event) =>
-						event.id === selectedEvent.id ? selectedEvent : event
+				const data = await response.json();
+				// update state
+				setCalendarEvents((prev) =>
+					prev.map((event) =>
+						event.id === data.event.id
+							? {
+									...data.event,
+									start: new Date(data.event.start_time),
+									end: new Date(data.event.end_time),
+							  }
+							: event
 					)
 				);
-				setShowEditEventModal(false);
 			} else {
 				console.error('Failed to update event');
 			}
 		} catch (error) {
-			console.error('Error saving event:', error);
+			console.error('Error updating event:', error);
 		}
 	};
 
@@ -317,12 +314,12 @@ const EventCalendar = () => {
 						<div className='modal-actions'>
 							<button
 								className='event-btn-primary'
-								onClick={handleEditEvent}>
+								onClick={() => handleEditEvent(selectedEvent.id)}>
 								Edit
 							</button>
 							<button
 								className='event-btn-danger'
-								onClick={handleDeleteEvent}>
+								onClick={() => handleDeleteEvent(selectedEvent.id)}>
 								Delete
 							</button>
 							<button

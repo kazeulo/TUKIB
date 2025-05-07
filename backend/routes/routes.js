@@ -31,8 +31,8 @@ router.post('/signup', usersController.signupUser);
 // Routes for fetching and managing events
 router.get('/events', eventsController.getEvents);
 router.post('/events', eventsController.createEvent);
-router.put('/events', eventsController.updateEvent);
-router.delete('/events', eventsController.deleteEvent);
+router.put('/events/:id', eventsController.updateEvent);
+router.delete('/events/:id', eventsController.deleteEvent);
 
 // Routes for users management
 router.get('/users', usersController.getUsers);

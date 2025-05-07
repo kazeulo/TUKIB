@@ -46,7 +46,6 @@ const createEvent = async (req, res) => {
 	}
 };
 
-// PUT update event
 const updateEvent = async (req, res) => {
 	const { id } = req.params;
 	const {
@@ -62,13 +61,8 @@ const updateEvent = async (req, res) => {
 	try {
 		const result = await pool.query(
 			`UPDATE events
-       SET title = $1,
-           description = $2,
-           location = $3,
-           officer = $4,
-           start_time = $5,
-           end_time = $6,
-           recurrence = $7
+       SET title = $1, description = $2, location = $3, officer = $4,
+           start_time = $5, end_time = $6, recurrence = $7
        WHERE id = $8
        RETURNING *`,
 			[
@@ -87,16 +81,16 @@ const updateEvent = async (req, res) => {
 			return res.status(404).json({ message: 'Event not found' });
 		}
 
-		res.status(200).json(result.rows[0]);
+		res.json({ event: result.rows[0] });
 	} catch (error) {
 		console.error('Error updating event:', error);
 		res.status(500).json({ message: 'Server error' });
 	}
 };
 
-// DELETE event
 const deleteEvent = async (req, res) => {
 	const { id } = req.params;
+	console.log('Trying to delete event with id:', id);
 
 	try {
 		const result = await pool.query(
@@ -105,13 +99,15 @@ const deleteEvent = async (req, res) => {
 		);
 
 		if (result.rows.length === 0) {
+			console.log('No event found with that id.');
 			return res.status(404).json({ message: 'Event not found' });
 		}
 
-		res.status(200).json({ message: 'Event deleted' });
+		console.log('Deleted event:', result.rows[0]);
+		res.status(200).json({ message: 'Event deleted successfully' });
 	} catch (error) {
 		console.error('Error deleting event:', error);
-		res.status(500).json({ message: 'Server error' });
+		res.status(500).json({ message: 'Server error', details: error.message });
 	}
 };
 
