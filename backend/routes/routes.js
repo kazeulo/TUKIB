@@ -18,7 +18,7 @@ const facilityRentalRequestsController = require('../controllers/facilityRentalR
 const facilityController = require('../controllers/facilityController');
 const laboratoryController = require('../controllers/laboratoryController');
 const statisticsController = require('../controllers/statisticsController');
-const feedbackController = require ('../controllers/feedbackController');
+const feedbackController = require('../controllers/feedbackController');
 const servicesController = require('../controllers/ratesAndServicesController');
 
 // Routes for login
@@ -30,6 +30,9 @@ router.post('/signup', usersController.signupUser);
 
 // Routes for fetching and managing events
 router.get('/events', eventsController.getEvents);
+router.post('/events', eventsController.createEvent);
+router.put('/events', eventsController.updateEvent);
+router.delete('/events', eventsController.deleteEvent);
 
 // Routes for users management
 router.get('/users', usersController.getUsers);
@@ -42,7 +45,10 @@ router.put('/users/:userId', usersController.editUser);
 router.get('/equipments', equipmentsController.getEquipments);
 router.post('/equipments', equipmentsController.addEquipment);
 router.delete('/equipments/:id', equipmentsController.deleteEquipment);
-router.get('/equipments/lab/:laboratory_id', equipmentsController.getEquipmentByLab);
+router.get(
+	'/equipments/lab/:laboratory_id',
+	equipmentsController.getEquipmentByLab
+);
 
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
@@ -91,19 +97,58 @@ router.get(
 	'/sampleProcessingRequestDetails/:id',
 	serviceRequestsController.getSampleProcessingRequestById
 );
-router.put('/serviceRequest/:id/reject', serviceRequestsController.rejectServiceRequest);
-router.put('/serviceRequest/:id/approve', serviceRequestsController.approveServiceRequest);
-router.get('/serviceRequests/:userId', serviceRequestsController.getServiceRequestsById);
-router.put('/serviceRequests/:requestId/cancel', serviceRequestsController.cancelServiceRequest);
-router.get('/useOfEquipmentRequestDetails/:id', serviceRequestsController.getEquipmentRentalRequestById);
-router.get('/useOfFacilityRequestDetails/:id', serviceRequestsController.getFacilityRentalRequestById);
-router.get('/trainingRequestDetails/:id', serviceRequestsController.getTrainingRequestById);
-router.get('/sampleProcessingRequestDetails/:id', serviceRequestsController.getSampleProcessingRequestById);
-router.put('/service-requests/:id/in-progress', serviceRequestsController.markAsInProgress);
-router.put('/service-requests/:id/approveChargeSlip', serviceRequestsController.approveChargeSlip);
-router.put('/service-requests/:id/uploadReceipt', serviceRequestsController.uploadReceipt);
-router.put('/service-requests/:id/uploadResult', serviceRequestsController.uploadResult);
-router.put('/service-requests/:id/completed', serviceRequestsController.markAsCompleted);
+router.put(
+	'/serviceRequest/:id/reject',
+	serviceRequestsController.rejectServiceRequest
+);
+router.put(
+	'/serviceRequest/:id/approve',
+	serviceRequestsController.approveServiceRequest
+);
+router.get(
+	'/serviceRequests/:userId',
+	serviceRequestsController.getServiceRequestsById
+);
+router.put(
+	'/serviceRequests/:requestId/cancel',
+	serviceRequestsController.cancelServiceRequest
+);
+router.get(
+	'/useOfEquipmentRequestDetails/:id',
+	serviceRequestsController.getEquipmentRentalRequestById
+);
+router.get(
+	'/useOfFacilityRequestDetails/:id',
+	serviceRequestsController.getFacilityRentalRequestById
+);
+router.get(
+	'/trainingRequestDetails/:id',
+	serviceRequestsController.getTrainingRequestById
+);
+router.get(
+	'/sampleProcessingRequestDetails/:id',
+	serviceRequestsController.getSampleProcessingRequestById
+);
+router.put(
+	'/service-requests/:id/in-progress',
+	serviceRequestsController.markAsInProgress
+);
+router.put(
+	'/service-requests/:id/approveChargeSlip',
+	serviceRequestsController.approveChargeSlip
+);
+router.put(
+	'/service-requests/:id/uploadReceipt',
+	serviceRequestsController.uploadReceipt
+);
+router.put(
+	'/service-requests/:id/uploadResult',
+	serviceRequestsController.uploadResult
+);
+router.put(
+	'/service-requests/:id/completed',
+	serviceRequestsController.markAsCompleted
+);
 
 // facility
 router.post('/facility', facilityController.createFacility);

@@ -283,12 +283,11 @@ CREATE TABLE events (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    location VARCHAR(255),
+    officer VARCHAR(255),
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
-    location VARCHAR(255),
-    created_by INT NOT NULL, 
-    is_recurring BOOLEAN DEFAULT FALSE,
-    recurrence_pattern VARCHAR(50),
+    recurrence VARCHAR(50) DEFAULT 'none',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -674,7 +673,14 @@ VALUES
     ('Use of Equipment', 'Microbiology and Bioengineering', 'Incubators (Shaker & Standard)', 'Php200.00/hour', NULL),
     ('Use of Equipment', 'Microbiology and Bioengineering', 'Laminar Flow Hood', 'Php170.00/hour', NULL),
     ('Use of Equipment', 'Microbiology and Bioengineering', 'pH meter', 'Php100.00/hour', NULL);
-    
+
+-- Dummy Events --
+INSERT INTO events (title, description, location, officer, start_time, end_time, recurrence)
+VALUES
+  ('Team Meeting', 'Weekly sync-up with the team.', 'Conference Room A', 'Alice Johnson', '2025-05-10 10:00:00', '2025-05-10 11:00:00', 'Weekly'),
+  ('Marketing Presentation', 'Quarterly marketing update.', 'Hall B', 'Bob Smith', '2025-05-12 14:00:00', '2025-05-12 15:30:00', 'None'),
+  ('HR Orientation', 'New employee onboarding.', 'Training Room', 'Cathy Lee', '2025-05-15 09:00:00', '2025-05-15 12:00:00', 'None');
+
 -- ======== ALTERS ========
 
 -- Add a foreign key reference if there’s a related table (optional example)

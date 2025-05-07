@@ -133,45 +133,130 @@ const EventCalendar = () => {
 		setShowAddEventModal(true);
 	};
 
-	const handleAddEvent = () => {
+	const handleAddEvent = async () => {
 		if (!newEvent.title || !newEvent.start || !newEvent.end) {
 			alert('Please fill in all fields before adding an event.');
 			return;
 		}
 
+		// Ensure that start_time and end_time are not null
+		if (!newEvent.start || !newEvent.end) {
+			alert('Start time and end time cannot be empty.');
+			return;
+		}
+
+		// Ensure that start time is before end time
+		if (newEvent.start >= newEvent.end) {
+			alert('Start time must be before end time.');
+			return;
+		}
+
+		// Prepare the event data to send to the backend
 		const eventToAdd = {
 			title: newEvent.title,
 			description: newEvent.description,
 			location: newEvent.location,
 			officer: newEvent.officer,
-			start: new Date(newEvent.start),
-			end: new Date(newEvent.end),
+			start_time: newEvent.start, // Directly using Date object
+			end_time: newEvent.end, // Directly using Date object
 			recurrence: newEvent.recurrence,
-			color: '#8e1537',
 		};
 
-		setCalendarEvents([...calendarEvents, eventToAdd]);
-		setShowAddEventModal(false);
+		try {
+			const response = await fetch('http://localhost:5000/api/events', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(eventToAdd),
+			});
+
+			if (response.ok) {
+				const savedEvent = await response.json();
+
+				// Convert saved event times to JavaScript Date objects
+				const newEventData = {
+					...savedEvent.event,
+					start: new Date(savedEvent.event.start_time), // Ensure it's a Date object
+					end: new Date(savedEvent.event.end_time), // Ensure it's a Date object
+				};
+
+				// Update calendar state with the new event
+				setCalendarEvents((prevEvents) => [...prevEvents, newEventData]);
+
+				// Optionally close the modal if you have one
+				setShowAddEventModal(false);
+			} else {
+				console.error('Failed to save event');
+			}
+		} catch (error) {
+			console.error('Error adding event:', error);
+		}
 	};
 
 	const handleEditEvent = () => {
 		setShowEventModal(false);
 		setTimeout(() => {
 			setShowEditEventModal(true);
-		}, 300);};
-
-	const handleDeleteEvent = () => {
-		setCalendarEvents(calendarEvents.filter((event) => event.id !== selectedEvent.id));
-		setShowEventModal(false);
+		}, 300);
 	};
 
-	const handleSaveEdit = () => {
-		setCalendarEvents(
-			calendarEvents.map((event) =>
-				event.id === selectedEvent.id ? selectedEvent : event
-			)
-		);
-		setShowEditEventModal(false);
+	const handleDeleteEvent = async () => {
+		try {
+			const response = await fetch(
+				`http://localhost:5000/api/events/${selectedEvent.id}`,
+				{
+					method: 'DELETE',
+				}
+			);
+
+			if (response.ok) {
+				setCalendarEvents(
+					calendarEvents.filter((event) => event.id !== selectedEvent.id)
+				);
+				setShowEventModal(false);
+			} else {
+				console.error('Failed to delete event');
+			}
+		} catch (error) {
+			console.error('Error deleting event:', error);
+		}
+	};
+
+	const handleSaveEdit = async () => {
+		try {
+			const response = await fetch(
+				`http://localhost:5000/api/events/${selectedEvent.id}`,
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						title: selectedEvent.title,
+						description: selectedEvent.description,
+						location: selectedEvent.location,
+						officer: selectedEvent.officer,
+						start_time: selectedEvent.start,
+						end_time: selectedEvent.end,
+						recurrence: selectedEvent.recurrence,
+					}),
+				}
+			);
+
+			if (response.ok) {
+				setCalendarEvents(
+					calendarEvents.map((event) =>
+						event.id === selectedEvent.id ? selectedEvent : event
+					)
+				);
+				setShowEditEventModal(false);
+			} else {
+				console.error('Failed to update event');
+			}
+		} catch (error) {
+			console.error('Error saving event:', error);
+		}
 	};
 
 	return (
@@ -208,16 +293,20 @@ const EventCalendar = () => {
 						<h3>{selectedEvent.title}</h3>
 						<p>{selectedEvent.description}</p>
 
-						<p><strong>Location:</strong> {selectedEvent.location}</p>
-						<p><strong>Officer in Charge:</strong> 
-						{selectedEvent.officer}</p>
-						
-						<div className="event-datetime">
+						<p>
+							<strong>Location:</strong> {selectedEvent.location}
+						</p>
+						<p>
+							<strong>Officer in Charge:</strong>
+							{selectedEvent.officer}
+						</p>
+
+						<div className='event-datetime'>
 							<strong>Start:&emsp;</strong>
 							{moment(selectedEvent.start).format('LLL')}
 						</div>
-						
-						<div className="event-datetime">
+
+						<div className='event-datetime'>
 							<strong>End:&emsp;</strong>
 							{moment(selectedEvent.end).format('LLL')}
 						</div>
@@ -225,10 +314,22 @@ const EventCalendar = () => {
 							<strong>Recurrence:</strong> {selectedEvent.recurrence}
 						</p>
 
-						 <div className="modal-actions">
-							<button className="event-btn-primary" onClick={handleEditEvent}>Edit</button>
-							<button className="event-btn-danger" onClick={handleDeleteEvent}>Delete</button>
-							<button className="event-btn-secondary" onClick={() => setShowEventModal(false)}>Close</button>
+						<div className='modal-actions'>
+							<button
+								className='event-btn-primary'
+								onClick={handleEditEvent}>
+								Edit
+							</button>
+							<button
+								className='event-btn-danger'
+								onClick={handleDeleteEvent}>
+								Delete
+							</button>
+							<button
+								className='event-btn-secondary'
+								onClick={() => setShowEventModal(false)}>
+								Close
+							</button>
 						</div>
 					</div>
 				</div>
@@ -252,37 +353,50 @@ const EventCalendar = () => {
 							value={newEvent.description}
 							onChange={(e) =>
 								setNewEvent({ ...newEvent, description: e.target.value })
+							}></textarea>
+
+						<input
+							type='text'
+							placeholder='Location'
+							value={newEvent.location}
+							onChange={(e) =>
+								setNewEvent({ ...newEvent, location: e.target.value })
 							}
-						></textarea>
+						/>
 
-						<input type='text' placeholder='Location' value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
+						<input
+							type='text'
+							placeholder='Officer In-Charge'
+							value={newEvent.officer}
+							onChange={(e) =>
+								setNewEvent({ ...newEvent, officer: e.target.value })
+							}
+						/>
 
-						<input type='text' placeholder='Officer In-Charge' value={newEvent.officer} onChange={(e) => setNewEvent({ ...newEvent, officer: e.target.value })} />
+						<div className='time-fields'>
+							<div className='time-field'>
+								<label>Start Time:</label>
+								<input
+									type='datetime-local'
+									value={newEvent.start}
+									onChange={(e) =>
+										setNewEvent({ ...newEvent, start: e.target.value })
+									}
+								/>
+								<div className='field-helper'>Event start date and time</div>
+							</div>
 
-						<div className="time-fields">
-						<div className="time-field">
-							<label>Start Time:</label>
-							<input
-								type='datetime-local'
-								value={newEvent.start}
-								onChange={(e) =>
-									setNewEvent({ ...newEvent, start: e.target.value })
-								}
-							/>
-							<div className="field-helper">Event start date and time</div>
-						</div>
-
-						<div className="time-field">
-							<label>End Time:</label>
-							<input
-								type='datetime-local'
-								value={newEvent.end}
-								onChange={(e) =>
-									setNewEvent({ ...newEvent, end: e.target.value })
-								}
-							/>
-							<div className="field-helper">Event end date and time</div>
-						</div>
+							<div className='time-field'>
+								<label>End Time:</label>
+								<input
+									type='datetime-local'
+									value={newEvent.end}
+									onChange={(e) =>
+										setNewEvent({ ...newEvent, end: e.target.value })
+									}
+								/>
+								<div className='field-helper'>Event end date and time</div>
+							</div>
 						</div>
 
 						<label>Recurrence:</label>
@@ -313,69 +427,102 @@ const EventCalendar = () => {
 						<input
 							type='text'
 							value={selectedEvent.title}
-							onChange={(e) => setSelectedEvent({ ...selectedEvent, title: e.target.value })}
+							onChange={(e) =>
+								setSelectedEvent({ ...selectedEvent, title: e.target.value })
+							}
 						/>
 						<label>Description</label>
 						<textarea
-							placeholder="Description"
+							placeholder='Description'
 							value={selectedEvent.description}
-							onChange={(e) => setSelectedEvent({ ...selectedEvent, description: e.target.value })}
-						></textarea>
+							onChange={(e) =>
+								setSelectedEvent({
+									...selectedEvent,
+									description: e.target.value,
+								})
+							}></textarea>
 
 						<label>Location</label>
-						<input type='text' value={selectedEvent.location} onChange={(e) => setSelectedEvent({ ...selectedEvent, location: e.target.value })} />
+						<input
+							type='text'
+							value={selectedEvent.location}
+							onChange={(e) =>
+								setSelectedEvent({ ...selectedEvent, location: e.target.value })
+							}
+						/>
 
 						<label>Officer In-Charge</label>
-						<input type='text' value={selectedEvent.officer} onChange={(e) => setSelectedEvent({ ...selectedEvent, officer: e.target.value })} />
-						
-						<div className="time-fields">
-						<div className="time-field">
-							<label>Start Time:</label>
-							<input
-								type='datetime-local'
-								value={moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm')}
-								onChange={(e) => setSelectedEvent({ 
-									...selectedEvent, 
-									start: new Date(e.target.value) 
-								})}
-							/>
-							<div className="field-helper">Event start date and time</div>
+						<input
+							type='text'
+							value={selectedEvent.officer}
+							onChange={(e) =>
+								setSelectedEvent({ ...selectedEvent, officer: e.target.value })
+							}
+						/>
+
+						<div className='time-fields'>
+							<div className='time-field'>
+								<label>Start Time:</label>
+								<input
+									type='datetime-local'
+									value={moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm')}
+									onChange={(e) =>
+										setSelectedEvent({
+											...selectedEvent,
+											start: new Date(e.target.value),
+										})
+									}
+								/>
+								<div className='field-helper'>Event start date and time</div>
+							</div>
+
+							<div className='time-field'>
+								<label>End Time:</label>
+								<input
+									type='datetime-local'
+									value={moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm')}
+									onChange={(e) =>
+										setSelectedEvent({
+											...selectedEvent,
+											end: new Date(e.target.value),
+										})
+									}
+								/>
+								<div className='field-helper'>Event end date and time</div>
+							</div>
 						</div>
 
-						<div className="time-field">
-							<label>End Time:</label>
-							<input
-								type='datetime-local'
-								value={moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm')}
-								onChange={(e) => setSelectedEvent({ 
-									...selectedEvent, 
-									end: new Date(e.target.value) 
-								})}
-							/>
-							<div className="field-helper">Event end date and time</div>
-						</div>
-					</div>
-					
-					<label>Recurrence:</label>
-					<select
-						value={selectedEvent.recurrence}
-						onChange={(e) => setSelectedEvent({ ...selectedEvent, recurrence: e.target.value })}>
-						<option value='none'>None</option>
-						<option value='daily'>Daily</option>
-						<option value='weekly'>Weekly</option>
-						<option value='monthly'>Monthly</option>
-						<option value='yearly'>Yearly</option>
-					</select>
-					
-					<div className="modal-actions">
-						<button className="event-btn-primary" onClick={handleSaveEdit}>Save</button>
-						<button className="event-btn-secondary" onClick={() => setShowEditEventModal(false)}>Cancel</button>
-					</div>
+						<label>Recurrence:</label>
+						<select
+							value={selectedEvent.recurrence}
+							onChange={(e) =>
+								setSelectedEvent({
+									...selectedEvent,
+									recurrence: e.target.value,
+								})
+							}>
+							<option value='none'>None</option>
+							<option value='daily'>Daily</option>
+							<option value='weekly'>Weekly</option>
+							<option value='monthly'>Monthly</option>
+							<option value='yearly'>Yearly</option>
+						</select>
 
+						<div className='modal-actions'>
+							<button
+								className='event-btn-primary'
+								onClick={handleSaveEdit}>
+								Save
+							</button>
+							<button
+								className='event-btn-secondary'
+								onClick={() => setShowEditEventModal(false)}>
+								Cancel
+							</button>
+						</div>
 					</div>
 				</div>
 			)}
-
 		</div>
 	);
 };
