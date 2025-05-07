@@ -47,7 +47,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     '/facility',
     '/chargeslipform',
     '/chargeslip',
-    // '/laboratory'
+    '/laboratoryDetails'
   ];
 
   const shouldHideHeader =

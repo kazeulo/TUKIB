@@ -149,7 +149,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 		'/facility',
 		'/chargeslipform',
 		'/chargeslip',
-		'/laboratory'
+		'/laboratoryDetails'
 	];
 
 	// check if the current path is in the noChatbotRoutes list
@@ -318,7 +318,7 @@ const LocationWrapper = ({ isLoggedIn, setIsLoggedIn }) => {
 
 				{/* laboratory details */}
 				<Route
-					path='/laboratory/:id'
+					path='/laboratoryDetails/:id'
 					Component={LaboratoryDetails}
 				/>
 

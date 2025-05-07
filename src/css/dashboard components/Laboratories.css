@@ -64,6 +64,14 @@
     margin-right: 6px;
 }
 
+/* schedules section */
+
+.calendar-wrapper{
+    margin-bottom: 50px;
+}
+
+/* equipments sections */
+
 .equipments-title {
     font-size: 1.6rem;
     font-weight: 600;

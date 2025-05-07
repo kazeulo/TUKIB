@@ -37,7 +37,7 @@ const Laboratories = () => {
                     <div
                         key={lab.laboratory_id}
                         className="lab-card"
-                        onClick={() => navigate(`/laboratory/${lab.laboratory_id}`)}
+                        onClick={() => navigate(`/laboratoryDetails/${lab.laboratory_id}`)}
                     >
                         <h4>{lab.laboratory_name}</h4>
                     </div>
