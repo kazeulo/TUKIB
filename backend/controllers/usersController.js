@@ -61,13 +61,14 @@ const signupUser = async (req, res) => {
 			});
 		}
 
+		// Hash the password before storing
+		const hashedPassword = await bcrypt.hash(password, 10);
+
 		// Combine first_name and last_name for the 'name' field
 		const fullName = `${first_name} ${last_name}`;
-
-		// Set the role to 'Client' by default
 		const role = 'Client';
 
-		// Insert the new user into the database
+		// Insert into database
 		const result = await pool.query(
 			`INSERT INTO usersTable (name, first_name, last_name, email, password, institution, contact_number, role)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
@@ -76,15 +77,14 @@ const signupUser = async (req, res) => {
 				first_name,
 				last_name,
 				email,
-				password,
+				hashedPassword, // Use hashed password here
 				institution,
 				contact_number,
-				role, // Insert the default 'Client' role
+				role,
 			]
 		);
 
 		const newUser = result.rows[0];
-
 		res.json({ status: 'success', user: newUser });
 	} catch (error) {
 		console.error('Error signing up user:', error);
@@ -138,7 +138,15 @@ const createUser = async (req, res) => {
 			`INSERT INTO usersTable (
 				name, email, role, password, laboratory_id, institution, contact_number
 			) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-			[name, email, role, hashedPassword, laboratory_id, institution, contact_number]
+			[
+				name,
+				email,
+				role,
+				hashedPassword,
+				laboratory_id,
+				institution,
+				contact_number,
+			]
 		);
 
 		const newUser = result.rows[0];
