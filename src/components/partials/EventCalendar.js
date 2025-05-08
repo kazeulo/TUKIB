@@ -243,15 +243,14 @@ const EventCalendar = () => {
 	const handleSaveEdit = async (updatedEvent) => {
 		console.log('Updated Event:', updatedEvent); // Log the event to ensure the id is there
 
-		// Create a shallow copy of the updated event, excluding non-serializable properties (if any)
 		const eventToSave = {
 			id: updatedEvent.id,
 			title: updatedEvent.title,
 			description: updatedEvent.description,
 			location: updatedEvent.location,
 			officer: updatedEvent.officer,
-			start_time: updatedEvent.start, // Ensure it's a valid Date object or formatted as string
-			end_time: updatedEvent.end, // Ensure it's a valid Date object or formatted as string
+			start_time: moment(updatedEvent.start).format('YYYY-MM-DDTHH:mm'),
+			end_time: moment(updatedEvent.end).format('YYYY-MM-DDTHH:mm'),
 			recurrence: updatedEvent.recurrence,
 		};
 
@@ -554,7 +553,14 @@ const EventCalendar = () => {
 						</select>
 
 						<div className='modal-actions'>
-							<button onClick={() => handleSaveEdit(newEvent)}>Save</button>
+							<button
+								onClick={() => {
+									handleSaveEdit(selectedEvent);
+									setShowEditEventModal(false);
+								}}>
+								Save
+							</button>
+
 							<button
 								className='event-btn-secondary'
 								onClick={() => setShowEditEventModal(false)}>
