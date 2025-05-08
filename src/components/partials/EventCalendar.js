@@ -94,7 +94,10 @@ const EventCalendar = () => {
 						start: new Date(event.start_time), // Convert start_time to Date object
 						end: new Date(event.end_time), // Convert end_time to Date object
 					}));
-					setCalendarEvents(eventsWithDates); // Set events with valid dates
+
+					// Call renderRecurringEvents to handle recurring events
+					const allEvents = renderRecurringEvents(eventsWithDates);
+					setCalendarEvents(allEvents); // Set events with valid dates and recurrence
 				}
 			})
 			.catch((error) => {
@@ -106,6 +109,56 @@ const EventCalendar = () => {
 			setCurrentView('day'); // Default to day view for mobile
 		}
 	}, []);
+
+	const renderRecurringEvents = (events) => {
+		const updatedEvents = events.map((event) => {
+			if (event.recurrence === 'None') return event;
+
+			const { recurrence, start, end } = event;
+			const startDate = new Date(start);
+			const endDate = new Date(end);
+			const occurrences = [];
+
+			// First occurrence
+			occurrences.push({ ...event });
+
+			for (let i = 1; i < 12; i++) {
+				let nextStartDate = new Date(startDate);
+				let nextEndDate = new Date(endDate);
+
+				switch (recurrence) {
+					case 'Daily':
+						nextStartDate.setDate(startDate.getDate() + i);
+						nextEndDate.setDate(endDate.getDate() + i);
+						break;
+					case 'Weekly':
+						nextStartDate.setDate(startDate.getDate() + i * 7);
+						nextEndDate.setDate(endDate.getDate() + i * 7);
+						break;
+					case 'Monthly':
+						nextStartDate.setMonth(startDate.getMonth() + i);
+						nextEndDate.setMonth(endDate.getMonth() + i);
+						break;
+					case 'Yearly':
+						nextStartDate.setFullYear(startDate.getFullYear() + i);
+						nextEndDate.setFullYear(endDate.getFullYear() + i);
+						break;
+					default:
+						return event;
+				}
+
+				occurrences.push({
+					...event,
+					start: nextStartDate,
+					end: nextEndDate,
+				});
+			}
+
+			return occurrences;
+		});
+
+		return updatedEvents.flat();
+	};
 
 	const eventPropGetter = (event) => ({
 		style: {
@@ -156,52 +209,40 @@ const EventCalendar = () => {
 			return;
 		}
 
-		// Ensure that start_time and end_time are not null
-		if (!newEvent.start || !newEvent.end) {
-			alert('Start time and end time cannot be empty.');
-			return;
-		}
-
-		// Ensure that start time is before end time
 		if (newEvent.start >= newEvent.end) {
 			alert('Start time must be before end time.');
 			return;
 		}
 
-		// Prepare the event data to send to the backend
 		const eventToAdd = {
 			title: newEvent.title,
 			description: newEvent.description,
 			location: newEvent.location,
 			officer: newEvent.officer,
-			start_time: newEvent.start, // Directly using Date object
-			end_time: newEvent.end, // Directly using Date object
+			start_time: newEvent.start,
+			end_time: newEvent.end,
 			recurrence: newEvent.recurrence,
 		};
 
 		try {
 			const response = await fetch('http://localhost:5000/api/events', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(eventToAdd),
 			});
 
 			if (response.ok) {
 				const savedEvent = await response.json();
 
-				// Convert saved event times to JavaScript Date objects
-				const newEventData = {
+				const baseEvent = {
 					...savedEvent.event,
-					start: new Date(savedEvent.event.start_time), // Ensure it's a Date object
-					end: new Date(savedEvent.event.end_time), // Ensure it's a Date object
+					start: new Date(savedEvent.event.start_time),
+					end: new Date(savedEvent.event.end_time),
 				};
 
-				// Update calendar state with the new event
-				setCalendarEvents((prevEvents) => [...prevEvents, newEventData]);
+				const expandedEvents = renderRecurringEvents([baseEvent]);
 
-				// Optionally close the modal if you have one
+				setCalendarEvents((prevEvents) => [...prevEvents, ...expandedEvents]);
 				setShowAddEventModal(false);
 			} else {
 				console.error('Failed to save event');
@@ -239,10 +280,7 @@ const EventCalendar = () => {
 			console.error('Error deleting event:', error);
 		}
 	};
-
 	const handleSaveEdit = async (updatedEvent) => {
-		console.log('Updated Event:', updatedEvent); // Log the event to ensure the id is there
-
 		const eventToSave = {
 			id: updatedEvent.id,
 			title: updatedEvent.title,
@@ -255,32 +293,30 @@ const EventCalendar = () => {
 		};
 
 		try {
-			console.log('Event to save:', eventToSave); // Log the event before sending it to the server
-
 			const response = await fetch(
 				`http://localhost:5000/api/events/${updatedEvent.id}`,
 				{
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(eventToSave), // Send the cleaned data without React state
+					body: JSON.stringify(eventToSave),
 				}
 			);
 
 			if (response.ok) {
 				const data = await response.json();
-				console.log('Event updated:', data);
-				// Update state with the new data
-				setCalendarEvents((prev) =>
-					prev.map((event) =>
-						event.id === data.event.id
-							? {
-									...data.event,
-									start: new Date(data.event.start_time),
-									end: new Date(data.event.end_time),
-							  }
-							: event
-					)
-				);
+
+				const updatedEventObj = {
+					...data.event,
+					start: new Date(data.event.start_time),
+					end: new Date(data.event.end_time),
+				};
+
+				const expandedEvents = renderRecurringEvents([updatedEventObj]);
+
+				setCalendarEvents((prevEvents) => [
+					...prevEvents.filter((e) => e.id !== updatedEventObj.id),
+					...expandedEvents,
+				]);
 			} else {
 				console.error('Failed to update event');
 			}
@@ -545,11 +581,11 @@ const EventCalendar = () => {
 									recurrence: e.target.value,
 								})
 							}>
-							<option value='none'>None</option>
-							<option value='daily'>Daily</option>
-							<option value='weekly'>Weekly</option>
-							<option value='monthly'>Monthly</option>
-							<option value='yearly'>Yearly</option>
+							<option value='None'>None</option>
+							<option value='Daily'>Daily</option>
+							<option value='Weekly'>Weekly</option>
+							<option value='Monthly'>Monthly</option>
+							<option value='Yearly'>Yearly</option>
 						</select>
 
 						<div className='modal-actions'>
