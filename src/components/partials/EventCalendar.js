@@ -129,7 +129,24 @@ const EventCalendar = () => {
 	};
 
 	const handleSelectSlot = ({ start, end }) => {
-		setNewEvent({ ...newEvent, start, end });
+		const formattedStart = moment(start)
+			.startOf('day')
+			.format('YYYY-MM-DDTHH:mm'); // Set start to 12:00 AM on the selected day
+
+		// Set end time to 11:59 PM on the same selected day
+		const formattedEnd = moment(start)
+			.set({ hour: 23, minute: 59, second: 0, millisecond: 0 })
+			.format('YYYY-MM-DDTHH:mm');
+
+		setNewEvent({
+			title: '',
+			description: '',
+			location: '',
+			officer: '',
+			start: formattedStart,
+			end: formattedEnd, // Ensure the end time is 11:59 PM of the same day
+			recurrence: 'None',
+		});
 		setShowAddEventModal(true);
 	};
 
@@ -224,19 +241,36 @@ const EventCalendar = () => {
 	};
 
 	const handleSaveEdit = async (updatedEvent) => {
+		console.log('Updated Event:', updatedEvent); // Log the event to ensure the id is there
+
+		// Create a shallow copy of the updated event, excluding non-serializable properties (if any)
+		const eventToSave = {
+			id: updatedEvent.id,
+			title: updatedEvent.title,
+			description: updatedEvent.description,
+			location: updatedEvent.location,
+			officer: updatedEvent.officer,
+			start_time: updatedEvent.start, // Ensure it's a valid Date object or formatted as string
+			end_time: updatedEvent.end, // Ensure it's a valid Date object or formatted as string
+			recurrence: updatedEvent.recurrence,
+		};
+
 		try {
+			console.log('Event to save:', eventToSave); // Log the event before sending it to the server
+
 			const response = await fetch(
 				`http://localhost:5000/api/events/${updatedEvent.id}`,
 				{
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(updatedEvent),
+					body: JSON.stringify(eventToSave), // Send the cleaned data without React state
 				}
 			);
 
 			if (response.ok) {
 				const data = await response.json();
-				// update state
+				console.log('Event updated:', data);
+				// Update state with the new data
 				setCalendarEvents((prev) =>
 					prev.map((event) =>
 						event.id === data.event.id
@@ -319,9 +353,13 @@ const EventCalendar = () => {
 							</button>
 							<button
 								className='event-btn-danger'
-								onClick={() => handleDeleteEvent(selectedEvent.id)}>
+								onClick={() => {
+									handleDeleteEvent(selectedEvent.id); // Call the delete function
+									setShowEventModal(false); // Close the modal after deletion
+								}}>
 								Delete
 							</button>
+
 							<button
 								className='event-btn-secondary'
 								onClick={() => setShowEventModal(false)}>
@@ -371,28 +409,30 @@ const EventCalendar = () => {
 						/>
 
 						<div className='time-fields'>
-							<div className='time-field'>
-								<label>Start Time:</label>
-								<input
-									type='datetime-local'
-									value={newEvent.start}
-									onChange={(e) =>
-										setNewEvent({ ...newEvent, start: e.target.value })
-									}
-								/>
-								<div className='field-helper'>Event start date and time</div>
-							</div>
+							<div className='time-fields'>
+								<div className='time-field'>
+									<label>Start Time:</label>
+									<input
+										type='datetime-local'
+										value={newEvent.start} // This should now be in the correct format
+										onChange={(e) =>
+											setNewEvent({ ...newEvent, start: e.target.value })
+										}
+									/>
+									<div className='field-helper'>Event start date and time</div>
+								</div>
 
-							<div className='time-field'>
-								<label>End Time:</label>
-								<input
-									type='datetime-local'
-									value={newEvent.end}
-									onChange={(e) =>
-										setNewEvent({ ...newEvent, end: e.target.value })
-									}
-								/>
-								<div className='field-helper'>Event end date and time</div>
+								<div className='time-field'>
+									<label>End Time:</label>
+									<input
+										type='datetime-local'
+										value={newEvent.end} // This should also be in the correct format
+										onChange={(e) =>
+											setNewEvent({ ...newEvent, end: e.target.value })
+										}
+									/>
+									<div className='field-helper'>Event end date and time</div>
+								</div>
 							</div>
 						</div>
 
@@ -417,9 +457,16 @@ const EventCalendar = () => {
 
 			{/* Edit Event Modal */}
 			{showEditEventModal && selectedEvent && (
-				<div className='edit-event-modal'>
-					<div className='event-modal-content'>
+				<div
+					className='modal-overlay'
+					onClick={() => setShowEditEventModal(false)} // Close modal on outside click
+				>
+					<div
+						className='event-modal-content'
+						onClick={(e) => e.stopPropagation()} // Prevent close when clicking inside modal
+					>
 						<h3>Edit Event</h3>
+
 						<label>Title</label>
 						<input
 							type='text'
@@ -428,6 +475,7 @@ const EventCalendar = () => {
 								setSelectedEvent({ ...selectedEvent, title: e.target.value })
 							}
 						/>
+
 						<label>Description</label>
 						<textarea
 							placeholder='Description'
@@ -506,11 +554,7 @@ const EventCalendar = () => {
 						</select>
 
 						<div className='modal-actions'>
-							<button
-								className='event-btn-primary'
-								onClick={handleSaveEdit}>
-								Save
-							</button>
+							<button onClick={() => handleSaveEdit(newEvent)}>Save</button>
 							<button
 								className='event-btn-secondary'
 								onClick={() => setShowEditEventModal(false)}>
