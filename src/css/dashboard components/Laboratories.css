@@ -140,37 +140,78 @@
 
 /* laboratory details */
 
-.laboratory-details{
+.laboratory-details {
     padding: 30px 50px;
     font-family: var(--primary-font);
-}
-
-.laboratory-details h3 {
-    margin: 20px 0;
-    font-weight: bold;
-}
+    color: var(--text-color);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .equipment-section h3 {
+    margin: 30px 0 20px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid rgba(139, 30, 65, 0.2);
+    padding-bottom: 10px;
+  }
 
 
 /* schedules section */
 
-.calendar-wrapper{
+.calendar-wrapper {
     margin-bottom: 50px;
-}
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    border: var(--card-border);
+  }
 
-/* equipments sections */
+/* Equipment section */
 
 .equipments-title {
     font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: #2d2d2d;
+    color: var(--text-color);
     display: flex;
     align-items: center;
-}
+  }
   
-.equipments-icon {
-    margin-right: 10px;
-}
+  .equipments-icon {
+    margin-right: 15px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+  }
+  
+  .equipment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-equipment-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+    margin-bottom: 20px;;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .add-equipment-btn:hover {
+    background-color: #7b1a38;
+    transform: translateY(-2px);
+  }
+
 
 .equipment-table{
     background-color: white;   
@@ -183,4 +224,31 @@
     background-color: #8b1e41;
     color: whitesmoke;
 }
+
+/* Laboratory Title Styling */
+.laboratory-title {
+    margin: 25px 0 35px;
+    position: relative;
+    padding-bottom: 12px;
+  }
   
+  .laboratory-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 80px;
+    background-color: var(--primary-color, #8b1e41);
+  }
+  
+  .laboratory-title h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #333, #890f35, #8b1e41, #c5c4c4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.5px;
+  }

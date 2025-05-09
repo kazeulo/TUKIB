@@ -1,43 +1,6 @@
-/* Equipments.css */
-/* General styles */
 
-.add-btn {
-    margin-right: 50px;
-    border: 1px solid transparent;
-    background-color: #8B1538;
-    color: white;
-    transition: all ease 0.4s; 
-    /* color: white; */
-    /* padding: 8px 15px; */
-    /* border: none; */
-    cursor: pointer;
-    border-radius: 5px;
-}
 
-.add-btn:hover {
-    background-color: #d2134c;
-}
-
-/* Table styling */
-/* .equipment-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-} */
-
-/* .equipment-table th, .equipment-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-} */
-
-/* .equipment-table th {
-    background: #8B1538;
-    color: white;
-    font-weight: 500;
-} */
-
-.equipment-table tr:hover {
+.equipment-table tbody tr:hover {
     background: #f1f1f1;
 }
 
@@ -58,7 +21,7 @@
 }
 
 .edit-btn:hover {
-    background-color: #e27c874d;
+    color: rgb(2, 127, 2);
 }
 
 .delete-btn {
@@ -66,7 +29,8 @@
 }
 
 .delete-btn:hover {
-    background-color: #e27c874d;
+    color: #78030f!important;
+    background: none;
 }
 
 /* Overlay styles */
@@ -86,7 +50,7 @@
     background: white;
     padding: 30px;
     border-radius: 8px;
-    width: 500px;
+    width: 600px;
     max-height: 90vh;
     overflow-y: auto;
 }

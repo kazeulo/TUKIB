@@ -179,14 +179,14 @@ const LaboratoryDetails = () => {
                 Back to Laboratories
             </button>
 
-            <div>
-                <h3>{laboratory ? laboratory.laboratory_name : "Laboratory Details"}</h3>
+            <div className='laboratory-title'>
+                <h3>Laboratory:&ensp;{laboratory ? laboratory.laboratory_name.toUpperCase() : "Laboratory Details"}</h3>
             </div>
 
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div>
+                <div className='equipment-section'>
                     <h3 className="equipments-title">
                         <IoCalendarOutline className="equipment-icon" />
                         Schedules
@@ -197,13 +197,13 @@ const LaboratoryDetails = () => {
                     </div>
 
                     <div className='equipment-section-wrapper'>
-                        <div>
+                        <div className='equipment-section-header'>
                             <h3 className="equipments-title">
                                 <IoFlaskOutline className="euipment-icon" />
                                 Laboratory Equipments
                             </h3>
 
-                            <button className="add-btn" onClick={handleAddClick}>
+                            <button className="add-equipment-btn" onClick={handleAddClick}>
                                 Add Equipment
                             </button>
                         </div>
