@@ -188,8 +188,7 @@ const LaboratoryDetails = () => {
             ) : (
                 <div className='equipment-section'>
                     <h3 className="equipments-title">
-                        <IoCalendarOutline className="equipment-icon" />
-                        Schedules
+                        <IoCalendarOutline className="equipment-icon" /> &ensp;Schedules
                     </h3>
 
                     <div className='calendar-wrapper'>
@@ -200,7 +199,7 @@ const LaboratoryDetails = () => {
                         <div className='equipment-section-header'>
                             <h3 className="equipments-title">
                                 <IoFlaskOutline className="euipment-icon" />
-                                Laboratory Equipments
+                                &ensp;Laboratory Equipments
                             </h3>
 
                             <button className="add-equipment-btn" onClick={handleAddClick}>
