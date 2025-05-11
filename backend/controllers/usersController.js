@@ -1,5 +1,6 @@
 const pool = require('../backend');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 
 // Fetch all users (existing function)
 const getUsers = async (req, res) => {
@@ -235,6 +236,43 @@ const editUser = async (req, res) => {
 	}
 };
 
+// Setup transporter for Gmail using App Password (2FA enabled)
+const transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: 'rainermayagma9@gmail.com',
+		pass: 'arhsnmkifylhlimt',
+	},
+	tls: {
+		rejectUnauthorized: false, // Allow connection even if certificates are problematic
+	},
+});
+
+transporter.verify((err, success) => {
+	if (err) {
+		console.error('Connection failed:', err);
+	} else {
+		console.log('Server is ready to send emails');
+	}
+});
+
+// Send activation email function
+const sendActivationEmail = async (email, name) => {
+	const mailOptions = {
+		from: '"Mailer" <rainermayagma9@gmail.com>',
+		to: email,
+		subject: 'Account Activated',
+		text: `Hi ${name},\n\nYour account has been activated. You can now log in.\n\nThanks,\nYour App Team`,
+	};
+
+	try {
+		await transporter.sendMail(mailOptions);
+		console.log('Activation email sent');
+	} catch (error) {
+		console.error('Failed to send activation email:', error);
+	}
+};
+
 const updateUserStatus = async (req, res) => {
 	try {
 		const { userId } = req.params;
@@ -274,6 +312,25 @@ const updateUserStatus = async (req, res) => {
 				status: 'error',
 				message: 'User not found',
 			});
+		}
+
+		// Send activation email only if status is set to 'active'
+		if (status === 'active') {
+			const userInfo = await pool.query(
+				'SELECT email, name FROM usersTable WHERE user_id = $1',
+				[userId]
+			);
+
+			if (userInfo.rowCount > 0) {
+				const { email, name } = userInfo.rows[0];
+				if (email && name) {
+					try {
+						await sendActivationEmail(email, name);
+					} catch (emailErr) {
+						console.warn('Failed to send activation email:', emailErr.message);
+					}
+				}
+			}
 		}
 
 		res.json({
