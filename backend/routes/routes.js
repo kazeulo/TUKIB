@@ -41,6 +41,9 @@ router.post('/users', usersController.createUser);
 router.delete('/users/:userId', usersController.deleteUser);
 router.put('/users/:userId', usersController.editUser);
 
+// Add the route to update the status
+router.patch('/users/:userId/status', usersController.updateUserStatus);
+
 // Routes for fetching and managing equipment
 router.get('/equipments', equipmentsController.getEquipments);
 router.post('/equipments', equipmentsController.addEquipment);

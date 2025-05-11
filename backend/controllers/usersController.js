@@ -70,7 +70,7 @@ const signupUser = async (req, res) => {
 
 		// Insert into database
 		const result = await pool.query(
-			`INSERT INTO usersTable (name, first_name, last_name, email, password, institution, contact_number, role)
+			`INSERT INTO usersTable (name, first_name, last_name, email, password, institution, contact_number, role, status)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
 			[
 				fullName,
@@ -81,6 +81,7 @@ const signupUser = async (req, res) => {
 				institution,
 				contact_number,
 				role,
+				req.body.status || 'pending',
 			]
 		);
 
@@ -136,7 +137,7 @@ const createUser = async (req, res) => {
 
 		const result = await pool.query(
 			`INSERT INTO usersTable (
-				name, email, role, password, laboratory_id, institution, contact_number
+				name, email, role, password, laboratory_id, institution, contact_number, status
 			) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
 			[
 				name,
@@ -146,6 +147,7 @@ const createUser = async (req, res) => {
 				laboratory_id,
 				institution,
 				contact_number,
+				req.body.status || 'pending',
 			]
 		);
 
@@ -214,7 +216,7 @@ const editUser = async (req, res) => {
 			`UPDATE usersTable 
 			SET name = $1, email = $2, contact_number = $3, institution = $4
 			WHERE user_id = $5
-			RETURNING user_id, name, email, contact_number, institution, role`,
+			RETURNING user_id, name, email, contact_number, institution, role, status`,
 			[name, email, contact_number, institution, userId]
 		);
 
@@ -229,6 +231,44 @@ const editUser = async (req, res) => {
 	}
 };
 
+const updateUserStatus = async (req, res) => {
+	try {
+		const { userId } = req.params; // Get the userId from the URL
+		const { status } = req.body; // Get the new status from the request body
+
+		// Validate the status (optional)
+		if (!['pending', 'active', 'blocked', 'locked'].includes(status)) {
+			return res.status(400).json({
+				status: 'error',
+				message: 'Invalid status value',
+			});
+		}
+
+		// Update the user status in the database
+		const result = await pool.query(
+			`UPDATE usersTable SET status = $1 WHERE user_id = $2 RETURNING user_id, status`,
+			[status, userId]
+		);
+
+		if (result.rowCount === 0) {
+			return res.status(404).json({
+				status: 'error',
+				message: 'User not found',
+			});
+		}
+
+		// Return the updated user
+		res.json({
+			status: 'success',
+			message: 'User status updated successfully',
+			user: result.rows[0],
+		});
+	} catch (error) {
+		console.error('Error updating user status:', error);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+};
+
 module.exports = {
 	getUsers,
 	getUserById,
@@ -236,4 +276,5 @@ module.exports = {
 	createUser,
 	deleteUser,
 	editUser,
+	updateUserStatus,
 };
