@@ -23,8 +23,8 @@ const googleLoginController = async (req, res) => {
 
 		// Check if the user with the given email exists in the database
 		const query = `
-          SELECT * FROM "userstable" WHERE email = $1 LIMIT 1;
-        `;
+      SELECT * FROM "userstable" WHERE email = $1 LIMIT 1;
+    `;
 		const values = [email];
 		const result = await db.query(query, values);
 
@@ -36,8 +36,18 @@ const googleLoginController = async (req, res) => {
 			});
 		}
 
-		// If the user exists, check their role and log them in
+		// If the user exists, check their status
 		const user = result.rows[0];
+
+		if (user.status !== 'active') {
+			console.log(`User status is ${user.status}, login denied`);
+			return res.status(403).json({
+				success: false,
+				message: 'Account is not active. Please contact support.',
+			});
+		}
+
+		// Log Google account details for debugging
 		console.log('Google Account Details:');
 		console.log(`Name: ${name}`);
 		console.log(`Email: ${email}`);

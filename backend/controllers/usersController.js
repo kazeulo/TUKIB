@@ -43,6 +43,7 @@ const getUserById = async (req, res) => {
 
 const signupUser = async (req, res) => {
 	try {
+		// Extract fields from request body
 		const {
 			first_name,
 			last_name,
@@ -50,7 +51,6 @@ const signupUser = async (req, res) => {
 			password,
 			institution,
 			contact_number,
-			name,
 		} = req.body;
 
 		// Validate required fields
@@ -66,12 +66,16 @@ const signupUser = async (req, res) => {
 
 		// Combine first_name and last_name for the 'name' field
 		const fullName = `${first_name} ${last_name}`;
-		const role = 'Client';
+		const role = 'Client'; // Default role is Client, adjust if needed
+		const status = req.body.status || 'pending'; // Default status if not provided
+
+		// Log to check the request body data
+		console.log('Request body:', req.body);
 
 		// Insert into database
 		const result = await pool.query(
 			`INSERT INTO usersTable (name, first_name, last_name, email, password, institution, contact_number, role, status)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
 			[
 				fullName,
 				first_name,
@@ -81,7 +85,7 @@ const signupUser = async (req, res) => {
 				institution,
 				contact_number,
 				role,
-				req.body.status || 'pending',
+				status, // Ensure status is passed correctly
 			]
 		);
 
