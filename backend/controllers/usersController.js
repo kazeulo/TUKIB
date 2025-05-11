@@ -237,10 +237,9 @@ const editUser = async (req, res) => {
 
 const updateUserStatus = async (req, res) => {
 	try {
-		const { userId } = req.params; // Get the userId from the URL
-		const { status } = req.body; // Get the new status from the request body
+		const { userId } = req.params;
+		const { status } = req.body;
 
-		// Validate the status (optional)
 		if (!['pending', 'active', 'blocked', 'locked'].includes(status)) {
 			return res.status(400).json({
 				status: 'error',
@@ -248,11 +247,27 @@ const updateUserStatus = async (req, res) => {
 			});
 		}
 
-		// Update the user status in the database
-		const result = await pool.query(
-			`UPDATE usersTable SET status = $1 WHERE user_id = $2 RETURNING user_id, status`,
-			[status, userId]
-		);
+		let query, values;
+
+		if (status === 'active') {
+			query = `
+				UPDATE usersTable 
+				SET status = $1, failed_attempts = 0, last_failed_attempt = NULL 
+				WHERE user_id = $2 
+				RETURNING user_id, status, failed_attempts, last_failed_attempt
+			`;
+			values = [status, userId];
+		} else {
+			query = `
+				UPDATE usersTable 
+				SET status = $1 
+				WHERE user_id = $2 
+				RETURNING user_id, status
+			`;
+			values = [status, userId];
+		}
+
+		const result = await pool.query(query, values);
 
 		if (result.rowCount === 0) {
 			return res.status(404).json({
@@ -261,14 +276,13 @@ const updateUserStatus = async (req, res) => {
 			});
 		}
 
-		// Return the updated user
 		res.json({
 			status: 'success',
 			message: 'User status updated successfully',
 			user: result.rows[0],
 		});
 	} catch (error) {
-		console.error('Error updating user status:', error);
+		console.error('Error updating user status:', error.message, error.stack);
 		res.status(500).json({ error: 'Internal server error' });
 	}
 };
