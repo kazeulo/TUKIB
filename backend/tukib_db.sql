@@ -109,7 +109,8 @@ CREATE TABLE usersTable (
     first_name VARCHAR(100),
     last_name VARCHAR(100),
     status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE,
+    CONSTRAINT status_check CHECK (status IN ('active', 'pending', 'locked', 'blocked'))
 );
 
 -- User Tokens Table
