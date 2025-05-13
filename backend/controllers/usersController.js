@@ -248,13 +248,14 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-transporter.verify((err, success) => {
-	if (err) {
-		console.error('Connection failed:', err);
-	} else {
-		console.log('Server is ready to send emails');
-	}
-});
+//  for debugging
+// transporter.verify((err, success) => {
+// 	if (err) {
+// 		console.error('Connection failed:', err);
+// 	} else {
+// 		console.log('Server is ready to send emails');
+// 	}
+// });
 
 // Send activation email function
 const sendActivationEmail = async (email, name) => {

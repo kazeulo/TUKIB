@@ -323,6 +323,17 @@ CREATE TABLE rates_and_services (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE restricted_dates (
+    id SERIAL PRIMARY KEY,
+    resource_type VARCHAR(50) NOT NULL,  -- 'equipment', 'laboratory', 'facility'
+    resource_id INTEGER NOT NULL,
+    restricted_date DATE NOT NULL,
+    reason TEXT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE (resource_type, resource_id, restricted_date)
+);
+
+
 
 -- Indexes for performance
 CREATE INDEX idx_events_start_time ON events(start_time);
