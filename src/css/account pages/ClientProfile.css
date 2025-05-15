@@ -149,6 +149,10 @@
   color: white;
   /* color: #902337; */
 }
+.client-action-btn.primary-action:hover{
+  transform: scale(1.05)!important;
+  transition: transform 0.3s!important;
+}
 
 .client-action-btn.primary-action i {
   margin-right: 5px;

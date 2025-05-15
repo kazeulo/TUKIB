@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../css/ServiceRequestForm.css';
 import Modal from '../partials/Modal';
 import SuccessModal from './SuccessModal';
+import TermsModal from './TermsOverlay';
 
 
 const SampleProcessingForm = ({ isLoggedIn }) => {
@@ -19,6 +20,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 	const dropdownRef = useRef(null);
 	const [selectedLab, setSelectedLab] = useState('');
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [isTermsOpen, setIsTermsOpen] = useState(false);
    
 	const [formData, setFormData] = useState({
 		typeOfAnalysis: '',
@@ -335,6 +337,24 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 		);
 	  };
 
+	 // Prevent body scrolling when terms are open
+	useEffect(() => {
+		if (isTermsOpen) {
+		document.body.style.overflow = 'hidden';
+		} else {
+		document.body.style.overflow = 'auto';
+		}
+		
+		return () => {
+		document.body.style.overflow = 'auto';
+		};
+	}, [isTermsOpen]);
+
+	const openTerms = (e) => {
+		e.preventDefault();
+		setIsTermsOpen(true);
+	};
+
 	return (
 		<>
 			<Modal
@@ -614,10 +634,22 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								checked={formData.acknowledgeTerms}
 								onChange={handleCheckboxChange}
 							/>
-							I acknowledge the terms and conditions
+							I acknowledge the&ensp;
+							<button type="button"
+									className="terms-link" 
+									onClick={() => setIsTermsOpen(true)}
+							>
+							terms and conditions
+							</button>
 							</label>
 							{errors.acknowledgeTerms && <p className="error">{errors.acknowledgeTerms}</p>}
 						</div>
+
+						<TermsModal 
+							isOpen={isTermsOpen} 
+							onClose={() => setIsTermsOpen(false)} 
+						/>
+						
 
 						{/* Buttons */}
 						<div className='form-actions'>
