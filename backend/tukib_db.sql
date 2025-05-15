@@ -44,6 +44,7 @@ DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS feedback_table CASCADE;
 DROP TABLE IF EXISTS rates_and_services CASCADE;
 DROP TABLE IF EXISTS calendar CASCADE;
+DROP TABLE IF EXISTS restricted_dates CASCADE;
 
 DROP TYPE IF EXISTS roles CASCADE;
 DROP TYPE IF EXISTS payment_option CASCADE;
@@ -85,7 +86,7 @@ CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', '
 CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
 CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
 CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
-CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
+-- CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
 
 -- ======== TABLE CREATION ========
 
@@ -109,7 +110,7 @@ CREATE TABLE usersTable (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
-    status user_status DEFAULT 'pending',
+    status user_status DEFAULT 'active',
     failed_attempts INTEGER DEFAULT 0,
     last_failed_attempt TIMESTAMP,
     FOREIGN KEY (laboratory_id) REFERENCES laboratories(laboratory_id) ON DELETE CASCADE
