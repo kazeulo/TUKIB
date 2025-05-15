@@ -85,6 +85,7 @@ CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', '
 CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
 CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
 CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
+CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
 
 -- ======== TABLE CREATION ========
 
@@ -286,9 +287,12 @@ CREATE TABLE events (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     location VARCHAR(255),
+    created_by INT,
     officer VARCHAR(255),
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
+    is_recurring BOOLEAN DEFAULT FALSE,
+    recurrence_pattern TEXT,
     recurrence VARCHAR(50) DEFAULT 'none',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
