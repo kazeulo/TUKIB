@@ -455,7 +455,7 @@ const SampleProcessingRequestDetails = () => {
 
           {/* Sample Processing Details */}
           <h4 className="section-header">Sample Processing</h4>
-          <div className="request-section facility-details">
+          <div className="request-section ">
             <div className="details-row">
               <div className="details-col">
                 <p className="detail-item"><span className="detail-label">Type of Analysis:</span> {requestDetails.type_of_analysis}</p>

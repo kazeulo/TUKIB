@@ -390,7 +390,7 @@ const TrainingRequestDetails = () => {
 
               {/* Training Details */}
               <h4 className="section-header">Training</h4>
-              <div className="request-section facility-details">
+              <div className="request-section">
                 <div className="details-row">
                   <div className="details-col">
                     <p className="detail-item"><span className="detail-label">Training title:</span> {requestDetails.trainingtitle}</p>
