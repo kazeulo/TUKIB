@@ -6,9 +6,9 @@ const generateRequestCode = async (serviceType) => {
     
     const typeMap = {
         'Sample Processing': 'SP',
-        'Training': 'TR',
-        'Use of Equipment': 'EQ',
-        'Use of Facility': 'FAC'
+        'Training': 'TRN',
+        'Use of Equipment': 'UE',
+        'Use of Facility': 'UoF'
     };
 
     const typeCode = typeMap[serviceType];
