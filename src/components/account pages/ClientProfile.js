@@ -508,7 +508,7 @@ const ClientProfile = ({ isLoggedIn }) => {
                       </span>                      
                       </td>
                       <td>
-                        {request.status !== 'Cancelled' && request.status === 'Pending for Approval' ? (
+                        {request.status !== 'Cancelled' && request.status === 'Pending for approval' ? (
                           <button
                             className="client-cancel-btn"
                             onClick={(e) => {

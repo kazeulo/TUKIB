@@ -56,6 +56,7 @@ DROP TYPE IF EXISTS servicetype_enum CASCADE;
 DROP TYPE IF EXISTS satisfaction_enum CASCADE;
 DROP TYPE IF EXISTS yesno_enum CASCADE;
 DROP TYPE IF EXISTS system_enum CASCADE;
+DROP TYPE IF EXISTS user_status CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -86,7 +87,7 @@ CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', '
 CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
 CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
 CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
--- CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
+CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
 
 -- ======== TABLE CREATION ========
 
