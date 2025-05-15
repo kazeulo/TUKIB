@@ -403,7 +403,7 @@ const UseOfFacilityRequestDetails = () => {
           
           {/* Facility Usage Details */}
           <h4 className="section-header">Facility Usage</h4>
-          <div className="request-section facility-details">
+          <div className="request-section">
             <div className="details-row">
               <div className="details-col">
                 <p className="detail-item"><span className="detail-label">Facility:</span> {requestDetails.facility_name}</p>

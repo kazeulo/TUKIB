@@ -389,7 +389,7 @@ const UseOfEquipmentRequestDetails = () => {
           
           {/* Equipment Usage Details */}
           <h4 className="section-header">Equipment Usage</h4>
-          <div className="request-section facility-details">
+          <div className="request-section ">
             <div className="details-row">
               <div className="details-col">
                 <p className="detail-item"><span className="detail-label">Authorized Representative:</span> {requestDetails.authorized_representative}</p>
