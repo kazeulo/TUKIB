@@ -447,7 +447,7 @@ const SampleProcessingRequestDetails = () => {
                 <p className='instruction'>Result for your request is now ready. Click the button below to view and download it.</p>
                 <a className='download-link' href={resultUrl} target="_blank" rel="noopener noreferrer">
                   <Download size={18} style={{ marginRight: '8px' }} />
-                  Receipt
+                  Result
                 </a>
               </div>
             </div>
