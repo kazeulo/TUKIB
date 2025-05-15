@@ -459,6 +459,7 @@ const SampleProcessingRequestDetails = () => {
             <div className="details-row">
               <div className="details-col">
                 <p className="detail-item"><span className="detail-label">Type of Analysis:</span> {requestDetails.type_of_analysis}</p>
+                <p className="detail-item"><span className="detail-label">Laboratory:</span> {requestDetails.laboratory}</p>
                 <p className="detail-item"><span className="detail-label">Sample Type:</span> {requestDetails.sample_type}</p>
                 <p className="detail-item"><span className="detail-label">Sample Description:</span> {requestDetails.sample_description}</p>
                 <p className="detail-item"><span className="detail-label">Sample Volume:</span> {requestDetails.sample_volume}</p>
