@@ -593,19 +593,19 @@ const ClientProfile = ({ isLoggedIn }) => {
             <div className="reminders-content">
               <div className="reminder-item">
                 <span className="reminder-icon">🔔</span>
-                <span>Stay updated on RRC announcements</span>
+                <span>STAY UPDATED on RRC announcements</span>
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">📋</span>
-                <span>Check pending requests</span>
+                <span>CHECK THE STATUS of your service request</span>
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">📅</span>
-                <span>Review upcoming bookings</span>
+                <span>Submit your samples ON-TIME</span>
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">📄</span>
-                <span>Submit required docs</span>
+                <span>REVIEW form data before submitting request</span>
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">👤</span>
@@ -613,7 +613,7 @@ const ClientProfile = ({ isLoggedIn }) => {
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">🔒</span>
-                <span>Log out on shared devices</span>
+                <span>Read our Terms and Conditions</span>
               </div>
               <div className="reminder-item">
                 <span className="reminder-icon">💾</span>
