@@ -1,0 +1,239 @@
+.service-request-progress {
+    margin-bottom: 2rem;
+}
+
+/* Progress tracker container */
+.progress-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+  position: relative;
+  padding: 0 20px;
+}
+
+/* Progress line */
+.progress-line {
+  position: absolute;
+  top: 36px;
+  left: 4%;
+  right: 2%;
+  height: 2px;
+  width: 90%;
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+.progress-line-active {
+            position: absolute;
+            top: 36px;
+            left: 4%;
+            right: 2%;
+            height: 2px;
+            background-color: #4CAF50;
+            z-index: 2;
+            max-width: 90%;
+        }
+
+
+/* Progress step */
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+  max-width: 120px;
+}
+
+/* Step indicator - the circle */
+.progress-step .step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: white;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Icon inside the circle */
+.progress-step .step-indicator i {
+  font-size: 20px;
+  color: #888;
+}
+
+/* Step label */
+.progress-step .step-label {
+  font-size: 13px !important;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Step date */
+.progress-step .step-date {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+/* Completed step */
+.progress-step.completed .step-indicator {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.progress-step.completed .step-indicator i {
+  color: white;
+}
+
+/* Current step */
+.progress-step.current .step-indicator {
+  background-color: white;
+  border-color: #4CAF50;
+  border-width: 2px;
+}
+
+.progress-step.current .step-indicator i {
+  color: #4CAF50;
+}
+
+.progress-step.current .step-label {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* Status History section */
+.status-history {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.status-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.status-history-text{
+  padding-left: 13px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+/* Toggle history button */
+.toggle-history {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.toggle-history:hover {
+  background-color: #f5f5f5;
+}
+
+.toggle-history i {
+  margin-left: 5px;
+}
+
+/* Status timeline */
+.status-timeline {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* Status item */
+.status-item {
+  display: flex;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+.status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.status-icon i {
+  font-size: 14px;
+}
+
+.status-details {
+  flex: 1;
+}
+
+.status-details h6 {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.status-details p {
+  margin: 0 0 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.status-timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Process title */
+.process-title {
+  font-size: 18px;
+  /* font-weight: 600; */
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .progress-step .step-indicator {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .progress-step .step-indicator i {
+    font-size: 16px;
+  }
+  
+  .progress-step .step-label {
+    font-size: 8px;
+  }
+  
+  .progress-line {
+    top: 20px;
+  }
+}

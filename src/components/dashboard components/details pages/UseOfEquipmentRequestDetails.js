@@ -5,8 +5,8 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal';
 import { Download } from 'lucide-react';
-
-import chargeSlip from '../../../assets/chargeslip.pdf';
+import ProgressTracker from './ProgressTracker'; 
+// import chargeSlip from '../../../assets/chargeslip.pdf';
 
 const UseOfEquipmentRequestDetails = () => {
   const { id } = useParams(); 
@@ -297,6 +297,10 @@ const UseOfEquipmentRequestDetails = () => {
               </div>
             </div>
           </div>
+
+          {/*ProgressTracker Component*/}
+          <h4 className="section-header">Service Progress Tracker</h4>
+          <ProgressTracker requestDetails={requestDetails} />
 
           {/* Show rejection reason to client */}
           {requestDetails.status === "Rejected" && (

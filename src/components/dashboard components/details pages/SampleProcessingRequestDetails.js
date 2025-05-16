@@ -5,6 +5,7 @@ import { IoChevronBack } from 'react-icons/io5';
 import { FaCheckCircle } from 'react-icons/fa';
 import RejectModal from './rejectionModal'; 
 import { Download, ReceiptPoundSterling } from 'lucide-react';
+import ProgressTracker from './ProgressTracker'; 
 
 const SampleProcessingRequestDetails = () => {
   const { id } = useParams();
@@ -357,6 +358,10 @@ const SampleProcessingRequestDetails = () => {
               </div>
             </div>
           </div>
+
+          {/*ProgressTracker Component*/}
+          <h4 className="section-header">Service Progress Tracker</h4>
+          <ProgressTracker requestDetails={requestDetails} />
 
           {/* Show rejection reason to client */}
           {requestDetails.status === "Rejected" && (
