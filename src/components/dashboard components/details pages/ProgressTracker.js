@@ -114,7 +114,7 @@ const ProgressTracker = ({ requestDetails }) => {
           <div className="progress-line" ></div>
           <div 
             className="progress-line-active" 
-            style={{ width: `${Math.min(progressWidth * 0.90, 90)}%` }}
+            style={{ width: `${Math.min(progressWidth * 0.95, 95)}%` }}
           ></div>
           
           {steps.map((step, index) => {
