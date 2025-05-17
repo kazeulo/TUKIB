@@ -73,8 +73,6 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	};
 
 	const handleNotificationClick = (notification) => {
-		console.log('Notification clicked:', notification);
-
 		// Fallback check
 		if (!notification.type && !notification.service_name) {
 			console.warn('Notification type is missing and service_name is missing!');
