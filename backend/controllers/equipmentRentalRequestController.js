@@ -93,7 +93,7 @@ const createEquipmentRentalRequest = async (req, res) => {
 		await pool.query(
 			`INSERT INTO notifications (user_id, message)
 				   VALUES ($1, $2)`,
-			[user_id, `You have a new Training request from ${userName}`]
+			[user_id, `You have a new Equipment Rental request from ${userName}`]
 		);
 
 		return res.status(201).json({
