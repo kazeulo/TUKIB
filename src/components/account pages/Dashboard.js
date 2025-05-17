@@ -72,6 +72,48 @@ const Dashboard = ({ setIsLoggedIn }) => {
 		}
 	};
 
+	const handleNotificationClick = (notification) => {
+		console.log('Notification clicked:', notification);
+
+		// Fallback check
+		if (!notification.type && !notification.service_name) {
+			console.warn('Notification type is missing and service_name is missing!');
+			return;
+		}
+
+		// Default type if missing
+		const type = notification.type || 'service_request';
+		const { service_name, request_id } = notification;
+
+		if (type === 'service_request') {
+			const service = service_name?.toLowerCase();
+
+			switch (service) {
+				case 'training':
+					navigate(`/trainingRequestDetails/${request_id}`);
+					break;
+				case 'sample processing':
+					navigate(`/sampleProcessingRequestDetails/${request_id}`);
+					break;
+				case 'use of equipment':
+					navigate(`/useOfEquipmentRequestDetails/${request_id}`);
+					break;
+				case 'use of facility':
+					navigate(`/useOfFacilityRequestDetails/${request_id}`);
+					break;
+				default:
+					console.warn('Unknown service name:', service_name);
+					break;
+			}
+		} else if (type === 'message') {
+			navigate(`/messages`);
+		} else if (type === 'announcement') {
+			navigate(`/news`);
+		} else {
+			console.warn('Unknown notification type:', type);
+		}
+	};
+
 	// Count unread notifications for badge
 	const unreadCount = notifications.filter((n) => !n.is_read).length;
 
@@ -86,30 +128,28 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	}, [selectedSection]);
 
 	// Render content based on the selected section
-	const renderContent = () => {
-		<h2 className='sidebarTitle'>Dashboard</h2>;
-
-		switch (selectedSection) {
-			case 'Overview':
-				return <Overview />;
-			case 'Service Requests':
-				return <ServiceRequests />;
-			case 'Users':
-				return <UserAccounts />;
-			case 'Messages':
-				return <MessagesTable />;
-			case 'News':
-				return <News />;
-			// case 'Equipment':
-			//     return <EquipmentsTable />;
-			case 'Facilities':
-				return <Facilities />;
-			case 'Laboratories':
-				return <Laboratories />;
-			default:
-				return <h1>Welcome to the Dashboard</h1>;
-		}
-	};
+	const renderContent = () => (
+		<>
+			<h2 className='sidebarTitle'>Dashboard</h2>
+			{selectedSection === 'Overview' && <Overview />}
+			{selectedSection === 'Service Requests' && <ServiceRequests />}
+			{selectedSection === 'Users' && <UserAccounts />}
+			{selectedSection === 'Messages' && <MessagesTable />}
+			{selectedSection === 'News' && <News />}
+			{/* {selectedSection === 'Equipment' && <EquipmentsTable />} */}
+			{selectedSection === 'Facilities' && <Facilities />}
+			{selectedSection === 'Laboratories' && <Laboratories />}
+			{![
+				'Overview',
+				'Service Requests',
+				'Users',
+				'Messages',
+				'News',
+				'Facilities',
+				'Laboratories',
+			].includes(selectedSection) && <h1>Welcome to the Dashboard</h1>}
+		</>
+	);
 
 	// Conditionally render the sidebar items and the available content based on the role
 	const renderSidebarContent = () => {
@@ -268,9 +308,11 @@ const Dashboard = ({ setIsLoggedIn }) => {
 						className='notification-icon position-relative'
 						onClick={handleBellClick}>
 						<i className='fas fa-bell fa-lg'></i>
-						<span className='badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle'>
-							{notifications.length}
-						</span>
+						{unreadCount > 0 && (
+							<span className='badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle'>
+								{unreadCount}
+							</span>
+						)}
 					</div>
 				</div>
 
@@ -284,9 +326,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 									<li
 										style={{ pointerEvents: 'auto', cursor: 'pointer' }}
 										key={n.notification_id}
-										onClick={() => {
-											if (!n.is_read) markAsRead(n.notification_id);
-										}}
+										onClick={() => handleNotificationClick(n)}
 										className={`notification-item ${
 											n.is_read ? 'read' : 'unread'
 										}`}

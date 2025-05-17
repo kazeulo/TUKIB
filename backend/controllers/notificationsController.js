@@ -4,9 +4,9 @@ const pool = require('../backend');
 const getNotifications = async (req, res) => {
 	try {
 		const result = await pool.query(
-			`SELECT notification_id, message, created_at, is_read 
-       FROM notifications 
-       ORDER BY created_at DESC`
+			`SELECT notification_id, message, created_at, is_read, service_name, request_id
+		 FROM notifications 
+		 ORDER BY created_at DESC`
 		);
 
 		return res.status(200).json({

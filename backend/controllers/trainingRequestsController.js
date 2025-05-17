@@ -83,13 +83,17 @@ const createTrainingRequest = async (req, res) => {
 
 		const userName = userResult.rows[0]?.name || 'Unknown User';
 
-		// Insert notification for admin
+		// Insert notification for admin with service_name and request_id
 		await pool.query(
-			`INSERT INTO notifications (user_id, message)
-           VALUES ($1, $2)`,
-			[user_id, `You have a new Training request from ${userName}`]
+			`INSERT INTO notifications (user_id, message, service_name, request_id)
+	 VALUES ($1, $2, $3, $4)`,
+			[
+				user_id,
+				`You have a new ${service_name} request from ${userName}`,
+				service_name, // exact service name string (e.g. "Use of Equipment")
+				request_id, // the generated request_id
+			]
 		);
-
 		return res.status(201).json({
 			message: 'Training request created successfully!',
 			data: result.rows[0],
