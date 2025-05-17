@@ -4,7 +4,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    margin: 20px auto; /* Centered with auto margins */
+    margin: 20px auto; 
     max-width: 90%;
     width: 100%;
   }
