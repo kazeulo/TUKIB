@@ -20,6 +20,7 @@ const laboratoryController = require('../controllers/laboratoryController');
 const statisticsController = require('../controllers/statisticsController');
 const feedbackController = require('../controllers/feedbackController');
 const servicesController = require('../controllers/ratesAndServicesController');
+const notificationController = require('../controllers/notificationsController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -51,6 +52,13 @@ router.delete('/equipments/:id', equipmentsController.deleteEquipment);
 router.get(
 	'/equipments/lab/:laboratory_id',
 	equipmentsController.getEquipmentByLab
+);
+
+// Routes for notifications
+router.get('/notifications', notificationController.getNotifications);
+router.put(
+	'/notifications/:notification_id/read',
+	notificationController.markNotificationAsRead
 );
 
 // Routes for messages
