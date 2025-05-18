@@ -73,13 +73,17 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	};
 
 	const handleNotificationClick = (notification) => {
+		// Mark as read first
+		if (!notification.is_read) {
+			markAsRead(notification.notification_id);
+		}
+
 		// Fallback check
 		if (!notification.type && !notification.service_name) {
 			console.warn('Notification type is missing and service_name is missing!');
 			return;
 		}
 
-		// Default type if missing
 		const type = notification.type || 'service_request';
 		const { service_name, request_id } = notification;
 
