@@ -264,8 +264,10 @@ const Users = () => {
 	};
 
 	const filteredUsers = users.filter((user) =>
-		Object.values(user).some((value) =>
-			value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+		Object.values(user).some(
+			(value) =>
+				value != null && // checks for both null and undefined
+				value.toString().toLowerCase().includes(searchTerm.toLowerCase())
 		)
 	);
 
