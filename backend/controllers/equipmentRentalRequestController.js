@@ -1,4 +1,5 @@
 const pool = require('../backend');
+const generateRequestCode = require('./utils/codeGenerator');
 
 // Function to create a new equipment rental request
 const createEquipmentRentalRequest = async (req, res) => {
@@ -25,6 +26,8 @@ const createEquipmentRentalRequest = async (req, res) => {
 			additionalInformation = null,
 		} = req.body;
 
+		const requestCode = await generateRequestCode(service_name);
+
 		// Handle file uploads and generate public URLs
 		const necessaryDocuments = req.files?.necessaryDocuments
 			? req.files.necessaryDocuments.map(
@@ -43,10 +46,10 @@ const createEquipmentRentalRequest = async (req, res) => {
 		// Insert into serviceRequestTable
 		const serviceResult = await pool.query(
 			`INSERT INTO serviceRequestTable 
-       (user_id, service_name, status, payment_option, start, "end")
-       VALUES ($1, $2, $3, $4, NOW(), NULL) 
-       RETURNING request_id`,
-			[user_id, service_name, status, payment_option]
+			  (user_id, service_name, request_code, status, payment_option, start, "end")
+			 VALUES ($1, $2, $3, $4, $5, NOW(), NULL) 
+			 RETURNING request_id`,
+			[user_id, service_name, requestCode, status, payment_option]
 		);
 
 		// Retrieve the generated request_id
