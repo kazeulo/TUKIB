@@ -64,7 +64,7 @@ router.put(
 // Routes for messages
 router.get('/messages', messagesController.getMessages);
 router.post('/messages/submit', messagesController.insertMessage);
-router.get('/messages/:messageId/read', messagesController.updateMessageStatus);
+router.put('/messages/:messageId/read', messagesController.updateMessageStatus);
 router.get('/messages/:messageId', messagesController.getMessageDetails);
 
 // Routes for news management
