@@ -10,7 +10,7 @@ const TermsModal = ({ isOpen, onClose }) => {
     }}>
       <div className="terms-modal-container">
         <div className="terms-modal-header">
-          <h2>Privacy policy and terms of use</h2>
+          <h2>Privacy Policy and Terms of Use</h2>
           <button className="terms-modal-close" onClick={onClose}>&times;</button>
         </div>
         <div className="terms-modal-content">
