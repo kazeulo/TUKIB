@@ -57,6 +57,7 @@ DROP TYPE IF EXISTS satisfaction_enum CASCADE;
 DROP TYPE IF EXISTS yesno_enum CASCADE;
 DROP TYPE IF EXISTS system_enum CASCADE;
 DROP TYPE IF EXISTS user_status CASCADE;
+DROP TYPE IF EXISTS calendar_type_enum CASCADE;
 
 -- ======== ENUM TYPES ========
 
@@ -67,6 +68,7 @@ CREATE TYPE roles as ENUM (
     'TECD Staff',
     'Director'
 );
+
 -- Creating ENUM for laboratories
 CREATE TYPE payment_option AS ENUM (
   'Pay at University Registrar',
@@ -80,14 +82,56 @@ CREATE TYPE service_type AS ENUM(
     'Use of Facility'
 );
 
--- ENUM for feedback
-CREATE TYPE gender_enum AS ENUM ('Male', 'Female', 'Other');
-CREATE TYPE role_enum AS ENUM ('SR', 'RA', 'Other');
-CREATE TYPE servicetype_enum AS ENUM ('sample-processing', 'equipment-rental', 'facility-rental', 'training');
-CREATE TYPE satisfaction_enum AS ENUM ('Very satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very unsatisfied');
-CREATE TYPE yesno_enum AS ENUM ('Yes', 'No');
-CREATE TYPE system_enum AS ENUM ('Manual System', 'Online System');
-CREATE TYPE user_status AS ENUM ('pending', 'active', 'inactive');
+CREATE TYPE user_status AS ENUM (
+    'pending', 
+    'active', 
+    'inactive'
+);
+
+CREATE TYPE calendar_type_enum AS ENUM (
+    'system', 
+    'facility', 
+    'equipment', 
+    'laboratory'
+);
+
+-- ENUMs for feedback
+CREATE TYPE gender_enum AS ENUM (
+    'Male', 
+    'Female', 
+    'Other'
+);
+
+CREATE TYPE role_enum AS ENUM (
+    'SR', 
+    'RA', 
+    'Other'
+);
+
+CREATE TYPE servicetype_enum AS ENUM (
+    'sample-processing', 
+    'equipment-rental', 
+    'facility-rental', 
+    'training'
+);
+
+CREATE TYPE satisfaction_enum AS ENUM (
+    'Very satisfied', 
+    'Satisfied', 
+    'Neutral', 
+    'Unsatisfied', 
+    'Very unsatisfied'
+);
+
+CREATE TYPE yesno_enum AS ENUM (
+    'Yes', 
+    'No'
+);
+
+CREATE TYPE system_enum AS ENUM (
+    'Manual System', 
+    'Online System'
+);
 
 -- ======== TABLE CREATION ========
 
@@ -127,18 +171,6 @@ CREATE TABLE user_tokens (
     FOREIGN KEY (user_id) REFERENCES usersTable(user_id) ON DELETE CASCADE
 );
 
--- Calendar Table
-CREATE TABLE calendar (
-    calendar_id SERIAL PRIMARY KEY,
-    calendar_type VARCHAR(50) NOT NULL, -- 'system', 'lab', 'equipment'
-    calendar_owner_id INT NOT NULL,
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    is_restricted BOOLEAN DEFAULT FALSE,
-    restrict_equipment BOOLEAN DEFAULT FALSE, -- for lab-level only
-    description TEXT
-);
-
 -- Equipments Table
 CREATE TABLE equipmentsTable (
     equipment_id SERIAL PRIMARY KEY,
@@ -160,6 +192,19 @@ CREATE TABLE facilitiesTable (
     facility_name VARCHAR(100) NOT NULL, 
     capacity INT NOT NULL, 
     resources TEXT[]
+);
+
+-- Calendar setup
+CREATE TABLE calendar (
+    calendar_id SERIAL PRIMARY KEY,
+    calendar_type calendar_type_enum NOT NULL,
+    calendar_owner_id INT, -- nullable, based on type
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    is_restricted BOOLEAN DEFAULT FALSE,
+    restrict_equipment BOOLEAN DEFAULT FALSE,
+    recurrence VARCHAR(50) DEFAULT 'none',
+    description TEXT
 );
 
 CREATE TABLE serviceRequestTable (

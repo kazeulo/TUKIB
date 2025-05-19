@@ -48,18 +48,6 @@ const LaboratoryDetails = () => {
         }
     };
 
-    const fetchLaboratory = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/api/laboratory/${id}`);
-            if (response.data.status === "success") {
-                setLaboratory(response.data.laboratory);
-                console.log(laboratory)
-            }
-        } catch (error) {
-            console.error('Error fetching laboratory:', error);
-        }
-    };
-
     // fetching laboratories
     useEffect(() => {
         const fetchLabs = async () => {
@@ -73,12 +61,7 @@ const LaboratoryDetails = () => {
             }
         };
         fetchLabs();
-    }, []);
-    
-    useEffect(() => {
-        fetchLaboratory();
-    }, [id]);
-    
+    }, []);    
 
     useEffect(() => {
         fetchEquipments();

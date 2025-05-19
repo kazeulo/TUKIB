@@ -113,42 +113,89 @@ const deleteEquipment = async (req, res) => {
 };
 
 // Get equipment by laboratory name
+// const getEquipmentByLab = async (req, res) => {
+//     const { laboratory_id } = req.params; 
+
+//     try {
+//         const result = await pool.query(`
+//             SELECT 
+//                 e.equipment_id,
+//                 e.equipment_name,
+//                 e.brand,
+//                 e.quantity,
+//                 e.model,
+//                 e.serial_number,
+//                 e.staff_name,
+//                 l.laboratory_name,
+//                 e.sticker_paper_printed
+//             FROM 
+//                 equipmentsTable e
+//             INNER JOIN 
+//                 laboratories l ON e.laboratory_id = l.laboratory_id
+//             WHERE 
+//                 l.laboratory_id = $1
+//             ORDER BY 
+//                 e.equipment_id
+//         `, [laboratory_id]);
+
+//         const equipments = result.rows;
+
+//         if (equipments.length > 0) {
+//             res.json({ status: 'success', equipments });
+//         } else {
+//             res.status(404).json({ message: 'No equipment found for this laboratory' });
+//         }
+//     } catch (error) {
+//         console.error('Error fetching equipment by laboratory:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// };
+
 const getEquipmentByLab = async (req, res) => {
-    const { laboratory_id } = req.params; 
+  const { laboratory_id } = req.params;
 
-    try {
-        const result = await pool.query(`
-            SELECT 
-                e.equipment_id,
-                e.equipment_name,
-                e.brand,
-                e.quantity,
-                e.model,
-                e.serial_number,
-                e.staff_name,
-                l.laboratory_name,
-                e.sticker_paper_printed
-            FROM 
-                equipmentsTable e
-            INNER JOIN 
-                laboratories l ON e.laboratory_id = l.laboratory_id
-            WHERE 
-                l.laboratory_id = $1
-            ORDER BY 
-                e.equipment_id
-        `, [laboratory_id]);
+  // Validate and parse laboratory_id
+  const labIdInt = parseInt(laboratory_id, 10);
+  if (isNaN(labIdInt)) {
+    return res.status(400).json({ status: 'error', message: 'Invalid laboratory ID' });
+  }
 
-        const equipments = result.rows;
+  try {
+    const result = await pool.query(
+      `
+      SELECT 
+        e.equipment_id,
+        e.equipment_name,
+        e.brand,
+        e.quantity,
+        e.model,
+        e.serial_number,
+        e.staff_name,
+        l.laboratory_name,
+        e.sticker_paper_printed
+      FROM 
+        equipmentsTable e
+      INNER JOIN 
+        laboratories l ON e.laboratory_id = l.laboratory_id
+      WHERE 
+        l.laboratory_id = $1
+      ORDER BY 
+        e.equipment_id
+      `,
+      [labIdInt]
+    );
 
-        if (equipments.length > 0) {
-            res.json({ status: 'success', equipments });
-        } else {
-            res.status(404).json({ message: 'No equipment found for this laboratory' });
-        }
-    } catch (error) {
-        console.error('Error fetching equipment by laboratory:', error);
-        res.status(500).json({ error: 'Internal server error' });
+    const equipments = result.rows;
+
+    if (equipments.length > 0) {
+      res.json({ status: 'success', equipments });
+    } else {
+      res.status(404).json({ status: 'error', message: 'No equipment found for this laboratory' });
     }
+  } catch (error) {
+    console.error('Error fetching equipment by laboratory:', error);
+    res.status(500).json({ status: 'error', message: 'Internal server error' });
+  }
 };
 
 

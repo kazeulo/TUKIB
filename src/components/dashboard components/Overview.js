@@ -4,6 +4,7 @@ import { Spinner } from 'react-bootstrap'; // Import Spinner component
 
 import Card from './Card';
 import EventCalendar from '../partials/EventCalendar';
+import Calendar from '../partials/Calendar';
 
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
@@ -227,7 +228,8 @@ const Overview = () => {
           </div>
         </div>
       </div>
-      <EventCalendar />
+      {/* <EventCalendar /> */}
+      <Calendar />
     </div>
   );
 };
