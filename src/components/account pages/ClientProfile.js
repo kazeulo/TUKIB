@@ -27,6 +27,7 @@ const ClientProfile = ({ isLoggedIn }) => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [serviceTypeFilter, setServiceTypeFilter] = useState('all');
+  const [cancellationReason, setCancellationReason] = useState("");
   
 
   useEffect(() => {
@@ -696,9 +697,26 @@ const ClientProfile = ({ isLoggedIn }) => {
               <p><strong>Date Requested:</strong> {new Date(requestToCancel?.start).toLocaleString()}</p>
               <p><strong>Status:</strong> {requestToCancel?.status}</p>
             </div>
+
+            {/* Cancellation Reason Form */}
+            <div className="cancellation-reason-form">
+              <label htmlFor="cancellationReason">Reason for Cancellation:</label>
+              <textarea 
+                id="cancellationReason"
+                name="cancellationReason"
+                rows="3"
+                placeholder="Please provide a reason for cancelling this request..."
+                value={cancellationReason}
+                onChange={(e) => setCancellationReason(e.target.value)}
+                className="cancellation-reason-input"
+              />
+            </div>
+
             <p className="note">This action cannot be undone. The service provider will be notified of this cancellation.</p>
             <div className="cancel-modal-buttons">
-              <button className="confirm-btn" onClick={handleConfirmCancel}>Yes, Cancel Request</button>
+              <button className="confirm-btn" 
+              onClick={handleConfirmCancel} disabled={!cancellationReason.trim()}>
+                Yes, Cancel Request</button>
               <button className="client-cancel-btn" onClick={() => setIsCancelModalOpen(false)}>No, Go Back</button>
             </div>
           </div>
