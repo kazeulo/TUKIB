@@ -85,3 +85,52 @@ li.side-btn:active, li.side-btn:focus, li.side-btn.active {
 li.side-btn.selected {
     background-color: #bababa !important;
 }
+
+/* Styles for Random Greetings */
+.greeting-container {
+  position: relative;
+  margin-left: 20px; 
+  padding-left: 10px; 
+  /* height: auto;  */
+  display: flex;
+  align-items: center;
+}
+
+.greeting-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* .icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 500ms ease-in-out;
+} */
+
+.greeting-text {
+  margin-bottom: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #8b1e41;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  letter-spacing: 0.3px;
+  line-height: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+/* .icon-container svg {
+  display: block; 
+  vertical-align: middle;
+  position: relative;
+  top: -1px; 
+} */
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}

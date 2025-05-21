@@ -230,7 +230,7 @@ const ProgressTracker = ({ requestDetails }) => {
                       ? 'Please submit your sample on the date scheduled in the request.'
                       : 'Please proceed according to the schedule in the request.'}
                   </p>
-                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time || '2:45 PM'}</p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
                 </div>
               </div>
             )}  
