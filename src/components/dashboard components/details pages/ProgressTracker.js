@@ -201,44 +201,7 @@ const ProgressTracker = ({ requestDetails }) => {
         {showHistory && (
           <div className="status-timeline">
             <h5 className='status-history-text'>Service Request Status History</h5>
-            
-            {/* Conditionally show In Progress status if applicable to this service type */}
-            {requestDetails.status === 'In Progress' && !['facility', 'training'].includes(serviceType.toLowerCase()) && (
-              <div className="status-item">
-                <div className="status-icon">
-                  <i className="fas fa-hourglass-half"></i>
-                </div>
-                <div className="status-details">
-                  <h6>In Progress</h6>
-                  <p>
-                  {serviceType.toLowerCase() === 'sample processing' && 'Client\'s sample is currently being processed by RRC laboratory team.'}
-                  {serviceType.toLowerCase() === 'use of equipment' && 'Use of equipment is currently in progress.'}
-                  {/* {!['use of equipment'].includes(serviceType.toLowerCase()) && 'Your sample is currently being processed by our laboratory team.'} */}
-                </p>
-                  <p className="status-timestamp">{formatDate(requestDetails.in_progress_date)} - {requestDetails.in_progress_time || '9:30 AM'}</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Approved status */}
-            {requestDetails.review_date && (
-              <div className="status-item">
-                <div className="status-icon">
-                  <i className="fas fa-search"></i>
-                </div>
-                <div className="status-details">
-                  <h6>Request Approved</h6>
-                  <p>Service request has been reviewed and approved by RRC staff.</p>
-                  <p className="status-note">
-                    {!['facility', 'training'].includes(serviceType.toLowerCase()) 
-                      ? 'Please submit your sample on the date scheduled in the request.'
-                      : 'Please proceed according to the schedule in the request.'}
-                  </p>
-                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
-                </div>
-              </div>
-            )}  
-                      
+
             {/* Submitted status - always show */}
             <div className="status-item">
               <div className="status-icon">
@@ -250,6 +213,135 @@ const ProgressTracker = ({ requestDetails }) => {
                 <p className="status-timestamp">{formatDate(requestDetails.start)} - {requestDetails.submit_time || '10:23 AM'}</p>
               </div>
             </div>
+
+            {/* Approved status */}
+            {requestDetails.status === 'Approved' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-search"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Request Approved</h6>
+                  <p>Service request has been reviewed and approved by RRC staff.</p>
+                  <p className="status-note">
+                  {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+            
+            {/* In Progress status if applicable to service type */}
+            {requestDetails.status === 'In Progress' && !['facility', 'training'].includes(serviceType.toLowerCase()) && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-hourglass-half"></i>
+                </div>
+                <div className="status-details">
+                  <h6>In Progress</h6>
+                  <p>
+                  {serviceType.toLowerCase() === 'sample processing' && 'Client\'s sample is currently being processed by RRC laboratory team.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Use of equipment is currently in progress.'}
+                </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.in_progress_date)} - {requestDetails.in_progress_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* ChargeSlip Available */}
+            {requestDetails.status === 'Chargeslip Available' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Chargeslip Available</h6>
+                  <p>Admin has generated the service charge slip, client may now proceed to payment.</p>
+                  <p className="status-note">
+                  {/* {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Payment COnfirmed */}
+            {requestDetails.status === 'Payment Confirmed' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Payment Confirmed</h6>
+                  <p>Admin has confirmed receiving client's payment</p>
+                  <p>Client may now submit their service feedback to proceed</p>
+                  <p className="status-note">
+                  {/* {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Feedback Submitted */}
+            {requestDetails.status === 'Feedback Submitted' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Feedback Submitted</h6>
+                  <p>Client has completed their service feedback.</p>
+                  <p className="status-note">
+                  {serviceType.toLowerCase() === 'sample processing' &&'Admin may now proceed to upload sample processing results.'}
+                  {/* {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Result Uploaded */}
+            {requestDetails.status === 'Results Uploaded' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Results Uploaded</h6>
+                  <p>RRC Staff has uploaded the service results.</p>
+                  <p className="status-note"></p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/*Completed*/}
+            {requestDetails.status === 'Completed' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Completed</h6>
+                  <p>Service completed, thank you for availing a service from RRC!</p>
+                  <p className="status-note"></p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
           </div>
         )}
       </div>
