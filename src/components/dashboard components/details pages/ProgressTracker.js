@@ -210,7 +210,11 @@ const ProgressTracker = ({ requestDetails }) => {
                 </div>
                 <div className="status-details">
                   <h6>In Progress</h6>
-                  <p>Your sample is currently being processed by our laboratory team.</p>
+                  <p>
+                  {serviceType.toLowerCase() === 'sample processing' && 'Client\'s sample is currently being processed by RRC laboratory team.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Use of equipment is currently in progress.'}
+                  {/* {!['use of equipment'].includes(serviceType.toLowerCase()) && 'Your sample is currently being processed by our laboratory team.'} */}
+                </p>
                   <p className="status-timestamp">{formatDate(requestDetails.in_progress_date)} - {requestDetails.in_progress_time || '9:30 AM'}</p>
                 </div>
               </div>
