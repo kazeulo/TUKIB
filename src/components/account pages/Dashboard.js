@@ -5,7 +5,7 @@ import Overview from '../dashboard components/Overview';
 import UserAccounts from '../dashboard components/UserAccounts';
 import ServiceRequests from '../dashboard components/ServiceRequests';
 import MessagesTable from '../dashboard components/MessagesTable';
-import EquipmentsTable from '../dashboard components/Equipments';
+// import EquipmentsTable from '../dashboard components/Equipments';
 import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/news/News';
 import Laboratories from '../dashboard components/Laboratories';
@@ -15,7 +15,7 @@ import {
 	FaUsers,
 	FaClipboardList,
 	FaEnvelope,
-	FaCogs,
+	// FaCogs,
 	FaNewspaper,
 	FaTools,
 	FaWarehouse,
@@ -132,7 +132,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	// Render content based on the selected section
 	const renderContent = () => (
 		<>
-			<h2 className='sidebarTitle'>Dashboard</h2>
+			{/* <h2 className='sidebarTitle'>Dashboard</h2> */}
 			{selectedSection === 'Overview' && <Overview />}
 			{selectedSection === 'Service Requests' && <ServiceRequests />}
 			{selectedSection === 'Users' && <UserAccounts />}

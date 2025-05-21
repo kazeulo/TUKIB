@@ -85,3 +85,11 @@ li.side-btn:active, li.side-btn:focus, li.side-btn.active {
 li.side-btn.selected {
     background-color: #bababa !important;
 }
+
+.greeting {
+  font-size: 20px;
+  font-weight: 600;
+  color: #8b1e41;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  letter-spacing: 0.3px;
+}
