@@ -4,6 +4,8 @@ import { FaTrash, FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 import '../../css/dashboard components/Table.css';
 import Modal from '../partials/Modal';
+import '../../css/partials/Modal.css'; 
+import '../../css/dashboard components/Equipments.css'; //please dont remove hehe, css for the equipments table and somethings from dashboard is here
 
 const fetchUsers = async (setUsers) => {
 	try {
@@ -93,7 +95,7 @@ const modalForm = (newUser, setNewUser, labs) => (
 		/>
 
 		{/* Role Dropdown */}
-		<select
+		<select className='add-account-dropdown'
 			value={newUser.role}
 			onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
 			required>
@@ -107,7 +109,7 @@ const modalForm = (newUser, setNewUser, labs) => (
 
 		{/* Conditional Laboratory Dropdown */}
 		{newUser.role === 'University Researcher' && (
-			<select
+			<select className='add-account-dropdown'
 				value={newUser.laboratory_id}
 				onChange={(e) =>
 					setNewUser({ ...newUser, laboratory_id: e.target.value })
@@ -145,7 +147,7 @@ const modalForm = (newUser, setNewUser, labs) => (
 				setNewUser({ ...newUser, contact_number: e.target.value })
 			}
 		/>
-		<select
+		<select className='add-account-dropdown'
 			value={newUser.status}
 			onChange={(e) => setNewUser({ ...newUser, status: e.target.value })}
 			required>
@@ -287,7 +289,7 @@ const Users = () => {
 				Cancel
 			</button>
 			<button
-				className='btn btn-primary'
+				className='user-add-btn'
 				onClick={handleAddUser}>
 				Add
 			</button>
@@ -353,7 +355,7 @@ const Users = () => {
 					isOpen={isAddUserModalOpen}
 					onClose={() => setIsAddUserModalOpen(false)}
 					onConfirm={handleAddUser}
-					title='Add Account'
+					title='Add User Account'
 					// content={modalForm(newUser, setNewUser)}
 					content={modalForm(newUser, setNewUser, labs)}
 					footer={formFooter}

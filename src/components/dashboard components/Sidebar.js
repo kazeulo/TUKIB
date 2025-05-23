@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/dashboard components/Sidebar.css';
 import Modal from '../partials/Modal';
+import '../../css/partials/Modal.css'; 
 
 const Sidebar = ({ renderSidebarContent, handleLogout }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../css/dashboard components/Laboratories.css';
+import '../../css/dashboard components/Equipments.css'; //please dont remove hehe, css for the equipments table and somethings from dashboard is here
 
 const fetchLaboratories = async (setLaboratories) => {
     try {
