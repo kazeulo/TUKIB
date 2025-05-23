@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import '../../css/dashboard components/Table.css';
+import '../../css/dashboard components/Equipments.css'; //please dont remove hehe, css for the equipments table and many from dashboard is here
+import '../../css/partials/Modal.css';
+
 
 
 const Facilities = () => {
@@ -168,8 +171,8 @@ const Facilities = () => {
 
       {/* Add Facility Modal */}
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="modal-overlay ovelay">
+          <div className="modal-content overlay-content add-facility-modal">
             <h2>Add New Facility</h2>
             <div>
               <label>Facility Name</label>
@@ -199,8 +202,8 @@ const Facilities = () => {
               />
             </div>
             <div>
+              <button className='cancel-btn'onClick={() => setIsModalOpen(false)}>Cancel</button>
               <button onClick={handleAddFacility}>Add Facility</button>
-              <button onClick={() => setIsModalOpen(false)}>Cancel</button>
             </div>
           </div>
         </div>
@@ -217,13 +220,13 @@ const Facilities = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && facilityToDelete && (
-        <div className="modal-overlay" onClick={handleCloseOverlay}>
+        <div className="modal-overlay" >
           <div className="modal-content confirmation-dialog" onClick={(e) => e.stopPropagation()}>
             <h3>Confirm Deletion</h3>
             <p>Are you sure you want to delete <strong>{facilityToDelete.facility_name}</strong>?</p>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
               <button onClick={handleDeleteFacility}>Delete</button>
-              <button className="cancel-btn" onClick={handleCloseOverlay}>Cancel</button>
+              <button className="btn btn-secondary" onClick={handleCloseOverlay}>Cancel</button>
             </div>
           </div>
         </div>
@@ -241,9 +244,9 @@ const Facilities = () => {
           />
         </div>
 
-        <div className="dropdown-container">
+        <div className="filter-dropdown">
           <select
-            className="filter-dropdown"
+            className="role-filter"
             value={scheduleFilter}
             onChange={(e) => setScheduleFilter(e.target.value)}
           >

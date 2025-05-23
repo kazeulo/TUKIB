@@ -1,3 +1,15 @@
+/* Laboratories.css */
+.laboratory-details {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin: 20px auto; 
+    max-width: 90%;
+    width: 100%;
+    margin-top: 20px!important;
+}
+
 /* Enhanced card grid styling */
 .card-grid {
     display: grid;

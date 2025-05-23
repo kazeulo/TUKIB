@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaSun, FaMoon, FaCoffee, FaStar, FaRegSmile, FaRegLightbulb,FaRegCalendarAlt} from 'react-icons/fa';
 
 const RandomGreeting = ({ userName = 'User' }) => {
     const [greeting, setGreeting] = useState(`Hello, ${userName}`);
-    const [icon, setIcon] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -15,46 +13,51 @@ const RandomGreeting = ({ userName = 'User' }) => {
         
         if (hour >= 5 && hour < 12) {
             timeBasedGreetings.push({ 
-                text: `🌄Good Morning, ${userName}`, 
-                icon: <FaSun size={18} style={{ color: '#8b1e41' }} /> 
+                text: `🌄Good Morning, ${userName}!`, 
             });
             timeBasedGreetings.push({ 
-                text: `🌄Mayong aga simo, ${userName}`, 
-                icon: <FaSun size={18} style={{ color: '#8b1e41' }} /> 
+                text: `🌄Mayong aga simo, ${userName}!`, 
             });
             timeBasedGreetings.push({ 
-                text: `🌅Rise and Shine, ${userName}`, 
-                icon: <FaCoffee size={18} style={{ color: '#8b1e41' }} /> 
+                text: `🌅Rise and Shine, ${userName}!`, 
             });
             timeBasedGreetings.push({ 
-                text: `Early today, ${userName}`, 
-                icon: <FaCoffee size={18} style={{ color: '#8b1e41' }} /> 
+                text: `😴Early today, ${userName}`, 
             });
             timeBasedGreetings.push({ 
-                text: `Have you had your coffee, ${userName}?`, 
-                icon: <FaCoffee size={18} style={{ color: '#8b1e41' }} /> 
+                text: `☕Have you had your coffee, ${userName}?`, 
             });
         } else if (hour >= 12 && hour < 18) {
             timeBasedGreetings.push({ 
-                text: `Good Afternoon, ${userName}`, 
-                icon: <FaSun size={18} style={{ color: '#8b1e41' }} /> 
+                text: `😊Good Afternoon, ${userName}!`, 
             });
             timeBasedGreetings.push({ 
-                text: `Having a good day, ${userName}?`, 
-                icon: <FaRegSmile size={18} style={{ color: '#8b1e41' }} /> 
+                text: `😉Having a good day, ${userName}?`, 
+            });
+            timeBasedGreetings.push({ 
+                text: `🙂Everything alright, ${userName}?`, 
+            });
+            timeBasedGreetings.push({ 
+                text: `😊How's your afternoon going, ${userName}?`, 
+            });
+            timeBasedGreetings.push({ 
+                text: `☺️Wishing you a smooth and successful afternoon, ${userName}`, 
             });
         } else {
             timeBasedGreetings.push({ 
-                text: `Good Evening, ${userName}`, 
-                icon: <FaMoon size={18} style={{ color: '#8b1e41' }} /> 
+                text: `🌃Good Evening, ${userName}`, 
             });
             timeBasedGreetings.push({ 
-                text: `Winding down, ${userName}?`, 
-                icon: <FaRegLightbulb size={18} style={{ color: '#8b1e41' }} /> 
+                text: `🥱Winding down, ${userName}?`, 
             });
             timeBasedGreetings.push({ 
-                text: `Kaya Pa, ${userName}?`, 
-                icon: <FaRegLightbulb size={18} style={{ color: '#8b1e41' }} /> 
+                text: `💪Kaya Pa ${userName}?`, 
+            });
+            timeBasedGreetings.push({ 
+                text: `☺️Hello! How was your day ${userName}?`, 
+            });
+            timeBasedGreetings.push({ 
+                text: `🤗Wishing you a peaceful and restful evening, ${userName}`, 
             });
         }
         
@@ -62,23 +65,18 @@ const RandomGreeting = ({ userName = 'User' }) => {
         const generalGreetings = [
             { 
                 text: `Welcome back, ${userName}`, 
-                icon: <FaRegCalendarAlt size={18} style={{ color: '#8b1e41' }} /> 
             },
             { 
                 text: `Hello, ${userName}`, 
-                icon: <FaRegSmile size={18} style={{ color: '#8b1e41' }} /> 
             },
             { 
                 text: `Greetings, ${userName}`, 
-                icon: <FaStar size={18} style={{ color: '#8b1e41' }} /> 
             },
             { 
                 text: `Nice to see you, ${userName}`, 
-                icon: <FaRegSmile size={18} style={{ color: '#8b1e41' }} /> 
             },
             { 
                 text: `Back at it, ${userName}`, 
-                icon: <FaRegSmile size={18} style={{ color: '#8b1e41' }} /> 
             }
         ];
         
@@ -96,7 +94,6 @@ const RandomGreeting = ({ userName = 'User' }) => {
         }
         
         setGreeting(selectedGreeting.text);
-        setIcon(selectedGreeting.icon);
         
         // Add a small delay before showing the greeting for a fade-in effect
         const timer = setTimeout(() => {
@@ -109,21 +106,10 @@ const RandomGreeting = ({ userName = 'User' }) => {
     return (
          <div className="greeting-container">
             <div className="greeting-wrapper">
-                {/* {icon && (
-                    <div className={`icon-container ${isVisible ? 'fade-in' : 'fade-out'}`}>
-                        {icon}
-                    </div>
-                )} */}
                 <h2 className={`greeting-text ${isVisible ? 'fade-in' : 'fade-out'}`}>
                     {greeting}
                 </h2>
-            </div>
-            
-            {/*  gradient line
-            <div className="absolute bottom-0 left-0 w-full">
-                <div className={`gradient-line ${isVisible ? 'scale-x-100' : 'scale-x-0'}`}></div>
-            </div>
-            */}
+            </div>            
         </div>
     );
 };

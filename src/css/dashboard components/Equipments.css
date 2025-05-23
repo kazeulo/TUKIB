@@ -44,6 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .overlay-content {
@@ -178,4 +179,95 @@ form button.cancel-btn:hover {
     border-color: #8B1538;
     outline: none;
     box-shadow: 0 0 0 2px rgba(139, 21, 56, 0.1);
+}
+
+
+
+/* USER ACCOUNTS ADD ACCOUNT MODAL STYLING*/
+.add-account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+ .add-account-dropdown{
+    width: 95%;
+ }
+
+.add-account-form input,
+.add-account-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.add-account-form input:focus,
+.add-account-form select:focus {
+    border-color: #8B1538;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 21, 56, 0.1);
+}
+
+.add-account-form select {
+    cursor: pointer;
+    appearance: none;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 35px;
+}
+
+/* Button Styling */
+.user-add-btn {
+    background-color: #8B1538;
+    color: white;
+    border-radius: 8px;
+}
+
+.user-add-btn:hover {
+    background-color: #ad1140;
+}
+
+/* USER ACCOUNTS ADD ACCOUNT BUTTON STYLING */
+.add-btn:hover {
+    background-color: #7c525f;
+    color: white;
+    border-radius: 20px;
+}
+/* USER ADD FILTER STYLING */
+.role-filter:is(:hover, :active, :focus) {
+    background-color: #7c525f!important;
+    border-color: none!important;
+    border: none!important;
+    color: white!important;
+}
+
+
+
+/* FACILITIES: ADD FACILITY MODAL STYLING */
+.add-facility-modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.add-facility-modal input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+.add-facility-modal input:focus {
+  outline: none;
+  border-color: #8b5a3c;
+  box-shadow: 0 0 0 3px rgba(139, 90, 60, 0.1);
+}
+
+.add-facility-modal input::placeholder {
+  color: #9ca3af;
 }
