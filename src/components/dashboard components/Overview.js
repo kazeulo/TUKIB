@@ -228,8 +228,8 @@ const Overview = () => {
           </div>
         </div>
       </div>
-      {/* <EventCalendar /> */}
-      <Calendar />
+      <EventCalendar />
+      {/* <Calendar /> */}
     </div>
   );
 };

@@ -51,7 +51,8 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
+    margin-right: auto;
+    width: fit-content;
 }
 
 .user-details-section .profile-block-button {
@@ -112,8 +113,32 @@
     border-radius: 4px;
     margin-top: 20px;
     transition: background-color 0.2s ease;
-  }
+}
   
-  .back-btn:hover {
+.back-btn:hover {
     background-color: rgba(25, 118, 210, 0.1);
-  }
+}
+
+.user-status {
+    font-size: 13px;
+    width: fit-content;
+}
+
+.user-status.active{
+    font-weight: bold;
+    background-color:  rgba(23, 121, 46, 0.24)!important;
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: #13772a!important;
+    border: solid 2px rgba(23, 121, 46, 0.24);
+}
+
+.user-status.active{
+    font-weight: bold;
+    color: #c92536!;
+}
+
+.user-status.pending{
+    font-weight: bold;
+    color: #c89600!important;
+}
