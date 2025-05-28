@@ -271,3 +271,38 @@ form button.cancel-btn:hover {
 .add-facility-modal input::placeholder {
   color: #9ca3af;
 }
+
+
+
+/* Usr accopunts status filter */
+/* .status-dropdown{
+    background-color: rgb(9, 172, 9)!important;
+} */
+
+.status-dropdown.status-blocked {
+  background-color: rgba(220, 53, 69, 0.2)!important;
+  color: #c92536!;
+}
+
+.status-dropdown.status-active {
+  background-color:  rgba(23, 121, 46, 0.24)!important;
+  color: #13772a!important;
+}
+.status-dropdown.status-active:hover {
+  background-color:  rgba(23, 121, 46, 0.525)!important;
+  color: #13772a!important;
+}
+
+.status-dropdown.status-pending {
+  background-color: rgba(255, 193, 7, 0.2)!important;
+  color: #c89600!important;
+}
+.status-dropdown.status-pending:hover {
+  background-color: rgba(255, 193, 7, 0.555)!important;
+  color: #c89600!important;
+}
+
+.status-dropdown.status-locked {
+  background-color: #8b15383a!important;
+  color: #8B1538!important;
+}
