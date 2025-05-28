@@ -77,6 +77,10 @@ const LaboratoryDetails = () => {
         setFilteredEquipments(filtered);
     }, [searchTerm, equipments]);
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
     const handleDelete = async (equipment, e) => {
         e.stopPropagation();
         if (window.confirm(`Are you sure you want to delete ${equipment.equipment_name}?`)) {
@@ -179,15 +183,31 @@ const LaboratoryDetails = () => {
                     </div>
 
                     <div className='equipment-section-wrapper'>
-                        <div className='equipment-section-header'>
-                            <h3 className="equipments-title">
-                                <IoFlaskOutline className="euipment-icon" />
-                                &ensp;Laboratory Equipments
-                            </h3>
 
-                            <button className="add-equipment-btn" onClick={handleAddClick}>
-                                Add Equipment
-                            </button>
+                        <h3 className="equipments-title">
+                            <IoFlaskOutline className="equipment-icon" />
+                            &ensp;Laboratory Equipments
+                        </h3>
+                        
+                        <div className="equipment-section-header">
+
+                            <div className="left-header">
+                                <div className="search-container">
+                                    <input
+                                        type="text"
+                                        className="search-input"
+                                        placeholder="Search equipment by any field..."
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="right-header">
+                                <button className="add-equipment-btn" onClick={handleAddClick}>
+                                    Add Equipment
+                                </button>
+                            </div>
                         </div>
 
                         <table className="equipment-table">

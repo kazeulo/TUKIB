@@ -255,12 +255,12 @@ const Dashboard = ({ setIsLoggedIn }) => {
 						</li>
 						<li
 							className={`side-btn ${
-								selectedSection === 'Equipment' ? 'active' : ''
+								selectedSection === 'Laboratories' ? 'active' : ''
 							}`}
-							onClick={() => setSelectedSection('Equipment')}>
-							<p className='menu-text'>Equipments</p>
+							onClick={() => setSelectedSection('Laboratories')}>
+							<p className='menu-text'>Laboratories</p>
 							<i>
-								<FaTools />
+								<FaVial />
 							</i>
 						</li>
 					</div>

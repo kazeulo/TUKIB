@@ -197,8 +197,10 @@ CREATE TABLE facilitiesTable (
 -- Calendar setup
 CREATE TABLE calendar (
     calendar_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     calendar_type calendar_type_enum NOT NULL,
     calendar_owner_id INT, -- nullable, based on type
+    officer VARCHAR(255),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     is_restricted BOOLEAN DEFAULT FALSE,
@@ -373,18 +375,6 @@ CREATE TABLE rates_and_services (
     inclusions TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE restricted_dates (
-    id SERIAL PRIMARY KEY,
-    resource_type VARCHAR(50) NOT NULL,  -- 'equipment', 'laboratory', 'facility'
-    resource_id INTEGER NOT NULL,
-    restricted_date DATE NOT NULL,
-    reason TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    UNIQUE (resource_type, resource_id, restricted_date)
-);
-
-
 
 -- Indexes for performance
 CREATE INDEX idx_events_start_time ON events(start_time);
