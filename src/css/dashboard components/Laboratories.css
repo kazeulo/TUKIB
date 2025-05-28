@@ -18,27 +18,27 @@
     flex-wrap: wrap;
 }
 
-.left-header {
+.equipment-section-header .left-header {
     flex: 1;
 }
 
-.equipments-title {
+.equipment-section-header .equipments-title {
     flex: 1;
     text-align: center;
 }
 
-.right-header {
+.equipment-section-header .right-header {
     flex: 1;
     display: flex;
     justify-content: flex-end;
 }
 
-.search-container {
+.equipment-section-header .search-container {
     width: 100%;
     max-width: 300px;
 }
 
-.search-input {
+.equipment-section-header .search-input {
     width: 100%;
     padding: 6px 10px;
     border-radius: 4px;
