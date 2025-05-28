@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import universityLogo from "../../assets/upv_logo.png";
 import "../../css/ChargeSlip.css";
+import { IoChevronBack } from 'react-icons/io5';
 import signatureImage from "../../assets/sign-png.png"; 
 
 const ChargeSlip = () => {
   const location = useLocation();
   const chargeSlipRef = useRef();
+  const navigate = useNavigate();
   const [isApproved, setIsApproved] = useState(false);
   const [approvedBy, setApprovedBy] = useState("");
   
@@ -208,6 +210,11 @@ const ChargeSlip = () => {
 
   return (
     <div className="cs-container">
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        <IoChevronBack size={16} />
+        Back to Previous Page
+      </button>
+
       <div ref={chargeSlipRef} className="cs-document">
         {/* Header with logo */}
         <div className="cs-header">

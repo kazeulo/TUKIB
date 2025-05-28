@@ -9,6 +9,7 @@ import MessagesTable from '../dashboard components/MessagesTable';
 import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/news/News';
 import Laboratories from '../dashboard components/Laboratories';
+import Feedback from '../dashboard components/Feedback';
 import axios from 'axios';
 import {
 	FaHome,
@@ -142,6 +143,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 			{/* {selectedSection === 'Equipment' && <EquipmentsTable />} */}
 			{selectedSection === 'Facilities' && <Facilities />}
 			{selectedSection === 'Laboratories' && <Laboratories />}
+			{selectedSection === 'Feedback' && <Feedback />}
 			{![
 				'Overview',
 				'Service Requests',
@@ -150,6 +152,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 				'News',
 				'Facilities',
 				'Laboratories',
+				'Feedback',
 			].includes(selectedSection) && <h1>Welcome to the Dashboard</h1>}
 		</>
 	);
@@ -226,6 +229,16 @@ const Dashboard = ({ setIsLoggedIn }) => {
 							}`}
 							onClick={() => setSelectedSection('Laboratories')}>
 							<p className='menu-text'>Laboratories</p>
+							<i>
+								<FaVial />
+							</i>
+						</li>
+						<li
+							className={`side-btn ${
+								selectedSection === 'Feedback' ? 'active' : ''
+							}`}
+							onClick={() => setSelectedSection('Feedback')}>
+							<p className='menu-text'>Feedback</p>
 							<i>
 								<FaVial />
 							</i>

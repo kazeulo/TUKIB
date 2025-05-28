@@ -174,6 +174,7 @@ router.get('/laboratory/:id', laboratoryController.getLaboratoryById);
 
 // feedback
 router.post('/feedback', feedbackController.insertFeedback);
+router.get('/feedback', feedbackController.getFeedback);
 
 // statistics for dashboard overview
 router.get('/statistics', statisticsController.getDashboardStats);
