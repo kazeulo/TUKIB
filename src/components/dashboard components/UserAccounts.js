@@ -382,7 +382,7 @@ const Users = () => {
 								<th>Role</th>
 								<th>Institution</th>
 								<th>Contact Number</th>
-								<th>Action</th>
+								{/* <th>Action</th> */}
 								<th>Status</th>
 							</tr>
 						</thead>
@@ -399,7 +399,7 @@ const Users = () => {
 										<td>{user.role}</td>
 										<td>{user.institution}</td>
 										<td>{user.contact_number}</td>
-										<td>
+										{/* <td>
 											<button
 												onClick={(e) => {
 													e.stopPropagation();
@@ -409,9 +409,10 @@ const Users = () => {
 												className='delete-btn'>
 												<FaTrash />
 											</button>
-										</td>
-										<td>
+										</td> */}
+										<td className="filter-dropdown ">
 											<select
+												className={`role-filter status-dropdown status-${user.status}`}
 												value={user.status}
 												onClick={(e) => e.stopPropagation()}
 												onChange={(e) =>
