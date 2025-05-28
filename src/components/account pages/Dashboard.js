@@ -210,10 +210,6 @@ const Dashboard = ({ setIsLoggedIn }) => {
 								<FaNewspaper />
 							</i>
 						</li>
-						{/* <li className={`side-btn ${selectedSection === 'Equipment' ? 'active' : ''}`} onClick={() => setSelectedSection('Equipment')}>
-                            <p className='menu-text'>Equipments</p>
-                            <i><FaTools /></i>
-                        </li> */}
 						<li
 							className={`side-btn ${
 								selectedSection === 'Facilities' ? 'active' : ''
@@ -245,22 +241,23 @@ const Dashboard = ({ setIsLoggedIn }) => {
 					<div className='menu'>
 						<li
 							className={`side-btn ${
-								selectedSection === 'Service Requests' ? 'active' : ''
-							}`}
-							onClick={() => setSelectedSection('Service Requests')}>
-							<p className='menu-text'>Service Requests</p>
-							<i>
-								<FaClipboardList />
-							</i>
-						</li>
-						<li
-							className={`side-btn ${
 								selectedSection === 'Laboratories' ? 'active' : ''
 							}`}
 							onClick={() => setSelectedSection('Laboratories')}>
 							<p className='menu-text'>Laboratories</p>
 							<i>
 								<FaVial />
+							</i>
+						</li>
+						
+						<li
+							className={`side-btn ${
+								selectedSection === 'Service Requests' ? 'active' : ''
+							}`}
+							onClick={() => setSelectedSection('Service Requests')}>
+							<p className='menu-text'>Service Requests</p>
+							<i>
+								<FaClipboardList />
 							</i>
 						</li>
 					</div>
@@ -279,6 +276,17 @@ const Dashboard = ({ setIsLoggedIn }) => {
 						<p className='menu-text'>Facilities</p>
 						<i>
 							<FaWarehouse />
+						</i>
+					</li>
+
+					<li
+						className={`side-btn ${
+							selectedSection === 'Service Requests' ? 'active' : ''
+						}`}
+						onClick={() => setSelectedSection('Service Requests')}>
+						<p className='menu-text'>Service Requests</p>
+						<i>
+							<FaClipboardList />
 						</i>
 					</li>
 				</>
