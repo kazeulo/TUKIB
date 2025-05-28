@@ -81,6 +81,24 @@ const LaboratoryDetails = () => {
         setSearchTerm(event.target.value);
     };
 
+    useEffect(() => {
+        const fetchLaboratory = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/laboratory/${id}`);
+                if (response.data.status === 'success') {
+                    setLaboratory(response.data.laboratory);
+                } else {
+                    console.error('Failed to fetch lab details');
+                }
+            } catch (err) {
+                console.error('Error fetching lab details:', err);
+            }
+        };
+
+        fetchLaboratory();
+    }, [id]);
+
+
     const handleDelete = async (equipment, e) => {
         e.stopPropagation();
         if (window.confirm(`Are you sure you want to delete ${equipment.equipment_name}?`)) {
@@ -95,6 +113,23 @@ const LaboratoryDetails = () => {
                 alert('Failed to delete equipment');
             }
         }
+    };
+
+    const handleEditClick = (equipment, e) => {
+        e.stopPropagation();
+        setSelectedEquipment(equipment);
+        setFormData({
+            equipment_name: equipment.equipment_name,
+            brand: equipment.brand,
+            model: equipment.model,
+            serial_number: equipment.serial_number,
+            quantity: equipment.quantity,
+            staff_name: equipment.staff_name,
+            // laboratory_id: equipment.laboratory_id,
+            sticker_paper_printed: equipment.sticker_paper_printed,
+            remarks: equipment.remarks
+        });
+        setIsEditing(true);
     };
 
     const handleAddClick = () => {
@@ -215,8 +250,10 @@ const LaboratoryDetails = () => {
                                 <tr>
                                     {/* <th>Equipment ID</th> */}
                                     <th>Equipment Name</th>
+                                    <th>Serial Number</th>
                                     <th>Quantity</th>
                                     <th>Staff Incharge</th>
+                                    <th>Sticker Paper</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -224,12 +261,16 @@ const LaboratoryDetails = () => {
                                 {filteredEquipments.length > 0 ? (
                                     filteredEquipments.map(equipment => (
                                         <tr key={equipment.equipment_id}>
-                                            {/* <td>{equipment.equipment_id}</td> */}
                                             <td>{equipment.equipment_name}</td>
+                                            <td>{equipment.serial_number}</td>
                                             <td>{equipment.quantity}</td>
                                             <td>{equipment.staff_name}</td>
+                                            <td>{equipment.sticker_paper_printed ? "Yes" : "No"}</td>
                                             <td>
-                                                <button className="edit-btn" title="Edit disabled here" disabled>
+                                                <button 
+                                                    className="edit-btn" 
+                                                    onClick={(e) => handleEditClick(equipment, e)}
+                                                >
                                                     <FaEdit />
                                                 </button>
                                                 <button
