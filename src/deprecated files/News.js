@@ -1,8 +1,8 @@
 // News.js
 import React from 'react';
-import Header from './Header';
+import Header from '../components/partials/Header';
 import '../../css/News.css';
-import Footer from './Footer';
+import Footer from '../components/partials/Footer';
 
 const News = () => {
 	return (
