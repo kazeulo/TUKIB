@@ -32,7 +32,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const profilePicture = user && user.profilePicture ? user.profilePicture : defaultProfilePic;
 
   // Define the redirect URL based on user role
-  const profileLink = userRole === 'Admin Staff' ? '/dashboard' : '/clientProfile';
+  // const profileLink = userRole === 'Admin Staff' ? '/dashboard' : '/clientProfile';
+  const profileLink = userRole === 'client' ? '/clientProfile' : '/dashboard';
 
   // Routes where Header should not render for Admin role
   const noHeaderRoutes = [

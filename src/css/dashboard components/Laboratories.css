@@ -10,6 +10,41 @@
     margin-top: 20px!important;
 }
 
+.equipment-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.left-header {
+    flex: 1;
+}
+
+.equipments-title {
+    flex: 1;
+    text-align: center;
+}
+
+.right-header {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
 /* Enhanced card grid styling */
 .card-grid {
     display: grid;

@@ -21,6 +21,7 @@ const statisticsController = require('../controllers/statisticsController');
 const feedbackController = require('../controllers/feedbackController');
 const servicesController = require('../controllers/ratesAndServicesController');
 const notificationController = require('../controllers/notificationsController');
+const calendarController = require('../controllers/calendarController');
 
 // Routes for login
 router.post('/login', loginController.handleLogin);
@@ -252,6 +253,9 @@ router.get('/laboratories', servicesController.getAllLaboratories); // Get all l
 router.post('/services', servicesController.createService); // Create a new service
 router.put('/services/:serviceId', servicesController.updateService); // Update a service
 router.delete('/services/:serviceId', servicesController.deleteService); // Delete a service
+
+// calendar 
+router.post('/calendar', calendarController.addRestrictedDate);
 
 // Export the router
 module.exports = router;
