@@ -249,12 +249,12 @@ const LaboratoryDetails = () => {
                             <thead>
                                 <tr>
                                     {/* <th>Equipment ID</th> */}
-                                    <th>Equipment Name</th>
-                                    <th>Serial Number</th>
-                                    <th>Quantity</th>
-                                    <th>Staff Incharge</th>
-                                    <th>Sticker Paper</th>
-                                    <th>Actions</th>
+                                    <th style={{ width: '350px'}}>Equipment Name</th>
+                                    <th style={{ textAlign: 'center'}}>Serial Number</th>
+                                    <th style={{ textAlign: 'center'}}>Quantity</th>
+                                    <th style={{ textAlign: 'center'}}>Staff Incharge</th>
+                                    <th style={{ textAlign: 'center'}}>Sticker Paper</th>
+                                    <th style={{ textAlign: 'center'}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -262,23 +262,23 @@ const LaboratoryDetails = () => {
                                     filteredEquipments.map(equipment => (
                                         <tr key={equipment.equipment_id}>
                                             <td>{equipment.equipment_name}</td>
-                                            <td>{equipment.serial_number}</td>
-                                            <td>{equipment.quantity}</td>
-                                            <td>{equipment.staff_name}</td>
-                                            <td>{equipment.sticker_paper_printed ? "Yes" : "No"}</td>
-                                            <td>
+                                            <td style={{ textAlign: 'center'}}>{equipment.serial_number}</td>
+                                            <td style={{ textAlign: 'center'}}>{equipment.quantity}</td>
+                                            <td style={{ textAlign: 'center'}}>{equipment.staff_name}</td>
+                                            <td style={{ textAlign: 'center'}}>{equipment.sticker_paper_printed ? "Yes" : "No"}</td>
+                                            <td style={{ textAlign: 'center'}}>
                                                 <button 
                                                     className="edit-btn" 
                                                     onClick={(e) => handleEditClick(equipment, e)}
                                                 >
                                                     <FaEdit />
                                                 </button>
-                                                <button
+                                                {/* <button
                                                     className="delete-btn"
                                                     onClick={(e) => handleDelete(equipment, e)}
                                                 >
                                                     <FaTrash />
-                                                </button>
+                                                </button> */}
                                             </td>
                                         </tr>
                                     ))

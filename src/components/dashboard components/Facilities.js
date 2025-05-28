@@ -262,9 +262,9 @@ const Facilities = () => {
         <table className="facility-table">
           <thead>
           <tr>
-              <th style={{ width: '300px'}}>Facility Name</th>
+              <th>Facility Name</th>
               <th>Upcoming Schedules</th>
-              <th style={{ width: '120px'}}>Actions</th>
+              {/* <th style={{ width: '120px'}}>Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -297,14 +297,14 @@ const Facilities = () => {
                       <span>Available</span>
                     )}
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       className="delete-btn"
                       onClick={() => confirmDeleteFacility(facility)}
                     >
                       <FaTrash />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (
