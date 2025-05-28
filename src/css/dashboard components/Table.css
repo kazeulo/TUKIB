@@ -115,12 +115,12 @@ tbody tr:hover{
 }
 
 .delete-btn{
-    z-index: 2;
-    background-color: #8B1538;
-    color: white;
+    z-index: 2 !important;
+    background-color: #8B1538 !important;
+    color: white !important;
     transition: all ease 0.4s;
 }
 
 .delete-btn:hover{
-    background-color: #a41a43;
+    background-color: #a41a43 !important;
 }
