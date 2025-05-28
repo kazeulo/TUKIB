@@ -12,17 +12,55 @@ const ProgressTracker = ({ requestDetails }) => {
     setShowHistory(!showHistory);
   };
 
-  // Define the steps in the process with icons
-  const steps = useMemo(() => [
-    { id: 'submitted', label: 'Request Submitted', date: requestDetails.start, icon: 'fa-file-alt' },
-    { id: 'review', label: 'Request Review', date: requestDetails.review_date, icon: 'fa-search' },
-    { id: 'progress', label: 'In Progress', date: requestDetails.in_progress_date, icon: 'fa-hourglass-half' },
-    { id: 'chargeslip', label: 'Chargeslip Available', date: requestDetails.chargeslip_date, icon: 'fa-file-invoice-dollar' },
-    { id: 'payment', label: 'Payment Confirmed', date: requestDetails.payment_date, icon: 'fa-money-check-alt' },
-    { id: 'feedback', label: 'Feedback Submitted', date: requestDetails.feedback_date, icon: 'fa-comment-alt' },
-    { id: 'results', label: 'Results Uploaded', date: requestDetails.results_date, icon: 'fa-upload' },
-    { id: 'completed', label: 'Completed', date: requestDetails.completed_date, icon: 'fa-check-circle' }
-  ], [requestDetails]);
+  // Get the service name from request details 
+  const serviceType = requestDetails.service_name || 'default';
+
+  // Define the steps in the process with icons, based on service type
+  const steps = useMemo(() => {
+    // Define base steps that are common to all service types
+    const baseSteps = [
+      { id: 'submitted', label: 'Request Submitted', date: requestDetails.start, icon: 'fa-file-alt' },
+      { id: 'review', label: 'Request Approved', date: requestDetails.review_date, icon: 'fa-search' },
+    ];
+    
+    // Define conditional steps based on service type
+    const conditionalSteps = [];
+    
+    // Add "In Progress" step only for service types that need it (e.g., laboratory services)
+    if (!['use of facility', 'training'].includes(serviceType.toLowerCase())) {
+      conditionalSteps.push({ 
+        id: 'progress', 
+        label: 'In Progress', 
+        date: requestDetails.in_progress_date, 
+        icon: 'fa-hourglass-half' 
+      });
+    }
+    
+    // Common steps for payment
+    conditionalSteps.push(
+      { id: 'chargeslip', label: 'Chargeslip Available', date: requestDetails.chargeslip_date, icon: 'fa-file-invoice-dollar' },
+      { id: 'payment', label: 'Payment Confirmed', date: requestDetails.payment_date, icon: 'fa-money-check-alt' },
+      { id: 'feedback', label: 'Feedback Submitted', date: requestDetails.feedback_date, icon: 'fa-comment-alt' }
+    );
+    
+    // Add "Results Uploaded" step only for service types that need it (e.g., laboratory services)
+    if (!['facility', 'training'].includes(serviceType.toLowerCase())) {
+      conditionalSteps.push({ 
+        id: 'results', 
+        label: 'Results Uploaded', 
+        date: requestDetails.results_date, 
+        icon: 'fa-upload' 
+      });
+    }
+    
+    // Final completion step for all service types
+    const finalStep = [
+      { id: 'completed', label: 'Completed', date: requestDetails.completed_date, icon: 'fa-check-circle' }
+    ];
+    
+    // Combine all steps
+    return [...baseSteps, ...conditionalSteps, ...finalStep];
+  }, [requestDetails, serviceType]);
 
   // Determine current step based on status
   const getCurrentStep = (status) => {
@@ -56,14 +94,17 @@ const ProgressTracker = ({ requestDetails }) => {
     if (currentStepIndex === -1) return;
     
     if (currentStepIndex === 0) { // If we're at the first step, set progress to the middle of the first step
-      setProgressWidth(12.5 / 2); // Half of the first step (assuming equal spacing)
+      setProgressWidth(100 / (steps.length * 2)); // Half of the first step's percentage
       return;
     }
     
-    // Calculate the percentage of progress based on completed steps
-    // Each step represents 1/8 (12.5%) of the total progress. We add half of the current step (6.25%) to show progress at the middle of the current step
+    // Calculate the percentage of progress based on completed steps and total steps
+    // Each step represents 1/totalSteps of the total progress
+    // We add half of the current step to show progress at the middle of the current step
+    const totalSteps = steps.length;
+    const stepPercentage = 100 / totalSteps;
     const completedSteps = currentStepIndex;
-    const progressPercentage = (completedSteps * 12.5) + (12.5 / 2);
+    const progressPercentage = (completedSteps * stepPercentage) + (stepPercentage / 2);
     
     setProgressWidth(progressPercentage);
   }, [currentStep, steps]);
@@ -90,7 +131,7 @@ const ProgressTracker = ({ requestDetails }) => {
     try {
       const startDate = new Date(requestDetails.start);
       const estimatedDate = new Date(startDate);
-      estimatedDate.setDate(startDate.getDate() + 9); // Adding 9 days to the start date ask nalang ta if estimate is correct
+      estimatedDate.setDate(startDate.getDate() + 9); // Adding 9 days to the start date
       
       // Format the date as "Month Day, Year"
       return estimatedDate.toLocaleDateString('en-US', {
@@ -159,36 +200,8 @@ const ProgressTracker = ({ requestDetails }) => {
         
         {showHistory && (
           <div className="status-timeline">
-          <h5 className='status-history-text'>Service Request Status History</h5>
-            {/* Current status */}
-            {requestDetails.status === 'In Progress' && (
-              <div className="status-item">
-                <div className="status-icon">
-                  <i className="fas fa-hourglass-half"></i>
-                </div>
-                <div className="status-details">
-                  <h6>In Progress</h6>
-                  <p>Your sample is currently being processed by our laboratory team.</p>
-                  <p className="status-timestamp">{formatDate(requestDetails.in_progress_date)} - {requestDetails.in_progress_time || '9:30 AM'}</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Approved status */}
-            {requestDetails && requestDetails.review_date && (
-              <div className="status-item">
-                <div className="status-icon">
-                  <i className="fas fa-search"></i>
-                </div>
-                <div className="status-details">
-                  <h6>Request Approved</h6>
-                  <p>Service request has been reviewed and approved by RRC staff.</p>
-                  <p className="status-note">Please submit your sample on the date scheduled in the request.</p>
-                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time || '2:45 PM'}</p>
-                </div>
-              </div>
-            )}
-            
+            <h5 className='status-history-text'>Service Request Status History</h5>
+
             {/* Submitted status - always show */}
             <div className="status-item">
               <div className="status-icon">
@@ -200,6 +213,135 @@ const ProgressTracker = ({ requestDetails }) => {
                 <p className="status-timestamp">{formatDate(requestDetails.start)} - {requestDetails.submit_time || '10:23 AM'}</p>
               </div>
             </div>
+
+            {/* Approved status */}
+            {requestDetails.status === 'Approved' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-search"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Request Approved</h6>
+                  <p>Service request has been reviewed and approved by RRC staff.</p>
+                  <p className="status-note">
+                  {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+            
+            {/* In Progress status if applicable to service type */}
+            {requestDetails.status === 'In Progress' && !['facility', 'training'].includes(serviceType.toLowerCase()) && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-hourglass-half"></i>
+                </div>
+                <div className="status-details">
+                  <h6>In Progress</h6>
+                  <p>
+                  {serviceType.toLowerCase() === 'sample processing' && 'Client\'s sample is currently being processed by RRC laboratory team.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Use of equipment is currently in progress.'}
+                </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.in_progress_date)} - {requestDetails.in_progress_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* ChargeSlip Available */}
+            {requestDetails.status === 'Chargeslip Available' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Chargeslip Available</h6>
+                  <p>Admin has generated the service charge slip, client may now proceed to payment.</p>
+                  <p className="status-note">
+                  {/* {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Payment COnfirmed */}
+            {requestDetails.status === 'Payment Confirmed' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Payment Confirmed</h6>
+                  <p>Admin has confirmed receiving client's payment</p>
+                  <p>Client may now submit their service feedback to proceed</p>
+                  <p className="status-note">
+                  {/* {serviceType.toLowerCase() === 'sample processing' &&'Please submit your sample on the date scheduled in the request.'}
+                  {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Feedback Submitted */}
+            {requestDetails.status === 'Feedback Submitted' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Feedback Submitted</h6>
+                  <p>Client has completed their service feedback.</p>
+                  <p className="status-note">
+                  {serviceType.toLowerCase() === 'sample processing' &&'Admin may now proceed to upload sample processing results.'}
+                  {/* {serviceType.toLowerCase() === 'use of equipment' && 'Please proceed according to the schedule in the request.'}
+                  {serviceType.toLowerCase() === 'use of facility' && 'Please proceed to payment once chargeslip is available.'}
+                  {serviceType.toLowerCase() === 'training' && 'Please proceed to payment once chargeslip is available.'} */}
+                  </p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Result Uploaded */}
+            {requestDetails.status === 'Results Uploaded' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Results Uploaded</h6>
+                  <p>RRC Staff has uploaded the service results.</p>
+                  <p className="status-note"></p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
+            {/*Completed*/}
+            {requestDetails.status === 'Completed' && (
+              <div className="status-item">
+                <div className="status-icon">
+                  <i className="fas fa-money-check-alt"></i>
+                </div>
+                <div className="status-details">
+                  <h6>Completed</h6>
+                  <p>Service completed, thank you for availing a service from RRC!</p>
+                  <p className="status-note"></p>
+                  <p className="status-timestamp">{formatDate(requestDetails.review_date)} - {requestDetails.review_time}</p>
+                </div>
+              </div>
+            )}
+
           </div>
         )}
       </div>

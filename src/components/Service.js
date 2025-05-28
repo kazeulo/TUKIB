@@ -100,7 +100,7 @@ const ServicePage = ({
           <h2>Contact Information</h2>
           <p>✉️ rrc.upvisayas@up.edu.ph</p>
           <p>🕒 Mon-Fri: 8:00 AM - 5:00 PM</p>
-          <button className="request-btn">Request Service</button>
+          {/* <button className="request-btn">Request Service</button> */}
         </div>
 
         {/* Important Notice */}

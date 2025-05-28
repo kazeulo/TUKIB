@@ -5,7 +5,7 @@ import Overview from '../dashboard components/Overview';
 import UserAccounts from '../dashboard components/UserAccounts';
 import ServiceRequests from '../dashboard components/ServiceRequests';
 import MessagesTable from '../dashboard components/MessagesTable';
-import EquipmentsTable from '../dashboard components/Equipments';
+// import EquipmentsTable from '../dashboard components/Equipments';
 import Facilities from '../dashboard components/Facilities';
 import News from '../dashboard components/news/News';
 import Laboratories from '../dashboard components/Laboratories';
@@ -15,13 +15,14 @@ import {
 	FaUsers,
 	FaClipboardList,
 	FaEnvelope,
-	FaCogs,
+	// FaCogs,
 	FaNewspaper,
 	FaTools,
 	FaWarehouse,
 	FaVial,
 } from 'react-icons/fa'; // Import icons
 import '../../css/account pages/AdminDashboard.css';
+import RandomGreeting from '../dashboard components/Greetings';
 
 const Dashboard = ({ setIsLoggedIn }) => {
 	const navigate = useNavigate();
@@ -132,7 +133,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	// Render content based on the selected section
 	const renderContent = () => (
 		<>
-			<h2 className='sidebarTitle'>Dashboard</h2>
+			{/* <h2 className='sidebarTitle'>Dashboard</h2> */}
 			{selectedSection === 'Overview' && <Overview />}
 			{selectedSection === 'Service Requests' && <ServiceRequests />}
 			{selectedSection === 'Users' && <UserAccounts />}
@@ -304,8 +305,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 			{/* Main content panel */}
 			<div className='main-panel'>
 				<div className='dashHeader'>
-					<h2 className='greeting mb-0'>Hello, {user?.name || 'User'}</h2>
-
+					<RandomGreeting userName={user?.name || 'User'} />
 					<div
 						className='notification-icon position-relative'
 						onClick={handleBellClick}>

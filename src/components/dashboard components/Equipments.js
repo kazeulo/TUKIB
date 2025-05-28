@@ -345,8 +345,8 @@ const Equipments = () => {
                             />
 
                             <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                                <button type="submit">Save</button>
                                 <button type="button" className="cancel-btn" onClick={handleCloseOverlay}>Cancel</button>
+                                <button type="submit">Save</button>
                             </div>
                         </form>
                     </div>

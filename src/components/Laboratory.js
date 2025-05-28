@@ -34,6 +34,12 @@ import equipment29 from '../assets/labpage/29.png';
 import equipment30 from '../assets/labpage/30.png';
 import equipment31 from '../assets/labpage/31.png';
 import equipment32 from '../assets/labpage/32.png';
+import equipment33 from '../assets/labpage/33.png';
+import equipment34 from '../assets/labpage/34.png';
+import equipment35 from '../assets/labpage/35.png';
+import equipment36 from '../assets/labpage/36.png';
+import equipment37 from '../assets/labpage/37.png';
+import equipment38 from '../assets/labpage/38.png';
 
 const Laboratory = () => {
   useEffect(() => {
@@ -222,56 +228,49 @@ const Laboratory = () => {
           <div className="rrc-equipment-grid">
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/freeze-dryer.jpg" alt="Freeze Dryer" />
+                <img src={equipment33} alt="Freeze Dryer" />
               </div>
               <h4>Freeze Dryer</h4>
               <p>Gentle removal of water from frozen samples/products by sublimation under vacuum.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/spray-dryer.jpg" alt="Spray Dryer" />
+                <img src={equipment34} alt="Spray Dryer" />
               </div>
               <h4>Spray Dryer</h4>
               <p>Sprays the aqueous solutions into fine droplets through the nozzle and simultaneously blown by hot dehumidified gas into dry and fine particles.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/texture-analyzer.jpg" alt="Texture Analyzer" />
+                <img src={equipment37} alt="Texture Analyzer" />
               </div>
               <h4>Texture Analyzer</h4>
               <p>Quantitatively measures mechanical properties of product or fixtures, which may be correlated with sensory perception.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/drying-oven.jpg" alt="Constant Temperature Drying Oven" />
+                <img src={equipment31} alt="Constant Temperature Drying Oven" />
               </div>
               <h4>Constant Temperature Drying Oven</h4>
               <p>Features constant convection drying with temperature range of 50-200 °C.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/forced-air-oven.jpg" alt="Forced Air Drying Oven" />
+                <img src={equipment35} alt="Forced Air Drying Oven" />
               </div>
               <h4>Forced Air Drying Oven</h4>
               <p>Convection drying with continuous draft air blowing.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/vacuum-oven.jpg" alt="Vacuum Drying Oven" />
+                <img src={equipment36} alt="Vacuum Drying Oven" />
               </div>
               <h4>Vacuum Drying Oven</h4>
               <p>Drying under vacuum condition with temperature range of 30-250 °C.</p>
             </div>
             <div className="rrc-equipment-card">
               <div className="rrc-equipment-image">
-                {/* Replace with actual image */}
-                <img src="/placeholder-images/rheometer.jpg" alt="Rheometer" />
+                <img src={equipment38} alt="Rheometer" />
               </div>
               <h4>Rheometer</h4>
               <p>Measures fluid sample viscosity behavior (centipoise cP) in single point or as a function of shear rate, time, etc.</p>
