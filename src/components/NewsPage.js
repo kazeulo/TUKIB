@@ -32,7 +32,7 @@ const NewsPage = () => {
         const newsItems = data.news.filter(item => item.type === 'News');
         const announcementItems = data.news.filter(item => item.type === 'Announcement');
 
-        console.log(announcementItems)
+        // console.log(announcementItems)
 
         const featuredNews = newsItems[0] || null;
         const newsCards = newsItems.slice(1);

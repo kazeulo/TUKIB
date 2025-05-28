@@ -13,7 +13,10 @@ const fetchUsers = async (setUsers) => {
 		const data = await response.json();
 
 		if (data.status === 'success' && Array.isArray(data.users)) {
-			setUsers(data.users);
+			const sortedUsers = data.users.sort(
+				(a, b) => new Date(b.created_at) - new Date(a.created_at)
+			);
+			setUsers(sortedUsers);
 		} else {
 			console.error('Fetched data is not an array:', data);
 		}
@@ -147,6 +150,7 @@ const modalForm = (newUser, setNewUser, labs) => (
 				setNewUser({ ...newUser, contact_number: e.target.value })
 			}
 		/>
+		
 		<select className='add-account-dropdown'
 			value={newUser.status}
 			onChange={(e) => setNewUser({ ...newUser, status: e.target.value })}

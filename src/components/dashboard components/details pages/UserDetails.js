@@ -38,7 +38,7 @@ const UserDetails = () => {
     fetchUserDetails();
   }, [userId]);
 
-  // Fetch user's service requests only if the user is not a Client
+  // Fetch user's service requests only if the user is a Client
   useEffect(() => {
     if (user && user.role === "Client") {
       const fetchServiceRequests = async () => {
@@ -48,8 +48,6 @@ const UserDetails = () => {
 
           if (data.status === 'success') {
             setServiceRequests(data.serviceRequests);
-          } else {
-            setError('No service requests found for this user');
           }
         } catch (error) {
           setError('Error fetching service requests');
@@ -151,7 +149,6 @@ const UserDetails = () => {
             </button>
 
           <div className='user-details-container'>
-
             <div className="user-details-header">
               <h2>User Details</h2>
             </div>
@@ -163,13 +160,15 @@ const UserDetails = () => {
                   <h3>{user.name}</h3>
                   <p>{user.email}</p>
                   <div className="user-details">
-                    <p>User ID: {user.user_id}</p>
                     <p>Institution: {user.institution}</p>
                     <p>Role: {user.role}</p>
                     <p>Phone: {user.contact_number}</p>
+                    <br></br>
+                    <p className={`user-status ${user.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                      Status: {user.status.charAt(0).toUpperCase() + user.status.slice(1).toLowerCase()}
+                    </p>
                   </div>
                 </div>
-                <button className="profile-block-button">Block</button>
             </div>
           </div>
 
@@ -179,6 +178,7 @@ const UserDetails = () => {
               <div className="transaction-history-header">
                 <h2>Transactions</h2>
               </div>
+
               {/* Modal for confirmation */}
               <Modal
                 isOpen={isModalOpen}
@@ -188,27 +188,27 @@ const UserDetails = () => {
                 content="Are you sure you want to cancel this service request?"
                 footer={modalFooter}
               />
-              {serviceRequests.length > 0 ? (
-                <div>
-                  <table className='transaction-history-table'>
-                    <thead>
-                      <tr>
-                        <th>Request ID</th>
-                        <th>Service Name</th>
-                        <th>Date Requested</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {serviceRequests
-                       .sort((a, b) => {
+
+              <div>
+                <table className='transaction-history-table'>
+                  <thead>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Service Name</th>
+                      <th>Date Requested</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {serviceRequests.length > 0 ? (
+                      serviceRequests
+                        .sort((a, b) => {
                           const statusA = a.status.trim().toLowerCase();
                           const statusB = b.status.trim().toLowerCase();
-                        
+
                           const isPendingA = statusA === 'pending approval';
                           const isPendingB = statusB === 'pending approval';
-                        
+
                           if (isPendingA && !isPendingB) return -1;
                           if (!isPendingA && isPendingB) return 1;
 
@@ -223,35 +223,26 @@ const UserDetails = () => {
                             <td>{request.request_code}</td>
                             <td>{request.service_name}</td>
                             <td>{new Date(request.start).toLocaleString()}</td>
-                            <td><span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>{request.status}</span></td>
                             <td>
-                              {request.status !== 'Cancelled' && request.status !== 'Completed' ? (
-                                <button
-                                  className="cancel-btn"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleCancelRequest(request.request_id);
-                                  }}
-                                >
-                                  Cancel
-                                </button>
-                              ) : (
-                                <span>{request.status}</span>
-                              )}
+                              <span className={`status-badge status-${request.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                                {request.status}
+                              </span>
                             </td>
                           </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div>No service requests found for this user.</div>
-              )}
+                        ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" style={{ textAlign: 'center' }}>No service requests found for this user.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
       ) : (
-        <div>User not found</div>
+        <div>User not found.</div>
       )}
     </div>
   );    
