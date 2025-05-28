@@ -162,7 +162,7 @@ const ServiceRequest = () => {
               id="serviceFilter"
               value={serviceTypeFilter}
               onChange={(e) => setServiceTypeFilter(e.target.value)}
-              className="filter-select"
+              className="role-filter"
             >
               <option value="all">All Services</option>
               <option value="Training">Training</option>
