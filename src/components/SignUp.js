@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import {
 	FaEye,
 	FaEyeSlash,
 	FaLock,
 	FaEnvelope,
 	FaPhone,
-	FaBuilding,
+	FaBuilding, FaTimes
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Footer from './partials/Footer';
@@ -28,6 +28,12 @@ const Signup = () => {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+
+	// Show modal when component mounts
+	useEffect(() => {
+		setShowModal(true);
+	}, []);
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -101,8 +107,40 @@ const Signup = () => {
 		}
 	};
 
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
 	return (
 		<div>
+			{/* Modal Popup */}
+			{showModal && (
+				<div className='signup-modal-overlay' onClick={closeModal}>
+					<div className='signup-modal-content' onClick={(e) => e.stopPropagation()}>
+						{/* <div className='signup-modal-header'>
+							<button 
+								className='signup-modal-close-btn' 
+								onClick={closeModal}
+								aria-label='Close modal'
+							>
+								<FaTimes />
+							</button>
+						</div> */}
+						<div className='signup-modal-body'>
+							<p>
+								<strong>Note:</strong> Before signing up, please make sure you have completed the{' '}
+								<strong>initial consultation</strong> with RRC. This step is required to proceed with account creation.
+							</p>
+						</div>
+						<div className='signup-modal-footer'>
+							<button className='signup-modal-ok-btn' onClick={closeModal}>
+								OK, I understand
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+			
 			<main className='signup-content'>
 				<div className='signup-page'>
 					<div className='mobile-powered-by d-md-none'>
@@ -283,6 +321,7 @@ const Signup = () => {
 						</div>
 						<h1>Important</h1>
 						<ul className='login-reminders-list'>
+							<li className='important-bold'>ACCOUNT REGISTRATION IS ONLY AVAILABLE AFTER AN INITIAL CONSULTATION. PLEASE CONSULT WITH RRC FIRST VIA EMAIL TO PROCEED</li>
 							<li>DO NOT DISCLOSE YOUR SIGN-UP INFORMATION TO ANYONE.</li>
 							<li>
 								PLEASE USE A STRONG PASSWORD THAT COMBINES LETTERS, NUMBERS, AND

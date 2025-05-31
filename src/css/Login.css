@@ -457,3 +457,129 @@ input::-webkit-credentials-auto-fill-button {
 		padding: 10px;
 	}
 }
+
+/* Modal Styles */
+.signup-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(65, 56, 59, 0.375); /* Matching the burgundy theme with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.signup-modal-content {
+  background: rgba(255, 255, 255, 0.95); /* Semi-transparent white like the signup form */
+  border-radius: 20px; /* Matching the rounded corners from the form */
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 25px 50px -12px rgba(139, 32, 65, 0.25); /* Burgundy shadow */
+  position: relative;
+  backdrop-filter: blur(10px); /* Adding blur effect */
+}
+
+.signup-modal-header {
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signup-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #8b2041; /* Burgundy color */
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-modal-close-btn:hover {
+  background-color: rgba(139, 32, 65, 0.1); 
+  color: #6b1835; 
+}
+
+.signup-modal-body {
+  padding: 0 30px 20px 30px;
+  margin-top: 50px;
+}
+
+.signup-modal-body p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4a4a4a; 
+  margin: 0;
+  text-align: center;
+}
+
+.signup-modal-footer {
+  padding: 0 30px 30px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.signup-modal-ok-btn {
+  background-color: #8b2041; 
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.signup-modal-ok-btn:hover {
+  background-color: #6b1835; 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 32, 65, 0.3);
+}
+
+.signup-modal-ok-btn:focus {
+  outline: 2px solid #8b2041;
+  outline-offset: 2px;
+}
+
+.important-bold{
+	font-weight: bold;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .signup-modal-content {
+    width: 95%;
+    margin: 20px;
+    border-radius: 15px;
+  }
+  
+  .signup-modal-body {
+    padding: 0 25px 20px 25px;
+  }
+  
+  .signup-modal-body p {
+    font-size: 14px;
+  }
+  
+  .signup-modal-footer {
+    padding: 0 25px 25px 25px;
+  }
+  
+  .signup-modal-ok-btn {
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+}
