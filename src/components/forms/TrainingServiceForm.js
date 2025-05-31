@@ -275,7 +275,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 name="trainingTitle"
                 value={formData.trainingTitle}
                 onChange={handleChange}
-                placeholder="Training Title"
+                placeholder="Complete Training Title"
               />
               {errors.trainingTitle && <p className="error">{errors.trainingTitle}</p>}
             </div>
@@ -289,6 +289,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 name="trainingDate"
                 value={formData.trainingDate}
                 onChange={handleChange}
+                placeholder='RRC Unavailable on Weekends and Holidays'
               />
               {errors.trainingDate && <p className="error">{errors.trainingDate}</p>}
             </div>
@@ -427,6 +428,7 @@ function TrainingServiceForm({ isLoggedIn }) {
                 value={formData.additionalInformation}
                 onChange={handleChange}
                 rows='4'
+                placeholder="Example: Please include both lecture and hands-on training sessions."
               />
             </div>
 
