@@ -356,6 +356,8 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								name='authorizedRepresentative'
 								value={formData.authorizedRepresentative}
 								onChange={handleChange}
+								placeholder="Juan Dela Cruz - UPV Chem Laboratory Head"
+
 							/>
 							{errors.authorizedRepresentative && (
 								<p className='error'>{errors.authorizedRepresentative}</p>
@@ -429,6 +431,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								value={formData.equipmentSettings}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Column temp: 250°C, Carrier gas: Helium"
 							/>
 							{errors.equipmentSettings && (
 								<p className='error'>{errors.equipmentSettings}</p>
@@ -446,6 +449,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								name='sampleType'
 								value={formData.sampleType}
 								onChange={handleChange}
+								placeholder="Air Sample"
 							/>
 							{errors.sampleType && (
 								<p className='error'>{errors.sampleType}</p>
@@ -463,6 +467,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								value={formData.sampleDescription}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Collected near highway during peak hours"
 							/>
 							{errors.sampleDescription && (
 								<p className='error'>{errors.sampleDescription}</p>
@@ -480,6 +485,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								name='sampleVolume'
 								value={formData.sampleVolume}
 								onChange={handleChange}
+								placeholder="1.5 L"
 							/>
 							{errors.sampleVolume && (
 								<p className='error'>{errors.sampleVolume}</p>
@@ -497,6 +503,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								value={formData.sampleHazardDescription}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Highly flammable"
 							/>
 							{errors.sampleHazardDescription && (
 								<p className='error'>{errors.sampleHazardDescription}</p>
@@ -514,6 +521,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								name='scheduleOfUse'
 								value={formData.scheduleOfUse}
 								onChange={handleChange}
+								placeholder="RRC Unavailable on Weekends and Holidays"
 							/>
 							{errors.scheduleOfUse && (
 								<p className='error'>{errors.scheduleOfUse}</p>
@@ -531,6 +539,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								name='estimatedUseDuration'
 								value={formData.estimatedUseDuration}
 								onChange={handleChange}
+								placeholder="3 hours"
 							/>
 							{errors.estimatedUseDuration && (
 								<p className='error'>{errors.estimatedUseDuration}</p>
@@ -677,6 +686,7 @@ const EquipmentRentalRequestForm = ({ isLoggedIn }) => {
 								value={formData.additionalInformation}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Need assistance from technician during operation"
 							/>
 						</div>
 

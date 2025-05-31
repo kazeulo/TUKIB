@@ -454,6 +454,7 @@ function UseOfFacilityForm({ isLoggedIn }) {
                 value={formData.additionalInformation}
                 onChange={handleChange}
                 rows="4"
+                placeholder="Example: We also need projectors, microphones and whiteboards."
               />
             </div>
 

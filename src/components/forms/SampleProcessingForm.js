@@ -442,6 +442,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								name='sampleType'
 								value={formData.sampleType}
 								onChange={handleChange}
+								placeholder="Water"
 							/>
 							{errors.sampleType && <p className="error">{errors.sampleType}</p>}
 						</div>
@@ -455,6 +456,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								name='sampleDescription'
 								value={formData.sampleDescription}
 								onChange={handleChange}
+								placeholder="Collected from river site A"
 								rows='4'
 							/>
 							{errors.sampleDescription && <p className="error">{errors.sampleDescription}</p>}
@@ -470,6 +472,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								name='sampleVolume'
 								value={formData.sampleVolume}
 								onChange={handleChange}
+								placeholder="500 mL"
 							/>
 							{errors.sampleVolume && <p className="error">{errors.sampleVolume}</p>}
 						</div>
@@ -484,6 +487,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								value={formData.methodSettings}
 								onChange={handleChange}
 								rows='4'
+								placeholder="EPA Method 200.8"
 							/>
 							{errors.methodSettings && <p className="error">{errors.methodSettings}</p>}
 						</div>
@@ -491,13 +495,14 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 						{/* Sample Hazard Description */}
 						<div className='form-group'>
 							<label>Sample Hazard Description
-								<Tooltip text="Please tick all hazards associated with your sample" />
+								<Tooltip text="Please describe all hazards associated with your sample" />
 							</label>
 							<textarea
 								name='sampleHazardDescription'
 								value={formData.sampleHazardDescription}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Corrosive liquid"
 							/>
 							{errors.sampleHazardDescription && <p className="error">{errors.sampleHazardDescription}</p>}
 						</div>
@@ -512,6 +517,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								name='scheduleSampleSubmission'
 								value={formData.scheduleSampleSubmission}
 								onChange={handleChange}
+								placeholder="RRC is Unavailable on Weekends or Holidays"
 							/>
 							{errors.scheduleSampleSubmission && <p className="error">{errors.scheduleSampleSubmission}</p>}
 						</div>
@@ -623,6 +629,7 @@ const SampleProcessingForm = ({ isLoggedIn }) => {
 								value={formData.additionalInformation}
 								onChange={handleChange}
 								rows='4'
+								placeholder="Sample collected during rainy season – may affect readings."
 							/>
 						</div>
 

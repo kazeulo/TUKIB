@@ -124,6 +124,7 @@ const Login = ({ setIsLoggedIn }) => {
 									onChange={(e) => setEmail(e.target.value)}
 									required
 									className={`input-with-icon${error && !email ? 'error' : ''}`}
+									placeholder='juandelacruz@email.com'
 								/>
 							</div>
 							<div className='form-group'>
@@ -134,6 +135,7 @@ const Login = ({ setIsLoggedIn }) => {
 										type={showPassword ? 'text' : 'password'}
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
+										placeholder='Password'
 										required
 										className={`input-with-icon ${
 											error && !password ? 'error' : ''
