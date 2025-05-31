@@ -237,242 +237,303 @@ function TrainingServiceForm({ isLoggedIn }) {
 	};
 
   return (
-    <>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        onConfirm={handleModalClose}
-        title="Login Required"
-        content="Please log in to submit the form."
-        footer={
-          <button onClick={handleModalClose} className="modal-btn">
-            Close
-          </button>
-        }
-      />
-      
-      {/* Success Modal */}
-      <SuccessModal isOpen={isModalOpen} 
-        onClose={() => {
-          setIsModalOpen(false); 
-          navigate('/clientProfile');
-        }
-      }/>
+		<>
+			<Modal
+				isOpen={isModalOpen}
+				onClose={handleModalClose}
+				onConfirm={handleModalClose}
+				title='Login Required'
+				content='Please log in to submit the form.'
+				footer={
+					<button
+						onClick={handleModalClose}
+						className='modal-btn'>
+						Close
+					</button>
+				}
+			/>
 
+			{/* Success Modal */}
+			<SuccessModal
+				isOpen={isModalOpen}
+				onClose={() => {
+					setIsModalOpen(false);
+					navigate('/clientProfile');
+				}}
+			/>
 
-      {user && (
-        <div className="service-request-form">
-          <div className="form-title">
-            <h3>Training Form</h3>
-          </div>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <div className="form-group">
-              <label>Training Topic
-                <Tooltip text="Please provide the complete training topic"/>
-              </label>
-              <input
-                type="text"
-                name="trainingTitle"
-                value={formData.trainingTitle}
-                onChange={handleChange}
-                placeholder="Complete Training Title"
-              />
-              {errors.trainingTitle && <p className="error">{errors.trainingTitle}</p>}
-            </div>
+			{user && (
+				<div className='service-request-form'>
+					<div className='form-title'>
+						<h3>Training Form</h3>
+					</div>
+					<form
+						onSubmit={handleSubmit}
+						encType='multipart/form-data'>
+						<div className='form-group'>
+							<label>
+								Training Topic
+								<Tooltip text='Please provide the complete training topic' />
+							</label>
+							<input
+								type='text'
+								name='trainingTitle'
+								value={formData.trainingTitle}
+								onChange={handleChange}
+								placeholder='Complete Training Title'
+							/>
+							{errors.trainingTitle && (
+								<p className='error'>{errors.trainingTitle}</p>
+							)}
+						</div>
 
-            <div className="form-group">
-              <label>Training Date
-                <Tooltip text="Please provide the date of training"/>
-              </label>
-              <input
-                type="date"
-                name="trainingDate"
-                value={formData.trainingDate}
-                onChange={handleChange}
-                placeholder='RRC Unavailable on Weekends and Holidays'
-              />
-              {errors.trainingDate && <p className="error">{errors.trainingDate}</p>}
-            </div>
+						<div className='form-group'>
+							<label>
+								Training Date
+								<Tooltip text='Please provide the date of training' />
+							</label>
+							<input
+								type='date'
+								name='trainingDate'
+								value={formData.trainingDate}
+								onChange={handleChange}
+								placeholder='RRC Unavailable on Weekends and Holidays'
+								min={new Date().toISOString().split('T')[0]}
+							/>
+							{errors.trainingDate && (
+								<p className='error'>{errors.trainingDate}</p>
+							)}
+						</div>
 
-            <div className="form-group">
-              <label>Number of participants
-                <Tooltip text="Please provide the number of participants"/>
-              </label>
-              <input
-                type="number"
-                name="participantCount"
-                value={formData.participantCount || ''}
-                onChange={handleChange}
-                placeholder="Number of Participants"
-              />
-              {errors.participantCount && <p className="error">{errors.participantCount}</p>}
-            </div>
+						<div className='form-group'>
+							<label>
+								Number of participants
+								<Tooltip text='Please provide the number of participants' />
+							</label>
+							<input
+								type='number'
+								name='participantCount'
+								value={formData.participantCount || ''}
+								onChange={handleChange}
+								placeholder='Number of Participants'
+							/>
+							{errors.participantCount && (
+								<p className='error'>{errors.participantCount}</p>
+							)}
+						</div>
 
-            <div className="form-group">
-              <label> Select Laboratory
-                <Tooltip text="Please select the laboratory to partner with for the training"/>
-              </label>
-              <select
-                name="partnerLab"
-                value={formData.partnerLab}
-                onChange={handleChange}
-              >
-                <option value="">Select Laboratory Partner</option>
-                <option value="Applied Chemistry">Applied Chemistry</option>
-                <option value="Biology">Biology</option>
-                <option value="Foods, Feeds and Functional Nutrition">Foods Feeds and Functional Nutrition (Food)</option>
-                <option value="Material Science and Nanotechnology">Material Science and Nanotechnology</option>
-                <option value="Microbiology and Bioengineering">Microbiology and Bioengineering</option>
-              </select>
-              {errors.partnerLab && <p className="error">{errors.partnerLab}</p>}
-            </div>
+						<div className='form-group'>
+							<label>
+								{' '}
+								Select Laboratory
+								<Tooltip text='Please select the laboratory to partner with for the training' />
+							</label>
+							<select
+								name='partnerLab'
+								value={formData.partnerLab}
+								onChange={handleChange}>
+								<option value=''>Select Laboratory Partner</option>
+								<option value='Applied Chemistry'>Applied Chemistry</option>
+								<option value='Biology'>Biology</option>
+								<option value='Foods, Feeds and Functional Nutrition'>
+									Foods Feeds and Functional Nutrition (Food)
+								</option>
+								<option value='Material Science and Nanotechnology'>
+									Material Science and Nanotechnology
+								</option>
+								<option value='Microbiology and Bioengineering'>
+									Microbiology and Bioengineering
+								</option>
+							</select>
+							{errors.partnerLab && (
+								<p className='error'>{errors.partnerLab}</p>
+							)}
+						</div>
 
-            <div className="form-group">
-              <label>Mode of Payment
-              <Tooltip text="Select your preferred payment method for this service" />
-              </label>
-              <select
-                name="payment_option"
-                value={formData.payment_option}
-                onChange={handlePaymentOptionChange}
-              >
-                <option value="">Select Payment Option</option>
-                <option value="Charged to Project">Charged to Project</option>
-								<option value="Pay at University Registrar">Pay at University Registrar</option>
-              </select>
-              {errors.payment_option && <p className="error">{errors.payment_option}</p>}
-            </div>
+						<div className='form-group'>
+							<label>
+								Mode of Payment
+								<Tooltip text='Select your preferred payment method for this service' />
+							</label>
+							<select
+								name='payment_option'
+								value={formData.payment_option}
+								onChange={handlePaymentOptionChange}>
+								<option value=''>Select Payment Option</option>
+								<option value='Charged to Project'>Charged to Project</option>
+								<option value='Pay at University Registrar'>
+									Pay at University Registrar
+								</option>
+							</select>
+							{errors.payment_option && (
+								<p className='error'>{errors.payment_option}</p>
+							)}
+						</div>
 
-            {formData.payment_option === "Charged to Project" && (
-              <>
-                <div className="form-group">
-                  <label>Project Title
-                  <Tooltip text="Enter the full and correct title of the project to be charged, please recheck for typos" />
-                  </label>
-                  <input
-                    type="text"
-                    name="project_title"
-                    value={formData.project_title}
-                    onChange={handleChange}
-                    placeholder="Project Title"
-                  />
-                  {errors.project_title && <p className="error">{errors.project_title}</p>}
-                </div>
+						{formData.payment_option === 'Charged to Project' && (
+							<>
+								<div className='form-group'>
+									<label>
+										Project Title
+										<Tooltip text='Enter the full and correct title of the project to be charged, please recheck for typos' />
+									</label>
+									<input
+										type='text'
+										name='project_title'
+										value={formData.project_title}
+										onChange={handleChange}
+										placeholder='Project Title'
+									/>
+									{errors.project_title && (
+										<p className='error'>{errors.project_title}</p>
+									)}
+								</div>
 
-                <div className="form-group">
-                  <label>Project Budget Code
-                  <Tooltip text="Enter the budget code assigned to your project, please recheck for typos" />
-                  </label>
-                  <input
-                    type="text"
-                    name="project_budget_code"
-                    value={formData.project_budget_code || ''}
-                    onChange={handleChange}
-                    placeholder="Project Budget Code"
-                  />
-                  {errors.project_budget_code && <p className="error">{errors.project_budget_code}</p>}
-                </div>
+								<div className='form-group'>
+									<label>
+										Project Budget Code
+										<Tooltip text='Enter the budget code assigned to your project, please recheck for typos' />
+									</label>
+									<input
+										type='text'
+										name='project_budget_code'
+										value={formData.project_budget_code || ''}
+										onChange={handleChange}
+										placeholder='Project Budget Code'
+									/>
+									{errors.project_budget_code && (
+										<p className='error'>{errors.project_budget_code}</p>
+									)}
+								</div>
 
-                {/* Proof of Funds Availability */}
-                <div className='form-group'>
-                  <label>Proof of Funds Availability
-                    <Tooltip text="Upload a document confirming available funds for this service" />
-                  </label>
-                  <small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
-                  <input
-                    type='file'
-                    name='proofOfFunds'
-                    onChange={handleFileChange}
-                  />
-                  {errors.proofOfFunds && <p className="error">{errors.proofOfFunds}</p>}
-                </div>
+								{/* Proof of Funds Availability */}
+								<div className='form-group'>
+									<label>
+										Proof of Funds Availability
+										<Tooltip text='Upload a document confirming available funds for this service' />
+									</label>
+									<small>
+										<i>
+											Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg,
+											.jpeg, .png
+										</i>
+									</small>
+									<input
+										type='file'
+										name='proofOfFunds'
+										onChange={handleFileChange}
+									/>
+									{errors.proofOfFunds && (
+										<p className='error'>{errors.proofOfFunds}</p>
+									)}
+								</div>
 
-                {/* Payment Conforme */}
-                <div className='form-group'>
-                  <label>Payment Conforme
-                  <Tooltip text="Upload a signed payment confirmation document" />
-								</label>
-								<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
-                  <input
-                    type='file'
-                    name='paymentConforme'
-                    onChange={handleFileChange}
-                  />
-                  {errors.paymentConforme && <p className="error">{errors.paymentConforme}</p>}
-                </div>
-              </>
-            )}
+								{/* Payment Conforme */}
+								<div className='form-group'>
+									<label>
+										Payment Conforme
+										<Tooltip text='Upload a signed payment confirmation document' />
+									</label>
+									<small>
+										<i>
+											Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg,
+											.jpeg, .png
+										</i>
+									</small>
+									<input
+										type='file'
+										name='paymentConforme'
+										onChange={handleFileChange}
+									/>
+									{errors.paymentConforme && (
+										<p className='error'>{errors.paymentConforme}</p>
+									)}
+								</div>
+							</>
+						)}
 
-            <div className='form-group'>
-              <label>Upload other necessary documents
-              <Tooltip text="Provide any other relevant information or special requests regarding your training" />
-              </label>
-							<small><i>Max no. of files accepted: 5</i></small> &emsp;
-							<small><i>Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png</i></small>
-              <input
-                type="file"
-                name="necessaryDocuments"
-                onChange={handleFileChange}
-                placeholder="Upload Documents"
-                multiple
-              />
-            </div>
+						<div className='form-group'>
+							<label>
+								Upload other necessary documents
+								<Tooltip text='Provide any other relevant information or special requests regarding your training' />
+							</label>
+							<small>
+								<i>Max no. of files accepted: 5</i>
+							</small>{' '}
+							&emsp;
+							<small>
+								<i>
+									Accepted Files: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg,
+									.png
+								</i>
+							</small>
+							<input
+								type='file'
+								name='necessaryDocuments'
+								onChange={handleFileChange}
+								placeholder='Upload Documents'
+								multiple
+							/>
+						</div>
 
-            {/* Additional Information */}
-            <div className='form-group'>
-              <label>Additional Information
-                <Tooltip text="Provide any other relevant information or special requests regarding your training" />
-              </label>
-              <textarea
-                name='additionalInformation'
-                value={formData.additionalInformation}
-                onChange={handleChange}
-                rows='4'
-                placeholder="Example: Please include both lecture and hands-on training sessions."
-              />
-            </div>
+						{/* Additional Information */}
+						<div className='form-group'>
+							<label>
+								Additional Information
+								<Tooltip text='Provide any other relevant information or special requests regarding your training' />
+							</label>
+							<textarea
+								name='additionalInformation'
+								value={formData.additionalInformation}
+								onChange={handleChange}
+								rows='4'
+								placeholder='Example: Please include both lecture and hands-on training sessions.'
+							/>
+						</div>
 
-            <div className="form-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  name="acknowledgeTerms"
-                  checked={formData.acknowledgeTerms}
-                  onChange={handleCheckboxChange}
-                />
-                I acknowledge the&ensp;
-							<button type="button"
-									className="terms-link" 
-									onClick={() => setIsTermsOpen(true)}
-							>
-							terms and conditions
-							</button>
-              </label>
-              {errors.acknowledgeTerms && <p className="error">{errors.acknowledgeTerms}</p>}
-            </div>
-            <TermsModal 
-							isOpen={isTermsOpen} 
-							onClose={() => setIsTermsOpen(false)} 
+						<div className='form-group'>
+							<label className='checkbox-label'>
+								<input
+									type='checkbox'
+									name='acknowledgeTerms'
+									checked={formData.acknowledgeTerms}
+									onChange={handleCheckboxChange}
+								/>
+								I acknowledge the&ensp;
+								<button
+									type='button'
+									className='terms-link'
+									onClick={() => setIsTermsOpen(true)}>
+									terms and conditions
+								</button>
+							</label>
+							{errors.acknowledgeTerms && (
+								<p className='error'>{errors.acknowledgeTerms}</p>
+							)}
+						</div>
+						<TermsModal
+							isOpen={isTermsOpen}
+							onClose={() => setIsTermsOpen(false)}
 						/>
 
-            <div className="form-actions">
-              <button
-                type="button"
-                className="cancel-btn"
-                onClick={handleCancel}>
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="submit-btn">
-                Submit Request
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-    </>
-  );
+						<div className='form-actions'>
+							<button
+								type='button'
+								className='cancel-btn'
+								onClick={handleCancel}>
+								Cancel
+							</button>
+							<button
+								type='submit'
+								className='submit-btn'>
+								Submit Request
+							</button>
+						</div>
+					</form>
+				</div>
+			)}
+		</>
+	);
 }
 
 export default TrainingServiceForm;

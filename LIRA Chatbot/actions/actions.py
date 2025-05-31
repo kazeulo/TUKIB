@@ -4,6 +4,7 @@ import pathlib
 import random
 import string
 import psycopg2
+from psycopg2.errors import UniqueViolation
 from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -207,8 +208,18 @@ class ActionSaveServiceRequestToDB(Action):
             # self.send_email(email, password)
             dispatcher.utter_message(text="Your service request has been saved successfully.")
 
-        except Exception as e:
-            dispatcher.utter_message(text=f"An error occurred while saving your request: {str(e)}")
+        except UniqueViolation:
+            # Rollback so the transaction can be reused
+            if connection:
+                connection.rollback()
+            dispatcher.utter_message(text="The email you entered already exists. Use that email to login.")
+
+        except Exception:
+            # General catch-all, no details leaked
+            if connection:
+                connection.rollback()
+            dispatcher.utter_message(text="An error occurred while saving your request. Please try again later.")
+
 
         finally:
             if cursor:

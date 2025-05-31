@@ -118,20 +118,6 @@ const Chatbot = () => {
 		setHasNewMessage(false);
 	};
 
-	const handleDateSelect = (date) => {
-		const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(
-			date.getMonth() + 1
-		).padStart(2, '0')}-${date.getFullYear()}`;
-
-		if (isAskingStartDate) {
-			setInput(`Start date: ${formattedDate}`);
-		} else if (isAskingEndDate) {
-			setInput(`End date: ${formattedDate}`);
-		}
-
-		setShowDatePicker(false); // Close the date picker after selection
-	};
-
 	// Close DatePicker when clicking outside the modal
 	const handleClickOutside = (e) => {
 		if (datePickerRef.current && !datePickerRef.current.contains(e.target)) {
@@ -275,44 +261,46 @@ const Chatbot = () => {
 								)}
 							</div>
 						)}
-						{/* Show the Select Date button if the bot asks for a start or end date */}
-						{(isAskingStartDate || isAskingEndDate) && (
-							<button
-								className='suggestion-button'
-								onClick={() => setShowDatePicker(true)}>
-								{isAskingStartDate ? 'Select Start Date' : 'Select End Date'}
-							</button>
-						)}
 					</div>
 
 					<form
 						className='chatbot-input'
 						onSubmit={(e) => handleSend(e)}>
-						<input
-							type='text'
-							value={input}
-							onChange={(e) => setInput(e.target.value)}
-							placeholder='Type a message...'
-						/>
+						{isAskingStartDate || isAskingEndDate ? (
+							<>
+								<input
+									type='date'
+									value={
+										// extract date from input string if exists, else empty
+										(() => {
+											const match = input.match(/\d{4}-\d{2}-\d{2}/);
+											return match ? match[0] : '';
+										})()
+									}
+									onChange={(e) => {
+										const selectedDate = e.target.value; // format yyyy-mm-dd
+										setInput(
+											(isAskingStartDate ? 'Start date: ' : 'End date: ') +
+												selectedDate
+										);
+									}}
+									min={new Date().toISOString().split('T')[0]}
+									className='date-input'
+								/>
+							</>
+						) : (
+							<input
+								type='text'
+								value={input}
+								onChange={(e) => setInput(e.target.value)}
+								placeholder='Type a message...'
+								autoComplete='off'
+							/>
+						)}
 						<button type='submit'>
 							<FontAwesomeIcon icon={faPaperPlane} />
 						</button>
 					</form>
-
-					{/* DatePicker Modal */}
-					{showDatePicker && (
-						<div className='modal-overlay'>
-							<div
-								className='date-picker-modal'
-								ref={datePickerRef}>
-								<DatePicker
-									selected={new Date()}
-									onChange={handleDateSelect}
-									inline
-								/>
-							</div>
-						</div>
-					)}
 				</div>
 			)}
 			{!isChatVisible && (
