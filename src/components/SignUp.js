@@ -167,6 +167,7 @@ const Signup = () => {
 											type='text'
 											value={formData.firstName}
 											onChange={handleChange}
+											placeholder='Juan'
 											required
 										/>
 									</div>
@@ -179,6 +180,7 @@ const Signup = () => {
 											type='text'
 											value={formData.lastName}
 											onChange={handleChange}
+											placeholder='Dela Cruz'
 											required
 										/>
 									</div>
@@ -194,6 +196,7 @@ const Signup = () => {
 											type='email'
 											value={formData.email}
 											onChange={handleChange}
+											placeholder='juandelacruz@gmail.com'
 											required
 											className='input-with-icon'
 										/>
@@ -207,6 +210,7 @@ const Signup = () => {
 											type='tel'
 											value={formData.contactNumber}
 											onChange={handleChange}
+											placeholder='09123456789'
 											required
 											className='input-with-icon'
 										/>
@@ -222,6 +226,7 @@ const Signup = () => {
 										type='text'
 										value={formData.institution}
 										onChange={handleChange}
+										placeholder='University of the Philippines'
 										required
 										className='input-with-icon'
 									/>
@@ -238,6 +243,7 @@ const Signup = () => {
 												type={showPassword ? 'text' : 'password'}
 												value={formData.password}
 												onChange={handleChange}
+												placeholder='Password123!'
 												required
 												className='input-with-icon'
 											/>
@@ -263,6 +269,7 @@ const Signup = () => {
 												type={showConfirmPassword ? 'text' : 'password'}
 												value={formData.confirmPassword}
 												onChange={handleChange}
+												placeholder='Password123!'
 												required
 												className='input-with-icon'
 											/>
