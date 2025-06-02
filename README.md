@@ -27,6 +27,8 @@ To run this project locally, follow these steps:
 2. Install the dependencies by running `npm install` in the project directory.
 3. Start the development server by running `npm start`.
 4. Open your browser and go to [http://localhost:3000](http://localhost:3000) to see the app in action.
+5. For backend, navigate to the backend folder. Install the dependencies by running `npm install`. Start the backend server with node server.js.
+6. For chatbot, navigate to Lira Chatbot folder. Run rasa run --enable-api --cors "*" to start the Rasa server. In a separate terminal window, run rasa run actions to start the action server.
 
 ### How to Contribute
 
